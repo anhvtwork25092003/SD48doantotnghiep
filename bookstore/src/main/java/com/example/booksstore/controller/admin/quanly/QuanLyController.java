@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/quanly")
 public class QuanLyController {
+    @GetMapping()
+    public String hienThiTrangQuanLy (){
+        return "/admin/quanly/layoutchungquanly/menuQuanLy";
+    }
     @GetMapping("/tongquan")
     public String hienThiTrangTongQuanQuanLy (){
-        return "/admin/quanly/layoutchungquanly/TongQuanQuanLy";
+        return "/admin/quanly/TongQuanQuanLy";
     }
 }
