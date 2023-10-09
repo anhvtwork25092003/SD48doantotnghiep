@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/user/css/layout.css" />
+    <link rel="stylesheet" href="/user/css/thongtin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
+      integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <section class="content">
+      <article>
+        <h2>Thông tin tài khoản</h2>
+        <form action="" method="post">
+          <div class="group">
+            <label for="firstname">Họ<span style="color: red">*</span></label>
+            <input class="text-input" id="firstname" type="text" />
+          </div>
+          <div class="group">
+            <label for="lastname">Tên<span style="color: red">*</span></label>
+            <input class="text-input" id="lastname" type="text" />
+          </div>
+          <div class="group">
+            <label for="phonenumber">Số điện thoại</label>
+            <input class="text-input" id="phonenumber" type="tel" />
+          </div>
+          <div class="group">
+            <label for="email">Email</label>
+            <input class="text-input" id="email" type="email" />
+          </div>
+          <div class="group gender">
+            <label for="gender">Giới tính</label>
+            <input id="gender" name="gender" checked type="radio" value="1" />
+            <span>Nam</span>
+            <input id="gender" name="gender" type="radio" value="0" />
+            <span>Nữ</span>
+          </div>
+          <div class="group">
+            <label for="date">Ngày sinh</label>
+            <input class="text-input" id="date" type="date" />
+          </div>
+          <div class="group btn">
+            <button class="btn-warning" id="save">Lưu thay đổi</button>
+          </div>
+        </form>
+      </article>
+    </section>
+  </body>
+</html>

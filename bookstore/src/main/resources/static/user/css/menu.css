@@ -1,0 +1,49 @@
+.content {
+    display: grid;
+    grid-template-columns: 3fr 8fr;
+    gap: 5px;
+    padding: 10px 0;
+    text-align: center;
+
+}
+aside,
+article {
+    background-color: white;
+}
+
+aside ul {
+    margin: 0;
+    padding: 0;
+}
+
+aside ul li :not(h2) {
+    display: flex;
+}
+
+aside ul li a {
+    width: 60%;
+    text-align: left;
+    margin: auto;
+    padding: 10px;
+    box-shadow: 1px 2px 0px -1px rgb(199, 199, 199);
+}
+
+aside ul li a:hover {
+    color: red;
+}
+
+
+aside ul li h2 {
+    text-align: center;
+    color: red;
+}
+
+article h2 {
+    margin-left: 13%;
+}
+a{
+    font-size: 20px;
+}
+h2{
+    font-size: 25px;
+}

@@ -1,0 +1,17 @@
+.list-address {
+    height: 400px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.list-address li {
+    display: grid;
+    grid-template-columns: 1fr 11fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-address li a {
+    text-align: center;
+    padding: 5px;
+}
