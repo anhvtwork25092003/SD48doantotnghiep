@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/user/css/layout.css" />
+    <link rel="stylesheet" href="/user/css/account.css" />
+    <link rel="stylesheet" href="/user/css/address.css" />
+    <link rel="stylesheet" href="/user/css/lichsu.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
+      integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <section
+      class="content"
+      style="height: 120vh; background-color: rgb(223, 223, 223)"
+    >
+      <aside class="onCart">
+        <ul class="list-filter">
+          <li>
+            <h3>Tìm Kiếm</h3>
+          </li>
+          <label for="fname">Theo mã hóa đơn</label
+          ><br />
+          <hr type="text" id="fname" name="fname"></hr>
+
+        </ul>
+        <ul class="list-filter">
+          <li>
+            <h3>Thời gian</h3>
+          </li>
+          <li class="filter-item">
+            <input type="radio" name="times" checked /><span>Hôm nay</span>
+          </li>
+          <li class="filter-item" style="margin-top: 10px">
+            <input type="radio" name="times" />
+            <input type="date" class="date-filter" />
+          </li>
+        </ul>
+        <ul class="list-filter">
+          <li>
+            <h3>Trạng thái</h3>
+          </li>
+          <li class="filter-item">
+            <input type="checkbox" /><span>Đang xử lý</span>
+          </li>
+          <li class="filter-item">
+            <input type="checkbox" /><span>Hoàn thành</span>
+          </li>
+          <li class="filter-item">
+            <input type="checkbox" /><span>Không giao được</span>
+          </li>
+          <li class="filter-item">
+            <input type="checkbox" /><span>Đã hủy</span>
+          </li>
+        </ul>
+      </aside>
+      <article>
+        <h2>Lịch sử đơn hàng</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr class="header-table">
+                <td class="col-4">Mã đơn hàng</td>
+                <td class="col-4">Tên người đặt</td>
+                <td class="col-3">Giảm giá</td>
+                <td class="col-2">Ngày đặt</td>
+                <td class="col-3">Trạng thái</td>
+                <td class="col-2">Tổng tiền</td>
+                <td class="col-1" colspan="2"></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="string-style">90123731</td>
+                <td class="string-style">Nguyễn văn a</td>
+    
+                <td class="number-style">Giảm giá</td>
+                <td class="date-style">22/09/2021</td>
+                <td class="string-style">Đang giao hàng</td>
+                <td class="number-style">100.001.00</td>
+                <!-- tiền là để kiểu này nhé -->
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-eye"></i></a>
+                </td>
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-trash"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td class="string-style">90123731</td>
+                <td class="string-style">Nguyễn văn a</td>
+         
+                <td class="number-style">Giảm giá</td>
+                <td class="date-style">22/09/2021</td>
+                <td class="string-style">Đang giao hàng</td>
+                <td class="number-style">100.001.00</td>
+                <!-- tiền là để kiểu này nhé -->
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-eye"></i></a>
+                </td>
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-trash"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td class="string-style">90123731</td>
+                <td class="string-style">Nguyễn văn a</td>
+          
+                <td class="number-style">Giảm giá</td>
+                <td class="date-style">22/09/2021</td>
+                <td class="string-style">Đang giao hàng</td>
+                <td class="number-style">100.001.00</td>
+                <!-- tiền là để kiểu này nhé -->
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-eye"></i></a>
+                </td>
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-trash"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td class="string-style">90123731</td>
+                <td class="string-style">Nguyễn văn a</td>
+            
+                <td class="number-style">Giảm giá</td>
+                <td class="date-style">22/09/2021</td>
+                <td class="string-style">Đang giao hàng</td>
+                <td class="number-style">100.001.00</td>
+                <!-- tiền là để kiểu này nhé -->
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-eye"></i></a>
+                </td>
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-trash"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td class="string-style">90123731</td>
+                <td class="string-style">Nguyễn văn a</td>
+        
+                <td class="number-style">Giảm giá</td>
+                <td class="date-style">22/09/2021</td>
+                <td class="string-style">Đang giao hàng</td>
+                <td class="number-style">100.001.00</td>
+                <!-- tiền là để kiểu này nhé -->
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-eye"></i></a>
+                </td>
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-trash"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td class="string-style">90123731</td>
+                <td class="string-style">Nguyễn văn a</td>
+              
+                <td class="number-style">Giảm giá</td>
+                <td class="date-style">22/09/2021</td>
+                <td class="string-style">Đang giao hàng</td>
+                <td class="number-style">100.001.00</td>
+                <!-- tiền là để kiểu này nhé -->
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-eye"></i></a>
+                </td>
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-trash"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td class="string-style">90123731</td>
+                <td class="string-style">Nguyễn văn a</td>
+             
+                <td class="number-style">Giảm giá</td>
+                <td class="date-style">22/09/2021</td>
+                <td class="string-style">Đang giao hàng</td>
+                <td class="number-style">100.001.00</td>
+                <!-- tiền là để kiểu này nhé -->
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-eye"></i></a>
+                </td>
+                <td class="col-1 char-style">
+                  <a class="btn-action" href="#"><i class="fa fa-trash"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="group-right">
+          <button class="btn-warning" id="continues">Tiếp tục</button>
+        </div>
+      </article>
+    </section>
+  </body>
+</html>
