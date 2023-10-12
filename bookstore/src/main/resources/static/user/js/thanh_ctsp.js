@@ -107,18 +107,18 @@ $(document).ready(function(){
     });
   });
 
-//   var tabs = document.getElementsByClassName("notification-content");
-//   function showTab(tabId) {
-//       for (var i = 0; i < tabs.length; i++) {
-//           tabs[i].style.display = "none";
-//       }
+  var tabs = document.getElementsByClassName("danhgia_binhluon");
+  function showContent(tabId) {
+      for (var i = 0; i < tabs.length; i++) {
+          tabs[i].style.display = "none";
+      }
   
-//       var selectedTab = document.getElementById(tabId);
-//       if (selectedTab) {
-//           selectedTab.style.display = "block";
-//       }
-//   }
-//   showTab("tat-ca");
+      var selectedTab = document.getElementById(tabId);
+      if (selectedTab) {
+          selectedTab.style.display = "block";
+      }
+  }
+  showContent("page1");
 
   function myFunction(smallImg){
     {
@@ -128,10 +128,10 @@ $(document).ready(function(){
   }
 
 
-  function showContent(contentId) {
-    var contentElements = document.querySelectorAll("#content div");
-    contentElements.forEach(function (element) {
-      element.style.display = "none";
-    });
-    document.getElementById(contentId).style.display = "block";
-  }
+//   function showContent(contentId) {
+//     var contentElements = document.querySelectorAll("#content div");
+//     contentElements.forEach(function (element) {
+//       element.style.display = "none";
+//     });
+//     document.getElementById(contentId).style.display = "block";
+//   }
