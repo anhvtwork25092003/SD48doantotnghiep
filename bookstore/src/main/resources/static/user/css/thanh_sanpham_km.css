@@ -1798,6 +1798,23 @@ button:focus {
   margin: 12px 0;
   width: 80%;
 }
+.navb{
+  background-color: rgb(160, 70, 70);
+  list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.navb ul{
+  display: inline-block;
+  margin-left: 460px;
+  padding: 15px 20px;
+}
+
+.navb ul li{
+  display: inline-block;
+  margin-right: 20px;
+}
 .type-product .product-main .product-infor .box-price .price-sale {
   font-size: 34px;
   margin-right: 8px;
