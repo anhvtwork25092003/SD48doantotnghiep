@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel='stylesheet' href='https://unpkg.com/swiper/swiper-bundle.min.css'>
+  <link rel="stylesheet" href="/bookstore/src/main/resources/static/admin/quanly/css/header.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <img class="logo" src="../img/fahasa-logo.png" />
+      <div class="search">
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Tìm kiếm...">
+          <svg id="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+      <div class="header-icons">
+        <div class="notify-icon" id="notification-icon">
+          <i class="fa-regular fa-bell fa-xl" style="color: rgb(19, 18, 18);"></i>
+        </div>
+        <div class="notification-popup" id="notification-popup">
+          <h3>Hộp Thư Đến</h3>
+          <nav>
+            <ul class="notification-tabs">
+              <li><a href="#" onclick="showTab('tat-ca')">Tất cả</a></li>
+              <li><a href="#" onclick="showTab('thong-bao')">Thông báo</a></li>
+              <li><a href="#" onclick="showTab('uu-dai')">Ưu đãi</a></li>
+            </ul>
+          </nav>
+          <div id="tat-ca" class="notification-content">
+            Nội dung của tab "Tất cả" ở đây.
+          </div>
+          <div id="thong-bao" class="notification-content">
+            Nội dung của tab "Thông báo" ở đây.
+          </div>
+          <div id="uu-dai" class="notification-content">
+            Nội dung của tab "Ưu đãi" ở đây.
+          </div>
+        </div>
+        <div class="account-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M437.02 330.98c-27.883-27.882-61.071-48.523-97.281-61.018C378.521 243.251 404 198.548 404 148 404 66.393 337.607 0 256 0S108 66.393 108 148c0 50.548 25.479 95.251 64.262 121.962-36.21 12.495-69.398 33.136-97.281 61.018C26.629 379.333 0 443.62 0 512h40c0-119.103 96.897-216 216-216s216 96.897 216 216h40c0-68.38-26.629-132.667-74.98-181.02zM256 256c-59.551 0-108-48.448-108-108S196.449 40 256 40s108 48.448 108 108-48.449 108-108 108z" />
+          </svg>
+          <div class="account-dropdown">
+            <a href="#" class="thongtin">Thông tin chi tiết</a>
+            <a href="#" class="dangxuat">Đăng xuất</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- partial -->
+  <script src='https://unpkg.com/swiper/swiper-bundle.min.js'></script>
+  <script src="/bookstore/src/main/resources/static/admin/quanly/js/header.js"></script>
+</body>
+
+</html>
