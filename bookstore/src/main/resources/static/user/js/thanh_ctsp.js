@@ -118,7 +118,7 @@ $(document).ready(function(){
           selectedTab.style.display = "block";
       }
   }
-  showContent("page1");
+
 
   function myFunction(smallImg){
     {
