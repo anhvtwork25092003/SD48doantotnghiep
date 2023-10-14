@@ -1,0 +1,102 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    /* background-color: #E4E3E3; */
+}
+.all {
+    flex-wrap: nowrap;
+    background-color: white;
+}
+.thanhtoan {
+    width: 35px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.checkbox-col {
+    text-align: center;
+}
+
+.quantity-col input {
+    width: 30px;
+    text-align: center;
+}
+
+.subtotal-col {
+    font-weight: bold;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    color: #fff;
+    text-decoration: none;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+
+  /* Định dạng phần tổng tiền */
+.total-col {
+    text-align: right;
+}
+
+  /* Định dạng biểu tượng "xóa" */
+.remove-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+.anhSanPham > img{
+    width: 150px;
+    height: 150px;
+}
+.cart {
+    margin-top: 20px;
+}
+.total {
+    font-weight: bold;
+}
+.line-item {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+/* Đặt kích thước cho các trường input và select */
+.line-item input[type="text"],
+.line-item input[type="email"],
+.line-item select {
+  flex: 1;
+  margin-right: 10px;
+}
+
+/* Đặt kích thước cho textarea và xóa margin phải */
+.line-item textarea {
+  flex: 1;
+  margin-right: 0;
+}

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Đơn hàng Hủy</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="/admin/quanly/css/DonHangDaHuy.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-2">
+          <div class="boxsearch">
+            <h6 style="text-align: center;">Tìm theo mã đơn hàng</h6>
+            <div class="search">
+              <input class="form-control" type="search" placeholder="Search">
+              <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+            </div>
+          </div>
+          <div class="boxsearch">
+            <h6 style="text-align: center;">Tìm theo số điện thoại</h6>
+            <div class="search">
+              <input class="form-control" type="search" placeholder="Search">
+              <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+            </div>
+          </div>
+          <br>
+          <div class="boxtrang">
+            <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
+            <div class="row">
+              <div class="col-11">
+                <div class="form-check">
+                  <input class="form-check-input col-sm-2 col-form-label" type="radio" name="exampleRadios"
+                    id="exampleRadios1" value="option1" checked>
+                  <label class="form-check-label col-sm-10" for="exampleRadios1">
+                    Hôm nay
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input col-sm-2 col-form-label" type="radio" name="exampleRadios"
+                    id="exampleRadios2" value="option2">
+                  <label class="form-check-label col-sm-10" for="exampleRadios2">
+                    Lựa chọn
+                  </label>
+                  <div class="date">
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">Từ</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="date" name="" id="">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">Đến</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="date" name="" id="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm</button>
+        </div>
+        <div class="col-10">
+          <div class="box">
+            <table class="table" style=" border: 0px solid blue;">
+              <thead class="table-dark">
+                <h4 style="text-align: left;">Danh Sách Đơn Hàng Đã Bị Hủy</h4>
+                <tr>
+                  <th class="col-1">Mã Đơn Hàng</th>
+                  <th>Tên Người Đặt</th>
+                  <th>Ngày Đặt</th>
+                  <th>Ngày Hủy</th>
+                  <th>Số điện Thoại</th>
+                  <th>Tổng Tiền</th>
+                  <th>Ghi Chú</th>
+                  <th>Lý Do Hủy</th>
+                  <th>Hành Động </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>2313</th>
+                  <td>Vương Phước</td>
+                  <td>23/10/2023</td>
+                  <td>30/10/2023</td>
+                  <td>012345678</td>
+                  <td>16.000</td>
+                  <td>Đơn...</td>
+                  <td>Bom Hàng...</td>
+                  <td>
+                    <a href=""  onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
+                      <i class="fa-solid fa-repeat"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                    </a>
+                    <a href="" >
+                      <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <th>2313</th>
+                  <td>Vương Phước</td>
+                  <td>23/10/2023</td>
+                  <td>30/10/2023</td>
+                  <td>012345678</td>
+                  <td>16.000</td>
+                  <td>Đơn...</td>
+                  <td>Bom Hàng...</td>
+                  <td>
+                    <a href=""  onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
+                      <i class="fa-solid fa-repeat"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                    </a>
+                    <a href="" >
+                      <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <th>2313</th>
+                  <td>Vương Phước</td>
+                  <td>23/10/2023</td>
+                  <td>30/10/2023</td>
+                  <td>012345678</td>
+                  <td>16.000</td>
+                  <td>Đơn...</td>
+                  <td>Bom Hàng...</td>
+                  <td>
+                    <a href=""  onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
+                      <i class="fa-solid fa-repeat"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                    </a>
+                    <a href="" >
+                      <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <th>2313</th>
+                  <td>Vương Phước</td>
+                  <td>23/10/2023</td>
+                  <td>30/10/2023</td>
+                  <td>012345678</td>
+                  <td>16.000</td>
+                  <td>Đơn...</td>
+                  <td>Bom Hàng...</td>
+                  <td>
+                    <a href=""  onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
+                      <i class="fa-solid fa-repeat"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                    </a>
+                    <a href="" >
+                      <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <th>2313</th>
+                  <td>Vương Phước</td>
+                  <td>23/10/2023</td>
+                  <td>30/10/2023</td>
+                  <td>012345678</td>
+                  <td>16.000</td>
+                  <td>Đơn...</td>
+                  <td>Bom Hàng...</td>
+                  <td>
+                    <a href=""  onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
+                      <i class="fa-solid fa-repeat"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                    </a>
+                    <a href="" >
+                      <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                    </a>
+                  </td>
+                </tr>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row">
+              <div class="col-6">
+                <p style="text-align: center;">Đang có 5 đơn hàng chờ</p>
+              </div>
+              <div class="col-6">
+                <div class="phantrang">
+                  <button type="button" class="btn btn-secondary">
+                    |<< </button>
+                      <button type="button" class="btn btn-secondary">
+                        1
+                      </button>
+                      <button type="button" class="btn btn-secondary">
+                        2
+                      </button>
+                      <button type="button" class="btn btn-secondary">
+                        3
+                      </button>
+                      <button type="button" class="btn btn-secondary">
+                        >>|
+                      </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="/admin/quanly/js/DonHang.js"></script>
+</body>
+</html>

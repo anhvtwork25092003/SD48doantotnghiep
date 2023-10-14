@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin</title>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <link rel="stylesheet" href="/admin/quanly/css/TongQuanQuanTri.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <div class="all">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Kết quả bản hàng hôm nay</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h4><i class="fa-solid fa-bag-shopping"></i> Số đơn đang chờ duyệt</h4>
+        <h5>10</h5>
+      </div>
+      <div class="col-md-4">
+        <h4> <i class="fa-solid fa-calendar-check"></i> Số đơn đã duyệt thành công</h4>
+        <h5>5</h5>
+      </div>
+      <div class="col-md-3">
+        <h4> <i class="fa-solid fa-money-check-dollar"></i>Doanh thu</h4>
+        <h5>100.000.000 vnđ</h5>
+      </div>
+    </div>
+</div>
+    <br>
+    <div class="all">
+    <div class="row">
+        <div class="col-md-12">
+          <h3>Thống kê doanh thu</h3>
+          <p>Biểu đồ cột</p>
+        </div>
+      </div>
+      <div class="chonKhoangThoiGian">
+      <label for="dateRange">Chọn khoảng thời gian:</label>
+    <select id="dateRange" onchange="drawChart()">
+        <option value="ngay">Hôm nay</option>
+        <option value="ngay">Hôm qua</option>
+        <option value="ngay">7 ngày qua</option>
+        <option value="thang">Tháng này</option>
+        <option value="thang">Tháng trước</option>
+    </select>
+    <div class="xuatFile"><button class="btn btn-primary" >Xuất File</button></div>
+</div>
+<div id="chart_cot" style="width: 80%; height: 400px; margin: 0 auto;"></div>
+</div>
+<br>
+<div class="all">
+    <div class="row">
+        <div class="col-md-12">
+          <h3>Sản phẩm bán chạy</h3>
+        </div>
+      </div>
+      <div class="chonKhoangThoiGian">
+        <label for="dateRange">Chọn khoảng thời gian:</label>
+      <select id="dateRange" onchange="drawChart()">
+          <option value="ngay">Hôm nay</option>
+          <option value="ngay">Hôm qua</option>
+          <option value="ngay">7 ngày qua</option>
+          <option value="thang">Tháng này</option>
+          <option value="thang">Tháng trước</option>
+      </select>
+      <div class="xuatFile"><button class="btn btn-primary" >Xuất File</button></div>
+  </div>
+      <div id="chart_ngang1" style="width: 80%; height: 400px; margin: 0 auto;"></div>
+</div>
+<br>
+<div class="all">
+<div class="row">
+    <div class="col-md-12">
+      <h3>Sản phẩm tồn kho</h3>
+    </div>
+  </div>
+  <div class="xuatFile"><button class="btn btn-primary" >Xuất File</button></div>
+  <div id="chart_ngang2" style="width: 80%; height: 400px; margin: 0 auto;"></div>
+
+</div>
+  <br>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  <script src="/admin/quanly/js/TongQuanQuanTri.js"></script>
+  <script src="/admin/quanly/js/BieuDoNgang1.js"></script>
+  <script src="/admin/quanly/js/BieuDoNgang2.js"></script>
+</body>
+</html>

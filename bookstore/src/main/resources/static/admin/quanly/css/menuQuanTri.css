@@ -1,0 +1,270 @@
+/* Thiết lập giao diện cho menu ngang */
+body {
+    background-color: #E4E3E3;
+    
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.horizontal-menu {
+    background-color: #1b9ae1;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    padding: 20px 100px;
+    font-size: 18px;
+}
+
+.horizontal-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.horizontal-menu ul li {
+    display: inline;
+    margin-right: 20px;
+    position: relative;
+}
+
+.horizontal-menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.horizontal-menu ul li a:hover {
+    background-color: #0c6ab6;
+}
+
+/* Dropdown menu */
+.has-dropdown {
+    position: relative;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #1b9ae1;
+    z-index: 1;
+    min-width: 205px;
+    min-height: 100px;
+    /* Điều chỉnh chiều rộng tối thiểu của dropdown */
+}
+
+.dropdown-content ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-content ul li {
+    display: block;
+    margin-bottom: 50px;
+}
+
+.dropdown-content ul li a {
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.dropdown-content ul li a:hover {
+    background-color: #0c6ab6;
+}
+
+.has-dropdown:hover .dropdown {
+    display: block;
+}
+.logo {
+    width: 200px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    height: 62px;
+    width: 100%;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-weight: 600;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(44, 45, 42, 0.25);
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: var(--beach-bg);
+    z-index: 6;
+    background-color: white;
+  }
+  
+  .menu-icon {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    margin-right: 20px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .menu-icon svg {
+    width: 22px;
+  }
+  
+  .menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 999;
+  }
+  
+  .menu-icon:hover .menu-dropdown {
+    display: block;
+  }
+  
+  .header-menu {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+  
+  .header-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    margin-right: 20px;
+    transition: color 0.3s;
+  }
+  
+  .menu-dropdown a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    margin-right: 20px;
+    transition: color 0.3s;
+  }
+  
+  .menu-dropdown a:hover {
+    color: #e86357;
+  }
+  
+  .menu-dropdown a:not(:first-child) {
+    margin-left: 30px;
+  }
+  
+  .header-icons {
+    margin-left: auto;
+    display: flex;
+    margin-right: 80px;
+  }
+  
+  .header-icons>* {
+    margin-right: 80px;
+  }
+  
+  .header-icons>*:last-child {
+    margin-right: 0;
+  }
+  
+  
+  .header-icons svg {
+    width: 18px;
+  }
+  
+  .header-icons svg:not(:last-child) {
+    margin-right: 20px;
+  }
+  
+  .menu-icon:hover+.menu-dropdown,
+  .menu-dropdown:hover {
+    display: block;
+  }
+  
+  .account-dropdown {
+    right: 2%;
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  
+    padding: 10px;
+    flex-direction: column;
+  }
+  
+  .account-dropdown a {
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .login-button {
+    background-color: rgb(214, 23, 33);
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 20px;
+  }
+  
+  .register-button {
+    border: 2px solid red;
+    color: red;
+    background-color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 20px;
+  }
+  
+  .google-login-button {
+    background-color: rgb(28, 167, 231);
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 20px;
+  }
+  
+  .account-icon:hover .account-dropdown {
+    display: block;
+  }
+  
+  .account-icon:hover+.account-dropdown,
+  .account-dropdown:hover {
+    display: block;
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    padding: 5px;
+    background-color: white;
+  }
+  
+  #search-input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    flex-grow: 1;
+  }
+  
+  #search-icon {
+    cursor: pointer;
+  }
+  
+  #search-icon:hover,
+  #search-icon:active {
+    color: #007bff;
+  }
