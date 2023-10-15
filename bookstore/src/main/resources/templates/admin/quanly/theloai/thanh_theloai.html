@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}"
+      xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
 </head>
 <body>
+<article layout:fragment="noiDung">
    <div class="container">
     <!-- <button class="chatbot-toggler">
       <span class="material-symbols-rounded">mode_comment</span>
@@ -327,6 +331,7 @@
   
    
    </div>
+</article>
 </body>
 <script src="../../../../static/user/js/thanh_theloai.js"></script>
 <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>

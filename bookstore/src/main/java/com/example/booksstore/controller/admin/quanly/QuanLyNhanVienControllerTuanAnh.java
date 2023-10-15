@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/quan-ly")
-public class QuanLyController {
-    @GetMapping("/tong-quan")
-    public String quanLyTongQuan() {
-        return "/admin/quanly/TongQuanQuanLy";
+@RequestMapping("/quan-ly-nhan-vien")
+public class QuanLyNhanVienControllerTuanAnh {
+    @GetMapping()
+    public String hienThiManHinhQuanlyNhanVien() {
+        return "/user/nhanvien/thanh_nhanvien";
     }
 }

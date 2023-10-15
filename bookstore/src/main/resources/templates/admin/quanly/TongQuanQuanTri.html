@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/TongQuanQuanLy}"
+      xmlns:th="http://www.thymeleaf.org">
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -10,6 +13,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
 <body>
+<article layout:fragment="noiDung">
   <div class="container">
     <div class="all">
     <div class="row">
@@ -91,5 +95,6 @@
   <script src="/admin/quanly/js/TongQuanQuanTri.js"></script>
   <script src="/admin/quanly/js/BieuDoNgang1.js"></script>
   <script src="/admin/quanly/js/BieuDoNgang2.js"></script>
+</article>
 </body>
 </html>
