@@ -127,6 +127,13 @@ ALTER TABLE ThuDienTu
 ADD CONSTRAINT FK_ThuDienTu_NhanVien
 FOREIGN KEY (idNhanVien)
 REFERENCES NhanVien(IdNhanVien);
-
-
+go
+-- khoa ngoai-thongbao-khachhang-thongbao_khachhang
+alter table ThongBao_KhachHang
+ADD CONSTRAINT FK_ThongBaoKhachHang_ThongBao
+FOREIGN KEY (IdThongBao) REFERENCES ThongBao(IdThongBao)
+go
+alter table ThongBao_KhachHang
+ADD CONSTRAINT FK_ThongBaoKhachHang_KhachHang
+FOREIGN KEY (IdKhachHang) REFERENCES KhachHang(IdKhachHang)
 

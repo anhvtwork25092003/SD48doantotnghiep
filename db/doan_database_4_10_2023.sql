@@ -1,4 +1,4 @@
-use SD48_CoSoDuLieuCuaHangSach
+﻿use SD48_CoSoDuLieuCuaHangSachAnhVT
 go
 create table KhachHang(
 IdKhachHang 	int identity PRIMARY KEY,
@@ -197,6 +197,23 @@ SoDienThoai2 varchar(20),
 LinkLogo varchar(40),
 Email varchar(40),
 )
+go
+cREATE TABLE ThongBao (
+    IdThongBao int identity PRIMARY KEY,
+    NoiDung TEXT,
+    NgayGui DATETIME,
+)
+go
+CREATE TABLE ThongBao_KhachHang (
+	IdThongBao_KhachHang int identity PRIMARY KEY,
+    IdThongBao INT,
+    IdKhachHang INT,
+);
+-- bổ sung chi tiết đơn hàng
+go
+ALTER TABLE donhangchitiet
+ADD PhanTramGiamGia int,
+ GiaGoc DECIMAL(10, 2);
 
 	
 
