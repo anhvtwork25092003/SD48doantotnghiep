@@ -117,7 +117,6 @@ LinkAnh3 varchar(100),
 LinkAnh4 varchar(100),
 LinkAnh5 varchar(100),
 MaVach varchar(50),
-
 )
 go
 create table TacGia(
@@ -214,8 +213,9 @@ go
 ALTER TABLE donhangchitiet
 ADD PhanTramGiamGia int,
  GiaGoc DECIMAL(10, 2);
-
-	
+go
+alter table donhangchitiet
+alter column DonGiathoiDiemMua money
 
 
 
