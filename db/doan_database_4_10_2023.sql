@@ -1,4 +1,4 @@
-﻿use SD48_CoSoDuLieuCuaHangSachAnhVT
+﻿use bookstoreanhvt2023poly
 go
 create table KhachHang(
 IdKhachHang 	int identity PRIMARY KEY,
@@ -39,8 +39,8 @@ email varchar(30)
 go
 create table DanhGia(
 IdDanhGia int identity PRIMARY KEY,
-MaSach varchar(250),
-MaKhachHang varchar(250),
+IdSach int,
+IdKhachHang int,
 MucDanhGia int,
 BinhLuan nvarchar(300),
 NgayTao date,
@@ -49,10 +49,10 @@ TrangThai varchar(50),
 go 
 create table DonHang(
 IdDonhang int identity PRIMARY KEY,
-MaKhachHang varchar(250),
+IdKhachHang int,
 MaDonHang varchar(250) unique,
-NgayTao date,
-NgayThanhToan date,
+NgayTao datetime,
+NgayThanhToan datetime,
 IdPhuongThucThanhToan int,
 IdThongTinGiaoHang int,
 TongTienHangGoc money,
@@ -60,18 +60,22 @@ TongTienKhuyenMai money,
 PhiVanChuyen int,
 TongTienCanThanhToan money,
 TrangThai nvarchar(50),
-MaNhanvien varchar(250),
+IdNhanVien int,
 IdDonViVanChuyen int,
-GhiChu nvarchar(250)
+GhiChuKhachHangGui nvarchar(250),
+GhiChuLyDodonHang nvarchar(250),
+
 )
 go
 create table DonHangChiTiet(
 IdDonHangChiTiet int identity PRIMARY KEY,
-MaSach varchar(250),
-MaDonHang  varchar(250),
+IdSach int,
+IdDonHang int,
 SoLuong int,
-MaKhuyenMai varchar(250),
+idKhuyenMai int,
+GiaGoc money,
 DonGiaThoiDiemMua int,
+PhanTramGiam int, 
 ThanhTien money
 )
 
@@ -86,21 +90,20 @@ TrangThai int,
 MatKhau nvarchar(250),
 Email varchar(250),
 ChucVu nvarchar(50),
+LinkAnhNhanVien varchar(250)
 )
 go
 create table GioHang(
 IdGioHang int identity PRIMARY KEY,
-TongSoLuongSach int ,
-TongThanhTien int ,
 )
 
 go
 create table GioHangChiTiet(
 IdGioHangChiTiet int identity PRIMARY KEY,
 IdGioHang  int ,
-MaSach varchar(250)unique ,
+IdSach int,
 SoLuong int ,
-NgayChinhSua Date
+NgayChinhSua DateTime
 )
 go
 create table Sach(
@@ -129,8 +132,8 @@ SDT varchar(50),
 )
 go
 create table SachTacGia(
-id_Sach_tacGia int identity PRIMARY KEY,
-MaSach varchar(250),
+IdSachtacGia int identity PRIMARY KEY,
+IdSach int,
 IdTacGia  int,
 );
 go
@@ -142,8 +145,8 @@ TrangThai NVARCHAR(250),
 )
 go
 create table SachTheLoai(
-id_Sach_TheLoai int identity PRIMARY KEY,
-MaSach varchar(250),
+idSachTheLoai int identity PRIMARY KEY,
+IdSach int,
 IdTheLoai  int,
 );
 go
@@ -158,22 +161,22 @@ LinkAnhKhuyenMai  varchar(200),
 )
 go
 create table SachKhuyenMai(
-IdKhuyenMai_Sach int identity PRIMARY KEY,
-MaSach varchar(250),
+IdKhuyenMaiSach int identity PRIMARY KEY,
+IdSach int,
 IdKhuyenMai int,
 SoPhanTramGiamGia int
 );
 go
 create table DanhSachYeuThich(
 IdDanhSachYeuThich int identity PRIMARY KEY,
-MaKhachHang int,
-MaSach int,
+IdKhachHang int,
+IdSach int,
 )
 go
 create table TroChuyen(
 IdTroChuyen int identity PRIMARY KEY,
-MaKhachHang int,
-MaNhanVien int,
+IdKhachHang int,
+IDNhanVien int,
 NoiDung nvarchar(350),
 NgayGui Datetime,
 )
@@ -183,9 +186,15 @@ IdThuDienTu int identity PRIMARY KEY,
 TieuDe nvarchar(350),
 NoiDung nvarchar(350),
 NgayGui Datetime,
-EmailNGuoiNhan varchar(40),
 idNhanVien int,
 )
+go
+create table ThuDienTuDoituong(
+IdThuDienTudoituong int identity PRIMARY KEY,
+IdThuDienTu int,
+IdKhachHang int,
+)
+
 go
 create table ThongTin(
 IdThongTin int identity PRIMARY KEY,
@@ -203,19 +212,11 @@ cREATE TABLE ThongBao (
     NgayGui DATETIME,
 )
 go
-CREATE TABLE ThongBao_KhachHang (
+CREATE TABLE ThongBaoKhachHang (
 	IdThongBao_KhachHang int identity PRIMARY KEY,
     IdThongBao INT,
     IdKhachHang INT,
 );
--- bổ sung chi tiết đơn hàng
-go
-ALTER TABLE donhangchitiet
-ADD PhanTramGiamGia int,
- GiaGoc DECIMAL(10, 2);
-go
-alter table donhangchitiet
-alter column DonGiathoiDiemMua money
 
 
 

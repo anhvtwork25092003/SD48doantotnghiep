@@ -1,4 +1,4 @@
-﻿use Sd48_DuLieuCuaHangSach
+﻿use bookstoreanhvt2023poly
 go
 CREATE TRIGGER AutoGenerateMaKH
 ON KhachHang
