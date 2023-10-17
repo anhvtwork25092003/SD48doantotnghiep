@@ -1,4 +1,4 @@
-﻿use bookstoreanhvt2023poly
+﻿use bookstoreanhvt2023polyfinal
 go
 CREATE TRIGGER AutoGenerateMaKH
 ON KhachHang

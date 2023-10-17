@@ -1,4 +1,4 @@
-﻿use bookstoreanhvt2023poly
+﻿use bookstoreanhvt2023polyfinal
 go
 create table KhachHang(
 IdKhachHang 	int identity PRIMARY KEY,
@@ -217,7 +217,7 @@ cREATE TABLE ThongBao (
 )
 go
 CREATE TABLE ThongBaoKhachHang (
-	IdThongBao_KhachHang int identity PRIMARY KEY,
+	IdThongBaoKhachHang int identity PRIMARY KEY,
     IdThongBao INT,
     IdKhachHang INT,
 );

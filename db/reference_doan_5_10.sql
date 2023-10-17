@@ -1,4 +1,4 @@
-﻿use bookstoreanhvt2023poly
+﻿use bookstoreanhvt2023polyfinal
 go
 -- Thêm khóa ngoại vào bảng DanhSachYeuThich
 ALTER TABLE DanhSachYeuThich
