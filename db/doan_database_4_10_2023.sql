@@ -14,6 +14,10 @@ LoaiKhachHang nvarchar(250),
 GioiTinh int,
 )
 go
+alter table khachhang
+add ngayTaoTaiKhoan datetime
+go
+go
 create table PhuongThucThanhToan(
 IdPhuongThucThanhToan int identity PRIMARY KEY,
 TenPhuongThucThanhToan nvarchar(250),
