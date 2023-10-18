@@ -221,6 +221,20 @@ CREATE TABLE ThongBaoKhachHang (
     IdThongBao INT,
     IdKhachHang INT,
 );
+go
+alter table theloai 
+alter column trangthai int
+go
+alter table khuyenmai
+alter column trangthai int
+go
+alter table danhgia
+alter column trangthai int
+go
+alter table donhang
+alter column trangthai int
+go
+
 
 
 
