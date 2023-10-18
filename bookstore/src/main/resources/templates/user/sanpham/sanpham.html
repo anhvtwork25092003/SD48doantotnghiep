@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}"
+      xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 
 <head>
@@ -12,6 +15,7 @@
 </head>
 
 <body>
+<article layout:fragment="noiDung">
   <div class="container">
     <div class="tong">
       <div class="row">
@@ -331,6 +335,7 @@
 
 
   </div>
+</article>
 </body>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
   integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
