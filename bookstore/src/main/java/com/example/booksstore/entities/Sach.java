@@ -59,7 +59,7 @@ public class Sach {
     private String  MaVach;
     @ManyToMany
     @JoinTable(
-            name = "sachtheLloai",
+            name = "sachtheloai",
             joinColumns = @JoinColumn(name = "idsach"),
             inverseJoinColumns = @JoinColumn(name = "idtheloai")
     )
