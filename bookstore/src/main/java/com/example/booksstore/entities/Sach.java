@@ -71,5 +71,5 @@ public class Sach {
             joinColumns = @JoinColumn(name = "IdSach"),
             inverseJoinColumns = @JoinColumn(name = "IdTacGia")
     )
-    private Set<TheLoai> theLoaiss = new HashSet<>();
+    private Set<TacGia> tacgia = new HashSet<>();
 }
