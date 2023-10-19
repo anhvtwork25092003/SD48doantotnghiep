@@ -23,9 +23,9 @@ public class SachTacGia {
     @ManyToOne
     @JoinColumn(name = "IdSach")
     private Sach sach;
-//    @ManyToOne
-//    @JoinColumn(name = "IdTacGia")
-//    private TacGia tacGia;
+    @ManyToOne
+    @JoinColumn(name = "IdTacGia")
+    private TacGia tacGia;
 
 
 }

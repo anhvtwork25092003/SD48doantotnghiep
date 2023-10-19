@@ -20,10 +20,6 @@ public class SachTheLoai {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdSachTheLoai")
     private Integer IdSachTheLoai;
-    @Column(name = "IdSach")
-    private Integer IdSach;
-    @Column(name = "IdTheLoai")
-    private Integer IdTheLoai;
 
     @ManyToOne
     @JoinColumn(name = "IdSach")

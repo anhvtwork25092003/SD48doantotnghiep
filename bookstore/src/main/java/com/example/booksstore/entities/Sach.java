@@ -9,6 +9,8 @@ import lombok.Setter;
 import org.hibernate.annotations.Generated;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -55,5 +57,19 @@ public class Sach {
 
     @Column(name = "MaVach")
     private String  MaVach;
+    @ManyToMany
+    @JoinTable(
+            name = "SachTheLoai",
+            joinColumns = @JoinColumn(name = "IdSach"),
+            inverseJoinColumns = @JoinColumn(name = "IdTheLoai")
+    )
+    private Set<TheLoai> theLoais = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "SachTacGia",
+            joinColumns = @JoinColumn(name = "IdSach"),
+            inverseJoinColumns = @JoinColumn(name = "IdTacGia")
+    )
+    private Set<TheLoai> theLoaiss = new HashSet<>();
 }
