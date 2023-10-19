@@ -78,11 +78,15 @@
             <scope>provided</scope>
         </dependency>
         <!--sql-->
+
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <scope>runtime</scope>
+            <version>9.4.1.jre16</version>
         </dependency>
+
+
+
     </dependencies>
 
 
