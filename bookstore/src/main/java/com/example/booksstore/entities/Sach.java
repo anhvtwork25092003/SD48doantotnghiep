@@ -22,41 +22,41 @@ public class Sach {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idsach")
-    private Integer IdSach;
+    private Integer idSach;
 
     @Generated
     @Column(name = "masach")
-    private String  MaSach;
+    private String  maSach;
 
     @Column(name = "mota")
-    private String  MoTa;
+    private String  moTa;
 
     @Column(name = "trangthai")
-    private Integer TrangThai;
+    private Integer trangThai;
 
     @Column(name = "soluongtonkho")
-    private Integer SoLuongTonKho;
+    private Integer soLuongTonKho;
 
     @Column(name = "giaban")
-    private BigDecimal GiaBan;
+    private BigDecimal giaBan;
 
     @Column(name = "linkanh1")
-    private String LinkAnh1;
+    private String linkAnh1;
 
     @Column(name = "linkanh2")
-    private String LinkAnh2;
+    private String linkAnh2;
 
     @Column(name = "linkanh3")
-    private String LinkAnh3;
+    private String linkAnh3;
 
     @Column(name = "linkanh4")
-    private String LinkAnh4;
+    private String linkAnh4;
 
     @Column(name = "linkanh5")
-    private String LinkAnh5;
+    private String linkAnh5;
 
     @Column(name = "mavach")
-    private String  MaVach;
+    private String  maVach;
     @ManyToMany
     @JoinTable(
             name = "sachtheloai",
