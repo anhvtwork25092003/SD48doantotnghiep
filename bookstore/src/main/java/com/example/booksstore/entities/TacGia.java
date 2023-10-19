@@ -11,26 +11,26 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "TacGia")
+@Table(name = "tacgia")
 public class TacGia {
     @Id
-    @Column(name = "IdTacGia")
+    @Column(name = "idtacgia")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer IdTacGia;
 
-    @Column(name = "Email")
+    @Column(name = "email")
     private String Email;
 
-    @Column(name = "HoVaTen")
+    @Column(name = "hovaten")
     private String HoVaTen;
 
-    @Column(name = "LinkAnhTacGia")
+    @Column(name = "linkanhtacgia")
     private String LinkAnhTacGia;
 
-    @Column(name = "TrangThai")
+    @Column(name = "trangthai")
     private Integer TrangThai;
 
-    @Column(name = "SDT")
+    @Column(name = "sdt")
     private String SDT;
 
 }
