@@ -12,20 +12,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="SachTacGia")
+@Table(name = "sachtacgia")
 public class SachTacGia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IdSachtacGia")
-    private Integer IdSachtacGia;
+    @Column(name = "idsachtacgia")
+    private Integer IdSachTacGia;
 
 
     @ManyToOne
-    @JoinColumn(name = "IdSach")
+    @JoinColumn(name = "idsach")
     private Sach sach;
     @ManyToOne
-    @JoinColumn(name = "IdTacGia")
-    private TacGia tacGia;
+    @JoinColumn(name = "idsacgia")
+    private TacGia tacgia;
 
 
 }

@@ -16,13 +16,13 @@ import lombok.Setter;
 public class TheLoai {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idTheLoai")
-    private Integer IdTheLoai;
+    @Column(name = "idtheloai")
+    private Integer idTheLoai;
     @Column(name = "tentheloai")
-    private String TenTheLoai;
+    private String tenTheLoai;
     @Column(name = "mota")
-    private String MoTa;
+    private String moTa;
     @Column(name = "trangthai")
-    private Integer TrangThai;
+    private Integer trangThai;
 
 }
