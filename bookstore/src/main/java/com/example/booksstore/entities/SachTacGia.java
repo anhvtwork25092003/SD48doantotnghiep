@@ -13,26 +13,22 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name="SachTacGia")
-public class SachTacGia<TacGia> {
+public class SachTacGia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdSachtacGia")
     private Integer IdSachtacGia;
-
     @Column(name = "IdSach")
     private Integer IdSach;
-
     @Column(name = "IdTacGia")
     private Integer IdTacGia;
 
     @ManyToOne
     @JoinColumn(name = "IdSach")
     private Sach sach;
-
-
-    @ManyToOne
-    @JoinColumn(name = "IdTacGia")
-    private TacGia tacGia;
+//    @ManyToOne
+//    @JoinColumn(name = "IdTacGia")
+//    private TacGia tacGia;
 
 
 }
