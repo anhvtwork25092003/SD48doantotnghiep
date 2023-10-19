@@ -20,3 +20,28 @@ VALUES
 ('Khoa Học', 'Sách khoa học tự nhiên', 1),
 ('Lịch Sử', 'Sách lịch sử thế giới', 1),
 ('Văn Học', 'Sách văn học kinh điển', 1);
+-- insert sachtheloai
+INSERT INTO sachtheloai ( IdSach, IdTheLoai)
+VALUES
+(1, 6),
+(1, 7),
+(2, 6),
+(3, 6),
+(4, 6),
+(5, 6),
+(5, 7)
+
+-- insert sachtacgia
+INSERT INTO SachTacGia( IdSach, IdTacGia)
+VALUES
+(1,1),
+(1, 2),
+(2, 3),
+(3, 4),
+(4, 5),
+(5, 1),
+(5, 5)
+
+
+
+
