@@ -15,8 +15,8 @@ VALUES
 ('author7@email.com', 'Tác Giả E', 'tacgiaE.jpg', 1, '555-666-7777');
 INSERT INTO TheLoai (TenTheLoai, MoTa, TrangThai)
 VALUES
-('Kỹ Năng Sống', 'Sách về phát triển kỹ năng', 'Active'),
-('Lãnh Đạo', 'Sách về nghệ thuật lãnh đạo', 'Active'),
-('Khoa Học', 'Sách khoa học tự nhiên', 'Active'),
-('Lịch Sử', 'Sách lịch sử thế giới', 'Active'),
-('Văn Học', 'Sách văn học kinh điển', 'Active');
+('Kỹ Năng Sống', 'Sách về phát triển kỹ năng', 1),
+('Lãnh Đạo', 'Sách về nghệ thuật lãnh đạo', 1),
+('Khoa Học', 'Sách khoa học tự nhiên', 1),
+('Lịch Sử', 'Sách lịch sử thế giới', 1),
+('Văn Học', 'Sách văn học kinh điển', 1);
