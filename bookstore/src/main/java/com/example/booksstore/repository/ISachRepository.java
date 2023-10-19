@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 public interface ISachRepository extends JpaRepository<Sach ,Integer> {
-    Page<Sach> pageSach(Pageable pageable);
+    Page<Sach> findAll(Pageable pageable);
 }

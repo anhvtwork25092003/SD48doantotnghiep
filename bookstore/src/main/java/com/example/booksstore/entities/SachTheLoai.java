@@ -14,17 +14,17 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
-@Table(name="SachTheLoai")
+@Table(name="sachtheloai")
 public class SachTheLoai {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IdSachTheLoai")
+    @Column(name = "idsachtheloai")
     private Integer IdSachTheLoai;
 
     @ManyToOne
-    @JoinColumn(name = "IdSach")
+    @JoinColumn(name = "idsach")
     private Sach sach;
     @ManyToOne
-    @JoinColumn(name = "IdTheLoai")
+    @JoinColumn(name = "idtheloai")
     private TheLoai theLoai;
 }
