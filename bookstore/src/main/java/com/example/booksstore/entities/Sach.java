@@ -17,59 +17,59 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name="Sach")
+@Table(name="sach")
 public class Sach {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IdSach")
+    @Column(name = "idsach")
     private Integer IdSach;
 
     @Generated
-    @Column(name = "MaSach")
+    @Column(name = "masach")
     private String  MaSach;
 
-    @Column(name = "MoTa")
+    @Column(name = "mota")
     private String  MoTa;
 
-    @Column(name = "TrangThai")
+    @Column(name = "trangthai")
     private Integer TrangThai;
 
-    @Column(name = "SoLuongTonKho")
+    @Column(name = "soluongtonkho")
     private Integer SoLuongTonKho;
 
-    @Column(name = "GiaBan")
+    @Column(name = "giaban")
     private BigDecimal GiaBan;
 
-    @Column(name = "LinkAnh1")
+    @Column(name = "linkanh1")
     private String LinkAnh1;
 
-    @Column(name = "LinkAnh2")
+    @Column(name = "linkanh2")
     private String LinkAnh2;
 
-    @Column(name = "LinkAnh3")
+    @Column(name = "linkanh3")
     private String LinkAnh3;
 
-    @Column(name = "LinkAnh4")
+    @Column(name = "linkanh4")
     private String LinkAnh4;
 
-    @Column(name = "LinkAnh5")
+    @Column(name = "linkanh5")
     private String LinkAnh5;
 
-    @Column(name = "MaVach")
+    @Column(name = "mavach")
     private String  MaVach;
     @ManyToMany
     @JoinTable(
-            name = "SachTheLoai",
-            joinColumns = @JoinColumn(name = "IdSach"),
-            inverseJoinColumns = @JoinColumn(name = "IdTheLoai")
+            name = "sachtheLloai",
+            joinColumns = @JoinColumn(name = "idsach"),
+            inverseJoinColumns = @JoinColumn(name = "idtheloai")
     )
     private Set<TheLoai> theLoais = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
-            name = "SachTacGia",
-            joinColumns = @JoinColumn(name = "IdSach"),
-            inverseJoinColumns = @JoinColumn(name = "IdTacGia")
+            name = "sachtacgia",
+            joinColumns = @JoinColumn(name = "idsach"),
+            inverseJoinColumns = @JoinColumn(name = "idtacgia")
     )
     private Set<TacGia> tacgia = new HashSet<>();
 }
