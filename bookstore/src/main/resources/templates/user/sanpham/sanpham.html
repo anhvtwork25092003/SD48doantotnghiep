@@ -1,348 +1,443 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}"
-      xmlns:th="http://www.thymeleaf.org">
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}">
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"/>
 </head>
 
 <body>
 <article layout:fragment="noiDung">
-  <div class="container">
-    <div class="tong">
-      <div class="row">
-        <div class="col-4">
-          <div class="   boxsearch ">
-            <h6 style="text-align: center;">Tìm theo tên</h6>
-            <nav class="navbar bg-body-tertiary">
-              <div class="container-fluid">
-                <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-              </div>
-            </nav>
-          </div>
+    <!--  khung noi dung-->
 
-          <br>
-          <br>
-          <div class="boxtrang">
-            <h6 style="text-align: center;margin-bottom: 10px;">Trạng Thái</h6>
+    <div class="container-fluid">
+        <div class="tong">
             <div class="row">
-              <div class="col-6">
-                <div class="trong" style="margin-left: 5%;">
-                  <div class="timtrangthai">
-                    <div class="input-field"><input type="radio" name="rating" id="rating1" value="1">
-                      <label for="rating1">Đang kinh doanh</label>
+                <div class="col-4">
+                    <!--search for name-->
+                    <div class="boxsearchforname">
+                        <h6 style="text-align: center;">Tìm theo tên</h6>
+                        <nav class="navbar bg-body-tertiary">
+                            <div class="container-fluid">
+                                <form class="d-flex" role="search">
+                                    <input class="form-control me-2" type="search" placeholder="Search"
+                                           aria-label="Search">
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
+                            </div>
+                        </nav>
                     </div>
-                    <div class="input-field"><input type="radio" name="rating" id="rating1" value="1">
-                      <label for="rating1">Ngừng Kinh doanh</label>
+                    <!-- end search for name-->
+                    <!--search for product code-->
+                    <div class="boxsearchforproductcode">
+                        <h6 style="text-align: center;">Tìm theo Mã Sản phẩm</h6>
+                        <nav class="navbar bg-body-tertiary">
+                            <div class="container-fluid">
+                                <form class="d-flex" role="search">
+                                    <input class="form-control me-2" type="search" placeholder="Mã sản phẩm"
+                                           aria-label="SearchByCode">
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </form>
+                            </div>
+                        </nav>
                     </div>
-                    <div class="input-field"><input type="radio" name="rating" id="rating1" value="1">
-                      <label for="rating1">Tất cả</label>
+                    <!-- end search for name-->
+                    <br>
+                    <div class="boxtrang">
+                        <h6 style="text-align: center;margin-bottom: 10px;">Trạng Thái</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="trong" style="margin-left: 5%;">
+                                    <div class="timtrangthai">
+                                        <div class="input-field"><input type="radio" name="rating" id="rating1"
+                                                                        value="1">
+                                            <label for="rating1">Đang kinh doanh</label>
+                                        </div>
+                                        <div class="input-field"><input type="radio" name="rating" id="rating1"
+                                                                        value="1">
+                                            <label for="rating1">Ngừng Kinh doanh</label>
+                                        </div>
+                                        <div class="input-field"><input type="radio" name="rating" id="rating1"
+                                                                        value="1">
+                                            <label for="rating1">Tất cả</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                  </div>
+                    <button type="button" class="btn btn-success" style="margin-left: 100px;margin-top: 15px;">Tìm
+                        Kiếm
+                    </button>
                 </div>
-              </div>
+                <div class="col-8">
+                    <!-- các button thêm mới, import, và xuất file-->
+                    <div class="box">
+                        <h4 style="text-align: left;">Danh Sách Sản Phẩm</h4>
+                        <!-- <div class="buttont-heloai"> -->
+                        <button type="button" class="btn btn-success" id="openModalBtn" data-toggle="modal"
+                                data-target="#myModal">Thêm Mới
+                        </button>
+                        <!-- </div> -->
+
+                        <!-- stảt Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Thông Tin Sách</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-field">
+                                            <label for="maSach">Mã Sách:</label>
+                                            <input type="text" id="maSach" class="form-control">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="tenSach">Tên Sách:</label>
+                                            <input type="text" id="tenSach" class="form-control">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="moTa">Mô tả:</label>
+                                            <textarea id="moTa" class="form-control"></textarea>
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="trangThai">Trạng Thái:</label>
+                                            <input type="text" id="trangThai" class="form-control">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="soLuong">Số Lượng:</label>
+                                            <input type="number" id="soLuong" class="form-control">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="giaBan">Giá Bán:</label>
+                                            <input type="number" id="giaBan" class="form-control">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="linkAnh1">Link ảnh 1:</label>
+                                            <input type="text" id="linkAnh1" class="form-control">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="linkAnh2">Link ảnh 2:</label>
+                                            <input type="text" id="linkAnh2" class="form-control">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="linkAnh3">Link ảnh 3:</label>
+                                            <input type="text" id="linkAnh3" class="form-control">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="linkAnh4">Link ảnh 4:</label>
+                                            <input type="text" id="linkAnh4" class="form-control">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="linkAnh5">Link ảnh 5:</label>
+                                            <input type="text" id="linkAnh5" class="form-control">
+                                        </div>
+                                        <div class="input-field">
+                                            <label for="maVach">Mã Vạch:</label>
+                                            <input type="text" id="maVach" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="saveBtn">Lưu</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end modal thêm mới-->
+
+                        <!-- button import-->
+                        <button type="button" class="btn btn-success">import</button>
+                        <!--end  button impport-->
+
+                        <!-- start button xuaats file-->
+                        <button type="button" class="btn btn-success">Xuất File</button>
+                        <!--end button xuat file-->
+                    </div>
+                    <!-- end các button thêm mới, import, và xuất file-->
+
+                    <table class="table" style=" border: 0px solid blue;">
+                        <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Mã Sản Phẩm</th>
+                            <th scope="col">Tên Sản Phẩm</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Số Lượng</th>
+                            <th scope="col">Trạng Thái</th>
+                            <th scope="col">Hành Động</th>
+                            <th scope="col">Tac Gia</th>
+
+                        </tr>
+                        </thead>
+                        <tbody th:each="sach, iterStat : ${pageOfSach.content}">
+                        <tr>
+                            <td th:text="${sach.maSach}"></td>
+                            <td th:text="${sach.tenSach}"></td>
+                            <td th:text="${sach.giaBan}"></td>
+                            <td th:text="${sach.soLuongTonKho}"></td>
+                            <td th:text="${sach.trangThai}"></td>
+                            <td >
+                                <ul>
+                                    <li th:each="tacGia : ${sach.tacgia}" th:text="${tacGia.HoVaTen}"></li>
+                                </ul>
+                            </td>
+                            <td>
+                                <!-- Sửa -->
+                                <!-- Button to Open the Edit Product Modal -->
+
+                                <button type="button" class="btn btn-outline-info" id="editModalBtn" data-toggle="modal"
+                                        data-target="#editModal" style="width: auto;height: auto;">
+                                    <img src="/image/anhCuaThanh/edit1.jpg" width="26" height="26">
+                                </button>
+                                <button type="button" class="btn btn-info" data-toggle="modal" th:attr="data-target='#modalSach-' + ${sach.idSach}">
+                                    <img src="/image/anhCuaThanh/redeye12.jpg" width="26" height="26">
+                                    xem
+                                </button>
+                                <!-- Xem -->
+                                <!-- Button to Open the View Product Modal -->
+                                <button type="button" class="btn btn-info" id="viewModalBtn" data-toggle="modal"
+                                            data-target="#${sach.maSach}" style="width: auto;height: auto;">
+                                    <img src="/image/anhCuaThanh/redeye12.jpg" width="26" height="26">
+                                </button>
+                                <!-- View Product Modal -->
+                            </td>
+                        </tr>
+
+                        <!--start modal for view action-->
+                        <div class="modal fade"  th:id="'modalSach-' + ${sach.idSach}" tabindex="-1" role="dialog"
+                             aria-labelledby="viewModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="viewModalLabel">Thông Tin Sản Phẩm</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Display Product Details -->
+                                        <div class="product-details">
+                                            <h4 class="product-name">Tên Sách:</h4>
+                                            <p id="viewTenSach" th:text="${sach.maSach}"></p>
+                                            <h4 class="product-description">Mô tả:</h4>
+                                            <p id="viewMoTa" th:text="${sach.tenSach}"></p>
+                                            <h4 class="product-status" th:text="${sach.trangThai}">Trạng Thái:</h4>
+                                            <p id="viewTrangThai" ></p>
+                                            <h4 class="product-quantity">Số Lượng:</h4>
+                                            <p id="viewSoLuong"></p>
+                                            <h4 class="product-price">Giá Bán:</h4>
+                                            <p id="viewGiaBan"></p>
+                                            <h4 class="product-images">Ảnh:</h4>
+                                            <img src="" id="viewLinkAnh1" alt="Link ảnh 1">
+                                            <img src="" id="viewLinkAnh2" alt="Link ảnh 2">
+                                            <img src="" id="viewLinkAnh3" alt="Link ảnh 3">
+                                            <img src="" id="viewLinkAnh4" alt="Link ảnh 4">
+                                            <img src="" id="viewLinkAnh5" alt="Link ảnh 5">
+                                            <h4 class="product-barcode">Mã Vạch:</h4>
+                                            <p id="viewMaVach"></p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Đóng
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end modal for view action-->
+                        </tbody>
+
+
+                        <!-- Edit Product Modal -->
+                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                             aria-labelledby="editModalLabel"
+                             aria-hidden="true">+
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel">Sửa Sản Phẩm</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Form for Editing Product Details -->
+                                        <form id="editProductForm">
+                                            <div class="form-group">
+                                                <label for="maSach">Mã Sách:</label>
+                                                <input type="text" id="maSach" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tenSach">Tên Sách:</label>
+                                                <input type="text" id="tenSach" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="moTa">Mô tả:</label>
+                                                <textarea id="moTa" class="form-control"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="trangThai">Trạng Thái:</label>
+                                                <input type="text" id="trangThai" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="soLuong">Số Lượng:</label>
+                                                <input type="number" id="soLuong" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="giaBan">Giá Bán:</label>
+                                                <input type="number" id="giaBan" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="linkAnh1">Link ảnh 1:</label>
+                                                <input type="text" id="linkAnh1" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="linkAnh2">Link ảnh 2:</label>
+                                                <input type="text" id="linkAnh2" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="linkAnh3">Link ảnh 3:</label>
+                                                <input type="text" id="linkAnh3" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="linkAnh4">Link ảnh 4:</label>
+                                                <input type="text" id="linkAnh4" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="linkAnh5">Link ảnh 5:</label>
+                                                <input type="text" id="linkAnh5" class "form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="maVach">Mã Vạch:</label>
+                                                <input type="text" id="maVach" class="form-control">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Đóng
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end dit modal-->
+
+                        <!--start modal for view action-->
+                        <div class="modal fade" id="viewModal" tabindex="-1" role="dialog"
+                             aria-labelledby="viewModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="viewModalLabel">Thông Tin Sản Phẩm</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Display Product Details -->
+                                        <div class="product-details">
+                                            <h4 class="product-name">Tên Sách:</h4>
+                                            <p id="viewTenSach"></p>
+                                            <h4 class="product-description">Mô tả:</h4>
+                                            <p id="viewMoTa"></p>
+                                            <h4 class="product-status">Trạng Thái:</h4>
+                                            <p id="viewTrangThai"></p>
+                                            <h4 class="product-quantity">Số Lượng:</h4>
+                                            <p id="viewSoLuong"></p>
+                                            <h4 class="product-price">Giá Bán:</h4>
+                                            <p id="viewGiaBan"></p>
+                                            <h4 class="product-images">Ảnh:</h4>
+                                            <img src="" id="viewLinkAnh1" alt="Link ảnh 1">
+                                            <img src="" id="viewLinkAnh2" alt="Link ảnh 2">
+                                            <img src="" id="viewLinkAnh3" alt="Link ảnh 3">
+                                            <img src="" id="viewLinkAnh4" alt="Link ảnh 4">
+                                            <img src="" id="viewLinkAnh5" alt="Link ảnh 5">
+                                            <h4 class="product-barcode">Mã Vạch:</h4>
+                                            <p id="viewMaVach"></p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Đóng
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end modal for view action-->
+                    </table>
+                    <!-- phân trang-->
+                    <div class="row">
+                        <div class="col-6">
+                            <p style="text-align: center;">Đang có 8 nhân viên</p>
+                        </div>
+                        <div class="col-6">
+                            <div class="phantrang">
+                                <button type="button" class="btn btn-secondary">
+                                    |<<
+                                </button>
+                                <button type="button" class="btn btn-secondary">
+                                    1
+                                </button>
+                                <button type="button" class="btn btn-secondary">
+                                    2
+                                </button>
+                                <button type="button" class="btn btn-secondary">
+                                    3
+                                </button>
+                                <button type="button" class="btn btn-secondary">
+                                    >>|
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end phân trang-->
+
+
+                </div>
             </div>
 
-          </div>
-
-          <button type="button" class="btn btn-success" style="margin-left: 100px;margin-top: 15px;">Tìm Kiếm</button>
         </div>
-        <div class="col-8">
-          <div class="box">
-            <table class="table" style=" border: 0px solid blue;">
-              <thead class="table-dark">
-                <h4 style="text-align: left;">Danh Sách Sản Phẩm</h4>
-                <!-- <div class="buttont-heloai"> -->
-                <button type="button" class="btn btn-success" id="openModalBtn" data-toggle="modal"
-                  data-target="#myModal">Thêm Mới</button>
-                <!-- </div> -->
-
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Thông Tin Sách</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="input-field">
-                          <label for="maSach">Mã Sách:</label>
-                          <input type="text" id="maSach" class="form-control">
-                        </div>
-                        <div class="input-field">
-                          <label for="tenSach">Tên Sách:</label>
-                          <input type="text" id="tenSach" class="form-control">
-                        </div>
-                        <div class="input-field">
-                          <label for="moTa">Mô tả:</label>
-                          <textarea id="moTa" class="form-control"></textarea>
-                        </div>
-                        <div class="input-field">
-                          <label for="trangThai">Trạng Thái:</label>
-                          <input type="text" id="trangThai" class="form-control">
-                        </div>
-                        <div class="input-field">
-                          <label for="soLuong">Số Lượng:</label>
-                          <input type="number" id="soLuong" class="form-control">
-                        </div>
-                        <div class="input-field">
-                          <label for="giaBan">Giá Bán:</label>
-                          <input type="number" id="giaBan" class="form-control">
-                        </div>
-                        <div class="input-field">
-                          <label for="linkAnh1">Link ảnh 1:</label>
-                          <input type="text" id="linkAnh1" class="form-control">
-                        </div>
-                        <div class="input-field">
-                          <label for="linkAnh2">Link ảnh 2:</label>
-                          <input type="text" id="linkAnh2" class="form-control">
-                        </div>
-                        <div class="input-field">
-                          <label for="linkAnh3">Link ảnh 3:</label>
-                          <input type="text" id="linkAnh3" class="form-control">
-                        </div>
-                        <div class="input-field">
-                          <label for="linkAnh4">Link ảnh 4:</label>
-                          <input type="text" id="linkAnh4" class="form-control">
-                        </div>
-                        <div class="input-field">
-                          <label for="linkAnh5">Link ảnh 5:</label>
-                          <input type="text" id="linkAnh5" class="form-control">
-                        </div>
-                        <div class="input-field">
-                          <label for="maVach">Mã Vạch:</label>
-                          <input type="text" id="maVach" class="form-control">
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary" id="saveBtn">Lưu</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-                <button type="button" class="btn btn-success">import</button>
-
-                <button type="button" class="btn btn-success">Xuất File</button>
-          </div>
-
-          <tr>
-            <th scope="col">Mã Sản Phẩm</th>
-            <th scope="col">Tên Sản Phẩm</th>
-            <th scope="col">Giá </th>
-            <th scope="col">Số Lượng </th>
-            <th scope="col">Trạng Thái </th>
-            <th scope="col">Hành Động</th>
-            <th scope="col">Hành Động</th>
-          </tr>
-          </thead>
-          <tbody>
-
-            <tr>
-              <th scope="row">NV02</th>
-              <td>Truyện Bầu Trời Trên Giời</td>
-              <td>39.500</td>
-              <td>17</td>
-              <td>Đang Kinh Doanh</td>
-              <td>
-                <!-- Sửa -->
-                <!-- Button to Open the Edit Product Modal -->
-                <button type="button" class="btn btn-outline-info" id="editModalBtn" data-toggle="modal"
-                  data-target="#editModal" style="width: auto;height: auto;">
-                  <img src="../../../static/image/anhCuaThanh/edit1.jpg" width="26" height="26">
-                </button>
-
-                <!-- Edit Product Modal -->
-                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Sửa Sản Phẩm</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <!-- Form for Editing Product Details -->
-                        <form id="editProductForm">
-                          <div class="form-group">
-                            <label for="maSach">Mã Sách:</label>
-                            <input type="text" id="maSach" class="form-control">
-                          </div>
-                          <div class="form-group">
-                            <label for="tenSach">Tên Sách:</label>
-                            <input type="text" id="tenSach" class="form-control">
-                          </div>
-                          <div class="form-group">
-                            <label for="moTa">Mô tả:</label>
-                            <textarea id="moTa" class="form-control"></textarea>
-                          </div>
-                          <div class="form-group">
-                            <label for="trangThai">Trạng Thái:</label>
-                            <input type="text" id="trangThai" class="form-control">
-                          </div>
-                          <div class="form-group">
-                            <label for="soLuong">Số Lượng:</label>
-                            <input type="number" id="soLuong" class="form-control">
-                          </div>
-                          <div class="form-group">
-                            <label for="giaBan">Giá Bán:</label>
-                            <input type="number" id="giaBan" class="form-control">
-                          </div>
-                          <div class="form-group">
-                            <label for="linkAnh1">Link ảnh 1:</label>
-                            <input type="text" id="linkAnh1" class="form-control">
-                          </div>
-                          <div class="form-group">
-                            <label for="linkAnh2">Link ảnh 2:</label>
-                            <input type="text" id="linkAnh2" class="form-control">
-                          </div>
-                          <div class="form-group">
-                            <label for="linkAnh3">Link ảnh 3:</label>
-                            <input type="text" id="linkAnh3" class="form-control">
-                          </div>
-                          <div class="form-group">
-                            <label for="linkAnh4">Link ảnh 4:</label>
-                            <input type="text" id="linkAnh4" class="form-control">
-                          </div>
-                          <div class="form-group">
-                            <label for="linkAnh5">Link ảnh 5:</label>
-                            <input type="text" id="linkAnh5" class "form-control">
-                          </div>
-                          <div class="form-group">
-                            <label for="maVach">Mã Vạch:</label>
-                            <input type="text" id="maVach" class="form-control">
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </td>
-              <td>
-
-
-                <!-- Xem -->
-                <!-- Button to Open the View Product Modal -->
-                <button type="button" class="btn btn-info" id="viewModalBtn" data-toggle="modal"
-                  data-target="#viewModal" style="width: auto;height: auto;">
-                  <img src="../../../static/image/anhCuaThanh/redeye12.jpg" width="26" height="26">
-                </button>
-
-                <!-- View Product Modal -->
-                <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="viewModalLabel">Thông Tin Sản Phẩm</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <!-- Display Product Details -->
-                        <div class="product-details">
-                          <h4 class="product-name">Tên Sách:</h4>
-                          <p id="viewTenSach"></p>
-                          <h4 class="product-description">Mô tả:</h4>
-                          <p id="viewMoTa"></p>
-                          <h4 class="product-status">Trạng Thái:</h4>
-                          <p id="viewTrangThai"></p>
-                          <h4 class="product-quantity">Số Lượng:</h4>
-                          <p id="viewSoLuong"></p>
-                          <h4 class="product-price">Giá Bán:</h4>
-                          <p id="viewGiaBan"></p>
-                          <h4 class="product-images">Ảnh:</h4>
-                          <img src="" id="viewLinkAnh1" alt="Link ảnh 1">
-                          <img src="" id="viewLinkAnh2" alt="Link ảnh 2">
-                          <img src="" id="viewLinkAnh3" alt="Link ảnh 3">
-                          <img src="" id="viewLinkAnh4" alt="Link ảnh 4">
-                          <img src="" id="viewLinkAnh5" alt="Link ảnh 5">
-                          <h4 class="product-barcode">Mã Vạch:</h4>
-                          <p id="viewMaVach"></p>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </td>
-            </tr>
-          </tbody>
-
-          </table>
-          <div class="row">
-            <div class="col-6">
-              <p style="text-align: center;">Đang có 8 nhân viên</p>
-            </div>
-            <div class="col-6">
-              <div class="phantrang">
-                <button type="button" class="btn btn-secondary">
-                  |<< </button>
-                    <button type="button" class="btn btn-secondary">
-                      1
-                    </button>
-                    <button type="button" class="btn btn-secondary">
-                      2
-                    </button>
-                    <button type="button" class="btn btn-secondary">
-                      3
-                    </button>
-                    <button type="button" class="btn btn-secondary">
-                      >>|
-                    </button>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-
-      </div>
 
     </div>
-  </div>
-
-  </div>
 
 
-  </div>
 </article>
 </body>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-  integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../../../static/user/css/sanpham.css">
 
 </html>
