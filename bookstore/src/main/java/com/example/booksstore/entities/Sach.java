@@ -28,6 +28,9 @@ public class Sach {
     @Column(name = "masach")
     private String  maSach;
 
+    @Column(name = "tensach")
+    private String  tenSach;
+
     @Column(name = "mota")
     private String  moTa;
 
