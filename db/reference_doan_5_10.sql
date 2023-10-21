@@ -145,3 +145,8 @@ go
 alter table ThuDienTuDoituong
 ADD CONSTRAINT FK_ThuDienTuDoituong_KhachHang
 FOREIGN KEY (IdKhachHang) REFERENCES KhachHang(IdKhachHang)
+-- cap nhat 21-10+
+
+alter table DiaChi
+ADD CONSTRAINT FK_DiaChi_KhachHang
+FOREIGN KEY (IdKhachHang) REFERENCES KhachHang(IdKhachHang)

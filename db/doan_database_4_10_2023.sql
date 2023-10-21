@@ -1,5 +1,6 @@
 ﻿use bookstoreanhvt2023polyfinal
 go
+
 create table KhachHang(
 IdKhachHang 	int identity PRIMARY KEY,
 IdGioHang int unique,
@@ -240,6 +241,14 @@ alter column DonGiaThoiDiemMua money
 go
 alter table DonHang
 alter column PhiVanChuyen money 
-
+go
+create table DiaChi(
+	IdDiaChi int identity PRIMARY KEY,
+	IdKhachHang int,
+	TinhThanhPho nvarchar(30),
+	HuyenQuan nvarchar(30),
+	XaPhuong nvarchar(30),
+	DiaChiCuthe  nvarchar(30)
+)
 
 
