@@ -43,7 +43,7 @@ public class DonHang {
     private BigDecimal tongTienKhuyenMai;
 
     @Column(name = "phivanchuyen")
-    private Integer phiVanChuyen;
+    private BigDecimal phiVanChuyen;
 
     @Column(name = "tongtiencanthanhtoan")
     private BigDecimal tongTienCanThanhToan;

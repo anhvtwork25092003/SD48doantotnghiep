@@ -37,7 +37,7 @@ public class DonHangChiTiet {
     private BigDecimal giaGoc;
 
     @Column(name = "dongiathoidiemmua")
-    private Integer donGiaThoiDiemMua;
+    private BigDecimal donGiaThoiDiemMua;
 
     @Column(name = "phantramgiam")
     private Integer phanTramGiam;
