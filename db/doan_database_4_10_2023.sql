@@ -234,8 +234,12 @@ go
 alter table donhang
 alter column trangthai int
 go
-
-
+-- sua ngay 21 thang 10
+alter table DonHangChiTiet
+alter column DonGiaThoiDiemMua money
+go
+alter table DonHang
+alter column PhiVanChuyen money 
 
 
 
