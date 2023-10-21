@@ -4,440 +4,489 @@
       xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-  <title>Đơn hàng đã duyệt-chờ vận chuyển</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="/admin/quanly/css/DonHangDaDuyet.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Đơn hàng đã duyệt-chờ vận chuyển</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/admin/quanly/css/DonHangDaDuyet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <article layout:fragment="noiDung">
-  <div class="container-fluid">
-      <div class="row">
-        <div class="col-2">
-          <div class="boxsearch">
-            <h6 style="text-align: center;">Tìm theo mã đơn hàng</h6>
-            <div class="search">
-              <input class="form-control" type="search" placeholder="Search">
-              <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-            </div>
-          </div>
-          <div class="boxsearch">
-            <h6 style="text-align: center;">Tìm theo số điện thoại</h6>
-            <div class="search">
-              <input class="form-control" type="search" placeholder="Search">
-              <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-            </div>
-          </div>
-          <br>
-          <div class="boxtrang">
-            <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
-            <div class="row">
-              <div class="col-11">
-                <div class="form-check">
-                  <input class="form-check-input col-sm-2 col-form-label" type="radio" name="exampleRadios"
-                    id="exampleRadios1" value="option1" checked>
-                  <label class="form-check-label col-sm-10" for="exampleRadios1">
-                    Hôm nay
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input col-sm-2 col-form-label" type="radio" name="exampleRadios"
-                    id="exampleRadios2" value="option2">
-                  <label class="form-check-label col-sm-10" for="exampleRadios2">
-                    Lựa chọn
-                  </label>
-                  <div class="date">
-                    <div class="form-group row">
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">Từ</label>
-                      <div class="col-sm-10">
-                        <input class="form-control" type="date" name="" id="">
-                      </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <div class="boxsearch">
+                    <h6 style="text-align: center;">Tìm theo mã đơn hàng</h6>
+                    <div class="search">
+                        <input class="form-control" type="search" placeholder="Search">
+                        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
                     </div>
-                    <div class="form-group row">
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">Đến</label>
-                      <div class="col-sm-10">
-                        <input class="form-control" type="date" name="" id="">
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
+                <div class="boxsearch">
+                    <h6 style="text-align: center;">Tìm theo số điện thoại</h6>
+                    <div class="search">
+                        <input class="form-control" type="search" placeholder="Search">
+                        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+                    </div>
+                </div>
+                <br>
+                <div class="boxtrang">
+                    <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
+                    <div class="row">
+                        <div class="col-11">
+                            <div class="form-check">
+                                <input class="form-check-input col-sm-2 col-form-label" type="radio"
+                                       name="exampleRadios"
+                                       id="exampleRadios1" value="option1" checked>
+                                <label class="form-check-label col-sm-10" for="exampleRadios1">
+                                    Hôm nay
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input col-sm-2 col-form-label" type="radio"
+                                       name="exampleRadios"
+                                       id="exampleRadios2" value="option2">
+                                <label class="form-check-label col-sm-10" for="exampleRadios2">
+                                    Lựa chọn
+                                </label>
+                                <div class="date">
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Từ</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="date" name="" id="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Đến</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="date" name="" id="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm
+                </button>
             </div>
-          </div>
-          <button type="button" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm</button>
+            <div class="col-10">
+                <div class="box">
+                    <table class="table" style=" border: 0px solid blue;">
+                        <thead class="table-dark">
+                        <h4 style="text-align: left;">Danh Sách Đơn Hàng Đã Duyệt</h4>
+                        <tr>
+                            <th>Mã Đơn Hàng</th>
+                            <th>Tên Người Đặt</th>
+                            <th>Ngày Đặt</th>
+                            <th>Số điện Thoại</th>
+                            <th>Tổng Tiền</th>
+                            <th>Ghi Chú</th>
+                            <th>Hành Động</th>
+                            <th>Người Duyệt</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>2313</th>
+                            <td>Vương Phước</td>
+                            <td>23/10/2023</td>
+                            <td>012345678</td>
+                            <td>16.000</td>
+                            <td>Đơn...</td>
+                            <td>
+                                <a href="" onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                                </a>
+                                <a href="" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <button type="button" data-toggle="modal" data-target="#exampleModal"
+                                        id="openModalButton">
+                                    <i class="fa-solid fa-square-plus"></i>
+                                </button>
+                                <div class="modal fade" id="exampleModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Danh sách nhân viên</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Mã Nhân Viên</th>
+                                                        <th>Họ Và Tên</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23075" data-ho-ten="Vương Phước">
+                                                        <td>NV23075</td>
+                                                        <td>Vương Phước</td>
+                                                    </tr>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23076" data-ho-ten="Nguyễn Văn A">
+                                                        <td>NV23076</td>
+                                                        <td>Nguyễn Văn A</td>
+                                                    </tr>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23077" data-ho-ten="Trần Thị B">
+                                                        <td>NV23077</td>
+                                                        <td>Trần Thị B</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary" id="saveChangesButton">
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>2313</th>
+                            <td>Vương Phước</td>
+                            <td>23/10/2023</td>
+                            <td>012345678</td>
+                            <td>16.000</td>
+                            <td>Đơn...</td>
+                            <td>
+                                <a href="" onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                                </a>
+                                <a href="" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <button type="button" data-toggle="modal" data-target="#exampleModal"
+                                        id="openModalButton">
+                                    <i class="fa-solid fa-square-plus"></i>
+                                </button>
+                                <div class="modal fade" id="exampleModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Danh sách nhân viên</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Mã Nhân Viên</th>
+                                                        <th>Họ Và Tên</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23075" data-ho-ten="Vương Phước">
+                                                        <td>NV23075</td>
+                                                        <td>Vương Phước</td>
+                                                    </tr>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23076" data-ho-ten="Nguyễn Văn A">
+                                                        <td>NV23076</td>
+                                                        <td>Nguyễn Văn A</td>
+                                                    </tr>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23077" data-ho-ten="Trần Thị B">
+                                                        <td>NV23077</td>
+                                                        <td>Trần Thị B</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary" id="saveChangesButton">
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>2313</th>
+                            <td>Vương Phước</td>
+                            <td>23/10/2023</td>
+                            <td>012345678</td>
+                            <td>16.000</td>
+                            <td>Đơn...</td>
+                            <td>
+                                <a href="" onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                                </a>
+                                <a href="" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <button type="button" data-toggle="modal" data-target="#exampleModal"
+                                        id="openModalButton">
+                                    <i class="fa-solid fa-square-plus"></i>
+                                </button>
+                                <div class="modal fade" id="exampleModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Danh sách nhân viên</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Mã Nhân Viên</th>
+                                                        <th>Họ Và Tên</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23075" data-ho-ten="Vương Phước">
+                                                        <td>NV23075</td>
+                                                        <td>Vương Phước</td>
+                                                    </tr>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23076" data-ho-ten="Nguyễn Văn A">
+                                                        <td>NV23076</td>
+                                                        <td>Nguyễn Văn A</td>
+                                                    </tr>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23077" data-ho-ten="Trần Thị B">
+                                                        <td>NV23077</td>
+                                                        <td>Trần Thị B</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary" id="saveChangesButton">
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>2313</th>
+                            <td>Vương Phước</td>
+                            <td>23/10/2023</td>
+                            <td>012345678</td>
+                            <td>16.000</td>
+                            <td>Đơn...</td>
+                            <td>
+                                <a href="" onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                                </a>
+                                <a href="" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <button type="button" data-toggle="modal" data-target="#exampleModal"
+                                        id="openModalButton">
+                                    <i class="fa-solid fa-square-plus"></i>
+                                </button>
+                                <div class="modal fade" id="exampleModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Danh sách nhân viên</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Mã Nhân Viên</th>
+                                                        <th>Họ Và Tên</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23075" data-ho-ten="Vương Phước">
+                                                        <td>NV23075</td>
+                                                        <td>Vương Phước</td>
+                                                    </tr>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23076" data-ho-ten="Nguyễn Văn A">
+                                                        <td>NV23076</td>
+                                                        <td>Nguyễn Văn A</td>
+                                                    </tr>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23077" data-ho-ten="Trần Thị B">
+                                                        <td>NV23077</td>
+                                                        <td>Trần Thị B</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary" id="saveChangesButton">
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>2313</th>
+                            <td>Vương Phước</td>
+                            <td>23/10/2023</td>
+                            <td>012345678</td>
+                            <td>16.000</td>
+                            <td>Đơn...</td>
+                            <td>
+                                <a href="" onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                                </a>
+                                <a href="" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <button type="button" data-toggle="modal" data-target="#exampleModal"
+                                        id="openModalButton">
+                                    <i class="fa-solid fa-square-plus"></i>
+                                </button>
+                                <div class="modal fade" id="exampleModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Danh sách nhân viên</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Mã Nhân Viên</th>
+                                                        <th>Họ Và Tên</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23075" data-ho-ten="Vương Phước">
+                                                        <td>NV23075</td>
+                                                        <td>Vương Phước</td>
+                                                    </tr>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23076" data-ho-ten="Nguyễn Văn A">
+                                                        <td>NV23076</td>
+                                                        <td>Nguyễn Văn A</td>
+                                                    </tr>
+                                                    <tr data-toggle="modal" data-target="#employeeModal"
+                                                        data-ma-nhan-vien="NV23077" data-ho-ten="Trần Thị B">
+                                                        <td>NV23077</td>
+                                                        <td>Trần Thị B</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary" id="saveChangesButton">
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-6">
+                            <p style="text-align: center;">Đang có 5 đơn hàng chờ</p>
+                        </div>
+                        <div class="col-6">
+                            <div class="phantrang">
+                                <button type="button" class="btn btn-secondary">
+                                    |<<
+                                </button>
+                                <button type="button" class="btn btn-secondary">
+                                    1
+                                </button>
+                                <button type="button" class="btn btn-secondary">
+                                    2
+                                </button>
+                                <button type="button" class="btn btn-secondary">
+                                    3
+                                </button>
+                                <button type="button" class="btn btn-secondary">
+                                    >>|
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-10">
-          <div class="box">
-            <table class="table" style=" border: 0px solid blue;">
-              <thead class="table-dark">
-                <h4 style="text-align: left;">Danh Sách Đơn Hàng Đã Duyệt</h4>
-                <tr>
-                  <th>Mã Đơn Hàng</th>
-                  <th>Tên Người Đặt</th>
-                  <th>Ngày Đặt</th>
-                  <th>Số điện Thoại</th>
-                  <th>Tổng Tiền</th>
-                  <th>Ghi Chú</th>
-                  <th>Hành Động </th>
-                  <th>Người Duyệt</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>2313</th>
-                  <td>Vương Phước</td>
-                  <td>23/10/2023</td>
-                  <td>012345678</td>
-                  <td>16.000</td>
-                  <td>Đơn...</td>
-                  <td>
-                    <a href=""  onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
-                      <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
-                    </a>
-                    <a href="">
-                      <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
-                    </a>
-                    <a href=""  onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
-                      <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-                    </a>
-                  </td>
-                   <td>
-                    <button type="button" data-toggle="modal" data-target="#exampleModal" id="openModalButton">
-                      <i class="fa-solid fa-square-plus"></i>
-                    </button>
-                    <div class="modal fade" id="exampleModal">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Danh sách nhân viên</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          </div>
-                          <div class="modal-body">
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>Mã Nhân Viên</th>
-                                  <th>Họ Và Tên</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23075" data-ho-ten="Vương Phước">
-                                  <td>NV23075</td>
-                                  <td>Vương Phước</td>
-                                </tr>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23076" data-ho-ten="Nguyễn Văn A">
-                                  <td>NV23076</td>
-                                  <td>Nguyễn Văn A</td>
-                                </tr>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23077" data-ho-ten="Trần Thị B">
-                                  <td>NV23077</td>
-                                  <td>Trần Thị B</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="saveChangesButton">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th>2313</th>
-                  <td>Vương Phước</td>
-                  <td>23/10/2023</td>
-                  <td>012345678</td>
-                  <td>16.000</td>
-                  <td>Đơn...</td>
-                  <td>
-                    <a href=""  onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
-                      <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
-                    </a>
-                    <a href="">
-                      <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
-                    </a>
-                    <a href=""  onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
-                      <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-                    </a>
-                  </td>
-                   <td>
-                    <button type="button" data-toggle="modal" data-target="#exampleModal" id="openModalButton">
-                      <i class="fa-solid fa-square-plus"></i>
-                    </button>
-                    <div class="modal fade" id="exampleModal">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Danh sách nhân viên</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          </div>
-                          <div class="modal-body">
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>Mã Nhân Viên</th>
-                                  <th>Họ Và Tên</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23075" data-ho-ten="Vương Phước">
-                                  <td>NV23075</td>
-                                  <td>Vương Phước</td>
-                                </tr>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23076" data-ho-ten="Nguyễn Văn A">
-                                  <td>NV23076</td>
-                                  <td>Nguyễn Văn A</td>
-                                </tr>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23077" data-ho-ten="Trần Thị B">
-                                  <td>NV23077</td>
-                                  <td>Trần Thị B</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="saveChangesButton">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th>2313</th>
-                  <td>Vương Phước</td>
-                  <td>23/10/2023</td>
-                  <td>012345678</td>
-                  <td>16.000</td>
-                  <td>Đơn...</td>
-                  <td>
-                    <a href=""  onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
-                      <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
-                    </a>
-                    <a href="">
-                      <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
-                    </a>
-                    <a href=""  onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
-                      <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-                    </a>
-                  </td>
-                   <td>
-                    <button type="button" data-toggle="modal" data-target="#exampleModal" id="openModalButton">
-                      <i class="fa-solid fa-square-plus"></i>
-                    </button>
-                    <div class="modal fade" id="exampleModal">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Danh sách nhân viên</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          </div>
-                          <div class="modal-body">
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>Mã Nhân Viên</th>
-                                  <th>Họ Và Tên</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23075" data-ho-ten="Vương Phước">
-                                  <td>NV23075</td>
-                                  <td>Vương Phước</td>
-                                </tr>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23076" data-ho-ten="Nguyễn Văn A">
-                                  <td>NV23076</td>
-                                  <td>Nguyễn Văn A</td>
-                                </tr>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23077" data-ho-ten="Trần Thị B">
-                                  <td>NV23077</td>
-                                  <td>Trần Thị B</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="saveChangesButton">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th>2313</th>
-                  <td>Vương Phước</td>
-                  <td>23/10/2023</td>
-                  <td>012345678</td>
-                  <td>16.000</td>
-                  <td>Đơn...</td>
-                  <td>
-                    <a href=""  onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
-                      <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
-                    </a>
-                    <a href="">
-                      <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
-                    </a>
-                    <a href=""  onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
-                      <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-                    </a>
-                  </td>
-                   <td>
-                    <button type="button" data-toggle="modal" data-target="#exampleModal" id="openModalButton">
-                      <i class="fa-solid fa-square-plus"></i>
-                    </button>
-                    <div class="modal fade" id="exampleModal">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Danh sách nhân viên</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          </div>
-                          <div class="modal-body">
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>Mã Nhân Viên</th>
-                                  <th>Họ Và Tên</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23075" data-ho-ten="Vương Phước">
-                                  <td>NV23075</td>
-                                  <td>Vương Phước</td>
-                                </tr>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23076" data-ho-ten="Nguyễn Văn A">
-                                  <td>NV23076</td>
-                                  <td>Nguyễn Văn A</td>
-                                </tr>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23077" data-ho-ten="Trần Thị B">
-                                  <td>NV23077</td>
-                                  <td>Trần Thị B</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="saveChangesButton">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th>2313</th>
-                  <td>Vương Phước</td>
-                  <td>23/10/2023</td>
-                  <td>012345678</td>
-                  <td>16.000</td>
-                  <td>Đơn...</td>
-                  <td>
-                    <a href=""  onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
-                      <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
-                    </a>
-                    <a href="">
-                      <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
-                    </a>
-                    <a href=""  onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
-                      <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-                    </a>
-                  </td>
-                   <td>
-                    <button type="button" data-toggle="modal" data-target="#exampleModal" id="openModalButton">
-                      <i class="fa-solid fa-square-plus"></i>
-                    </button>
-                    <div class="modal fade" id="exampleModal">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Danh sách nhân viên</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          </div>
-                          <div class="modal-body">
-                            <table class="table table-striped">
-                              <thead>
-                                <tr>
-                                  <th>Mã Nhân Viên</th>
-                                  <th>Họ Và Tên</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23075" data-ho-ten="Vương Phước">
-                                  <td>NV23075</td>
-                                  <td>Vương Phước</td>
-                                </tr>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23076" data-ho-ten="Nguyễn Văn A">
-                                  <td>NV23076</td>
-                                  <td>Nguyễn Văn A</td>
-                                </tr>
-                                <tr data-toggle="modal" data-target="#employeeModal" data-ma-nhan-vien="NV23077" data-ho-ten="Trần Thị B">
-                                  <td>NV23077</td>
-                                  <td>Trần Thị B</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="saveChangesButton">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                </tr>
-              </tbody>
-            </table>
-            <div class="row">
-              <div class="col-6">
-                <p style="text-align: center;">Đang có 5 đơn hàng chờ</p>
-              </div>
-              <div class="col-6">
-                <div class="phantrang">
-                  <button type="button" class="btn btn-secondary">
-                    |<< </button>
-                      <button type="button" class="btn btn-secondary">
-                        1
-                      </button>
-                      <button type="button" class="btn btn-secondary">
-                        2
-                      </button>
-                      <button type="button" class="btn btn-secondary">
-                        3
-                      </button>
-                      <button type="button" class="btn btn-secondary">
-                        >>|
-                      </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-  <script src="/admin/quanly/js/DonHang.js"></script>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="/admin/quanly/js/DonHang.js"></script>
 </article>
 </body>
 </html>

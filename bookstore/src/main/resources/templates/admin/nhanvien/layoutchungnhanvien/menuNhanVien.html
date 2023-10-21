@@ -1,59 +1,59 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Menu Ngang</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-    <link rel="stylesheet" href="/admin/nhanvien/css/menuNhanVien.css" />
-  </head>
-  <body>
-    <div class="container-fluid">
-            <div class="header">
-              <img class="logo" src="/image/banner/fahasa-logo.png" />                       
-              <div class="header-icons">
-                <div class="account-icon">
-                  <div>
-                    <i class="fa-solid fa-bell fa-xl"></i>
-                  </div>              
-                </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="/admin/nhanvien/css/menuNhanVien.css"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="header">
+        <img class="logo" src="/image/banner/fahasa-logo.png"/>
+        <div class="header-icons">
+            <div class="account-icon">
                 <div>
-                    <i class="fa-regular fa-user fa-xl"></i>
+                    <i class="fa-solid fa-bell fa-xl"></i>
                 </div>
-              </div>
             </div>
-      <nav class="horizontal-menu">
-        <ul>
-          <li><a href="#">Hỗ Trợ</a></li>
-          <li><a href="#">Đánh Giá</a></li>
-          <li class="has-dropdown">
-            <a href="#">Hàng Hóa</a>
-            <div class="dropdown">
-              <ul>
-                <li><a href="#">Danh sách sản phẩm</a></li>
-                <li><a href="#">Danh sách thể loại</a></li>
-                <li><a href="#">Danh sách tác giả</a></li>
-              </ul>
+            <div>
+                <i class="fa-regular fa-user fa-xl"></i>
             </div>
-          </li>
-          <li class="has-dropdown">
-            <a href="#">Đơn hàng</a>
-            <div class="dropdown">
-              <ul>
-                <li><a href="#">Chờ xác nhận</a></li>
-                <li><a href="#">Chờ vận chuyển</a></li>
-                <li><a href="#">Giao thành công</a></li>
-                <li><a href="#">Đã hủy</a></li>
-              </ul>
-            </div>
-          </li>
-          <li><a href="#">Khách hàng</a></li>
-        </ul>
-      </nav>
-      <article layout:fragment="noiDung">
-
-      </article>
+        </div>
     </div>
-  </body>
+    <nav class="horizontal-menu">
+        <ul>
+            <li><a href="#">Hỗ Trợ</a></li>
+            <li><a href="#">Đánh Giá</a></li>
+            <li class="has-dropdown">
+                <a href="#">Hàng Hóa</a>
+                <div class="dropdown">
+                    <ul>
+                        <li><a href="#">Danh sách sản phẩm</a></li>
+                        <li><a href="#">Danh sách thể loại</a></li>
+                        <li><a href="#">Danh sách tác giả</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="has-dropdown">
+                <a href="#">Đơn hàng</a>
+                <div class="dropdown">
+                    <ul>
+                        <li><a href="#">Chờ xác nhận</a></li>
+                        <li><a href="#">Chờ vận chuyển</a></li>
+                        <li><a href="#">Giao thành công</a></li>
+                        <li><a href="#">Đã hủy</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li><a href="#">Khách hàng</a></li>
+        </ul>
+    </nav>
+    <article layout:fragment="noiDung">
+
+    </article>
+</div>
+</body>
 </html>

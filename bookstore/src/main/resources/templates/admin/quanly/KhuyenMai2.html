@@ -4,335 +4,395 @@
       xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-  <title>Khuyến mại </title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-  <link rel="stylesheet" href="/admin/quanly/css/khuyenmai.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Khuyến mại </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="/admin/quanly/css/khuyenmai.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <article layout:fragment="noiDung">
-  <div class="container-fluid">
-      <div class="row">
-        <div class="col-2">
-          <div class="boxsearch">
-            <h6 style="text-align: center;">Tìm theo mã đơn hàng</h6>
-            <div class="search">
-              <input class="form-control" type="search" placeholder="Search">
-              <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-            </div>
-          </div>
-          <br>
-          <div class="boxtrang">
-            <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
-            <div class="row">
-              <div class="col-11">
-                <div class="form-check">
-                  <input class="form-check-input col-sm-2 col-form-label" type="radio" name="exampleRadios"
-                    id="exampleRadios1" value="option1" checked>
-                  <label class="form-check-label col-sm-10" for="exampleRadios1">
-                    Hôm nay
-                  </label>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <!-- tìm theotên khuyến mãi -->
+                <div class="boxsearch">
+                    <h6 style="text-align: center;">Tìm theo tên khuyến mại</h6>
+                    <div class="search">
+                        <input class="form-control" type="search" placeholder="Search">
+                        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+                    </div>
                 </div>
-                <div class="form-check">
-                  <input class="form-check-input col-sm-2 col-form-label" type="radio" name="exampleRadios"
-                    id="exampleRadios2" value="option2">
-                  <label class="form-check-label col-sm-10" for="exampleRadios2">
-                    Lựa chọn
-                  </label>
-                  <div class="date">
-                    <div class="form-group row">
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">Từ</label>
-                      <div class="col-sm-10">
-                        <input class="form-control" type="date" name="" id="">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">Đến</label>
-                      <div class="col-sm-10">
-                        <input class="form-control" type="date" name="" id="">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button type="button" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm</button>
-        </div>
-        <div class="col-10">
-          <div class="box">
-            <h4 style="text-align: left;">Chương trình khuyến mại</h4>
-            <div class="themKhuyenMai">
-              <button class="btn btn-success" href="#"data-toggle="modal" data-target="#largeModal" >
-                <i class="fa-solid fa-circle-plus"></i> Chương Trình Khuyến Mại
-              </button>
-              <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h4 class="modal-title" id="myModalLabel">Thêm chương trình khuyến mại</h4>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body ">
-                      <div class="box-address">
-                        <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label>Tên chương trình</label>
-                            <input type="text" class="form-control">
-                          </div>
-                          <div class="form-group col-md-3">
-                            <label>Trạng thái</label>
-                            <div class="form-check">
-                              <input class="form-check-input" type="radio" name="exampleRadios"  value="option1" checked>
-                              <label class="form-check-label">
-                                  Tất cả
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" type="radio" name="exampleRadios"  value="option2">
-                              <label class="form-check-label">
-                                Chưa áp dụng
-                              </label>
-                          </div>
-                            </div>
-                            <div class="col-3">
-                              <label>Ghi Chú</label>
-                              <textarea class="form-control" type="textarea" cols="10"></textarea>
-                            </div>
-                        </div>
-                        <hr>
-                      
+                <!-- end tìm theotên khuyến mãi -->
 
-                        <div class="div">
-                          <button data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1" >Thông tin khuyến mại</button>
-                          <button data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">Các sản phẩm được áp dụng</button>
-                      </div>
-                      <div class="collapse" id="collapseExample1">
-                              <h2>Hiệu lực thời gian</h2>
-                              <div class="col-md-6">
-                                <label>Ngày bắt đầu:</label>
-                                <input type="date" name="" id="">
-                              </div>
-                              <div class="col-md-6">
-                                <label>Ngày kết thúc:</label>
-                                <input type="date" name="" id="">
-                              </div>
-                      </div>
-                      <div class="collapse" id="collapseExample2">
-                              <h2>Các sản phẩm được áp dụng</h2>
-                                 <button type="button" for="modalTrang1" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
-                                  + Sản phẩm KM
-                                </button>
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Thêm sản phẩm khuyến mại</h5>
-                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <div class="line-item">
-                                          <label>Mã mặt hàng</label>
-                                          <input class="form-control"  type="text"  >
+                <br>
+                <!-- tìm theo thời gian -->
+                <div class="boxtrang">
+                    <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
+                    <div class="row">
+                        <div class="col-11">
+                            <div class="form-check">
+                                <input class="form-check-input col-sm-2 col-form-label" type="radio"
+                                       name="exampleRadios"
+                                       id="exampleRadios1" value="option1" checked>
+                                <label class="form-check-label col-sm-10" for="exampleRadios1">
+                                    Hôm nay
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input col-sm-2 col-form-label" type="radio"
+                                       name="exampleRadios"
+                                       id="exampleRadios2" value="option2">
+                                <label class="form-check-label col-sm-10" for="exampleRadios2">
+                                    Lựa chọn
+                                </label>
+                                <div class="date">
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Từ</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="date" name="" id="">
                                         </div>
-                                        <div class="line-item">
-                                         <label>Tên mặt hàng</label>
-                                         <input class="form-control"  type="text"  >
-                                       </div>
-                                       <div class="line-item">
-                                         <label>Số lượng</label>
-                                         <input class="form-control"  type="text"  >
-                                       </div>
-                                       <div class="line-item">
-                                         <label>Giá sản phẩm</label>
-                                         <input class="form-control"  type="text"  >
-                                       </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Understood</button>
-                                      </div>
                                     </div>
-                                  </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 col-form-label">Đến</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="date" name="" id="">
+                                        </div>
+                                    </div>
                                 </div>
-                                <br>
-                              <table class="table table-striped table-inverse">
-                                <thead class="thead-inverse">
-                                  <tr>
-                                    <th>Mã mặt hàng</th>
-                                    <th>Tên mặt hàng</th>
-                                    <th>Số lượng</th>
-                                    <th>Giá sản phẩm</th>
-                                  </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>MH01</td>
-                                      <td>Sách thiếu nhi</td>
-                                      <td>10</td>
-                                      <td>10.0000
-                                         <p style="text-decoration: line-through;">20.000</p>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>MH01</td>
-                                      <td>Sách thiếu nhi</td>
-                                      <td>10</td>
-                                      <td>10.0000
-                                         <p style="text-decoration: line-through;">20.000</p>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>MH01</td>
-                                      <td>Sách thiếu nhi</td>
-                                      <td>10</td>
-                                      <td>10.0000
-                                         <p style="text-decoration: line-through;">20.000</p>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>MH01</td>
-                                      <td>Sách thiếu nhi</td>
-                                      <td>10</td>
-                                      <td>10.0000
-                                         <p style="text-decoration: line-through;">20.000</p>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>MH01</td>
-                                      <td>Sách thiếu nhi</td>
-                                      <td>10</td>
-                                      <td>10.0000
-                                         <p style="text-decoration: line-through;">20.000</p>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                              </table>
-                  </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                <button type="button" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm
+                </button>
+                <!-- end tìm theo thời gian -->
+            </div>
+
+            <div class="col-10">
+                <div class="box">
+                    <h4 style="text-align: left;">Chương trình khuyến mại</h4>
+                    <!-- button thêm khuyến mại khi ấn vào thì hiện modal -->
+                    <div class="themKhuyenMai">
+                        <button class="btn btn-success" href="#" data-toggle="modal" data-target="#largeModal">
+                            <i class="fa-solid fa-circle-plus"></i> Chương Trình Khuyến Mại
+                        </button>
+                        <!-- button thêm khuyến mại khi ấn vào thì hiện modal -->
+                        <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel">Thêm chương trình khuyến mại</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body ">
+                                        <div class="box-address">
+                                            <!-- nội dung khuyến mại -->
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label>Tên chương trình</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label>Trạng thái</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                               name="exampleRadios" value="option1" checked>
+                                                        <label class="form-check-label">
+                                                            Tất cả
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                               name="exampleRadios" value="option2">
+                                                        <label class="form-check-label">
+                                                            Chưa áp dụng
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <label>Ghi Chú</label>
+                                                    <textarea class="form-control" type="textarea" cols="10"></textarea>
+                                                </div>
+                                            </div>
+                                            <!-- nội dung khuyến mại -->
+
+                                            <hr>
+                                            <!-- Thông tin khuyến mại-->
+                                            <div class="div">
+                                                <button data-toggle="collapse" data-target="#collapseExample1"
+                                                        aria-expanded="false" aria-controls="collapseExample1">Thông tin
+                                                    khuyến mại
+                                                </button>
+                                                <button data-toggle="collapse" data-target="#collapseExample2"
+                                                        aria-expanded="false" aria-controls="collapseExample2">Các sản
+                                                    phẩm được áp dụng
+                                                </button>
+                                            </div>
+
+                                            <div class="collapse" id="collapseExample1">
+                                                <h2>Hiệu lực thời gian</h2>
+                                                <div class="col-md-6">
+                                                    <label>Ngày bắt đầu:</label>
+                                                    <input type="date" name="" id="">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>Ngày kết thúc:</label>
+                                                    <input type="date" name="" id="">
+                                                </div>
+                                            </div>
+                                            <!-- end Thông tin khuyến mại-->
+
+                                            <!-- các sản phẩm được áp dungj -->
+                                            <div class="collapse" id="collapseExample2">
+                                                <h2>Các sản phẩm được áp dụng</h2>
+                                                <!-- đây là thêm mới sản phẩm được áp dụng khi ấn hiển thị modal -->
+                                                <button type="button" for="modalTrang1" class="btn btn-success"
+                                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                    + Sản phẩm KM
+                                                </button>
+                                                <!-- đây là thêm mới sản phẩm được áp dụng khi ấn hiển thị modal -->
+
+                                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                                     data-bs-keyboard="false" tabindex="-1"
+                                                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="staticBackdropLabel">Thêm
+                                                                    sản phẩm khuyến mại</h5>
+                                                                <button type="button" class="close"
+                                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <!-- nội dung các sản phẩm thêm -->
+                                                            <div class="modal-body">
+                                                                <div class="line-item">
+                                                                    <label>Mã mặt hàng</label>
+                                                                    <input class="form-control" type="text">
+                                                                </div>
+                                                                <div class="line-item">
+                                                                    <label>Tên mặt hàng</label>
+                                                                    <input class="form-control" type="text">
+                                                                </div>
+                                                                <div class="line-item">
+                                                                    <label>Số lượng</label>
+                                                                    <input class="form-control" type="text">
+                                                                </div>
+                                                                <div class="line-item">
+                                                                    <label>Giá sản phẩm</label>
+                                                                    <input class="form-control" type="text">
+                                                                </div>
+                                                            </div>
+                                                            <!-- end nội dung các sản phẩm thêm -->
+                                                            <!-- lưu và hủy modal trong -->
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Hủy
+                                                                </button>
+                                                                <button type="button" class="btn btn-primary">Lưu
+                                                                </button>
+                                                            </div>
+                                                            <!-- end lưu và hủy modal trong -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <!-- table các sản phẩm khuyến mại khi được thêm -->
+                                                <table class="table table-striped table-inverse">
+                                                    <thead class="thead-inverse">
+                                                    <tr>
+                                                        <th>Mã mặt hàng</th>
+                                                        <th>Tên mặt hàng</th>
+                                                        <th>Số lượng</th>
+                                                        <th>Giá sản phẩm</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>MH01</td>
+                                                        <td>Sách thiếu nhi</td>
+                                                        <td>10</td>
+                                                        <td>10.0000
+                                                            <p style="text-decoration: line-through;">20.000</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>MH01</td>
+                                                        <td>Sách thiếu nhi</td>
+                                                        <td>10</td>
+                                                        <td>10.0000
+                                                            <p style="text-decoration: line-through;">20.000</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>MH01</td>
+                                                        <td>Sách thiếu nhi</td>
+                                                        <td>10</td>
+                                                        <td>10.0000
+                                                            <p style="text-decoration: line-through;">20.000</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>MH01</td>
+                                                        <td>Sách thiếu nhi</td>
+                                                        <td>10</td>
+                                                        <td>10.0000
+                                                            <p style="text-decoration: line-through;">20.000</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>MH01</td>
+                                                        <td>Sách thiếu nhi</td>
+                                                        <td>10</td>
+                                                        <td>10.0000
+                                                            <p style="text-decoration: line-through;">20.000</p>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <!-- table các sản phẩm khuyến mại khi được thêm -->
+
+                                            </div>
+                                            <!-- các sản phẩm được áp dungj -->
+
+                                        </div>
+                                    </div>
+                                    <!-- lưu, hủy modal ngoài -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                                        <button type="button" class="btn btn-primary">Lưu</button>
+                                    </div>
+                                    <!-- end lưu, hủy modal ngoài -->
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+
+                    <br>
+                    <!-- các chương trình khuyến mãi khi vào trang -->
+                    <table class="table" style=" border: 0px solid blue;">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Mã Chương Trình</th>
+                            <th>Tên Chương Trình</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Hình thức</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false"
+                            aria-controls="collapseExample">
+                            <td>1</td>
+                            <th>Khuyến mại A</th>
+                            <td>10/10/2023</td>
+                            <td>20/10/2023</td>
+                            <td>Mua hàng KM</td>
+                            <td>Kích Hoạt</td>
+                        </tr>
+                        <tr data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false"
+                            aria-controls="collapseExample">
+                            <td>2</td>
+                            <th>Khuyến mại B</th>
+                            <td>10/10/2023</td>
+                            <td>20/10/2023</td>
+                            <td>Mua hàng KM</td>
+                            <td>Kích Hoạt</td>
+                        </tr>
+                        <tr data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false"
+                            aria-controls="collapseExample">
+                            <td>3</td>
+                            <th>Khuyến mại C</th>
+                            <td>10/10/2023</td>
+                            <td>20/10/2023</td>
+                            <td>Mua hàng KM</td>
+                            <td>Kích Hoạt</td>
+                        </tr>
+                        <tr data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false"
+                            aria-controls="collapseExample">
+                            <td>4</td>
+                            <th>Khuyến mại D</th>
+                            <td>10/10/2023</td>
+                            <td>20/10/2023</td>
+                            <td>Mua hàng KM</td>
+                            <td>Kích Hoạt</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- end các chương trình khuyến mãi khi vào trang -->
+                    <!-- đây là  khi ấn vào table nó sẽ xuất hiện nội dung của các chương trình khuyến mại -->
+                    <div class="collapse" id="collapseExample3">
+                        <div class="card card-body">
+                            <div id="thongTin">
+                                <h2>Thông tin</h2>
+                                <p><strong>Mã chương trình:</strong> <span id="maChuongTrinh"></span></p>
+                                <p><strong>Tên chương trình:</strong> <span id="tenChuongTrinh"></span></p>
+                                <p><strong>Ngày bắt đầu:</strong> <span id="ngayBatDau"></span></p>
+                                <p><strong>Ngày kết thúc:</strong> <span id="ngayKetThuc"></span></p>
+                                <p><strong>Hình thức:</strong> <span id="hinhThuc"></span></p>
+                                <p><strong>Trạng thái:</strong> <span id="trangThai"></span></p>
+                            </div>
+                            <!-- end đây là  khi ấn vào table nó sẽ xuất hiện nội dung của các chương trình khuyến mại -->
+
+                            <hr>
+                            <!-- hàng hóa  -->
+                            <div class="hangHoa">
+                                <h3>Hàng Hóa - Mua Hàng Khuyến Mại</h3>
+                                <i>Số lượng hàng khuyến mại nhân theo số lượng mua</i>
+                                <table class="table alert-dark">
+                                    <thead>
+                                    <tr>
+                                        <th>Tên mặt hàng</th>
+                                        <th>Số lượng đã được mua</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Số lượng giảm</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Truyện CoNan Thám tử lừng danh</td>
+                                        <td>10</td>
+                                        <td>400.000đ</td>
+                                        <td>100.000đ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Truyện CoNan Thám tử lừng danh</td>
+                                        <td>10</td>
+                                        <td>400.000đ</td>
+                                        <td>100.000đ</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- end hàng hóa  -->
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-<br>
-            <table class="table" style=" border: 0px solid blue;">
-              <thead class="table-dark">
-                <tr>
-                    <th>Mã Chương Trình</th>
-                    <th>Tên Chương Trình</th>
-                    <th>Ngày bắt đầu</th>
-                    <th>Ngày kết thúc </th>
-                    <th>Hình thức </th>
-                    <th>Trạng thái </th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
-                      <td>1</td>
-                      <th>Khuyến mại A</th>
-                      <td>10/10/2023</td>
-                      <td>20/10/2023</td>
-                      <td>Mua hàng KM</td>
-                      <td>Kích Hoạt</td>
-                  </tr>
-                    <tr data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
-                      <td>2</td>
-                      <th>Khuyến mại B</th>
-                      <td>10/10/2023</td>
-                      <td>20/10/2023</td>
-                      <td>Mua hàng KM</td>
-                      <td>Kích Hoạt</td>
-                    </tr>
-                    <tr data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
-                      <td>3</td>
-                      <th>Khuyến mại C</th>
-                      <td>10/10/2023</td>
-                      <td>20/10/2023</td>
-                      <td>Mua hàng KM</td>
-                      <td>Kích Hoạt</td>
-                    </tr>
-                    <tr data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
-                    <td>4</td>
-                    <th>Khuyến mại D</th>
-                    <td>10/10/2023</td>
-                    <td>20/10/2023</td>
-                    <td>Mua hàng KM</td>
-                    <td>Kích Hoạt</td>
-                  </tr>
-              </tbody>
-            </table>
-            <div class="collapse" id="collapseExample3">
-              <div class="card card-body">
-                <div id="thongTin">
-                  <h2>Thông tin</h2>
-                  <p><strong>Mã chương trình:</strong> <span id="maChuongTrinh"></span></p>
-                  <p><strong>Tên chương trình:</strong> <span id="tenChuongTrinh"></span></p>
-                  <p><strong>Ngày bắt đầu:</strong> <span id="ngayBatDau"></span></p>
-                  <p><strong>Ngày kết thúc:</strong> <span id="ngayKetThuc"></span></p>
-                  <p><strong>Hình thức:</strong> <span id="hinhThuc"></span></p>
-                  <p><strong>Trạng thái:</strong> <span id="trangThai"></span></p>
-                </div>
-                <hr>
-                <div class="hangHoa">
-                  <h3>Hàng Hóa - Mua Hàng Khuyến Mại</h3>
-                  <i>Số lượng hàng khuyến mại nhân theo số lượng mua</i>
-                  <table class="table alert-dark">
-                    <thead>
-                      <tr>
-                        <th>Tên mặt hàng</th>
-                        <th>Số lượng đã được mua </th>
-                        <th>Tổng tiền</th>
-                        <th>Số lượng giảm</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Truyện CoNan Thám tử lừng danh</td>
-                        <td>10</td>
-                        <td>400.000đ</td>
-                        <td>100.000đ</td>
-                      </tr>
-                      <tr>
-                        <td>Truyện CoNan Thám tử lừng danh</td>
-                        <td>10</td>
-                        <td>400.000đ</td>
-                        <td>100.000đ</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-  </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" 
-  integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-  <script src="/admin/quanly/js/khuyenmai.js"></script>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="/admin/quanly/js/khuyenmai.js"></script>
 </article>
 </body>
 </html>
