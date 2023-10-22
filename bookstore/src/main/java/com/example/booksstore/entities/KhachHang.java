@@ -13,7 +13,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
-//@Table(name="khachhang")
+@Table(name="khachhang")
 public class KhachHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

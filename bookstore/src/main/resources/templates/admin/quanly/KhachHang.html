@@ -1,15 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Khách Hàng</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <link rel="stylesheet" href="KhachHang.css">
+    <link rel="stylesheet" href="/user/css/KhachHang.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<article layout:fragment="noiDung">
+    <!--  khung noi dung-->
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-2">
@@ -91,19 +96,21 @@
                     <tr>
                         <th>Mã Khách Hàng</th>
                         <th>Họ Và Tên</th>
+                        <th>Giới tính</th>
                         <th>Email</th>
                         <th>Số Điện Thoại</th>
                         <th>Trạng thái</th>
                         <th>Hành Động</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody th:each="khachhang, iterStat : ${pageOfKhachHang}">
                     <tr>
-                        <td>KH1</td>
-                        <th>Nguyễn Văn A</th>
-                        <td>anv@gmail.com</td>
-                        <td>0123456789</td>
-                        <td>Kích hoọa</td>
+                        <td th:text="${khachhang.maKhachHang}"></td>
+                        <td th:text="${khachhang.hoVaTen}"></td>
+                        <td th:text="${khachhang.gioiTinh == 1 ? 'Nam': 'Nữ'}"></td>
+                        <td th:text="${khachhang.email}"></td>
+                        <td th:text="${khachhang.sdt}"></td>
+                        <td th:text="${khachhang.trangThai == 0 ? 'Hoạt Động' : 'Không hoạt động'}"></td>
                         <td>
                             <!-- start sửa danh sách khách hàng -->
                             <button type="button" class="btn btn-outline-info" id="editModalBtn"
@@ -144,12 +151,13 @@
                             <!-- end sửa danh sách khách hàng -->
                             <!-- / -->
                             <!-- start xem danh sách khách hàng -->
-                            <button type="button" class="btn btn-outline-info" id="viewModalBtn"
+                            <button type="button" class="btn btn-outline-info"
                                     data-toggle="modal"
-                                    data-target="#viewModal" style="width: auto;height: auto;">
+                                    th:attr="data-target='#viewmodalKH-' + ${khachhang.idKhachHang}" style="width: auto;height: auto;">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
-                            <div class="modal fade" id="viewModal" tabindex="-1" role="dialog"
+
+                            <div class="modal fade" th:id="'viewmodalKH-' + ${khachhang.idKhachHang}"  tabindex="-1" role="dialog"
                                  aria-labelledby="viewModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -166,39 +174,39 @@
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label>Id Khách Hàng</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" th:value="${khachhang.idKhachHang}" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label>Mã Khách Hàng</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input  class="form-control" th:value="${khachhang.maKhachHang}" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label>Họ Và Tên</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" th:value="${khachhang.hoVaTen}" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label>SDT</label>
-                                                <input type="tel" class="form-control" disabled>
+                                                <input type="tel" class="form-control" th:value="${khachhang.sdt}" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label>Ngày Sinh</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="date" class="form-control" th:value="${khachhang.ngaySinh}" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <input type="email" class="form-control" disabled>
+                                                <input type="email" class="form-control" th:value="${khachhang.email}" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label>Giới Tính</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" th:value="${khachhang.gioiTinh == 1 ? 'Nam': 'Nữ'}" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label>Ngày Tạo Tài Khoản</label>
-                                                <input type="datetime-local" class="form-control" disabled>
+                                                <input type="datetime-local" class="form-control" th:value="${khachhang.ngayTaoTaiKhoan}" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label>Trạng Thái</label>
-                                                <input type="text" class="form-control" disabled>
+                                                <input type="text" class="form-control" th:value="${khachhang.trangThai == 0 ? 'Hoạt động' :'Không hoạt động'}" disabled>
                                             </div>
                                             <!-- end nội dung modal -->
                                         </div>
@@ -213,10 +221,17 @@
                     </tr>
                     </tbody>
                 </table>
+<!--phân trang-->
+
+                <!-- end phân trang-->
+
+                <!-- end table khách hàng -->
             </div>
         </div>
     </div>
 </div>
+</article>
+<!--    end khung nội dung-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -226,6 +241,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script src="/khachhang.js"></script>
 </body>
 </html>
