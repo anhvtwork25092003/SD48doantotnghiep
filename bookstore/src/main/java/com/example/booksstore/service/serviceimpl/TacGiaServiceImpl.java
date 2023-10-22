@@ -13,13 +13,14 @@ import java.util.List;
 public class TacGiaServiceImpl implements TacGiaService {
     @Autowired
     TacGiaRepository re;
+
     @Override
     public TacGia createTacGia(TacGia tacgia) {
         TacGia tacgiaa = new TacGia();
         tacgiaa.setHoVaTen(tacgia.getHoVaTen());
         tacgiaa.setEmail(tacgia.getEmail());
         tacgiaa.setLinkAnhTacGia(tacgia.getLinkAnhTacGia());
-        tacgiaa.setSDT(tacgia.getSDT());
+        tacgiaa.setSdt(tacgia.getSdt());
         tacgiaa.setTrangThai(tacgia.getTrangThai());
         re.save(tacgiaa);
         return tacgia;
@@ -46,7 +47,7 @@ public class TacGiaServiceImpl implements TacGiaService {
         tacgia1.setHoVaTen(tacGia.getHoVaTen());
         tacgia1.setEmail(tacGia.getEmail());
         tacgia1.setLinkAnhTacGia(tacGia.getLinkAnhTacGia());
-        tacgia1.setSDT(tacGia.getSDT());
+        tacgia1.setSdt(tacGia.getSdt());
         tacgia1.setTrangThai(tacGia.getTrangThai());
         re.save(tacgia1);
         return tacGia;

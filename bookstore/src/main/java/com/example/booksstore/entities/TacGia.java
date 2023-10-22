@@ -16,21 +16,21 @@ public class TacGia {
     @Id
     @Column(name = "idtacgia")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer IdTacGia;
+    private Integer idTacGia;
 
     @Column(name = "email")
-    private String Email;
+    private String email;
 
     @Column(name = "hovaten")
-    private String HoVaTen;
+    private String hoVaTen;
 
     @Column(name = "linkanhtacgia")
-    private String LinkAnhTacGia;
+    private String linkAnhTacGia;
 
     @Column(name = "trangthai")
-    private Integer TrangThai;
+    private Integer trangThai;
 
     @Column(name = "sdt")
-    private String SDT;
+    private String sdt;
 
 }
