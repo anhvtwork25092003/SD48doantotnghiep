@@ -26,56 +26,21 @@
                 <div class="col-4">
                     <!--search for name-->
                     <div class="boxsearchforname">
-                        <nav class="navbar bg-body-tertiary">
-                            <div class="container-fluid">
-                                <form class="d-flex" role="search">
-                                    <h6 style="text-align: center;">Tìm theo tên</h6>
-                                    <br>
-                                    <input class="form-control me-2" type="search" placeholder="Search"
-                                           aria-label="Search"> <br>
-                                    <h6 style="text-align: center;">Tìm theo Mã Sản phẩm</h6><br>
-                                    <input class="form-control me-2" type="search" placeholder="Mã sản phẩm"
-                                           aria-label="SearchByCode"> <br>
-                                    <h6 style="text-align: center;margin-bottom: 10px;">Trạng Thái</h6> <br>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="trong" style="margin-left: 5%;">
-                                                <div class="timtrangthai">
-                                                    <div class="input-field"><input type="radio" name="rating"
-                                                                                    id="rating1"
-                                                                                    value="1">
-                                                        <label for="rating1">Đang kinh doanh</label>
-                                                    </div>
-                                                    <div class="input-field"><input type="radio" name="rating"
-                                                                                    id="rating1"
-                                                                                    value="1">
-                                                        <label for="rating1">Ngừng Kinh doanh</label>
-                                                    </div>
-                                                    <div class="input-field"><input type="radio" name="rating"
-                                                                                    id="rating1"
-                                                                                    value="1">
-                                                        <label for="rating1">Tất cả</label>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <button type="button" class="btn btn-success"
-                                            style="margin-left: 100px;margin-top: 15px;">Tìm
-                                        Kiếm
-                                    </button>
-                                </form>
-                            </div>
-                        </nav>
+                        <form th:action="@{/search}" method="get">
+                            <label for="productName">Tên sản phẩm:</label><br>
+                            <input type="text" id="productName" name="productName" /><br>
+                            <label for="productCode">Mã sản phẩm:</label><br>
+                            <input type="text" id="productCode" name="productCode" /><br>
+                            <label for="productStatus">Trạng thái:</label><br>
+                            <select id="productStatus" name="productStatus">
+                                <option value="">Tất cả</option>
+                                <option value="active">Hoạt động</option>
+                                <option value="inactive">Ngừng hoạt động</option>
+                            </select>
+                            <br>
+                            <button type="submit">Tìm kiếm</button>
+                        </form>
                     </div>
-                    <!-- end search for name-->
-                    <!--search for product code-->
-
-
-                    <!-- end search for name-->
-                    <br>
 
                 </div>
                 <div class="col-8">
@@ -198,12 +163,10 @@
                             <td>
                                 <!-- Sửa -->
                                 <!-- Button to Open the Edit Product Modal -->
-
                                 <button type="button" class="btn btn-outline-info" id="editModalBtn" data-toggle="modal"
                                         data-target="#editModal" style="width: auto;height: auto;">
                                     <img src="/image/anhCuaThanh/edit1.jpg" width="26" height="26">
                                 </button>
-
                                 <!-- Xem -->
                                 <!-- Button to Open the View Product Modal -->
                                 <button type="button" class="btn btn-info" data-toggle="modal"
@@ -255,6 +218,12 @@
                                                  width="88px" height="88px">
                                             <h4 class="product-barcode">Mã Vạch:</h4>
                                             <p id="viewMaVach" th:text="${sach.maVach}"></p>
+                                            <h4 class="viewTacGia">Tác Giả:</h4>
+                                            <select id="tacgia" name="tacGiaList">
+                                                <th:block th:each="tacGia : ${sach.tacgia}">
+                                                    <option th:value="${tacGia.idTacGia}" th:text="${tacGia.hoVaTen}"></option>
+                                                </th:block>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
