@@ -250,5 +250,7 @@ create table DiaChi(
 	XaPhuong nvarchar(30),
 	DiaChiCuthe  nvarchar(30)
 )
-
+-- sua ngay 22 thang 10
+alter table DiaChi
+alter column DiaChiCuthe  nvarchar(50)
 
