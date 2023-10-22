@@ -22,7 +22,7 @@ public class QuanLySachController {
     @GetMapping("/sach/hien-thi")
     public String hienThiTrangTongQuanQuanLy(Model model, @RequestParam(defaultValue = "1") int page ){
 
-        int pageSize = 2; // Đặt kích thước trang mặc định
+        int pageSize = 20; // Đặt kích thước trang mặc định
 
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
 
