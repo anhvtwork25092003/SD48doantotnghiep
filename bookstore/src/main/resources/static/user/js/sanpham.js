@@ -55,7 +55,7 @@
 //     // Append the user's message to the chatbox
 //     chatbox.appendChild(createChatLi(userMessage, "outgoing"));
 //     chatbox.scrollTo(0, chatbox.scrollHeight);
-    
+
 //     setTimeout(() => {
 //         // Display "Thinking..." message while waiting for the response
 //         const incomingChatLi = createChatLi("Thinking...", "incoming");
@@ -94,3 +94,17 @@
 // // closeModalBtn.onclick = function() {
 // //     modal.style.display = "none";
 // // }
+
+function displayImage(input, imageId) {
+    var selectedImage = document.getElementById(imageId);
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            selectedImage.src = e.target.result;
+            selectedImage.style.display = 'block';
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        selectedImage.style.display = 'none';
+    }
+}
