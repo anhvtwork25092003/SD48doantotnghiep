@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +14,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name="theloai")
+@ToString
 public class TheLoai {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +26,6 @@ public class TheLoai {
     private String moTa;
     @Column(name = "trangthai")
     private Integer trangThai;
+
 
 }
