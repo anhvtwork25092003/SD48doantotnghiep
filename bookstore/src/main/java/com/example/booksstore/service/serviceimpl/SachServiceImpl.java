@@ -17,4 +17,9 @@ public class SachServiceImpl implements ISachService {
     public Page<Sach> pageOfSach(Pageable pageable) {
         return iSachRepository.findAll(pageable);
     }
+
+    @Override
+    public Sach save(Sach sach){
+        return iSachRepository.save(sach);
+    }
 }
