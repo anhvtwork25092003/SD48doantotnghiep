@@ -1,61 +1,151 @@
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-   
-   <link rel="stylesheet" href="/bookstore/src/main/resources/static/user/css/son_diachinhanhang.css">
-    <link rel="stylesheet" href="/bookstore/src/main/resources/static/user/css/son_layout.css">
+<!doctype html>
+<!--<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}">-->
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Địa chỉ</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/daichi.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
         integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@500&display=swap" rel="stylesheet">
-</head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <script src="/user/js/DiaChi.js"></script>
 
-<body>
+  </head>
+  <body>
+  <article layout:fragment="noiDung">
     <section  >
-        <article>
             <center><h2>Địa chỉ giao hàng</h3></center>
-            <ul class="list-address">
-                <li>
-                    <input type="radio" name="address"><span>120/68/39 Lê Thoa, KP6, phường Tân Tiến, TP Biên Hòa, tỉnh
-                        Đồng Nai</span><a href="#" id="edit"><i class="fa fa-pencil-alt"></i></a></span><a href="#"
-                        id="edit"><i class="fa fa-trash"></i></a>
-                </li>
-                <li>
-                    <input type="radio" name="address"><span>120/68/39 Lê Thoa, KP6, phường Tân Tiến, TP Biên Hòa, tỉnh
-                        Đồng Nai</span><a href="#" id="edit"><i class="fa fa-pencil-alt"></i></a></span><a href="#"
-                        id="edit"><i class="fa fa-trash"></i></a>
-                </li>
-                <li>
-                    <input type="radio" name="address"><span>120/68/39 Lê Thoa, KP6, phường Tân Tiến, TP Biên Hòa, tỉnh
-                        Đồng Nai</span><a href="#" id="edit"><i class="fa fa-pencil-alt" bac></i></a></span><a href="#"
-                        id="edit"><i class="fa fa-trash"></i></a>
-                </li>
-                <li>
-                    <input type="radio" name="address"><span>120/68/39 Lê Thoa, KP6, phường Tân Tiến, TP Biên Hòa, tỉnh
-                        Đồng Nai</span><a href="#" id="edit"><i class="fa fa-pencil-alt"></i></a></span><a href="#"
-                        id="edit"><i class="fa fa-trash"></i></a>
-                </li>
-                <li>
-                    <input type="radio" name="address"><span>120/68/39 Lê Thoa, KP6, phường Tân Tiến, TP Biên Hòa, tỉnh
-                        Đồng Nai</span><a href="#" id="edit"><i class="fa fa-pencil-alt"></i></a></span><a href="#"
-                        id="edit"><i class="fa fa-trash"></i></a>
-                </li>
+                    <table class="table table-bordered table-hover">
+                        <tbody th:each="diaChi, iterStat : ${pageOfDiaChi}">
+                        <tr>
+                            <td   class="text-left">
+                                <td th:text="${diaChi.idDiaChi}"></td>
+                                <td th:text="${diaChi.tinhThanhPho}"></td>
+                                <td th:text="${diaChi.huyenQuan}"></td>
+                                <td th:text="${diaChi.xaPhuong}"></td>
+                                <td th:text="${diaChi.diaChiCuThe}"></td>
+                            </td>
+                            <td class="text-left">
+                                <button type="button" class="btn btn-outline-info"
+                                data-toggle="modal"
+                                th:attr="data-target='#viewmodalDC-' + ${diaChi.idDiaChi}" style="width: auto;height: auto;">
+                                    <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <div class="modal fade" th:id="'viewmodalDC-' + ${diaChi.idDiaChi}"  tabindex="-1" role="dialog"
+                             aria-labelledby="viewModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="viewModalLabel">
+                                            Sửa địa chỉ
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <!-- start nội dung modal -->
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Id Địa chỉ</label>
+                                            <input type="text" class="form-control" th:value="${diaChi.idDiaChi}" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tỉnh Thành Phố</label>
+                                            <select name="province" id="province" class="form-control" >
+                                                <option th:value="${diaChi.idDiaChi}" th:text="${diaChi.tinhThanhPho}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Quận Huyện</label>
+                                            <select name="" id="district" class="form-control" ></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Xã Phường</label>
+                                            <select name="" id="ward" class="form-control" ></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Địa chỉ cụ thể</label>
+                                            <input type="text" th:value="${diaChi.diaChiCuThe}" class="form-control"  >
+                                        </div>
+                                        <!-- end nội dung modal -->
+                                    </div>
+                                    <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu
+                                    </button>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end button chỉnh sửa địa chỉ -->
+
+                        <button type="button" class="btn btn-outline-info"><i class="fa-solid fa-trash-can"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 <br>
                 <div class="group btn">
-                    <button class="btn-warning" id="addnew">Thêm mới</button>
-                </div>
-            </ul>
-        </article>
-    </section>
-</body>
+                    <!--modal  -->
+                        <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                       Thêm địa chỉ mới
+                        </button>
+                        <!-- Modal -->
 
+                        <!-- nội dung thêm -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Thêm địa chỉ mới</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="province">Tỉnh Thành Phố</label>
+                                    <select name="" id="province" class="form-control" >
+                                    </select >
+                                    <label for="district">Quận Huyện</label>
+                                    <select name="" id="district" class="form-control" >
+                                    </select>
+                                    <label for="ward">Xã Phường</label>
+                                    <select name="" id="ward" class="form-control" >
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Địa Chỉ Cụ Thể</label>
+                                    <input type="" class="form-control" >
+                                </div>
+                               
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="button" class="btn btn-primary">Lưu</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        <!-- end nội dung thêm -->
+                     </div>
+                </div>
+    </section>
+  </article>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
 </html>
-   
-    
+  
