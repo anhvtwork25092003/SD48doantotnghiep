@@ -25,12 +25,12 @@
                     <table class="table table-bordered table-hover">
                         <tbody th:each="diaChi, iterStat : ${pageOfDiaChi}">
                         <tr>
-                            <td   class="text-left">
-                                <td th:text="${diaChi.idDiaChi}"></td>
-                                <td th:text="${diaChi.tinhThanhPho}"></td>
-                                <td th:text="${diaChi.huyenQuan}"></td>
-                                <td th:text="${diaChi.xaPhuong}"></td>
-                                <td th:text="${diaChi.diaChiCuThe}"></td>
+                            <td class="text-left">
+                                <a th:text="${diaChi.idDiaChi}"></a> <br>
+                                <a th:text="${diaChi.tinhThanhPho}"></a> <br>
+                                <a th:text="${diaChi.huyenQuan}"></a> <br>
+                                <a th:text="${diaChi.xaPhuong}"></a> <br>
+                                <a th:text="${diaChi.diaChiCuThe}"></a>
                             </td>
                             <td class="text-left">
                                 <button type="button" class="btn btn-outline-info"
@@ -79,10 +79,9 @@
                                         </div>
                                         <!-- end nội dung modal -->
                                     </div>
-                                    <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu
-                                    </button>
+                                    <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu</button>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                                     </div>
                                 </div>
                             </div>
