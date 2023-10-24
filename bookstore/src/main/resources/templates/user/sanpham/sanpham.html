@@ -24,7 +24,7 @@
         <div class="tong">
             <div class="row">
                 <div class="col-4">
-                    <!--search for name-->
+                    <!--search -->
                     <div class="boxsearchforname">
                         <form th:action="@{/search}" method="get">
                             <label for="productName">Tên sản phẩm:</label><br>
@@ -101,7 +101,8 @@
                                             </div>
                                             <div class="input-field">
                                                 <label for="soLuong">Số Lượng:</label>
-                                                <input type="number" id="soLuongTonKho" name="soLuongTonKho" class="form-control">
+                                                <input type="number" id="soLuongTonKho" name="soLuongTonKho"
+                                                       class="form-control">
                                             </div>
                                             <div class="input-field">
                                                 <label for="giaBan">Giá Bán:</label>
@@ -159,10 +160,6 @@
                         </div>
                         <!--end modal thêm mới-->
 
-                        <!-- button import-->
-                        <button type="button" class="btn btn-success">import</button>
-                        <!--end  button impport-->
-
                         <!-- start button xuaats file-->
                         <button type="button" class="btn btn-success">Xuất File</button>
                         <!--end button xuat file-->
@@ -197,8 +194,8 @@
                             <td>
                                 <!-- Sửa -->
                                 <!-- Button to Open the Edit Product Modal -->
-                                <button type="button" class="btn btn-outline-info" id="editModalBtn" data-toggle="modal"
-                                        data-target="#editModal" style="width: auto;height: auto;">
+                                <button type="button" class="btn btn-info" data-toggle="modal"
+                                        th:attr="data-target='#modalEditSach-' + ${sach.idSach}">
                                     <img src="/image/anhCuaThanh/edit1.jpg" width="26" height="26">
                                 </button>
                                 <!-- Xem -->
@@ -277,15 +274,13 @@
                             </div>
                         </div>
                         <!--end modal for view action-->
-                        </tbody>
-
 
                         <!-- Edit Product Modal -->
-                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                        <div class="modal fade" th:id="'modalEditSach-' + ${sach.idSach}" tabindex="-1" role="dialog"
                              aria-labelledby="editModalLabel"
                              aria-hidden="true">+
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content ">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="editModalLabel">Sửa Sản Phẩm</h5>
                                         <button type="button" class="close" data-dismiss="modal"
@@ -298,51 +293,60 @@
                                         <form id="editProductForm">
                                             <div class="form-group">
                                                 <label for="maSach">Mã Sách:</label>
-                                                <input type="text" id="maSach" class="form-control">
+                                                <input type="text" th:value="${sach.maSach}" id="maSach"
+                                                       class="form-control" readonly>
                                             </div>
                                             <div class="form-group">
                                                 <label for="tenSach">Tên Sách:</label>
-                                                <input type="text" id="tenSach" class="form-control">
+                                                <input type="text" id="tenSach" class="form-control"
+                                                       th:value="${sach.tenSach}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="moTa">Mô tả:</label>
-                                                <textarea id="moTa" class="form-control"></textarea>
+                                                <textarea id="moTa" class="form-control"
+                                                          th:value="${sach.moTa}"></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="trangThai">Trạng Thái:</label>
-                                                <input type="text" id="trangThai" class="form-control">
+                                                <input type="text" id="trangThai" class="form-control"
+                                                       th:value="${sach.trangThai}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="soLuong">Số Lượng:</label>
-                                                <input type="number" id="soLuong" class="form-control">
+                                                <input type="number" id="soLuong" class="form-control"
+                                                       th:value="${sach.soLuongTonKho}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="giaBan">Giá Bán:</label>
-                                                <input type="number" id="giaBan" class="form-control">
+                                                <input type="number" id="giaBan" class="form-control"
+                                                       th:value="${sach.giaBan}">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="linkAnh1">Link ảnh 1:</label>
-                                                <input type="text" id="linkAnh1" class="form-control">
+                                            <div class="input-field">
+                                                <label for="maSach">Thể loại:</label>
+                                                <select multiple="multiple" name="theLoais">
+                                                    <option th:each="listTheLoai : ${listTheLoai}"
+                                                            th:value="${listTheLoai.idTheLoai}"
+                                                            th:text="${listTheLoai.tenTheLoai}"
+                                                            th:selected="${sach.theLoais.contains(listTheLoai)}"
+                                                    ></option>
+                                                </select>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="linkAnh2">Link ảnh 2:</label>
-                                                <input type="text" id="linkAnh2" class="form-control">
+                                            <div class="input-field">
+                                                <label for="maSach">Tác giả:</label>
+                                                <select multiple="multiple" name="tacgia">
+                                                    <option th:each="listTheLoai : ${authors}"
+                                                            th:value="${listTheLoai.idTacGia}"
+                                                            th:text="${listTheLoai.hoVaTen}"
+                                                            th:selected="${sach.tacgia.contains(listTheLoai)}"
+                                                    ></option>
+                                                </select>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="linkAnh3">Link ảnh 3:</label>
-                                                <input type="text" id="linkAnh3" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="linkAnh4">Link ảnh 4:</label>
-                                                <input type="text" id="linkAnh4" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="linkAnh5">Link ảnh 5:</label>
-                                                <input type="text" id="linkAnh5" class "form-control">
-                                            </div>
+
+
                                             <div class="form-group">
                                                 <label for="maVach">Mã Vạch:</label>
-                                                <input type="text" id="maVach" class="form-control">
+                                                <input type="text" id="maVach" class="form-control"
+                                                       th:value="${sach.maVach}">
                                             </div>
                                         </form>
                                     </div>
@@ -357,77 +361,19 @@
                             </div>
                         </div>
                         <!-- end dit modal-->
+                        </tbody>
 
-                        <!--start modal for view action-->
-                        <div class="modal fade" id="viewModal" tabindex="-1" role="dialog"
-                             aria-labelledby="viewModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="viewModalLabel">Thông Tin Sản Phẩm</h5>
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!-- Display Product Details -->
-                                        <div class="product-details">
-                                            <h4 class="product-name">Tên Sách:</h4>
-                                            <p id="viewTenSach"></p>
-                                            <h4 class="product-description">Mô tả:</h4>
-                                            <p id="viewMoTa"></p>
-                                            <h4 class="product-status">Trạng Thái:</h4>
-                                            <p id="viewTrangThai"></p>
-                                            <h4 class="product-quantity">Số Lượng:</h4>
-                                            <p id="viewSoLuong"></p>
-                                            <h4 class="product-price">Giá Bán:</h4>
-                                            <p id="viewGiaBan"></p>
-                                            <h4 class="product-images">Ảnh:</h4>
-                                            <img src="" id="viewLinkAnh1" alt="Link ảnh 1">
-                                            <img src="" id="viewLinkAnh2" alt="Link ảnh 2">
-                                            <img src="" id="viewLinkAnh3" alt="Link ảnh 3">
-                                            <img src="" id="viewLinkAnh4" alt="Link ảnh 4">
-                                            <img src="" id="viewLinkAnh5" alt="Link ảnh 5">
-                                            <h4 class="product-barcode">Mã Vạch:</h4>
-                                            <p id="viewMaVach"></p>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                            Đóng
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end modal for view action-->
+
                     </table>
                     <!-- phân trang-->
-                    <div class="row">
-                        <div class="col-6">
-                            <p style="text-align: center;">Đang có 8 nhân viên</p>
-                        </div>
-                        <div class="col-6">
-                            <div class="phantrang">
-                                <button type="button" class="btn btn-secondary">
-                                    |<<
-                                </button>
-                                <button type="button" class="btn btn-secondary">
-                                    1
-                                </button>
-                                <button type="button" class="btn btn-secondary">
-                                    2
-                                </button>
-                                <button type="button" class="btn btn-secondary">
-                                    3
-                                </button>
-                                <button type="button" class="btn btn-secondary">
-                                    >>|
-                                </button>
-                            </div>
-                        </div>
+                    <div>
+                        <span th:if="${pageOfSach.number + 1 > 1}">
+                            <a th:href="@{'/quan-ly/sach/hien-thi?page=' + ${pageOfSach.number}}">Previous</a>
+                        </span>
+                        <span th:text="${pageOfSach.number + 1} + ' / ' + ${pageOfSach.totalPages}"></span>
+                        <span th:if="${pageOfSach.number + 1 < pageOfSach.totalPages}">
+                            <a th:href="@{'/quan-ly/sach/hien-thi?page=' + ${pageOfSach.number + 2}}">Next</a>
+                        </span>
                     </div>
                     <!--end phân trang-->
 

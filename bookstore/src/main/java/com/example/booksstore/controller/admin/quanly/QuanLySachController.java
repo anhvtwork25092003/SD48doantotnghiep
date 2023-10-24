@@ -75,29 +75,56 @@ public class QuanLySachController {
             @RequestParam("linkAnh5") MultipartFile linkAnh5
     ) {
         try {
-            // xu ly lưu anh
-            // luu anh 1
-            byte[] bytes = linkAnh1.getBytes();
-            Path path = Paths.get(uploadDirectory + linkAnh1.getOriginalFilename());
-            Files.write(path, bytes);
-            // luu anh 2
-            byte[] bytes2 = linkAnh2.getBytes();
-            Path path2 = Paths.get(uploadDirectory + linkAnh2.getOriginalFilename());
-            Files.write(path2, bytes2);
-            //  luu anh 3
-            byte[] bytes3 = linkAnh3.getBytes();
-            Path path3 = Paths.get(uploadDirectory + linkAnh3.getOriginalFilename());
-            Files.write(path3, bytes3);
-            // luu anh 4
-            byte[] bytes4 = linkAnh4.getBytes();
-            Path path4 = Paths.get(uploadDirectory + linkAnh4.getOriginalFilename());
-            Files.write(path4, bytes4);
-            // luu anh 5
-            byte[] bytes5 = linkAnh5.getBytes();
-            Path path5 = Paths.get(uploadDirectory + linkAnh5.getOriginalFilename());
-            Files.write(path5, bytes5);
-            // xu ly lưu sách
+
             String duongDanCotDinh = "/image/anhsanpham/";
+            String duongDanLuuAnh1 = duongDanCotDinh + linkAnh1.getOriginalFilename();
+            String duongDanLuuAnh2 = duongDanCotDinh + linkAnh2.getOriginalFilename();
+            String duongDanLuuAnh3 = duongDanCotDinh + linkAnh3.getOriginalFilename();
+            String duongDanLuuAnh4 = duongDanCotDinh + linkAnh4.getOriginalFilename();
+            String duongDanLuuAnh5 = duongDanCotDinh + linkAnh5.getOriginalFilename();
+            if (linkAnh1.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnh1 = "";
+            } else {
+                byte[] bytes = linkAnh1.getBytes();
+                Path path = Paths.get(uploadDirectory + linkAnh1.getOriginalFilename());
+                Files.write(path, bytes);
+            }
+            if (linkAnh2.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnh2 = "";
+            } else {
+                byte[] bytes2 = linkAnh2.getBytes();
+                Path path2 = Paths.get(uploadDirectory + linkAnh2.getOriginalFilename());
+                Files.write(path2, bytes2);
+            }
+            if (linkAnh3.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnh3 = "";
+            } else {
+                byte[] bytes3 = linkAnh3.getBytes();
+                Path path3 = Paths.get(uploadDirectory + linkAnh3.getOriginalFilename());
+                Files.write(path3, bytes3);
+            }
+            if (linkAnh4.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnh4 = "";
+            } else {
+                // luu anh 4
+                byte[] bytes4 = linkAnh4.getBytes();
+                Path path4 = Paths.get(uploadDirectory + linkAnh4.getOriginalFilename());
+                Files.write(path4, bytes4);
+            }
+            if (linkAnh5.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnh5 = "";
+            } else {
+                byte[] bytes5 = linkAnh5.getBytes();
+                Path path5 = Paths.get(uploadDirectory + linkAnh5.getOriginalFilename());
+                Files.write(path5, bytes5);
+            }
+
+            // xu ly lưu sách
             BigDecimal giaBanOke = new BigDecimal(giaBan);
             Sach sach = Sach.builder()
                     .tenSach(tenSach)
@@ -108,13 +135,12 @@ public class QuanLySachController {
                     .soLuongTonKho(Integer.parseInt(soLuongTonKho))
                     .giaBan(giaBanOke)
                     .maVach(maVach)
-                    .linkAnh1(duongDanCotDinh + linkAnh1.getOriginalFilename())
-                    .linkAnh2(duongDanCotDinh + linkAnh2.getOriginalFilename())
-                    .linkAnh3(duongDanCotDinh + linkAnh3.getOriginalFilename())
-                    .linkAnh4(duongDanCotDinh + linkAnh4.getOriginalFilename())
-                    .linkAnh5(duongDanCotDinh + linkAnh5.getOriginalFilename())
+                    .linkAnh1(duongDanLuuAnh1)
+                    .linkAnh2(duongDanLuuAnh2)
+                    .linkAnh3(duongDanLuuAnh3)
+                    .linkAnh4(duongDanLuuAnh4)
+                    .linkAnh5(duongDanLuuAnh5)
                     .build();
-
             this.iSachService.save(sach);
             System.out.println(duongDanCotDinh + linkAnh1.getOriginalFilename());
         } catch (Exception e) {

@@ -107,4 +107,26 @@ function displayImage(input, imageId) {
     } else {
         selectedImage.style.display = 'none';
     }
+
+    <!-- Đoạn mã JavaScript -->
+
+    function changeImage(index) {
+        // Lấy đối tượng input file
+        var fileInput = document.getElementById('imageInput' + index);
+
+        // Lấy đối tượng ảnh hiện tại
+        var image = document.getElementById('sachImage' + index);
+
+        // Đảm bảo người dùng đã chọn file
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                // Thay đổi đường dẫn ảnh và hiển thị ảnh mới
+                image.src = e.target.result;
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+
+
 }
