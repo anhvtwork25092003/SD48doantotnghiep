@@ -99,17 +99,19 @@
                         <th>Giới tính</th>
                         <th>Email</th>
                         <th>Số Điện Thoại</th>
+                        <th>Loại Khách Hàng</th>
                         <th>Trạng thái</th>
                         <th>Hành Động</th>
                     </tr>
                     </thead>
-                    <tbody th:each="khachhang, iterStat : ${pageOfKhachHang}">
+                    <tbody th:each="khachhang, iterStat : ${pageOfKhachHang.content}">
                     <tr>
                         <td th:text="${khachhang.maKhachHang}"></td>
                         <td th:text="${khachhang.hoVaTen}"></td>
                         <td th:text="${khachhang.gioiTinh == 1 ? 'Nam': 'Nữ'}"></td>
                         <td th:text="${khachhang.email}"></td>
                         <td th:text="${khachhang.sdt}"></td>
+                        <td th:text="${khachhang.loaiKhachHang}"></td>
                         <td th:text="${khachhang.trangThai == 0 ? 'Hoạt Động' : 'Không hoạt động'}"></td>
                         <td>
                             <!-- start sửa danh sách khách hàng -->
@@ -201,8 +203,24 @@
                                                 <input type="text" class="form-control" th:value="${khachhang.gioiTinh == 1 ? 'Nam': 'Nữ'}" disabled>
                                             </div>
                                             <div class="form-group">
+                                                <label>Loại Khách Hàng</label>
+                                                <input type="text" class="form-control" th:value="${khachhang.loaiKhachHang}" disabled>
+                                            </div>
+
+<!--                                            <div class="form-group">-->
+<!--                                                <label>Địa chỉ cụ thể</label>-->
+<!--&lt;!&ndash;                                                <input type="text" class="form-control" th:block="${khachhang.ngayTaoTaiKhoan}" disabled>&ndash;&gt;-->
+<!--                                                <select id="diaChi" name="listDiaChi" class="form-control">-->
+<!--                                                    <th:block th:each="diaChi : ${khachhang.diachi}">-->
+<!--                                                        <option th:value="${diaChi.idDiaChi}"-->
+<!--                                                                th:text="${diaChi.diaChiCuThe}"></option>-->
+<!--                                                    </th:block>-->
+<!--                                                </select>-->
+<!--                                            </div>-->
+
+                                            <div class="form-group">
                                                 <label>Ngày Tạo Tài Khoản</label>
-                                                <input type="datetime-local" class="form-control" th:value="${khachhang.ngayTaoTaiKhoan}" disabled>
+                                                <input type="datetime" class="form-control" th:value="${khachhang.ngayTaoTaiKhoan}" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <label>Trạng Thái</label>
@@ -222,6 +240,15 @@
                     </tbody>
                 </table>
 <!--phân trang-->
+                <div>
+                    <span th:if="${pageOfKhachHang.number + 1 > 1}">
+                        <a th:href="@{'/quan-ly/khach-hang/hien-thi?page=' + ${pageOfKhachHang.number}}">Previous</a>
+                    </span>
+                    <span th:text="${pageOfKhachHang.number + 1} + '/' + ${pageOfKhachHang.totalPages}"></span>
+                    <span th:if="${pageOfKhachHang.number + 1 < pageOfKhachHang.totalPages}">
+                        <a th:href="@{'/quan-ly/khach-hang/hien-thi?page=' + ${pageOfKhachHang.number + 2}}">Next</a>
+                    </span>
+                </div>
 
                 <!-- end phân trang-->
 

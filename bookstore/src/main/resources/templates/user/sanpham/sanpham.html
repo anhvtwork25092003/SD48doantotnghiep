@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sản Phẩm </title>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
     <link rel="stylesheet"
@@ -225,7 +225,7 @@
                                         <!-- Display Product Details -->
                                         <div class="product-details">
                                             <h4 class="product-name">Mã Sách:</h4>
-                                            <p id="viewTenSach" th:text="${sach.maSach}"></p>
+                                            <p id="viewMaSach" th:text="${sach.maSach}"></p>
                                             <h4 class="product-name">Tên Sách:</h4>
                                             <p id="viewTenSach" th:text="${sach.tenSach}"></p>
                                             <h4 class="product-description">Mô tả:</h4>
@@ -250,14 +250,14 @@
                                             <h4 class="product-barcode">Mã Vạch:</h4>
                                             <p id="viewMaVach" th:text="${sach.maVach}"></p>
                                             <h4 class="viewTacGia">Tác Giả:</h4>
-                                            <select id="tacgia" name="tacGiaList">
+                                            <select id="tacgia" name="tacGiaList" class="form-control">
                                                 <th:block th:each="tacGia : ${sach.tacgia}">
                                                     <option th:value="${tacGia.idTacGia}"
                                                             th:text="${tacGia.hoVaTen}"></option>
                                                 </th:block>
                                             </select>
                                             <h4 class="viewTacGia">Thể Loại:</h4>
-                                            <select id="theLoaiView" name="theLoaiList">
+                                            <select id="theLoaiView" name="theLoaiList" class="form-control">
                                                 <th:block th:each="theLoai : ${sach.theLoais}">
                                                     <option th:value="${theLoai.idTheLoai}"
                                                             th:text="${theLoai.tenTheLoai}"></option>
@@ -266,7 +266,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" >
                                             Đóng
                                         </button>
                                     </div>
@@ -289,7 +289,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <!-- Form for Editing Product Details -->
+                                        <!-- Form for Edetaiiting Product Dls -->
                                         <form id="editProductForm">
                                             <div class="form-group">
                                                 <label for="maSach">Mã Sách:</label>
@@ -321,9 +321,10 @@
                                                 <input type="number" id="giaBan" class="form-control"
                                                        th:value="${sach.giaBan}">
                                             </div>
+
                                             <div class="input-field">
                                                 <label for="maSach">Thể loại:</label>
-                                                <select multiple="multiple" name="theLoais">
+                                                <select multiple="multiple" name="theLoais" class="form-control">
                                                     <option th:each="listTheLoai : ${listTheLoai}"
                                                             th:value="${listTheLoai.idTheLoai}"
                                                             th:text="${listTheLoai.tenTheLoai}"
@@ -333,7 +334,7 @@
                                             </div>
                                             <div class="input-field">
                                                 <label for="maSach">Tác giả:</label>
-                                                <select multiple="multiple" name="tacgia">
+                                                <select multiple="multiple" name="tacgia" class="form-control">
                                                     <option th:each="listTheLoai : ${authors}"
                                                             th:value="${listTheLoai.idTacGia}"
                                                             th:text="${listTheLoai.hoVaTen}"
@@ -341,8 +342,26 @@
                                                     ></option>
                                                 </select>
                                             </div>
+                                            <div class="product-images">
+                                                <h4>Ảnh:</h4>
+<!--                                                <button class="delete-button" >Xóa</button>-->
+                                                <input type="file" id="editlinkAnh1" name="editlinkAnh1" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh1')" />
+                                                <img th:src="@{|${sach.linkAnh1}|}" id="editviewLinkAnh1" alt="anh 1" width="88px" height="88px">
+                                                <br>
+                                                <input type="file" id="editlinkAnh2" name="editlinkAnh2" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh2')" />
+                                                <img th:src="@{|${sach.linkAnh2}|}" id="editviewLinkAnh2" alt="anh 2" width="88px" height="88px">
+                                                <br>
+                                                <input type="file" id="editlinkAnh3" name="editlinkAnh3" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh3')" />
+                                                <img th:src="@{|${sach.linkAnh3}|}" id="editviewLinkAnh3" alt="anh 3" width="88px" height="88px">
+                                                <br>
+                                                <input type="file" id="editlinkAnh4" name="editlinkAnh4" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh4')" />
+                                                <img th:src="@{|${sach.linkAnh4}|}" id="editviewLinkAnh4" alt="anh 4" width="88px" height="88px">
+                                                <br>
+                                                <input type="file" id="editlinkAnh5" name="editlinkAnh5" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh5')" />
+                                                <img th:src="@{|${sach.linkAnh5}|}" id="editviewLinkAnh5" alt="anh 5" width="88px" height="88px">
 
-
+<!--                                                vẫn bị config với các button chỉnh sửa-->
+                                            </div>
                                             <div class="form-group">
                                                 <label for="maVach">Mã Vạch:</label>
                                                 <input type="text" id="maVach" class="form-control"

@@ -1,6 +1,7 @@
 package com.example.booksstore.controller.admin.quanly;
 
 import com.example.booksstore.entities.KhachHang;
+import com.example.booksstore.service.IDiaChiService;
 import com.example.booksstore.service.IKhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,9 @@ public class QuanLyKhachHangController {
     @Autowired
     IKhachHangService iKhachHangService;
 
+    @Autowired
+    IDiaChiService iDiaChiService;
+
     @GetMapping("/khach-hang/hien-thi")
     public String hienThiTrangQuanLyKhachHang(Model model, @RequestParam(defaultValue = "1") int page){
         int pageSize = 2; //Đặt kích thước trang
@@ -27,6 +31,7 @@ public class QuanLyKhachHangController {
 
         Page<KhachHang> pageOfKhachHang = iKhachHangService.pageOfKhachHang(pageable);
         model.addAttribute("pageOfKhachHang", pageOfKhachHang);
+        model.addAttribute("listDiaChi", iDiaChiService.finAll(pageable));
         return "admin/quanly/KhachHang";
     }
 

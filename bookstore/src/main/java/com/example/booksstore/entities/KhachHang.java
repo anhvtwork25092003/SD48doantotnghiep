@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
 
 import java.sql.Date;
 
@@ -22,7 +23,7 @@ public class KhachHang {
 
     @Column(name = "idgiohang")
     private Integer idGioHang;
-
+    @Generated
     @Column(name = "makhachhang")
     private String maKhachHang;
 
@@ -52,5 +53,6 @@ public class KhachHang {
 
     @Column(name = "ngaytaotaikhoan")
     private Date ngayTaoTaiKhoan;
+
 }
 
