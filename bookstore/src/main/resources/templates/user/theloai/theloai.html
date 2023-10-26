@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}">
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,285 +15,291 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
 </head>
 <body>
-<div class="container">
-    <div class="tong">
-        <div class="row">
-            <div class="col-4">
-                <div class="boxsearch">
-                    <h6 style="text-align: center;">Tìm theo Tên</h6>
-                    <div class="search">
-                        <input class="form-control" type="search" placeholder="Search">
-                    </div>
-                </div>
-                <br>
-                <br>
-                <div class="boxtrang">
-                    <h4 style="text-align: center;margin-bottom: 10px;">Trạng Thái</h4>
-                    <div class="row">
-                        <div class="col-2,5">
-                            <div class="trong" style="margin-left: 40px;">
-                                <input
-                                        type="radio"
-                                        name="address"
-                                >
-                                <br>
-                                <input
-                                        type="radio"
-                                        name="address"
-                                >
-                                <br>
-                                <input
-                                        type="radio"
-                                        name="address"
-                                >
-                            </div>
+<article layout:fragment="noiDung">
+    <div class="container">
+        <div class="tong">
+            <div class="row">
+                <div class="col-4">
+                    <div class="boxsearch">
+                        <h6 style="text-align: center;">Tìm theo Tên</h6>
+                        <div class="search">
+                            <input class="form-control" type="search" placeholder="Search">
                         </div>
-                        <div class="col-7">
-                            <div class="hhhh" style="margin-right: 15px">
-                                <h6>Đang Hoạt Động</h6>
-                                <h6>Chưa Hoạt Động</h6>
-                                <h6>Tât cả</h6>
-                            </div>
-                        </div>
-
                     </div>
-                </div>
-
-                <button type="button" class="btn btn-success" style="margin-left: 100px;margin-top: 15px;">Tìm Kiếm
-                </button>
-            </div>
-            <div class="col-8">
-                <div class="box">
-                    <table class="table" style=" border: 0px solid blue;">
-                        <thead class="table-dark">
-                        <h4 style="text-align: left;">Danh Sách Thể Loại</h4>
-                        <div class="buttont-heloai">
-                            <!-- <button type="button" class="btn btn-success">Thêm Mới</button>
-                            <button type="button" class="btn btn-success">Xuất File</button>
-                          </div>  -->
-                            <button type="button" for="modalTrang1" class="btn btn-success" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop">
-                                Thêm mới
-                            </button>
-                            <button type="button" for="modalTrang1" class="btn btn-success" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop">
-                                Xuất File
-                            </button>
-                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Thêm Mới Thể Loại</h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal"
-                                                    aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="line-item">
-                                                <label>Mã Tác giả</label>
-                                                <input class="form-control" type="text">
-                                            </div>
-                                            <div class="line-item">
-                                                <label>Tên Tác giả</label>
-                                                <input class="form-control" type="text">
-                                            </div>
-                                            <div class="line-item">
-                                                <label>Số Điện Thoại</label>
-                                                <input class="form-control" type="text">
-                                            </div>
-                                            <div class="line-item">
-                                                <label>Email</label>
-                                                <input class="form-control" type="text">
-                                            </div>
-                                            <div class="line-item">
-                                                <label>Trạng Thái</label>
-                                                <input class="form-control" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Close
-                                            </button>
-                                            <button type="button" class="btn btn-primary">Thêm</button>
-                                        </div>
-                                    </div>
+                    <br>
+                    <br>
+                    <div class="boxtrang">
+                        <h4 style="text-align: center;margin-bottom: 10px;">Trạng Thái</h4>
+                        <div class="row">
+                            <div class="col-2,5">
+                                <div class="trong" style="margin-left: 40px;">
+                                    <input
+                                            type="radio"
+                                            name="address"
+                                    >
+                                    <br>
+                                    <input
+                                            type="radio"
+                                            name="address"
+                                    >
+                                    <br>
+                                    <input
+                                            type="radio"
+                                            name="address"
+                                    >
                                 </div>
-                                </di>
                             </div>
-                        </div>
-
-                        <tr>
-                            <th scope="col">Id Thể Loại</th>
-                            <th scope="col">Tên Thể Loại</th>
-                            <th scope="col">Mô Tả</th>
-                            <th scope="col">Trạng Thái</th>
-                            <th colspan="2">Hành Động</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <th:block th:each="theloai :${data}">
-                            <tr>
-                                <th>[[${theloai.idTheLoai}]]</th>
-                                <td>[[${theloai.tenTheLoai}]]</td>
-                                <td>[[${theloai.moTa}]]</td>
-                                <td>[[${theloai.trangThai}]]</td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-info" id="editModalBtn"
-                                            data-toggle="modal"
-                                            data-target="#editModal" style="width: auto;height: auto;">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </button>
-                                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-                                         aria-labelledby="editModalLabel"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="editModalLabel">Sửa Thể Loại</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Form for Editing Product Details -->
-                                                    <div class="form-group">
-                                                        <label for="idTheLoai">ID Thể Loại:</label>
-                                                        <input type="text" id="idTheloai" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="tenTheLoai">Tên Thể Loại:</label>
-                                                        <input type="text" id="tenTheLoai" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="moTa">Mô Tả:</label>
-                                                        <input id="text" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="trangThai">Trạng Thái:</label>
-                                                        <input type="text" id="trangThai" class="form-control">
-                                                    </div>
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Đóng
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-info" id="ditModalBtn"
-                                            data-toggle="modal"
-                                            data-target="#ditModal" style="width: auto;height: auto;">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
-                                    <div class="modal fade" id="ditModal" tabindex="-1" role="dialog"
-                                         aria-labelledby="ditModalLabel"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="ditModalLabel">Chi Tiết Thể Loại</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Form for Editing Product Details -->
-                                                    <div class="form-group">
-                                                        <label for="idTheLoai">ID Thể Loại:</label>
-                                                        <input type="text" id="idTheloai" class="form-control" disabled>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="tenTheLoai">Tên Thể Loại:</label>
-                                                        <input type="text" id="tenTheLoai" class="form-control"
-                                                               disabled>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="moTa">Mô Tả:</label>
-                                                        <input id="text" class="form-control" disabled>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="trangThai">Trạng Thái:</label>
-                                                        <input type="text" id="trangThai" class="form-control" disabled>
-                                                    </div>
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Đóng
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </th:block>
-                        </tbody>
-
-                    </table>
-                    <div class="row">
-                        <div class="col-6">
-                            <p style="text-align: center;">Đang có 8 nhân viên</p>
-                        </div>
-                        <div class="col-6">
-                            <div class="phantrang">
-                                <button type="button" class="btn btn-secondary">
-                                    |<<
-                                </button>
-                                <button type="button" class="btn btn-secondary">
-                                    1
-                                </button>
-                                <button type="button" class="btn btn-secondary">
-                                    2
-                                </button>
-                                <button type="button" class="btn btn-secondary">
-                                    3
-                                </button>
-                                <button type="button" class="btn btn-secondary">
-                                    >>|
-                                </button>
+                            <div class="col-7">
+                                <div class="hhhh" style="margin-right: 15px">
+                                    <h6>Đang Hoạt Động</h6>
+                                    <h6>Chưa Hoạt Động</h6>
+                                    <h6>Tât cả</h6>
+                                </div>
                             </div>
+
                         </div>
                     </div>
 
+                    <button type="button" class="btn btn-success" style="margin-left: 100px;margin-top: 15px;">Tìm Kiếm
+                    </button>
+                </div>
+                <div class="col-8">
+                    <div class="box">
+                        <table class="table" style=" border: 0px solid blue;">
+                            <thead class="table-dark">
+                            <h4 style="text-align: left;">Danh Sách Thể Loại</h4>
+                            <div class="buttont-heloai">
+                                <!-- <button type="button" class="btn btn-success">Thêm Mới</button>
+                                <button type="button" class="btn btn-success">Xuất File</button>
+                              </div>  -->
+                                <button type="button" for="modalTrang1" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop">
+                                    Thêm mới
+                                </button>
+                                <button type="button" for="modalTrang1" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop">
+                                    Xuất File
+                                </button>
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Thêm Mới Thể Loại</h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="line-item">
+                                                    <label>ID Thể Loại</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                                <div class="line-item">
+                                                    <label>Tên Thể Loại</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                                <div class="line-item">
+                                                    <label>Mô Tả</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                                <div class="line-item">
+                                                    <label>Trạng Thái</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary">Thêm</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </di>
+                                </div>
+                            </div>
+
+                            <tr>
+                                <th scope="col">Id Thể Loại</th>
+                                <th scope="col">Tên Thể Loại</th>
+                                <th scope="col">Mô Tả</th>
+                                <th scope="col">Trạng Thái</th>
+                                <th colspan="2">Hành Động</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="theloai :${data}">
+                                <tr>
+                                    <th>[[${theloai.idTheLoai}]]</th>
+                                    <td>[[${theloai.tenTheLoai}]]</td>
+                                    <td>[[${theloai.moTa}]]</td>
+                                    <td>[[${theloai.trangThai == 0 ? 'Hoạt Động' : 'Không Hoạt Động'}]]</td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-info" id="editModalBtn"
+                                                data-toggle="modal"
+                                                data-target="#editModal" style="width: auto;height: auto;">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                                             aria-labelledby="editModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editModalLabel">Sửa Thể Loại</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- Form for Editing Product Details -->
+                                                        <div class="form-group">
+                                                            <label for="idTheLoai">ID Thể Loại:</label>
+                                                            <input type="text" id="idTheloai" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tenTheLoai">Tên Thể Loại:</label>
+                                                            <input type="text" id="tenTheLoai" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="moTa">Mô Tả:</label>
+                                                            <input id="text" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="trangThai">Trạng Thái:</label>
+                                                            <input type="text" id="trangThai" class="form-control">
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Đóng
+                                                        </button>
+                                                        <button type="button" class="btn btn-primary" id="saveEditBtn">
+                                                            Lưu
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-info" id="ditModalBtn"
+                                                data-toggle="modal"
+                                                th:attr="data-target='#ditModal'+${theloai.idTheLoai}"
+                                                style="width: auto;height: auto;">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <div class="modal fade" th:id="'ditModal'+${theloai.idTheLoai}" tabindex="-1"
+                                             role="dialog"
+                                             aria-labelledby="ditModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="ditModalLabel">Chi Tiết Thể
+                                                            Loại</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- Form for Editing Product Details -->
+                                                        <div class="form-group">
+                                                            <label for="idTheLoai">ID Thể Loại:</label>
+                                                            <input type="text" class="form-control"
+                                                                   th:value="${theloai.idTheLoai}" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tenTheLoai">Tên Thể Loại:</label>
+                                                            <input type="text" class="form-control"
+                                                                   th:value="${theloai.tenTheLoai}" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="moTa">Mô Tả:</label>
+                                                            <input type="text" class="form-control"
+                                                                   th:value="${theloai.moTa}" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="trangThai">Trạng Thái:</label>
+                                                            <input type="text" class="form-control"
+                                                                   th:value="${theloai.trangThai==0?'Hoạt Động':'Không Hoạt Đông'}"
+                                                                   disabled>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Đóng
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+
+                        </table>
+                        <div class="row">
+                            <div class="col-6">
+                                <p style="text-align: center;">Đang có 8 nhân viên</p>
+                            </div>
+                            <div class="col-6">
+                                <div class="phantrang">
+                                    <button type="button" class="btn btn-secondary">
+                                        |<<
+                                    </button>
+                                    <button type="button" class="btn btn-secondary">
+                                        1
+                                    </button>
+                                    <button type="button" class="btn btn-secondary">
+                                        2
+                                    </button>
+                                    <button type="button" class="btn btn-secondary">
+                                        3
+                                    </button>
+                                    <button type="button" class="btn btn-secondary">
+                                        >>|
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
 
                 </div>
 
             </div>
-
         </div>
+
     </div>
 
-</div>
 
-
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-<script src="/user/js/theloai.js"></script>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-<link rel='stylesheet' href='https://unpkg.com/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css'>
-<link rel="stylesheet" href="/user/css/theloai.css">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="/user/js/theloai.js"></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='https://unpkg.com/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css'>
+    <link rel="stylesheet" href="/user/css/theloai.css">
+</article>
 </body>
 </html>
