@@ -14,13 +14,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -183,4 +183,22 @@ public class QuanLySachController {
         return "redirect:/anhtest";
     }
 
+    @PostMapping("/sach-sua")
+    public String sachSua(@RequestParam("editlinkAnh1") MultipartFile fileAnh ){
+        String ketqua = null;
+        System.out.println("dấdnáiđá");
+
+        if(!fileAnh.isEmpty()){
+            System.out.println("aaaa");
+            ketqua = "file ảnh trống";
+            System.out.println("file ảnh trống");
+        }else{
+            System.out.println("sssss");
+
+            ketqua = fileAnh.getOriginalFilename();
+            System.out.println(fileAnh.getOriginalFilename());
+        }
+        return ketqua;
+    }
 }
+

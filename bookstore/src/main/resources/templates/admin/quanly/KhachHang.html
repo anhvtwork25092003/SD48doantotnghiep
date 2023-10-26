@@ -91,6 +91,7 @@
                 </div>
 
                 <!-- start table khách hàng -->
+                <th:block th:if="${not pageOfKhachHang.isEmpty()}">
                 <table class="table" style=" border: 0px solid blue;">
                     <thead class="table-dark">
                     <tr>
@@ -239,17 +240,21 @@
                     </tr>
                     </tbody>
                 </table>
+                <th:block th:if="${pageOfKhachHang.isEmpty()}">
+                    <h2>Không có dữ liệu nào cả!!!</h2>
+                </th:block>
+                    <h6 style="color: red;"><b><i>Đang có <span th:text="${pageOfKhachHang.totalElements}"></span> khách hàng!</i> </b></h6>
 <!--phân trang-->
                 <div>
                     <span th:if="${pageOfKhachHang.number + 1 > 1}">
-                        <a th:href="@{'/quan-ly/khach-hang/hien-thi?page=' + ${pageOfKhachHang.number}}">Previous</a>
+                        <a class="btn btn-primary" th:href="@{'/quan-ly/khach-hang/hien-thi?page=' + ${pageOfKhachHang.number}}">Previous</a>
                     </span>
-                    <span th:text="${pageOfKhachHang.number + 1} + '/' + ${pageOfKhachHang.totalPages}"></span>
+                    <span class="btn btn-danger" th:text="${pageOfKhachHang.number + 1} + '/' + ${pageOfKhachHang.totalPages}"></span>
                     <span th:if="${pageOfKhachHang.number + 1 < pageOfKhachHang.totalPages}">
-                        <a th:href="@{'/quan-ly/khach-hang/hien-thi?page=' + ${pageOfKhachHang.number + 2}}">Next</a>
+                        <a class="btn btn-primary" th:href="@{'/quan-ly/khach-hang/hien-thi?page=' + ${pageOfKhachHang.number + 2}}">Next</a>
                     </span>
                 </div>
-
+                </th:block>
                 <!-- end phân trang-->
 
                 <!-- end table khách hàng -->

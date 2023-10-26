@@ -290,7 +290,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <!-- Form for Edetaiiting Product Dls -->
-                                        <form id="editProductForm">
+                                        <form th:action="@{/quan-ly/sach-sua}" method="post"  th:object="${sach2}" id="editProductForm">
                                             <div class="form-group">
                                                 <label for="maSach">Mã Sách:</label>
                                                 <input type="text" th:value="${sach.maSach}" id="maSach"
@@ -345,34 +345,45 @@
                                             <div class="product-images">
                                                 <h4>Ảnh:</h4>
 <!--                                                <button class="delete-button" >Xóa</button>-->
-                                                <input type="file" id="editlinkAnh1" name="editlinkAnh1" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh1')" />
-                                                <img th:src="@{|${sach.linkAnh1}|}" id="editviewLinkAnh1" alt="anh 1" width="88px" height="88px">
-                                                <br>
-                                                <input type="file" id="editlinkAnh2" name="editlinkAnh2" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh2')" />
-                                                <img th:src="@{|${sach.linkAnh2}|}" id="editviewLinkAnh2" alt="anh 2" width="88px" height="88px">
-                                                <br>
-                                                <input type="file" id="editlinkAnh3" name="editlinkAnh3" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh3')" />
-                                                <img th:src="@{|${sach.linkAnh3}|}" id="editviewLinkAnh3" alt="anh 3" width="88px" height="88px">
-                                                <br>
-                                                <input type="file" id="editlinkAnh4" name="editlinkAnh4" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh4')" />
-                                                <img th:src="@{|${sach.linkAnh4}|}" id="editviewLinkAnh4" alt="anh 4" width="88px" height="88px">
-                                                <br>
-                                                <input type="file" id="editlinkAnh5" name="editlinkAnh5" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh5')" />
-                                                <img th:src="@{|${sach.linkAnh5}|}" id="editviewLinkAnh5" alt="anh 5" width="88px" height="88px">
+<!--                                                <input type="file" id="editlinkAnh1" name="editlinkAnh1" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh1')" />-->
+<!--                                                <img th:src="@{|${sach.linkAnh1}|}" id="editviewLinkAnh1" alt="anh 1" width="88px" height="88px">-->
+<!--                                                <br>-->
+<!--                                                <input type="file" id="editlinkAnh2" name="editlinkAnh2" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh2')" />-->
+<!--                                                <img th:src="@{|${sach.linkAnh2}|}" id="editviewLinkAnh2" alt="anh 2" width="88px" height="88px">-->
+<!--                                                <br>-->
+<!--                                                <input type="file" id="editlinkAnh3" name="editlinkAnh3" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh3')" />-->
+<!--                                                <img th:src="@{|${sach.linkAnh3}|}" id="editviewLinkAnh3" alt="anh 3" width="88px" height="88px">-->
+<!--                                                <br>-->
+<!--                                                <input type="file" id="editlinkAnh4" name="editlinkAnh4" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh4')" />-->
+<!--                                                <img th:src="@{|${sach.linkAnh4}|}" id="editviewLinkAnh4" alt="anh 4" width="88px" height="88px">-->
+<!--                                                <br>-->
+<!--                                                <input type="file" id="editlinkAnh5" name="editlinkAnh5" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh5')" />-->
+<!--                                                <img th:src="@{|${sach.linkAnh5}|}" id="editviewLinkAnh5" alt="anh 5" width="88px" height="88px">-->
+                                                <div class="image-container">
+                                                    <label for="editlinkAnh1">
+                                                        <img th:src="@{|${sach.linkAnh1}|}" id="editviewLinkAnh1" alt="anh 1" width="88px" height="88px">
+                                                    </label>
+                                                    <input type="file" class="custom-file-input" id="editlinkAnh1" name="editlinkAnh1" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh1')" />
+                                                    <button id="deleteButton1" class="delete-button" onclick="deleteImage('editviewLinkAnh1', 'editlinkAnh1', event)">Xóa Ảnh</button>
+                                                </div>
 
-<!--                                                vẫn bị config với các button chỉnh sửa-->
+
+
+
+                                                <!--                                                vẫn bị config với các button chỉnh sửa-->
                                             </div>
                                             <div class="form-group">
                                                 <label for="maVach">Mã Vạch:</label>
                                                 <input type="text" id="maVach" class="form-control"
                                                        th:value="${sach.maVach}">
                                             </div>
+                                            <button type="submit" class="btn btn-secondary" data-dismiss="modal">
+                                                Lưu 2
+                                            </button>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                            Đóng
-                                        </button>
+
                                         <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu
                                         </button>
                                     </div>
