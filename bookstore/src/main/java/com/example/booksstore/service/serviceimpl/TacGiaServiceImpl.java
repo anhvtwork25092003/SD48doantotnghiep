@@ -4,6 +4,8 @@ import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.repository.TacGiaRepository;
 import com.example.booksstore.service.TacGiaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,11 @@ import java.util.List;
 public class TacGiaServiceImpl implements TacGiaService {
     @Autowired
     TacGiaRepository re;
+
+    @Override
+    public Page<TacGia> pageOfTacGia(Pageable pageable) {
+        return re.findAll(pageable);
+    }
 
     @Override
     public TacGia createTacGia(TacGia tacgia) {
