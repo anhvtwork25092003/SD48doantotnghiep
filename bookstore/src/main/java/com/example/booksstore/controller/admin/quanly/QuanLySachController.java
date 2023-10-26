@@ -14,17 +14,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -43,19 +44,33 @@ public class QuanLySachController {
     private String uploadDirectory;
 
     @GetMapping("/sach/hien-thi")
-    public String hienThiTrangTongQuanQuanLy(Model model, @RequestParam(defaultValue = "1") int page) {
+    public String hienThiTrangTongQuanQuanLy(Model model, @RequestParam(defaultValue = "1") int page,
+                                             @RequestParam(required = false) String productNameSearch,
+                                             @RequestParam(required = false) String productCodeSearch,
+                                             @RequestParam(required = false) String productStatusSearch,
+                                             @RequestParam(required = false) String priceRangeSearch,
+                                             @RequestParam(required = false) List<TheLoai> categorySearch
+    ) {
 
         int pageSize = 3; // Đặt kích thước trang mặc định
 
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
 
         Page<Sach> pageOfSach = iSachService.pageOfSach(pageable);
-
+        if (categorySearch != null) {
+            for (TheLoai theLoai : categorySearch) {
+                System.out.println(theLoai);
+            }
+        }
+        if(productNameSearch != null) {
+            System.out.println(productNameSearch);
+        }
         model.addAttribute("pageOfSach", pageOfSach);
         model.addAttribute("authors", tacGiaService.findAllTacGia());
         model.addAttribute("listTheLoai", iTheLoaiService.fillAll());
         return "user/sanpham/sanpham";
     }
+
 
     @Transactional
     @PostMapping("/sach/them-moi")
@@ -184,21 +199,20 @@ public class QuanLySachController {
     }
 
     @PostMapping("/sach-sua")
-    public String sachSua(@RequestParam("editlinkAnh1") MultipartFile fileAnh ){
-        String ketqua = null;
+    public String sachSua(@RequestParam("editlinkAnh1") MultipartFile fileAnh) {
+        String ketqua = "";
         System.out.println("dấdnáiđá");
 
-        if(!fileAnh.isEmpty()){
+        if (fileAnh.isEmpty()) {
             System.out.println("aaaa");
             ketqua = "file ảnh trống";
             System.out.println("file ảnh trống");
-        }else{
+        } else {
             System.out.println("sssss");
-
             ketqua = fileAnh.getOriginalFilename();
             System.out.println(fileAnh.getOriginalFilename());
         }
-        return ketqua;
+        return "redirect:/anhtest";
     }
 }
 
