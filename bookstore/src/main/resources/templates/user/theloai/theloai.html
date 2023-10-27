@@ -93,37 +93,28 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form th:action="@{/the-loai/them-moi}" method="post"
-                                                      th:object="${theLoai}" enctype="multipart/form-data">
-
-                                                    <div class="input-field">
-                                                        <label for="tentheloai">ID Thể Loại:</label>
-                                                        <input type="text" id="idtheloai" class="form-control" readonly
-                                                               name="idtheloai">
-                                                    </div>
-                                                    <div class="input-field">
-                                                        <label for="tenTheLoai">Tên Thể Loại:</label>
-                                                        <input type="text" id="tenTheLoai" class="form-control"
-                                                               name="tenTheLoai">
-                                                    </div>
-                                                    <div class="input-field">
-                                                        <label for="mota">Mô Tả:</label>
-                                                        <input type="text" id="mota" class="form-control"
-                                                               name="mota">
-                                                    </div>
-                                                    <div class="input-field">
-                                                        <label for="trangThai">Trạng Thái:</label>
-                                                        <input type="text" id="trangThai" class="form-control"
-                                                               name="trangThai">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary" id="saveBtn">Thêm</button>
-
-                                                </form>
-
+                                                <div class="line-item">
+                                                    <label>ID Thể Loại</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                                <div class="line-item">
+                                                    <label>Tên Thể Loại</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                                <div class="line-item">
+                                                    <label>Mô Tả</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
+                                                <div class="line-item">
+                                                    <label>Trạng Thái</label>
+                                                    <input class="form-control" type="text">
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
                                                 </button>
+                                                <button type="button" class="btn btn-primary">Thêm</button>
                                             </div>
                                         </div>
                                     </div>

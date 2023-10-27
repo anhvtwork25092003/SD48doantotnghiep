@@ -3,7 +3,6 @@ package com.example.booksstore.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +15,6 @@ import lombok.ToString;
 @Entity
 @Table(name="theloai")
 @ToString
-@Builder
 public class TheLoai {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

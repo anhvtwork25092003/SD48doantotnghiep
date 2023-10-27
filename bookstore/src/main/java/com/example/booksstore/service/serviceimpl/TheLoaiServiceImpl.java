@@ -4,8 +4,6 @@ import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.repository.TheLoaiRepository;
 import com.example.booksstore.service.ITheLoaiServiec;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,22 +15,12 @@ public class TheLoaiServiceImpl implements ITheLoaiServiec {
 
 
     @Override
-    public Page<TheLoai> pageOfTheLoai(Pageable pageable) {
-        return theLoaiRepository.findAll(pageable);
+    public TheLoai voitheloai(TheLoai theLoai) {
+        return null;
     }
 
     @Override
-    public TheLoai creatTheLoai(TheLoai theLoai) {
-       return theLoaiRepository.save(theLoai);
-    }
-
-    @Override
-    public TheLoai GetTheLoaiByID(Integer id) {
-        return theLoaiRepository.findTheLoaiByID(id);
-    }
-
-    @Override
-    public List<TheLoai> findAllTheLoai() {
+    public List<TheLoai> fillAll() {
         return theLoaiRepository.findAll();
     }
 
