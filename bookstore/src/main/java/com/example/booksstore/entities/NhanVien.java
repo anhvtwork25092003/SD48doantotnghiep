@@ -1,10 +1,7 @@
 package com.example.booksstore.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Date;
 
@@ -13,6 +10,8 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
+@ToString
+@Builder
 @Table(name="nhanvien")
 public class NhanVien {
     @Id

@@ -38,11 +38,13 @@
                                 <option value="0">Ngừng hoạt động</option>
                             </select>
                             <br>
-                            <label >Thể loại:</label><br>
+                            <label>Thể loại:</label><br>
                             <div id="categoryList" style="max-height: 200px; overflow-y: scroll;">
                                 <th:block th:each="category : ${listTheLoai}">
-                                    <input type="checkbox" th:id="${'category_' + category.idTheLoai}" th:name="categorySearch" th:value="${category.idTheLoai}" />
-                                    <label th:for="${'category_' + category.idTheLoai}" th:text="${category.tenTheLoai}"></label><br>
+                                    <input type="checkbox" th:id="${'category_' + category.idTheLoai}"
+                                           th:name="categorySearch" th:value="${category.idTheLoai}"/>
+                                    <label th:for="${'category_' + category.idTheLoai}"
+                                           th:text="${category.tenTheLoai}"></label><br>
                                 </th:block>
                             </div>
 
