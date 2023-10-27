@@ -56,7 +56,7 @@ public class QuanLySachController {
         BigDecimal giaMin = null;
         BigDecimal giaMax= null;
         int trangThai = 0;
-        int pageSize = 3; // Đặt kích thước trang mặc định
+        int pageSize = 5; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
 //  moi khoi tao trang
         if (productNameSearch != null || productCodeSearch != null || productStatusSearch != null || priceRangeSearch != null || categorySearch != null) {

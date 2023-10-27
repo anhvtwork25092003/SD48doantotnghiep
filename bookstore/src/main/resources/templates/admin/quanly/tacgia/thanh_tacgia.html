@@ -1,334 +1,337 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}"
-      xmlns:th="http://www.thymeleaf.org">
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}">
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sản Phẩm </title>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="/user/css/sanpham.css">
+
 </head>
+
 <body>
 <article layout:fragment="noiDung">
-    <div class="container">
+    <!--  khung noi dung-->
+
+    <div class="container-fluid">
         <div class="tong">
             <div class="row">
                 <div class="col-4">
-                    <div class="boxsearch">
-                        <h6 style="text-align: center;">Tìm theo Tên</h6>
-                        <div class="search">
-                            <input class="form-control" type="search" placeholder="Search">
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="boxtrang">
-                        <h4 style="text-align: center;margin-bottom: 10px;">Trạng Thái</h4>
-                        <div class="row">
-                            <div class="col-2,5">
-                                <div class="trong" style="margin-left: 40px;">
-                                    <input
-                                            type="radio"
-                                            name="address"
-                                    >
-                                    <br>
-                                    <input
-                                            type="radio"
-                                            name="address"
-                                    >
-                                    <br>
-                                    <input
-                                            type="radio"
-                                            name="address"
-                                    >
-                                </div>
-                            </div>
-                            <div class="col-7">
-                                <div class="hhhh" style="margin-right: 15px">
-                                    <h6>Đang Hoạt Động</h6>
-                                    <h6>Chưa Hoạt Động</h6>
-                                    <h6>Tât cả</h6>
-                                </div>
-                            </div>
+                    <!--search -->
+                    <div class="boxsearchforname">
+                        <form th:action="@{/tac-gia/getall}" method="get" enctype="multipart/form-data">
+                            <label for="hoVaTen">Tên Tac Gia:</label><br>
+                            <input type="text" id="hoVaTen" name="hoVaTen"/><br>
+                            <label for="email">Email:</label><br>
+                            <input type="text" id="email" name="email"/><br>
+                            <label for="productStatus">Trạng thái:</label><br>
+                            <select id="productStatus" name="productStatusSearch">
+                                <option value="99">Tất cả</option>
+                                <option value="1">Hoạt động</option>
+                                <option value="0">Ngừng hoạt động</option>
+                            </select>
+                            <br>
 
-                        </div>
+
+
+
+                            <!-- Thêm các radio button cho các khoảng giá khác -->
+                            <button type="submit">Tìm kiếm</button>
+                        </form>
                     </div>
 
-                    <button type="button" class="btn btn-success" style="margin-left: 100px;margin-top: 15px;">Tìm Kiếm
-                    </button>
                 </div>
                 <div class="col-8">
+                    <!-- các button thêm mới, import, và xuất file-->
                     <div class="box">
-                        <table class="table" style=" border: 0px solid blue;">
-                            <thead class="table-dark">
-                            <h4 style="text-align: left;">Danh Sách Tac gia</h4>
-                            <div class="buttont-heloai">
-                                <!-- <button type="button" class="btn btn-success">Thêm Mới</button>
-                                <button type="button" class="btn btn-success">Xuất File</button>
-                              </div>  -->
-                                <button type="button" for="modalTrang1" class="btn btn-success" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop">
-                                    <a href="/tac-gia/getcreate"> Thêm mới</a>
+                        <h4 style="text-align: left;">Danh Sách Tac Gia</h4>
+                        <button type="button" class="btn btn-success" id="openModalBtn" data-toggle="modal"
+                                data-target="#createNewModal">Thêm Mới
+                        </button>
 
-                                </button>
-                                <button type="button" for="modalTrang1" class="btn btn-success" data-bs-toggle="modal"
-                                        data-bs-target="#staticBackdrop">
-                                    Xuất File
-                                </button>
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Thêm Mới Tac gia</h5>
-                                                <button type="button" class="close" data-bs-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="line-item">
-                                                    <label>Mã Tác giả</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="line-item">
-                                                    <label>Tên Tác giả</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="line-item">
-                                                    <label>Số Điện Thoại</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="line-item">
-                                                    <label>Email</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="line-item">
-                                                    <label>Trạng Thái</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="button" class="btn btn-primary">Thêm</button>
-                                            </div>
-                                        </div>
+                        <!-- stảt Modal thêm mới-->
+                        <div class="modal fade" id="createNewModal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Thông Tin Tac Gia</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                    </di>
+                                    <div class="modal-body">
+                                        <form th:action="@{/tac-gia/add}" method="post" th:object="${tacgia}"
+                                              enctype="multipart/form-data">
+                                            <div class="input-field">
+                                                <label for="idTacGia">ID Tac Gia:</label>
+                                                <input type="text" id="idTacGia" class="form-control" readonly
+                                                       placeholder="Mã Tac Gia Tự tăng !" name="idTacGia">
+                                            </div>
+                                            <div class="input-field">
+                                                <label for="hoVaTen">Ho Va Ten:</label>
+                                                <input type="text" id="hoVaTen" class="form-control" name="hoVaTen">
+                                            </div>
+
+                                            <div class="input-field">
+                                                <label for="email">Email :</label>
+                                                <textarea id="email" class="form-control" name="email"></textarea>
+                                            </div>
+                                            <div class="input-field">
+                                                <label for="trangThai">Trạng Thái:</label>
+                                                <input type="text" id="trangThai" class="form-control" name="trangThai">
+                                            </div>
+                                            <div class="input-field">
+                                                <label for="sdt">sdt:</label>
+                                                <input type="text" id="sdt" name="sdt"
+                                                       class="form-control">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="linkAnhTacGia">Chọn ảnh :</label> <br>
+                                                <!--anh 1-->
+                                                <input type="file" id="linkAnhTacGia" name="linkAnhTacGia" accept="image/*"
+                                                       onchange="displayImage(this, 'selectedImage1')"/>
+                                                <!-- hien thi anh 1-->
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary" id="saveBtn">Thêm</button>
+
+                                        </form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <!--end modal thêm mới-->
 
-                            <tr>
-                                <th scope="col">Id Tac Gia</th>
-                                <th scope="col">Ho Va Ten</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">SDT</th>
-                                <th scope="col">Trang Thai</th>
-                                <th colspan="2">Hành Động</th>
-                            </tr>
-                            </thead>
-                            <tbody th:each="t, iterStat : ${data.content}">
+                        <!-- start button xuaats file-->
+                        <button type="button" class="btn btn-success">Xuất File</button>
+                        <!--end button xuat file-->
+                    </div>
+                    <!-- end các button thêm mới, import, và xuất file-->
 
-                            <tr>
-                                <td th:text="${t.idTacGia}"></td>
-                                <td th:text="${t.hoVaTen}"></td>
-                                <td th:text="${t.email}"></td>
-                                <td th:text="${t.sdt}"></td>
-                                <td th:text="${t.trangThai} ==1 ? 'Đang hoạt động':'chưa hoạt động'"></td>
+                    <table class="table" style=" border: 0px solid blue;">
+                        <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Mã Tac Gia</th>
+                            <th scope="col">Tên Tac Gia</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">SDT</th>
+                            <th scope="col">trang thai</th>
+                            <th scope="col">Hành Động</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="t, iterStat : ${data.content}">
+                        <tr>
+                            <td th:text="${t.idTacGia}"></td>
+                            <td th:text="${t.hoVaTen}"></td>
+                            <td th:text="${t.email}"></td>
+                            <td th:text="${t.sdt}"></td>
+                            <td th:text="${t.trangThai }==1?'hoat dong':'khong hoat dong'"></td>
+                            <td>
+                                <!-- Sửa -->
+                                <!-- Button to Open the Edit Product Modal -->
+                                <button type="button" class="btn btn-info" data-toggle="modal"
+                                        th:attr="data-target='#modalEditTacGia-' + ${t.idTacGia}">
+                                    <img src="/image/anhCuaThanh/edit1.jpg" width="26" height="26">
+                                </button>
+                                <!-- Xem -->
+                                <!-- Button to Open the View Product Modal -->
+                                <button type="button" class="btn btn-info" data-toggle="modal"
+                                        th:attr="data-target='#modalTacGia-' + ${t.idTacGia}">
+                                    <img src="/image/anhCuaThanh/redeye12.jpg" width="26" height="26">
+                                </button>
 
-                                <td>
-                                    <button type="button" class="btn btn-outline-info" id="editModalBtn"
-                                            data-toggle="modal"
-                                            th:attr="data-target='#viewmodalTacGia-' + ${t.idTacGia}"
-                                            style="width: auto;height: auto;">
+                            </td>
+                        </tr>
 
-                                        <i class="fa-solid fa-pen"></i>
-                                    </button>
-                                    <div class="modal fade" th:id="'viewmodalTacGia-' + ${t.idTacGia}" tabindex="-1"
-                                         role="dialog"
-                                         aria-labelledby="editModalLabel"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="editModalLabel">Sửa Thể Loại</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Form for Editing Product Details -->
-                                                    <div class="form-group">
-                                                        <label for="idTacGia">ID Tac Gia:</label>
-                                                        <input name="idTacGia" type="text" th:value="${t.idTacGia}"
-                                                               id="idTacGia" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="hoVaTen">Ho Va Ten:</label>
-                                                        <input name="hoVaTen" type="text" th:value="${t.hoVaTen}"
-                                                               id="hoVaTen" class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="email">Email:</label>
-                                                        <input id="email" name="email" class="form-control"
-                                                               th:value="${t.email}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Sdt:</label>
-                                                        <input id="sdt" name="sdt" class="form-control"
-                                                               th:value="${t.sdt}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="trangThai">Trạng Thái:</label>
-                                                        <input type="text" class="form-control"
-                                                               th:value="${t.trangThai eq 1 ? 'dang hoat dong' : 'khong hoat dong'}"
-                                                               id="trangThai" name="trangThai">
-                                                    </div>
+                        <!--start modal for view action-->
+                        <div class="modal fade" th:id="'modalTacGia-' + ${t.idTacGia}" tabindex="-1" role="dialog"
+                             aria-labelledby="viewModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="viewModalLabel">Thông Tin Tac Gia</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Display Product Details -->
+                                        <div class="product-details">
 
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Đóng
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu
-                                                    </button>
-                                                </div>
-                                            </div>
+                                            <h6 class="product-name">Mã Tac Gia:</h6>
+                                            <p id="viewidTacGia" th:text="${t.idTacGia}"></p>
+                                            <h6 class="product-name">Tên Tac Gia:</h6>
+                                            <p id="viewHoVaTen" th:text="${t.hoVaTen}"></p>
+                                            <h6 class="product-description">email:</h6>
+                                            <p id="viewEmail" th:text="${t.email}"></p>
+                                            <h6 class="product-status">Trạng Thái:</h6>
+                                            <p id="viewtrangThai" th:text="${t.trangThai}"></p>
+                                            <h6 class="product-quantity">SDT</h6>
+                                            <p id="viewSDT" th:text="${t.sdt}"></p>
+                                            <h6 class="product-images">Ảnh:</h6>
+                                            <img th:src="@{|${t.linkAnhTacGia}|}" id="viewLinkAnhTacGia" alt="anh tac gia"
+                                                 width="88px" height="88px">
                                         </div>
                                     </div>
-                                </td>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            Đóng
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end modal for view action-->
+
+                        <!-- Edit Product Modal -->
+                        <div class="modal fade" th:id="'modalEditTacGia-' + ${t.idTacGia}" tabindex="-1" role="dialog"
+                             aria-labelledby="editModalLabel"
+                             aria-hidden="true">+
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content ">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel">Sửa Tac Gia</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Form for Edetaiiting Product Dls -->
+                                        <form th:action="@{/tac-gia/edit}" method="post" th:object="${tacgia}"
+                                              id="editProductForm" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="idTacGia">Mã Tac Gia:</label>
+                                                <input type="text" th:value="${t.idTacGia}" id="idTacGia"
+                                                       class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="hoVaTen">Tên Tac Gia:</label>
+                                                <input type="text" id="hoVaTen" class="form-control"
+                                                       th:value="${t.hoVaTen}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Email:</label>
+                                                <textarea id="email" class="form-control"
+                                                          th:value="${t.email}"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="trangThai">Trạng Thái:</label>
+                                                <input type="text" id="trangThai" class="form-control"
+                                                       th:value="${t.trangThai}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="SDT">SDT</label>
+                                                <input type="sdt" id="SDT" class="form-control"
+                                                       th:value="${t.sdt}">
+                                            </div>
 
 
-                                <td>
-
-                                    <button type="button" class="btn btn-outline-info" id="ditModalBtn"
-                                            data-toggle="modal"
-
-                                            th:attr="data-target='#viewmodalTacGia-' + ${t.idTacGia}"
-                                            style="width: auto;height: auto;">
 
 
-                                        <i class="fa-solid fa-eye"></i>
-
-                                    </button>
-                                    <div class="modal fade" id="ditModal" tabindex="-1" role="dialog"
-                                         th:id="'viewmodalTacGia-' + ${t.idTacGia}"
-                                         aria-labelledby="ditModalLabel"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="ditModalLabel">Chi Tiết Tac Gia</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Form for Editing Product Details -->
-
-                                                    <div class="form-group">
-                                                        <label for="idTacGia">ID Tac Gia:</label>
-                                                        <input type="text" th:value="${t.idTacGia}" id="idTacGia"
-                                                               name="idTacGia" class="form-control" disabled>
+                                            <div class="input-field">
+                                                <div class="product-images">
+                                                    <h4>Ảnh:</h4>
+                                                    <!--                                                <button class="delete-button" >Xóa</button>-->
+                                                    <!--                                                <input type="file" id="editlinkAnh1" name="editlinkAnh1" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh1')" />-->
+                                                    <!--                                                <img th:src="@{|${sach.linkAnh1}|}" id="editviewLinkAnh1" alt="anh 1" width="88px" height="88px">-->
+                                                    <!--                                                <br>-->
+                                                    <!--                                                <input type="file" id="editlinkAnh2" name="editlinkAnh2" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh2')" />-->
+                                                    <!--                                                <img th:src="@{|${sach.linkAnh2}|}" id="editviewLinkAnh2" alt="anh 2" width="88px" height="88px">-->
+                                                    <!--                                                <br>-->
+                                                    <!--                                                <input type="file" id="editlinkAnh3" name="editlinkAnh3" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh3')" />-->
+                                                    <!--                                                <img th:src="@{|${sach.linkAnh3}|}" id="editviewLinkAnh3" alt="anh 3" width="88px" height="88px">-->
+                                                    <!--                                                <br>-->
+                                                    <!--                                                <input type="file" id="editlinkAnh4" name="editlinkAnh4" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh4')" />-->
+                                                    <!--                                                <img th:src="@{|${sach.linkAnh4}|}" id="editviewLinkAnh4" alt="anh 4" width="88px" height="88px">-->
+                                                    <!--                                                <br>-->
+                                                    <!--                                                <input type="file" id="editlinkAnh5" name="editlinkAnh5" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh5')" />-->
+                                                    <!--                                                <img th:src="@{|${sach.linkAnh5}|}" id="editviewLinkAnh5" alt="anh 5" width="88px" height="88px">-->
+                                                    <div class="image-container">
+                                                        <label for="editviewlinkAnhTacGia">
+                                                            <img th:src="@{|${t.linkAnhTacGia}|}" id="editviewLinkAnhTacGia"
+                                                                 alt="anh 1" width="88px" height="88px">
+                                                        </label>
+                                                        <input type="file" class="custom-file-input" id="editviewLinkAnhTacGia"
+                                                               name="editviewLinkAnhTacGia" accept="image/*"
+                                                               onchange="displayImage(this, 'editviewLinkAnhTacGia')"/>
+                                                        <button id="deleteButton1" class="delete-button"
+                                                                onclick="deleteImage('editviewLinkAnhTacGia', 'editviewLinkAnhTacGia', event)">
+                                                            Xóa Ảnh
+                                                        </button>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="hoVaTen">Tên Tac Gia:</label>
-                                                        <input type="text" id="hoVaTen" th:value="${t.hoVaTen}"
-                                                               name="hoVaTen" class="form-control"
-                                                               disabled>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Email:</label>
-                                                        <input id="text" th:value="${t.email}" class="form-control"
-                                                               name="email">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="trangThai">Trạng Thái:</label>
-                                                        <input type="text"
-                                                               th:value="${t.trangThai eq 1 ? 'dang hoat dong' : 'khong hoat dong'}"
-                                                               id="trangThai" class="form-control" name="trangThai"
-                                                               disabled>
-                                                    </div>
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Đóng
-                                                    </button>
+                                                    <!--                                                vẫn bị config với các button chỉnh sửa-->
                                                 </div>
                                             </div>
-                                        </div>
+                                            <div class="form-group">
+                                                <label for="idTacGia">Id Tac Gia</label>
+                                                <input type="text" id="idTacGia" class="form-control"
+                                                       th:value="${t.idTacGia}">
+                                            </div>
+                                            <button type="submit" class="btn btn-secondary">
+                                                Lưu 2
+                                            </button>
+                                        </form>
                                     </div>
-                                </td>
-                            </tr>
-                            </th:block>
-                            </tbody>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end dit modal-->
+                        </tbody>
 
-                        </table>
-                        <div>
 
-                        <span th:if="${data.number +1> 1}">
+                    </table>
+                    <!-- phân trang-->
+                    <div>
+                        <span th:if="${data.number + 1 > 1}">
                             <a th:href="@{'/tac-gia/getall?page=' + ${data.number}}">Previous</a>
                         </span>
-                            <span th:text="${data.number + 1} + ' / ' + ${data.totalPages}"></span>
-
-                            <span th:if="${data.number + 1 < data.totalPages}">
+                        <span th:text="${data.number + 1} + ' / ' + ${data.totalPages}"></span>
+                        <span th:if="${data.number + 1 < data.totalPages}">
                             <a th:href="@{'/tac-gia/getall?page=' + ${data.number + 2}}">Next</a>
-                             </span>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <p style="text-align: center;">Đang có 8 nhân viên</p>
-                            </div>
-                            <div class="col-6">
-                                <div class="phantrang">
-
-                                </div>
-                            </div>
-                        </div>
-
-
+                        </span>
                     </div>
+                    <!--end phân trang-->
+
 
                 </div>
-
             </div>
+
         </div>
 
     </div>
 
 
-    </div>
 </article>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-<script src="/user/js/theloai.js"></script>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-<link rel='stylesheet' href='https://unpkg.com/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css'>
-<link rel="stylesheet" href="/user/css/thanh_tacgia.css">
 </body>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
 </html>

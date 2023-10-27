@@ -1,5 +1,5 @@
 .horizontal-menu {
-    background-color: #4285F4;
+    background-color: #0A7AF5;
     color: #fff;
     font-family: "Segoe UI Emoji";
 }
@@ -26,7 +26,7 @@
 .submenu {
     display: none;
     position: absolute;
-    background-color: #4285F4;
+    background-color: #0A7AF5;
 }
 
 /* Hiển thị danh sách tùy chọn khi người dùng chỉ chuột vào mục menu */
