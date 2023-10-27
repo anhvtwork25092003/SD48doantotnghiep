@@ -1,6 +1,5 @@
 package com.example.booksstore.controller.admin.quanly;
 
-import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.repository.TheLoaiRepository;
 import com.example.booksstore.service.ITheLoaiServiec;
@@ -9,7 +8,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.awt.*;
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Controller
@@ -29,7 +28,7 @@ public class TheLoaiController {
     @GetMapping("/hien-thi")
     public String TheLoai(Model model, @RequestParam(defaultValue = "1") int page){
         int pagesize=3;
-        Pageable pageable = PageRequest.of(page-1,pagesize);
+        PageRequest pageable = PageRequest.of(page-1,pagesize);
         Page<TheLoai> pageOfTheloai = theLoaiServiec.pageOfTheLoai(pageable);
         model.addAttribute("data",pageOfTheloai);
         return "/user/theloai/theloai";
@@ -38,9 +37,9 @@ public class TheLoaiController {
     @Transactional
     @PostMapping("/them-moi")
     public String themTheLoai(
-            @RequestParam("tentheloai") String tentheloai,
+            @RequestParam("tenTheLoai") String tentheloai,
             @RequestParam("mota") String mota,
-            @RequestParam("trangthai") String trangthai
+            @RequestParam("trangThai") String trangthai
 
     )
     {try {

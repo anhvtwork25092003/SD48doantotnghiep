@@ -93,42 +93,52 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="line-item">
-                                                    <label>ID Thể Loại</label>
-                                                    <input class="form-control" type="text">
+                                                <form th:action="@{/the-loai/them-moi}" method="post"
+                                                      th:object="${theLoai}" enctype="multipart/form-data">
+                                                    <div class="input-field">
+                                                        <label for="tentheloai">ID Thể Loại:</label>
+                                                        <input type="text" id="idtheloai" class="form-control" readonly
+                                                               + name="idtheloai">
+                                                    </div>
+                                                    <div class="input-field">
+                                                        <label for="tenTheLoai">Tên Thể Loại:</label>
+                                                        <input type="text" id="tenTheLoai" class="form-control"
+                                                               + name="tenTheLoai">
+                                                    </div>
+                                                    <div class="input-field">
+                                                        <label for="mota">Mô Tả:</label>
+                                                        <input type="text" id="mota" class="form-control"
+                                                               + name="mota">
+                                                    </div>
+                                                    <div class="input-field">
+                                                        <label for="trangThai">Trạng Thái:</label>
+                                                        <input type="text" id="trangThai" class="form-control"
+                                                               + name="trangThai">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary" id="saveBtn">Thêm
+                                                    </button>
+
+                                                </form>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">
+                                                        Close
+                                                    </button>
                                                 </div>
-                                                <div class="line-item">
-                                                    <label>Tên Thể Loại</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="line-item">
-                                                    <label>Mô Tả</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                                <div class="line-item">
-                                                    <label>Trạng Thái</label>
-                                                    <input class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="button" class="btn btn-primary">Thêm</button>
                                             </div>
                                         </div>
+                                        </di>
                                     </div>
-                                    </di>
                                 </div>
-                            </div>
 
-                            <tr>
-                                <th scope="col">Id Thể Loại</th>
-                                <th scope="col">Tên Thể Loại</th>
-                                <th scope="col">Mô Tả</th>
-                                <th scope="col">Trạng Thái</th>
-                                <th colspan="2">Hành Động</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col">Id Thể Loại</th>
+                                    <th scope="col">Tên Thể Loại</th>
+                                    <th scope="col">Mô Tả</th>
+                                    <th scope="col">Trạng Thái</th>
+                                    <th colspan="2">Hành Động</th>
+                                </tr>
                             </thead>
                             <tbody>
                             <th:block th:each="theloai :${data}">
@@ -251,20 +261,20 @@
                         <span th:if="${data.number +1> 1}">
                             <a th:href="@{'/the-loai/hien-thi?page=' + ${data.number}}">Previous</a>
                         </span>
-                        <span th:text="${data.number + 1} + ' / ' + ${data.totalPages}"></span>
+                            <span th:text="${data.number + 1} + ' / ' + ${data.totalPages}"></span>
 
-                        <span th:if="${data.number + 1 < data.totalPages}">
+                            <span th:if="${data.number + 1 < data.totalPages}">
                             <a th:href="@{'/the-loai/hien-thi?page=' + ${data.number + 2}}">Next</a>
                         </span>
+
+                        </div>
 
                     </div>
 
                 </div>
-
             </div>
-        </div>
 
-    </div>
+        </div>
 
 
     </div>
