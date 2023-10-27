@@ -39,7 +39,7 @@
                             </select>
                             <br>
 
-                    
+
 
 
                             <!-- Thêm các radio button cho các khoảng giá khác -->
@@ -151,10 +151,10 @@
                                 <!-- Xem -->
                                 <!-- Button to Open the View Product Modal -->
                                 <button type="button" class="btn btn-info" data-toggle="modal"
-                                        th:attr="data-target='#modaltacGia-' + ${t.idTacGia}">
+                                        th:attr="data-target='#modalTacGia-' + ${t.idTacGia}">
                                     <img src="/image/anhCuaThanh/redeye12.jpg" width="26" height="26">
-                                    xem
                                 </button>
+
                             </td>
                         </tr>
 
@@ -174,18 +174,18 @@
                                     <div class="modal-body">
                                         <!-- Display Product Details -->
                                         <div class="product-details">
-                                            <h4 class="product-name">Mã Tac Gia:</h4>
-                                            <p id="viewidTacGia" th:text="${t.idTacGia}"></p>
-                                            <h4 class="product-name">Tên Tac Gia:</h4>
-                                            <p id="viewHoVaTen" th:text="${t.hoVaTen}"></p>
-                                            <h4 class="product-description">email:</h4>
-                                            <p id="viewEmail" th:text="${t.email}"></p>
-                                            <h4 class="product-status">Trạng Thái:</h4>
-                                            <p id="viewTrangThai" th:text="${t.trangThai}"></p>
-                                            <h4 class="product-quantity">SDT</h4>
-                                            <p id="viewSDT" th:text="${t.sdt}"></p>
 
-                                            <h4 class="product-images">Ảnh:</h4>
+                                            <h6 class="product-name">Mã Tac Gia:</h6>
+                                            <p id="viewidTacGia" th:text="${t.idTacGia}"></p>
+                                            <h6 class="product-name">Tên Tac Gia:</h6>
+                                            <p id="viewHoVaTen" th:text="${t.hoVaTen}"></p>
+                                            <h6 class="product-description">email:</h6>
+                                            <p id="viewEmail" th:text="${t.email}"></p>
+                                            <h6 class="product-status">Trạng Thái:</h6>
+                                            <p id="viewtrangThai" th:text="${t.trangThai}"></p>
+                                            <h6 class="product-quantity">SDT</h6>
+                                            <p id="viewSDT" th:text="${t.sdt}"></p>
+                                            <h6 class="product-images">Ảnh:</h6>
                                             <img th:src="@{|${t.linkAnhTacGia}|}" id="viewLinkAnhTacGia" alt="anh tac gia"
                                                  width="88px" height="88px">
                                         </div>
