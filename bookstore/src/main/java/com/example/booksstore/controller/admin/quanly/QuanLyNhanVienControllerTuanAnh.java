@@ -35,7 +35,7 @@ public class QuanLyNhanVienControllerTuanAnh {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<NhanVien> pageOfNhanVien = service.pageOfNhanVien(pageable);
         model.addAttribute("pageOfNhanVien", pageOfNhanVien);
-        return "/user/nhanvien/theanh_nhanvien";
+        return "/user/nhanvien/thanh_nhanvien";
     }
 
     @Transactional
