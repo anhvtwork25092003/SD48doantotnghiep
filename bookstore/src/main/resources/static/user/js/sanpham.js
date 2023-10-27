@@ -106,16 +106,11 @@
             reader.onload = function (e) {
                 imageElement.src = e.target.result;
 
-                // Hiển thị nút "Xóa Ảnh" và ẩn input "Chọn tệp"
+                // Hiển thị nút "Xóa Ảnh"
                 deleteButton.style.display = "inline-block";
-                fileInput.style.display = "none";
             };
 
             reader.readAsDataURL(fileInput.files[0]);
-        } else {
-            // Nếu không có tệp được chọn, ẩn nút "Xóa Ảnh" và hiển thị input "Chọn tệp"
-            deleteButton.style.display = "none";
-            fileInput.style.display = "inline-block";
         }
     };
 
@@ -129,10 +124,9 @@
             reader.onload = function (e) {
                 imageElement.src = e.target.result;
 
-                // Hiển thị nút "Xóa Ảnh" và ẩn input "Chọn tệp"
+                // Hiển thị nút "Xóa Ảnh"
                 var deleteButton = document.getElementById('deleteButton1');
                 deleteButton.style.display = "inline-block";
-                fileInput.style.display = "none";
             };
 
             reader.readAsDataURL(fileInput.files[0]);
@@ -150,8 +144,9 @@
         deleteButton.style.display = "none";
 
         var fileInput = document.getElementById(inputId);
-        fileInput.style.display = "inline-block";
+        fileInput.value = ''; // Đặt lại giá trị của input để xóa tệp đã chọn
     }
+
 
 
 
