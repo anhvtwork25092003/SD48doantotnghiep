@@ -36,21 +36,84 @@
 
     // Hàm để hiển thị nút "Xóa Ảnh" khi có hình ảnh được hiển thị
     // Hàm để hiển thị ảnh và lưu trạng thái hình ảnh vào Local Storage cho từng dữ liệu
+    // window.onload = function() {
+    //     // Kiểm tra trạng thái hình ảnh trong Local Storage
+    //     var savedImageSrc = localStorage.getItem('imageSrc');
+    //     var imageElement = document.getElementById('editviewLinkAnh1');
+    //     var deleteButton = document.getElementById('deleteButton1');
+    //     var fileInput = document.getElementById('editlinkAnh1');
+    //
+    //     if (savedImageSrc) {
+    //         // Nếu có trạng thái hình ảnh đã được lưu, cập nhật hình ảnh và hiển thị nút "Xóa Ảnh"
+    //         imageElement.src = savedImageSrc;
+    //         deleteButton.style.display = "inline-block";
+    //         fileInput.style.display = "none"; // Ẩn input "Chọn tệp"
+    //     }
+    //     else {
+    //         // Nếu không có trạng thái hình ảnh, hiển thị input "Chọn tệp" và ẩn nút "Xóa Ảnh"
+    //         deleteButton.style.display = "none";
+    //         fileInput.style.display = "inline-block";
+    //     }
+    // };
+    //
+    // function displayImage(input, imageId) {
+    //     var fileInput = input;
+    //     var imageElement = document.getElementById(imageId);
+    //
+    //     if (fileInput.files && fileInput.files[0]) {
+    //         var reader = new FileReader();
+    //
+    //         reader.onload = function (e) {
+    //             imageElement.src = e.target.result;
+    //             // Lưu trạng thái hình ảnh vào Local Storage
+    //             localStorage.setItem('imageSrc', e.target.result);
+    //
+    //             // Hiển thị nút "Xóa Ảnh" và ẩn input "Chọn tệp"
+    //             var deleteButton = document.getElementById('deleteButton1');
+    //             deleteButton.style.display = "inline-block";
+    //             fileInput.style.display = "none";
+    //         };
+    //
+    //         reader.readAsDataURL(fileInput.files[0]);
+    //     }
+    // }
+    //
+    // function deleteImage(imageId, inputId, event) {
+    //     // Ngăn sự kiện mặc định của nút xóa
+    //     event.preventDefault();
+    //
+    //     // Xóa trạng thái hình ảnh từ Local Storage
+    //     localStorage.removeItem('imageSrc');
+    //
+    //     // Xóa hình ảnh trong modal và ẩn nút "Xóa Ảnh", hiển thị input "Chọn tệp"
+    //     var imageElement = document.getElementById(imageId);
+    //     imageElement.src = 'default-image.jpg'; // Thay thế bằng ảnh mặc định hoặc ẩn ảnh
+    //     var deleteButton = document.getElementById('deleteButton1');
+    //     deleteButton.style.display = "none";
+    //     var fileInput = document.getElementById(inputId);
+    //     fileInput.style.display = "inline-block";
+    // }
+
+
     window.onload = function() {
-        // Kiểm tra trạng thái hình ảnh trong Local Storage
-        var savedImageSrc = localStorage.getItem('imageSrc');
         var imageElement = document.getElementById('editviewLinkAnh1');
         var deleteButton = document.getElementById('deleteButton1');
         var fileInput = document.getElementById('editlinkAnh1');
 
-        if (savedImageSrc) {
-            // Nếu có trạng thái hình ảnh đã được lưu, cập nhật hình ảnh và hiển thị nút "Xóa Ảnh"
-            imageElement.src = savedImageSrc;
-            deleteButton.style.display = "inline-block";
-            fileInput.style.display = "none"; // Ẩn input "Chọn tệp"
-        }
-        else {
-            // Nếu không có trạng thái hình ảnh, hiển thị input "Chọn tệp" và ẩn nút "Xóa Ảnh"
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imageElement.src = e.target.result;
+
+                // Hiển thị nút "Xóa Ảnh" và ẩn input "Chọn tệp"
+                deleteButton.style.display = "inline-block";
+                fileInput.style.display = "none";
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+        } else {
+            // Nếu không có tệp được chọn, ẩn nút "Xóa Ảnh" và hiển thị input "Chọn tệp"
             deleteButton.style.display = "none";
             fileInput.style.display = "inline-block";
         }
@@ -65,8 +128,6 @@
 
             reader.onload = function (e) {
                 imageElement.src = e.target.result;
-                // Lưu trạng thái hình ảnh vào Local Storage
-                localStorage.setItem('imageSrc', e.target.result);
 
                 // Hiển thị nút "Xóa Ảnh" và ẩn input "Chọn tệp"
                 var deleteButton = document.getElementById('deleteButton1');
@@ -82,14 +143,12 @@
         // Ngăn sự kiện mặc định của nút xóa
         event.preventDefault();
 
-        // Xóa trạng thái hình ảnh từ Local Storage
-        localStorage.removeItem('imageSrc');
-
-        // Xóa hình ảnh trong modal và ẩn nút "Xóa Ảnh", hiển thị input "Chọn tệp"
         var imageElement = document.getElementById(imageId);
         imageElement.src = 'default-image.jpg'; // Thay thế bằng ảnh mặc định hoặc ẩn ảnh
+
         var deleteButton = document.getElementById('deleteButton1');
         deleteButton.style.display = "none";
+
         var fileInput = document.getElementById(inputId);
         fileInput.style.display = "inline-block";
     }
