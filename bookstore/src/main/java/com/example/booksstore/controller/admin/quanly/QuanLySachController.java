@@ -98,7 +98,7 @@ public class QuanLySachController {
 
         model.addAttribute("pageOfSach", pageOfSach);
         model.addAttribute("authors", tacGiaService.findAllTacGia());
-        model.addAttribute("listTheLoai", iTheLoaiService.fillAll());
+        model.addAttribute("listTheLoai", iTheLoaiService.findAllTheLoai());
         return "user/sanpham/sanpham";
     }
 
