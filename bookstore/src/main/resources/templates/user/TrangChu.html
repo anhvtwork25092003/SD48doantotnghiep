@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layoutchung/mainLayout}"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +13,8 @@
     <link rel="stylesheet" href="/user/css/TrangChu.css"/>
 </head>
 <body>
-<div class="container">
+<article layout:fragment="noiDung">
+<div class="container-fluid">
     <!-- HEADER -->
     <header>
         <h1><img src="/image/banner/bannerTrangChu.jpg"></h1>
@@ -21,16 +24,16 @@
     <!-- ảnh banner khuyến mãi -->
     <div class="columnBaner">
         <div class="column">
-            <img src="/image/anhsanphamsale1.png" alt="Hình ảnh 1">
+            <img src="/image/anhkhac/sale1.png" alt="Hình ảnh 1">
         </div>
         <div class="column">
-            <img src="/image/anhsanphamsale2.jpg" alt="Hình ảnh 2">
+            <img src="/image/anhkhac/sale2.jpg" alt="Hình ảnh 2">
         </div>
         <div class="column">
-            <img src="/image/anhsanphamsale3.png" alt="Hình ảnh 3">
+            <img src="/image/anhkhac/sale3.png" alt="Hình ảnh 3">
         </div>
         <div class="column">
-            <img src="/image/anhsanphamsale4.png" alt="Hình ảnh 4">
+            <img src="/image/anhkhac/sale4.png" alt="Hình ảnh 4">
         </div>
     </div>
     <!-- end ảnh banner khuyến mãi -->
@@ -38,9 +41,9 @@
     <!-- chuyển trang -->
     <div class="nav">
         <ul class="nav justify-content-center">
-            <a class="nav-link " href="#">Trang Chủ</a> |
+            <a class="nav-link " href="/trang-chu">Trang Chủ</a> |
 
-            <a class="nav-link" href="#">Ưu Đãi</a>
+            <a class="nav-link" href="/uu-dai">Ưu Đãi</a>
         </ul>
     </div>
     <!-- end chuyển trang -->
@@ -49,13 +52,13 @@
     <div class="row"><h2>Ưu đãi lớn</h2></div>
     <div class="product">
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham1.jpg" alt="Doraemon Plus 1">
+            <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
             <h3>Doraemon Plus 1</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham2.jpg" alt="Doraemon Plus 2">
+            <img src="/image/anhsanpham/sanpham2.jpg" alt="Doraemon Plus 2">
             <h3>Doraemon Plus 2</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
@@ -63,19 +66,19 @@
         <div class="product-item">
             <div class="row"></div>
 
-            <img src="/image/anhsanphamsanpham3.jpg" alt="Doraemon Plus 3">
+            <img src="/image/anhsanpham/sanpham3.jpg" alt="Doraemon Plus 3">
             <h3>Doraemon Plus 3</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham4.jpg" alt="Doraemon Plus 4">
+            <img src="/image/anhsanpham/sanpham4.jpg" alt="Doraemon Plus 4">
             <h3>Doraemon Plus 4</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham5.jpg" alt="Doraemon Plus 4">
+            <img src="/image/anhsanpham/sanpham5.jpg" alt="Doraemon Plus 4">
             <h3>Doraemon Plus 5</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
@@ -91,31 +94,31 @@
     <div class="row"><h2>Sản phẩm bán chạy</h2></div>
     <div class="product">
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham1.jpg" alt="Doraemon Plus 1">
+            <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
             <h3>Doraemon Plus 1</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham2.jpg" alt="Doraemon Plus 2">
+            <img src="/image/anhsanpham/sanpham2.jpg" alt="Doraemon Plus 2">
             <h3>Doraemon Plus 2</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham3.jpg" alt="Doraemon Plus 3">
+            <img src="/image/anhsanpham/sanpham3.jpg" alt="Doraemon Plus 3">
             <h3>Doraemon Plus 3</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham4.jpg" alt="Doraemon Plus 4">
+            <img src="/image/anhsanpham/sanpham4.jpg" alt="Doraemon Plus 4">
             <h3>Doraemon Plus 4</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham5.jpg" alt="Doraemon Plus 4">
+            <img src="/image/anhsanpham/sanpham5.jpg" alt="Doraemon Plus 4">
             <h3>Doraemon Plus 5</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
@@ -130,31 +133,31 @@
     <div class="row"><h2>Sản phẩm mới nhất</h2></div>
     <div class="product">
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham1.jpg" alt="Doraemon Plus 1">
+            <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
             <h3>Doraemon Plus 1</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham2.jpg" alt="Doraemon Plus 2">
+            <img src="/image/anhsanpham/sanpham2.jpg" alt="Doraemon Plus 2">
             <h3>Doraemon Plus 2</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham3.jpg" alt="Doraemon Plus 3">
+            <img src="/image/anhsanpham/sanpham3.jpg" alt="Doraemon Plus 3">
             <h3>Doraemon Plus 3</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham4.jpg" alt="Doraemon Plus 4">
+            <img src="/image/anhsanpham/sanpham4.jpg" alt="Doraemon Plus 4">
             <h3>Doraemon Plus 4</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <div class="product-item">
-            <img src="/image/anhsanphamsanpham5.jpg" alt="Doraemon Plus 4">
+            <img src="/image/anhsanpham/sanpham5.jpg" alt="Doraemon Plus 4">
             <h3>Doraemon Plus 5</h3>
             <div class="price"><h4>20.000 đ</h4></div>
             <div class="sale"><h5>25.000 đ</h5></div>
@@ -189,6 +192,8 @@
       </div> -->
     <!-- đây là chatbot fix cứng chưa chuyển trang -->
 </div>
+</article>
+
 </body>
 <script src="/user/js/TrangChu.js"></script>
 </html>
