@@ -34,4 +34,9 @@ public class SachServiceImpl implements ISachService {
         Specification<Sach> spec = SachSpecification.filterSach(tenSach, maSach, giaMin, giaMax, theLoai, trangThai);
         return iSachRepository.findAll(spec, pageable);
     }
+
+    @Override
+    public Sach getOne(int id) {
+        return iSachRepository.findByIdSach(id);
+    }
 }

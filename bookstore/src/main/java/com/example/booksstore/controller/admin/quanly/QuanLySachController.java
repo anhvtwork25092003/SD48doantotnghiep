@@ -25,7 +25,6 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -54,14 +53,14 @@ public class QuanLySachController {
         Page<Sach> pageOfSach;
 
         BigDecimal giaMin = null;
-        BigDecimal giaMax= null;
+        BigDecimal giaMax = null;
         int trangThai = 0;
         int pageSize = 5; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
 //  moi khoi tao trang
         if (productNameSearch != null || productCodeSearch != null || productStatusSearch != null || priceRangeSearch != null || categorySearch != null) {
             // xu ly khoang gia
-            if(priceRangeSearch != null){
+            if (priceRangeSearch != null) {
                 if (priceRangeSearch.equals("all")) {
                     giaMin = new BigDecimal(0);
                     giaMax = new BigDecimal("999999999999999999999999");
@@ -81,16 +80,15 @@ public class QuanLySachController {
             }
 
 
-
             // xuu ly trang thai
-            if(productStatusSearch.equals("99")){
+            if (productStatusSearch.equals("99")) {
                 trangThai = -1;
-            }else if(productStatusSearch.equals("1")){
+            } else if (productStatusSearch.equals("1")) {
                 trangThai = 1;
-            }else if(productStatusSearch.equals("0")){
+            } else if (productStatusSearch.equals("0")) {
                 trangThai = 0;
             }
-            pageOfSach = iSachService.searchSach(productNameSearch, productCodeSearch, giaMin, giaMax,categorySearch, trangThai,pageable);
+            pageOfSach = iSachService.searchSach(productNameSearch, productCodeSearch, giaMin, giaMax, categorySearch, trangThai, pageable);
         } else {
             pageOfSach = iSachService.pageOfSach(pageable);
         }
@@ -113,7 +111,7 @@ public class QuanLySachController {
             @RequestParam("moTa") String moTa,
             @RequestParam("soLuongTonKho") String soLuongTonKho,
             @RequestParam("giaBan") String giaBan,
-            @RequestParam("soLuongTonKho") String maVach,
+            @RequestParam("maVach") String maVach,
             @RequestParam("linkAnh1") MultipartFile linkAnh1,
             @RequestParam("linkAnh2") MultipartFile linkAnh2,
             @RequestParam("linkAnh3") MultipartFile linkAnh3,
@@ -202,48 +200,144 @@ public class QuanLySachController {
         return "uploadForm";
     }
 
-    @PostMapping("/upload")
-    public String uploadImage(@RequestParam("file") MultipartFile file) {
-        System.out.println(file);
-        if (file.isEmpty()) {
-            // Xử lý lỗi khi tệp rỗng
-            System.out.println("tep rong");
-            return "redirect:/anhtest";
-        }
-        try {
-            // Lưu tệp vào thư mục B
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(uploadDirectory + file.getOriginalFilename());
-            Files.write(path, bytes);
-            System.out.println("thanh cong");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Xử lý lỗi khi lưu tệp thất bại
-            System.out.println("loi xu ly tep");
-
-            return "redirect:/anhtest";
-        }
-
-        // Điều hướng người dùng đến trang web gốc với thông báo thành công
-        return "redirect:/anhtest";
-    }
-
-    @PostMapping("/sach-sua")
-    public String sachSua(@RequestParam("editlinkAnh1") MultipartFile fileAnh) {
-        String ketqua = "";
-        System.out.println("dấdnáiđá");
-
-        if (fileAnh.isEmpty()) {
-            System.out.println("aaaa");
-            ketqua = "file ảnh trống";
-            System.out.println("file ảnh trống");
+    @PostMapping("/sach/cap-nhat")
+    public String sachSua(@RequestParam("editlinkAnh1") MultipartFile fileAnh,
+                          @RequestParam("checkthayDoiImage1") String trangThaiThayDoiAnh1,
+                          @RequestParam("checkthayDoiImage2") String trangThaiThayDoiAnh2,
+                          @RequestParam("checkthayDoiImage3") String trangThaiThayDoiAnh3,
+                          @RequestParam("checkthayDoiImage4") String trangThaiThayDoiAnh4,
+                          @RequestParam("checkthayDoiImage5") String trangThaiThayDoiAnh5,
+                          @RequestParam("IdSach") String IdSach,
+                          @RequestParam("tenSach") String tenSach,
+                          @RequestParam("theLoais") Set<TheLoai> theLoais,
+                          @RequestParam("tacgia") Set<TacGia> tacgia,
+                          @RequestParam("trangThai") String trangThai, // nho chuyen thanh int nhe
+                          @RequestParam("moTa") String moTa,
+                          @RequestParam("maVach") String maVach,
+                          @RequestParam("soLuongTonKho") String soLuongTonKho,
+                          @RequestParam("giaBan") String giaBan,
+                          @RequestParam("editlinkAnh1") MultipartFile linkAnh1,
+                          @RequestParam("editlinkAnh2") MultipartFile linkAnh2,
+                          @RequestParam("editlinkAnh3") MultipartFile linkAnh3,
+                          @RequestParam("editlinkAnh4") MultipartFile linkAnh4,
+                          @RequestParam("editlinkAnh5") MultipartFile linkAnh5
+    ) throws IOException {
+        System.out.println(trangThaiThayDoiAnh1);
+        System.out.println(trangThaiThayDoiAnh2);
+        System.out.println(trangThaiThayDoiAnh3);
+        System.out.println(trangThaiThayDoiAnh4);
+        System.out.println(trangThaiThayDoiAnh5);
+        Sach sach = this.iSachService.getOne(Integer.parseInt(IdSach));
+        String duongDanCotDinh = "/image/anhsanpham/";
+        String duongDanLuuAnh1 = "";
+        String duongDanLuuAnh2 = "";
+        String duongDanLuuAnh3 = "";
+        String duongDanLuuAnh4 = "";
+        String duongDanLuuAnh5 = "";
+        // kiem tra xem link anh bị thay doi khong
+        if (trangThaiThayDoiAnh1.equalsIgnoreCase("DaThayDoi")) {
+            // anh 1 da thay doi, luu lai anh vao  o
+            if (linkAnh1.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnh1 = "";
+            } else {
+                byte[] bytes = linkAnh1.getBytes();
+                Path path = Paths.get(uploadDirectory + linkAnh1.getOriginalFilename());
+                Files.write(path, bytes);
+                duongDanLuuAnh1 = duongDanCotDinh + linkAnh1.getOriginalFilename();
+            }
         } else {
-            System.out.println("sssss");
-            ketqua = fileAnh.getOriginalFilename();
-            System.out.println(fileAnh.getOriginalFilename());
+            // anh chua thay doi, lay lai duong dan cu
+            duongDanLuuAnh1 = sach.getLinkAnh1();
         }
-        return "redirect:/anhtest";
+//        2
+        if (trangThaiThayDoiAnh2.equalsIgnoreCase("DaThayDoi")) {
+            // anh 1 da thay doi, luu lai anh vao  o
+            if (linkAnh2.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnh2 = "";
+            } else {
+                byte[] bytes2 = linkAnh2.getBytes();
+                Path path2 = Paths.get(uploadDirectory + linkAnh2.getOriginalFilename());
+                Files.write(path2, bytes2);
+                duongDanLuuAnh2 = duongDanCotDinh + linkAnh2.getOriginalFilename();
+
+            }
+        } else {
+            // anh chua thay doi, lay lai duong dan cu
+            duongDanLuuAnh2 = sach.getLinkAnh2();
+        }
+
+// 3
+        if (trangThaiThayDoiAnh3.equalsIgnoreCase("DaThayDoi")) {
+            // anh 1 da thay doi, luu lai anh vao  o
+            if (linkAnh3.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnh3 = "";
+            } else {
+                byte[] bytes3 = linkAnh3.getBytes();
+                Path path3 = Paths.get(uploadDirectory + linkAnh3.getOriginalFilename());
+                Files.write(path3, bytes3);
+                duongDanLuuAnh3 = duongDanCotDinh + linkAnh3.getOriginalFilename();
+            }
+        } else {
+            // anh chua thay doi, lay lai duong dan cu
+            duongDanLuuAnh3 = sach.getLinkAnh3();
+        }
+//         4
+        if (trangThaiThayDoiAnh4.equalsIgnoreCase("DaThayDoi")) {
+            // anh 1 da thay doi, luu lai anh vao  o
+            if (linkAnh4.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnh4 = "";
+            } else {
+                // luu anh 4
+                byte[] bytes4 = linkAnh4.getBytes();
+                Path path4 = Paths.get(uploadDirectory + linkAnh4.getOriginalFilename());
+                Files.write(path4, bytes4);
+                duongDanLuuAnh4 = duongDanCotDinh + linkAnh4.getOriginalFilename();
+            }
+        } else {
+            // anh chua thay doi, lay lai duong dan cu
+            duongDanLuuAnh4 = sach.getLinkAnh3();
+        }
+        // 5
+        if (trangThaiThayDoiAnh5.equalsIgnoreCase("DaThayDoi")) {
+            // anh 1 da thay doi, luu lai anh vao  o
+            if (linkAnh5.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnh5 = "";
+            } else {
+                byte[] bytes5 = linkAnh5.getBytes();
+                Path path5 = Paths.get(uploadDirectory + linkAnh5.getOriginalFilename());
+                Files.write(path5, bytes5);
+                duongDanLuuAnh5 = duongDanCotDinh + linkAnh5.getOriginalFilename();
+            }
+
+        } else {
+            // anh chua thay doi, lay lai duong dan cu
+            duongDanLuuAnh5 = sach.getLinkAnh5();
+        }
+        // xu ly lưu sách
+        BigDecimal giaBanOke = new BigDecimal(giaBan);
+        Sach sachUpDate = Sach.builder()
+                .idSach(Integer.parseInt(IdSach))
+                .tenSach(tenSach)
+                .tacgia(tacgia)
+                .theLoais(theLoais)
+                .trangThai(Integer.parseInt(trangThai))
+                .moTa(moTa)
+                .soLuongTonKho(Integer.parseInt(soLuongTonKho))
+                .giaBan(giaBanOke)
+                .maVach(maVach)
+                .linkAnh1(duongDanLuuAnh1)
+                .linkAnh2(duongDanLuuAnh2)
+                .linkAnh3(duongDanLuuAnh3)
+                .linkAnh4(duongDanLuuAnh4)
+                .linkAnh5(duongDanLuuAnh5)
+                .build();
+        this.iSachService.save(sachUpDate);
+        return "redirect:/quan-ly/sach/hien-thi";
     }
 
     @PostMapping("/checkImageStatus")
