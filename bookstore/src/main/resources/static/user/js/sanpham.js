@@ -149,6 +149,27 @@
 
 
 
+    function editImage(inputId) {
+        // Lấy đối tượng input chứa ảnh
+        var fileInput = document.getElementById(inputId);
+
+        // Kiểm tra xem người dùng đã chọn tệp ảnh mới chưa
+        if (fileInput.files && fileInput.files[0]) {
+            // Người dùng đã chọn tệp ảnh mới, có thể thực hiện xử lý chỉnh sửa ảnh ở đây
+            // Ví dụ: Hiển thị modal chỉnh sửa ảnh, tải ảnh lên, và lưu trạng thái
+            // ...
+
+            // Sau khi chỉnh sửa xong, bạn có thể cập nhật trạng thái, ví dụ:
+            var imageStatus = document.getElementById('imageStatus');
+            imageStatus.value = "dathaydoi";
+        } else {
+            // Người dùng chưa chọn tệp ảnh mới, có thể thực hiện xử lý khi không có tệp ảnh mới
+            // ...
+        }
+    }
+
+
+
 
 
 

@@ -380,7 +380,7 @@
                                                     <div class="image-container">
                                                         <label for="editlinkAnh1">
                                                             <img th:src="@{|${sach.linkAnh1}|}" id="editviewLinkAnh1"
-                                                                 alt="anh 1" width="88px" height="88px">
+                                                                 alt="anh 1" width="88px" height="88px"  onclick="editImage('editlinkAnh1')" >
                                                         </label>
                                                         <input type="file" class="custom-file-input" id="editlinkAnh1"
                                                                name="editlinkAnh1" accept="image/*"
@@ -390,6 +390,48 @@
                                                             Xóa Ảnh
                                                         </button>
                                                     </div>
+
+//////////////
+                                                    <div class="image-container">
+                                                        <img th:src="@{|${sach.linkAnh1}|}" id="editviewLinkAnh1" alt="anh 1" width="88px" height="88px" data-original-url="@{|${sach.linkAnh1}|}">
+                                                        <input type="file" class="custom-file-input" id="editlinkAnh1" accept="image/*" onchange="checkImageChange(this)"/>
+                                                        <button id="deleteButton1" class="delete-button" onclick="deleteImage(event)">Xóa Ảnh</button>
+                                                    </div>
+
+                                                    <script>
+                                                        function checkImageChange(inputElement) {
+                                                            var imgElement = document.getElementById("editviewLinkAnh1");
+                                                            var originalImageUrl = imgElement.getAttribute("data-original-url");
+
+                                                            var newImageUrl = URL.createObjectURL(inputElement.files[0]);
+
+                                                            if (newImageUrl !== originalImageUrl) {
+                                                                console.log('Ảnh đã thay đổi.');
+                                                                imgElement.setAttribute("data-image-changed", "true");
+                                                                // Thực hiện các hành động cần thiết khi ảnh thay đổi ở đây.
+                                                            } else {
+                                                                console.log('Ảnh không thay đổi.');
+                                                                imgElement.setAttribute("data-image-changed", "false");
+                                                            }
+
+                                                            // Cập nhật thuộc tính src của thẻ <img> để hiển thị ảnh mới
+                                                            imgElement.src = newImageUrl;
+                                                        }
+
+                                                        function deleteImage(event) {
+                                                            var imgElement = document.getElementById("editviewLinkAnh1");
+                                                            var isImageChanged = imgElement.getAttribute("data-image-changed");
+
+                                                            if (isImageChanged === "true") {
+                                                                // Ảnh đã thay đổi, thực hiện các hành động cần thiết
+                                                                console.log('Xóa ảnh và cập nhật sự thay đổi (nếu cần).');
+                                                            } else {
+                                                                console.log('Ảnh không thay đổi.');
+                                                            }
+                                                        }
+                                                    </script>
+////
+
                                                     <!--                                                vẫn bị config với các button chỉnh sửa-->
                                                 </div>
                                             </div>
