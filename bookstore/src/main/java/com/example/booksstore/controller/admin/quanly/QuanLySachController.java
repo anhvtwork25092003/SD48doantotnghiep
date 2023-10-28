@@ -340,16 +340,5 @@ public class QuanLySachController {
         return "redirect:/quan-ly/sach/hien-thi";
     }
 
-    @PostMapping("/checkImageStatus")
-    public String checkImageStatus(@RequestParam("imageStatus") String imageStatus) {
-        // Kiểm tra giá trị imageStatus
-        if ("dathaydoi".equals(imageStatus)) {
-            // Hình ảnh đã thay đổi
-            return "0";
-        } else {
-            // Hình ảnh không thay đổi
-            return "1";
-        }
-    }
 }
 

@@ -28,11 +28,11 @@
                     <div class="boxsearchforname">
                         <form th:action="@{/quan-ly/sach/hien-thi}" method="get" enctype="multipart/form-data">
                             <label for="productName">Tên sản phẩm:</label><br>
-                            <input type="text" id="productName" name="productNameSearch"/><br>
+                            <input class="form-control" type="text" id="productName" name="productNameSearch"/><br>
                             <label for="productCode">Mã sản phẩm:</label><br>
-                            <input type="text" id="productCode" name="productCodeSearch"/><br>
+                            <input class="form-control" type="text" id="productCode" name="productCodeSearch"/><br>
                             <label for="productStatus">Trạng thái:</label><br>
-                            <select id="productStatus" name="productStatusSearch">
+                            <select id="productStatus" name="productStatusSearch" class="form-control">
                                 <option value="99">Tất cả</option>
                                 <option value="1">Hoạt động</option>
                                 <option value="0">Ngừng hoạt động</option>
@@ -49,12 +49,12 @@
                             </div>
 
                             <label>Khoảng giá:</label><br>
-                            <input type="radio" name="priceRangeSearch" value="all"> tất cả<br>
+                            <input type="radio" name="priceRangeSearch" value="all"> Tất cả<br>
                             <input type="radio" name="priceRangeSearch" value="1"> Dưới 100.000 vnd<br>
-                            <input type="radio" name="priceRangeSearch" value="2">Tù 100.000 đến 500.000<br>
+                            <input type="radio" name="priceRangeSearch" value="2">Từ 100.000 đến 500.000<br>
                             <input type="radio" name="priceRangeSearch" value="3"> Trên 500.000<br>
                             <!-- Thêm các radio button cho các khoảng giá khác -->
-                            <button type="submit">Tìm kiếm</button>
+                            <button class="form-control btn btn-success" type="submit">Tìm kiếm</button>
                         </form>
                     </div>
 
@@ -93,7 +93,7 @@
                                             </div>
                                             <div class="input-field">
                                                 <label for="maSach">Thể loại:</label>
-                                                <select multiple="multiple" name="theLoais">
+                                                <select multiple="multiple" name="theLoais" class="form-control">
                                                     <option th:each="listTheLoai : ${listTheLoai}"
                                                             th:value="${listTheLoai.idTheLoai}"
                                                             th:text="${listTheLoai.tenTheLoai}"></option>
@@ -101,7 +101,7 @@
                                             </div>
                                             <div class="input-field">
                                                 <label for="maSach">Tác giả:</label>
-                                                <select multiple="multiple" name="tacgia">
+                                                <select multiple="multiple" name="tacgia" class="form-control">
                                                     <option th:each="listTheLoai : ${authors}"
                                                             th:value="${listTheLoai.idTacGia}"
                                                             th:text="${listTheLoai.hoVaTen}"></option>
@@ -113,7 +113,10 @@
                                             </div>
                                             <div class="input-field">
                                                 <label for="trangThai">Trạng Thái:</label>
-                                                <input type="text" id="trangThai" class="form-control" name="trangThai">
+                                                <select  id="trangThai" class="form-control" name="trangThai">
+                                                    <option value="1">Đang kinh doanh</option>
+                                                    <option value="0">Ngừng kinh doanh</option>
+                                                </select>
                                             </div>
                                             <div class="input-field">
                                                 <label for="soLuong">Số Lượng:</label>
@@ -131,44 +134,44 @@
                                                        onchange="displayImage(this, 'selectedImage1')"/>
                                                 <!-- hien thi anh 1-->
                                                 <img id="selectedImage1" src="#" alt="Ảnh đã chọn"
-                                                     style="max-width: 80px; display: none;"/>
+                                                     style="max-width: 88px; height: auto; display: none;"/>
                                                 <!--anh 2-->
                                                 <input type="file" id="linkAnh2" name="linkAnh2" accept="image/*"
                                                        onchange="displayImage(this, 'selectedImage2')"/>
                                                 <!-- hien thi anh 2-->
                                                 <img id="selectedImage2" src="#" alt="Ảnh đã chọn"
-                                                     style="max-width: 80px; display: none;"/>
+                                                     style="max-width: 88px; height: auto; display: none;"/>
                                                 <!--anh 3-->
                                                 <input type="file" id="linkAnh3" name="linkAnh3" accept="image/*"
                                                        onchange="displayImage(this, 'selectedImage3')"/>
                                                 <!--hien thi anh 3-->
                                                 <img id="selectedImage3" src="#" alt="Ảnh đã chọn"
-                                                     style="max-width: 50px;max-height: 80px; display: none;"/>
+                                                     style="max-width: 88px; height: auto; display: none;"/>
                                                 <!--anh 4-->
                                                 <input type="file" id="linkAnh4" name="linkAnh4" accept="image/*"
                                                        onchange="displayImage(this, 'selectedImage4')"/>
                                                 <!-- hien thi anh 4-->
                                                 <img id="selectedImage4" src="#" alt="Ảnh đã chọn"
-                                                     style="max-width: 80px; display: none;"/>
+                                                     style="max-width: 88px; height: auto; display: none;"/>
                                                 <!--anh 4-->
                                                 <input type="file" id="linkAnh5" name="linkAnh5" accept="image/*"
                                                        onchange="displayImage(this, 'selectedImage5')"/>
                                                 <!-- hien thi anh 4-->
                                                 <img id="selectedImage5" src="#" alt="Ảnh đã chọn"
-                                                     style="max-width: 80px; display: none;"/>
+                                                     style="max-width: 88px; height: auto; display: none;"/>
                                             </div>
                                             <div class="input-field">
                                                 <label for="maVach">Mã Vạch:</label>
                                                 <input type="text" id="maVach" class="form-control" name="maVach">
                                             </div>
-
+                                            <br>
                                             <button type="submit" class="btn btn-primary" id="saveBtn">Thêm</button>
 
                                         </form>
 
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng
                                         </button>
                                     </div>
                                 </div>
@@ -190,8 +193,8 @@
                             <th scope="col">Giá</th>
                             <th scope="col">Số Lượng</th>
                             <th scope="col">Trạng Thái</th>
+                            <th scope="col">Mã Vạch</th>
                             <th scope="col">Hành Động</th>
-                            <th scope="col">Tac Gia</th>
 
                         </tr>
                         </thead>
@@ -201,12 +204,8 @@
                             <td th:text="${sach.tenSach}"></td>
                             <td th:text="${sach.giaBan}"></td>
                             <td th:text="${sach.soLuongTonKho}"></td>
-                            <td th:text="${sach.trangThai}"></td>
-                            <td>
-                                <ul>
-                                    <li th:each="tacGia : ${sach.tacgia}" th:text="${tacGia.HoVaTen}"></li>
-                                </ul>
-                            </td>
+                            <td th:text="${sach.trangThai == 1 ? 'Đang kinh doanh' :'Ngừng kinh doanh'}"></td>
+                            <td th:text="${sach.maVach}"></td>
                             <td>
                                 <!-- Sửa -->
                                 <!-- Button to Open the Edit Product Modal -->
@@ -219,7 +218,6 @@
                                 <button type="button" class="btn btn-info" data-toggle="modal"
                                         th:attr="data-target='#modalSach-' + ${sach.idSach}">
                                     <img src="/image/anhCuaThanh/redeye12.jpg" width="26" height="26">
-                                    xem
                                 </button>
                             </td>
                         </tr>
@@ -240,19 +238,19 @@
                                     <div class="modal-body">
                                         <!-- Display Product Details -->
                                         <div class="product-details">
-                                            <h4 class="product-name">Mã Sách:</h4>
-                                            <p id="viewMaSach" th:text="${sach.maSach}"></p>
-                                            <h4 class="product-name">Tên Sách:</h4>
-                                            <p id="viewTenSach" th:text="${sach.tenSach}"></p>
-                                            <h4 class="product-description">Mô tả:</h4>
-                                            <p id="viewMoTa" th:text="${sach.moTa}"></p>
-                                            <h4 class="product-status">Trạng Thái:</h4>
-                                            <p id="viewTrangThai" th:text="${sach.trangThai}"></p>
-                                            <h4 class="product-quantity">Số Lượng:</h4>
-                                            <p id="viewSoLuong" th:text="${sach.soLuongTonKho}"></p>
-                                            <h4 class="product-price">Giá Bán:</h4>
-                                            <p id="viewGiaBan" th:text="${sach.giaBan}"></p>
-                                            <h4 class="product-images">Ảnh:</h4>
+                                            <h6 class="product-name">Mã Sách:</h6>
+                                            <input class="form-control" id="viewMaSach" th:value="${sach.maSach}" disabled/>
+                                            <h6 class="product-name">Tên Sách:</h6>
+                                            <input class="form-control" id="viewTenSach" th:value="${sach.tenSach}" disabled/>
+                                            <h6 class="product-description">Mô tả:</h6>
+                                            <input class="form-control" id="viewMoTa" th:value="${sach.moTa}" disabled/>
+                                            <h6 class="product-status">Trạng Thái:</h6>
+                                            <input class="form-control" id="viewTrangThai" th:value="${sach.trangThai == 1 ? 'Đang kinh doanh': 'Ngừng kinh doanh'}" disabled/>
+                                            <h6 class="product-quantity">Số Lượng:</h6>
+                                            <input class="form-control" id="viewSoLuong" th:value="${sach.soLuongTonKho}" disabled/>
+                                            <h6 class="product-price">Giá Bán:</h6>
+                                            <input class="form-control" id="viewGiaBan" th:value="${sach.giaBan}" disabled />
+                                            <h6 class="product-images">Ảnh:</h6>
                                             <img th:src="@{|${sach.linkAnh1}|}" id="viewLinkAnh1" alt="anh 1"
                                                  width="88px" height="88px">
                                             <img th:src="@{|${sach.linkAnh2}|}" id="viewLinkAnh2" alt="anh 2"
@@ -263,8 +261,8 @@
                                                  width="88px" height="88px">
                                             <img th:src="@{|${sach.linkAnh5}|}" id="viewLinkAnh5" alt="anh 5"
                                                  width="88px" height="88px">
-                                            <h4 class="product-barcode">Mã Vạch:</h4>
-                                            <p id="viewMaVach" th:text="${sach.maVach}"></p>
+                                            <h6 class="product-barcode">Mã Vạch:</h6>
+                                            <input class="form-control" id="viewMaVach" th:value="${sach.maVach}" disabled/>
                                             <h4 class="viewTacGia">Tác Giả:</h4>
                                             <select id="tacgia" name="tacGiaList" class="form-control">
                                                 <th:block th:each="tacGia : ${sach.tacgia}">
@@ -272,7 +270,7 @@
                                                             th:text="${tacGia.hoVaTen}"></option>
                                                 </th:block>
                                             </select>
-                                            <h4 class="viewTacGia">Thể Loại:</h4>
+                                            <h6 class="viewTacGia">Thể Loại:</h6>
                                             <select id="theLoaiView" name="theLoaiList" class="form-control">
                                                 <th:block th:each="theLoai : ${sach.theLoais}">
                                                     <option th:value="${theLoai.idTheLoai}"
@@ -282,7 +280,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">
                                             Đóng
                                         </button>
                                     </div>
@@ -322,13 +320,15 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="moTa">Mô tả:</label>
-                                                <textarea id="moTa" class="form-control"
-                                                          th:value="${sach.moTa}" name="moTa"></textarea>
+                                                <textarea id="moTa" class="form-control" th:value="${sach.moTa}" name="moTa"></textarea>
+
                                             </div>
                                             <div class="form-group">
                                                 <label for="trangThai">Trạng Thái:</label>
-                                                <input type="text" id="trangThai" class="form-control" name="trangThai"
-                                                       th:value="${sach.trangThai}">
+                                                <select id="trangThai" class="form-control" name="trangThai">
+                                                    <option th:selected="${sach.trangThai == 1}" value="1">Đang kinh doanh</option>
+                                                    <option th:selected="${sach.trangThai == 0}" value="0">Ngừng kinh doanh</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="soLuong">Số Lượng:</label>
@@ -474,13 +474,14 @@
                                                 <input type="text" id="maVach" class="form-control"
                                                        th:value="${sach.maVach}" name="maVach">
                                             </div>
-                                            <button type="submit" class="btn btn-secondary">
-                                                Lưu 2
+                                            <br>
+                                            <button type="submit" class="btn btn-primary">
+                                                Lưu
                                             </button>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng
                                         </button>
                                     </div>
                                 </div>

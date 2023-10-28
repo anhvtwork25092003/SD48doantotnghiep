@@ -75,9 +75,15 @@
     border-radius: 10px;
 }
 
-/*#viewLinkAnh1 {*/
-/*    max-width: 10%; !* Điều này giúp giảm kích thước tối đa của ảnh để nó vẫn vừa vặn trong modal *!*/
-/*    max-height: 20vh; !* Điều này giúp giảm kích thước tối đa theo chiều cao và không quá cao so với cửa sổ trình duyệt *!*/
-/*}*/
+.image-container
+{
+    display: table-cell;
+    padding: 10px 0px 14px 30px;
+}
+
+.form-group{
+    display: inline-grid;
+    padding: 10px 0px 14px 30px;
+}
 
 
