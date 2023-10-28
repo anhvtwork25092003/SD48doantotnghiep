@@ -1,11 +1,15 @@
 package com.example.booksstore.service.serviceimpl;
 
+import com.example.booksstore.entities.Sach;
 import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.repository.TheLoaiRepository;
 import com.example.booksstore.service.ITheLoaiServiec;
+import com.example.booksstore.specification.SachSpecification;
+import com.example.booksstore.specification.TheLoaiSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +34,13 @@ public class TheLoaiServiceImpl implements ITheLoaiServiec {
     public TheLoai GetTheLoaiByID(Integer id) {
         return theLoaiRepository.findTheLoaiByID(id);
     }
+
+    @Override
+    public Page<TheLoai> searchTheLoai(String tentheloai, Pageable pageable) {
+        Specification<TheLoai> spec = TheLoaiSpecification.filterTheLoai(tentheloai);
+        return theLoaiRepository.findAll(spec,pageable);
+    }
+
 
     @Override
     public List<TheLoai> findAllTheLoai() {
