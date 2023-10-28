@@ -306,36 +306,38 @@
                                     </div>
                                     <div class="modal-body">
                                         <!-- Form for Edetaiiting Product Dls -->
-                                        <form th:action="@{/quan-ly/sach-sua}" method="post" th:object="${sach2}"
+                                        <form th:action="@{/quan-ly/sach/cap-nhat}" method="post" th:object="${sach2}"
                                               id="editProductForm" enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <label for="maSach">Mã Sách:</label>
-                                                <input type="text" th:value="${sach.maSach}" id="maSach"
+                                                <input type="text" th:value="${sach.maSach}" id="maSach"  name="maSach"
                                                        class="form-control" readonly>
                                             </div>
+                                            <input type="text" id="IdSach" class="form-control"
+                                                   th:value="${sach.IdSach}" name="IdSach" hidden>
                                             <div class="form-group">
                                                 <label for="tenSach">Tên Sách:</label>
                                                 <input type="text" id="tenSach" class="form-control"
-                                                       th:value="${sach.tenSach}">
+                                                       th:value="${sach.tenSach}" name="tenSach">
                                             </div>
                                             <div class="form-group">
                                                 <label for="moTa">Mô tả:</label>
                                                 <textarea id="moTa" class="form-control"
-                                                          th:value="${sach.moTa}"></textarea>
+                                                          th:value="${sach.moTa}" name="moTa"></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="trangThai">Trạng Thái:</label>
-                                                <input type="text" id="trangThai" class="form-control"
+                                                <input type="text" id="trangThai" class="form-control" name="trangThai"
                                                        th:value="${sach.trangThai}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="soLuong">Số Lượng:</label>
-                                                <input type="number" id="soLuong" class="form-control"
+                                                <input type="number" id="soLuong" class="form-control" name="soLuongTonKho"
                                                        th:value="${sach.soLuongTonKho}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="giaBan">Giá Bán:</label>
-                                                <input type="number" id="giaBan" class="form-control"
+                                                <input type="number" id="giaBan" class="form-control" name="giaBan"
                                                        th:value="${sach.giaBan}">
                                             </div>
 
@@ -359,86 +361,118 @@
                                                     ></option>
                                                 </select>
                                             </div>
-                                            <div class="input-field">
-                                                <div class="product-images">
-                                                    <h4>Ảnh:</h4>
-                                                    <!--                                                <button class="delete-button" >Xóa</button>-->
-                                                    <!--                                                <input type="file" id="editlinkAnh1" name="editlinkAnh1" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh1')" />-->
-                                                    <!--                                                <img th:src="@{|${sach.linkAnh1}|}" id="editviewLinkAnh1" alt="anh 1" width="88px" height="88px">-->
-                                                    <!--                                                <br>-->
-                                                    <!--                                                <input type="file" id="editlinkAnh2" name="editlinkAnh2" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh2')" />-->
-                                                    <!--                                                <img th:src="@{|${sach.linkAnh2}|}" id="editviewLinkAnh2" alt="anh 2" width="88px" height="88px">-->
-                                                    <!--                                                <br>-->
-                                                    <!--                                                <input type="file" id="editlinkAnh3" name="editlinkAnh3" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh3')" />-->
-                                                    <!--                                                <img th:src="@{|${sach.linkAnh3}|}" id="editviewLinkAnh3" alt="anh 3" width="88px" height="88px">-->
-                                                    <!--                                                <br>-->
-                                                    <!--                                                <input type="file" id="editlinkAnh4" name="editlinkAnh4" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh4')" />-->
-                                                    <!--                                                <img th:src="@{|${sach.linkAnh4}|}" id="editviewLinkAnh4" alt="anh 4" width="88px" height="88px">-->
-                                                    <!--                                                <br>-->
-                                                    <!--                                                <input type="file" id="editlinkAnh5" name="editlinkAnh5" accept="image/*" onchange="displayImage(this, 'editviewLinkAnh5')" />-->
-                                                    <!--                                                <img th:src="@{|${sach.linkAnh5}|}" id="editviewLinkAnh5" alt="anh 5" width="88px" height="88px">-->
-                                                    <div class="image-container">
-                                                        <label for="editlinkAnh1">
-                                                            <img th:src="@{|${sach.linkAnh1}|}" id="editviewLinkAnh1"
-                                                                 alt="anh 1" width="88px" height="88px"  onclick="editImage('editlinkAnh1')" >
-                                                        </label>
-                                                        <input type="file" class="custom-file-input" id="editlinkAnh1"
-                                                               name="editlinkAnh1" accept="image/*"
-                                                               onchange="displayImage(this, 'editviewLinkAnh1')"/>
-                                                        <button id="deleteButton1" class="delete-button"
-                                                                onclick="deleteImage('editviewLinkAnh1', 'editlinkAnh1', event)">
-                                                            Xóa Ảnh
-                                                        </button>
-                                                    </div>
+<!--                                             anh 1-->
+                                            <div class="image-container">
+                                                <label th:for="'editlinkAnh1-' + ${sach.idSach}">
+                                                    <img th:src="@{|${sach.linkAnh1}|}"
+                                                         th:id="'editviewLinkAnh1-' + ${sach.idSach}"
+                                                         alt="anh 1" width="88px" height="88px"
+                                                         th:onclick="'editImage(\'' + 'editlinkAnh1-' + ${sach.idSach} + '\', \'checkthayDoiImage-' + ${sach.idSach} + '\')'"></img>
+                                                </label>
+                                                <input type="text" name="checkthayDoiImage1"
+                                                       th:id="'checkthayDoiImage-' + ${sach.idSach}" value="chuaThayDoi"
+                                                       hidden>
+                                                <input type="file" class="custom-file-input"
+                                                       th:id="'editlinkAnh1-' + ${sach.idSach}"
+                                                       name="editlinkAnh1" accept="image/*"
+                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnh1-' + ${sach.idSach} + '\')'"></input>
 
-//////////////
-                                                    <div class="image-container">
-                                                        <img th:src="@{|${sach.linkAnh1}|}" id="editviewLinkAnh1" alt="anh 1" width="88px" height="88px" data-original-url="@{|${sach.linkAnh1}|}">
-                                                        <input type="file" class="custom-file-input" id="editlinkAnh1" accept="image/*" onchange="checkImageChange(this)"/>
-                                                        <button id="deleteButton1" class="delete-button" onclick="deleteImage(event)">Xóa Ảnh</button>
-                                                    </div>
+                                                <button class="delete-button"
+                                                        th:attr="onclick=|deleteImage('editviewLinkAnh1-${sach.idSach}', 'editlinkAnh1-${sach.idSach}', 'checkthayDoiImage-${sach.idSach}', event)|">
+                                                    Xóa Ảnh
+                                                </button>
+                                            </div>
+<!--                                             anh 2-->
+                                            <div class="image-container">
+                                                <input type="text" name="checkthayDoiImage2"
+                                                       th:id="'checkthayDoiImage2-' + ${sach.idSach}"
+                                                       value="chuaThayDoi"
+                                                       hidden>
+                                                <label th:for="'editlinkAnh2-' + ${sach.idSach}">
+                                                    <img th:src="@{|${sach.linkAnh2}|}"
+                                                         th:id="'editviewLinkAnh2-' + ${sach.idSach}"
+                                                         alt="anh 1" width="88px" height="88px"
+                                                         th:onclick="'editImage(\'' + 'editlinkAnh2-' + ${sach.idSach} + '\', \'checkthayDoiImage2-' + ${sach.idSach} + '\')'"></img>
+                                                </label>
 
-                                                    <script>
-                                                        function checkImageChange(inputElement) {
-                                                            var imgElement = document.getElementById("editviewLinkAnh1");
-                                                            var originalImageUrl = imgElement.getAttribute("data-original-url");
+                                                <input type="file" class="custom-file-input"
+                                                       th:id="'editlinkAnh2-' + ${sach.idSach}"
+                                                       name="editlinkAnh2" accept="image/*"
+                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnh2-' + ${sach.idSach} + '\')'"></input>
 
-                                                            var newImageUrl = URL.createObjectURL(inputElement.files[0]);
+                                                <button class="delete-button"
+                                                        th:attr="onclick=|deleteImage('editviewLinkAnh2-${sach.idSach}', 'editlinkAnh2-${sach.idSach}', 'checkthayDoiImage2-${sach.idSach}', event)|">
+                                                    Xóa Ảnh
+                                                </button>
+                                            </div>
+<!--                                             anh 3-->
+                                            <div class="image-container">
+                                                <label th:for="'editlinkAnh3-' + ${sach.idSach}">
+                                                    <img th:src="@{|${sach.linkAnh3}|}"
+                                                         th:id="'editviewLinkAnh3-' + ${sach.idSach}"
+                                                         alt="anh 1" width="88px" height="88px"
+                                                         th:onclick="'editImage(\'' + 'editlinkAnh1-' + ${sach.idSach} + '\', \'checkthayDoiImage3-' + ${sach.idSach} + '\')'"></img>
+                                                </label>
+                                                <input type="text" name="checkthayDoiImage3"
+                                                       th:id="'checkthayDoiImage3-' + ${sach.idSach}"
+                                                       value="chuaThayDoi"
+                                                       hidden>
+                                                <input type="file" class="custom-file-input"
+                                                       th:id="'editlinkAnh3-' + ${sach.idSach}"
+                                                       name="editlinkAnh3" accept="image/*"
+                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnh3-' + ${sach.idSach} + '\')'"></input>
 
-                                                            if (newImageUrl !== originalImageUrl) {
-                                                                console.log('Ảnh đã thay đổi.');
-                                                                imgElement.setAttribute("data-image-changed", "true");
-                                                                // Thực hiện các hành động cần thiết khi ảnh thay đổi ở đây.
-                                                            } else {
-                                                                console.log('Ảnh không thay đổi.');
-                                                                imgElement.setAttribute("data-image-changed", "false");
-                                                            }
-
-                                                            // Cập nhật thuộc tính src của thẻ <img> để hiển thị ảnh mới
-                                                            imgElement.src = newImageUrl;
-                                                        }
-
-                                                        function deleteImage(event) {
-                                                            var imgElement = document.getElementById("editviewLinkAnh1");
-                                                            var isImageChanged = imgElement.getAttribute("data-image-changed");
-
-                                                            if (isImageChanged === "true") {
-                                                                // Ảnh đã thay đổi, thực hiện các hành động cần thiết
-                                                                console.log('Xóa ảnh và cập nhật sự thay đổi (nếu cần).');
-                                                            } else {
-                                                                console.log('Ảnh không thay đổi.');
-                                                            }
-                                                        }
-                                                    </script>
-////
-
-                                                    <!--                                                vẫn bị config với các button chỉnh sửa-->
-                                                </div>
+                                                <button class="delete-button"
+                                                        th:attr="onclick=|deleteImage('editviewLinkAnh3-${sach.idSach}', 'editlinkAnh3-${sach.idSach}', 'checkthayDoiImage3-${sach.idSach}', event)|">
+                                                    Xóa Ảnh
+                                                </button>
+                                            </div>
+<!--                                             anh 4-->
+                                            <div class="image-container">
+                                                <label th:for="'editlinkAnh4-' + ${sach.idSach}">
+                                                    <img th:src="@{|${sach.linkAnh4}|}"
+                                                         th:id="'editviewLinkAnh4-' + ${sach.idSach}"
+                                                         alt="anh 1" width="88px" height="88px"
+                                                         th:onclick="'editImage(\'' + 'editlinkAnh4-' + ${sach.idSach} + '\', \'checkthayDoiImage4-' + ${sach.idSach} + '\')'"></img>
+                                                </label>
+                                                <input type="text" name="checkthayDoiImage4"
+                                                       th:id="'checkthayDoiImage4-' + ${sach.idSach}"
+                                                       value="chuaThayDoi"
+                                                       hidden>
+                                                <input type="file" class="custom-file-input"
+                                                       th:id="'editlinkAnh4-' + ${sach.idSach}"
+                                                       name="editlinkAnh4" accept="image/*"
+                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnh4-' + ${sach.idSach} + '\')'"></input>
+                                                <button class="delete-button"
+                                                        th:attr="onclick=|deleteImage('editviewLinkAnh4-${sach.idSach}', 'editlinkAnh4-${sach.idSach}', 'checkthayDoiImage4-${sach.idSach}', event)|">
+                                                    Xóa Ảnh
+                                                </button>
+                                            </div>
+<!--                                             anh 5-->
+                                            <div class="image-container">
+                                                <label th:for="'editlinkAnh5-' + ${sach.idSach}">
+                                                    <img th:src="@{|${sach.linkAnh5}|}"
+                                                         th:id="'editviewLinkAnh5-' + ${sach.idSach}"
+                                                         alt="anh 1" width="88px" height="88px"
+                                                         th:onclick="'editImage(\'' + 'editlinkAnh1-' + ${sach.idSach} + '\', \'checkthayDoiImage5-' + ${sach.idSach} + '\')'"></img>
+                                                </label>
+                                                <input type="text" name="checkthayDoiImage5"
+                                                       th:id="'checkthayDoiImage5-' + ${sach.idSach}"
+                                                       value="chuaThayDoi"
+                                                       hidden>
+                                                <input type="file" class="custom-file-input"
+                                                       th:id="'editlinkAnh5-' + ${sach.idSach}"
+                                                       name="editlinkAnh5" accept="image/*"
+                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnh5-' + ${sach.idSach} + '\')'"></input>
+                                                <button class="delete-button"
+                                                        th:attr="onclick=|deleteImage('editviewLinkAnh5-${sach.idSach}', 'editlinkAnh5-${sach.idSach}', 'checkthayDoiImage5-${sach.idSach}', event)|">
+                                                    Xóa Ảnh
+                                                </button>
                                             </div>
                                             <div class="form-group">
                                                 <label for="maVach">Mã Vạch:</label>
                                                 <input type="text" id="maVach" class="form-control"
-                                                       th:value="${sach.maVach}">
+                                                       th:value="${sach.maVach}" name="maVach">
                                             </div>
                                             <button type="submit" class="btn btn-secondary">
                                                 Lưu 2
