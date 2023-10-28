@@ -1,10 +1,7 @@
 package com.example.booksstore.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Generated;
 
 import java.sql.Date;
@@ -14,6 +11,8 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
+@Builder
+@ToString
 @Table(name="khachhang")
 public class KhachHang {
     @Id

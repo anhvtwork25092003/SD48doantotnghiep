@@ -18,66 +18,42 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-2">
-
             <!-- start tìm kiếm mã khách hàng -->
+            <form th:action="@{/quan-ly/khach-hang/hien-thi}" method="get" enctype="multipart/form-data">
             <div class="timKiem">
-                <h6 style="text-align: center;">Tìm theo mã khách hàng</h6>
+                <label for="maKhachHang" style="text-align: center;">Tìm theo mã khách hàng:</label>
                 <div class="search">
-                    <input class="form-control" type="search" placeholder="Search">
+                    <input class="form-control" id="maKhachHang" name="maKhachHangTimKiem"
+                           type="search" placeholder="Search">
                 </div>
             </div>
             <!-- end tìm kiếm khách mã hàng -->
 
             <!-- start tìm kiếm sdt khách hàng -->
             <div class="timKiem">
-                <h6 style="text-align: center;">Tìm theo số điện thoại</h6>
+                <label for="sdt" style="text-align: center;">Tìm theo số điện thoại:</label>
                 <div class="search">
-                    <input class="form-control" type="search" placeholder="Search">
+                    <input class="form-control" type="search" id="sdt" name="sdtTimKiem" placeholder="Search">
                 </div>
             </div>
             <!-- end tìm kiếm sdt khách hàng -->
 
-            <br>
-            <!-- start tìm kiếm theo thời gian  -->
+            <!-- start tìm kiếm theo trạng thái -->
 
-            <div class="boxtrang">
-                <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
-                <div class="row">
-                    <div class="col-11">
-                        <div class="form-check">
-                            <input class="form-check-input col-sm-2 col-form-label" type="radio" name="exampleRadios"
-                                   id="exampleRadios1" value="option1" checked>
-                            <label class="form-check-label col-sm-10" for="exampleRadios1">
-                                Hôm nay
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input col-sm-2 col-form-label" type="radio" name="exampleRadios"
-                                   id="exampleRadios2" value="option2">
-                            <label class="form-check-label col-sm-10" for="exampleRadios2">
-                                Lựa chọn
-                            </label>
-                            <div class="date">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Từ</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="date" name="">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Đến</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="date" name="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="trangThai">
+                    <label for="trangThai" style="text-align: center;">Trạng Thái:</label>
+                    <div class="search">
+                        <select class="form-control" name="trangThaiTimKiem" id="trangThai">
+                            <option value="99">Tất cả</option>
+                            <option value="1">Hoạt động</option>
+                            <option value="0">Ngừng hoạt động</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-            <button type="button" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm</button>
+            <button type="submit" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm</button>
+            </form>
         </div>
-        <!-- end tìm kiếm theo thời gian  -->
+        <!-- end tìm kiếm theo trạng thái  -->
         <div class="col-10">
             <div class="box">
                 <h4 style="text-align: left;">Danh sách khách hàng</h4>
@@ -113,7 +89,7 @@
                         <td th:text="${khachhang.email}"></td>
                         <td th:text="${khachhang.sdt}"></td>
                         <td th:text="${khachhang.loaiKhachHang}"></td>
-                        <td th:text="${khachhang.trangThai == 0 ? 'Hoạt Động' : 'Không hoạt động'}"></td>
+                        <td th:text="${khachhang.trangThai == 1 ? 'Hoạt Động' : 'Ngừng hoạt động'}"></td>
                         <td>
                             <!-- start sửa danh sách khách hàng -->
                             <button type="button" class="btn btn-outline-info" id="editModalBtn"
@@ -225,7 +201,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Trạng Thái</label>
-                                                <input type="text" class="form-control" th:value="${khachhang.trangThai == 0 ? 'Hoạt động' :'Không hoạt động'}" disabled>
+                                                <input type="text" class="form-control" th:value="${khachhang.trangThai == 1 ? 'Hoạt động' :'Ngừng hoạt động'}" disabled>
                                             </div>
                                             <!-- end nội dung modal -->
                                         </div>

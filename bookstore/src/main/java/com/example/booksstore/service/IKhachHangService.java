@@ -6,4 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface IKhachHangService {
     Page<KhachHang> pageOfKhachHang(Pageable pageable);
+
+    Page<KhachHang> searchKhachHang(String maKhachHang, String sdt, Integer trangThai, Pageable pageable);
 }

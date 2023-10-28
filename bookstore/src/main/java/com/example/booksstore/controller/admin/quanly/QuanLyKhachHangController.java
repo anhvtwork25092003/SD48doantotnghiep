@@ -24,12 +24,30 @@ public class QuanLyKhachHangController {
     IDiaChiService iDiaChiService;
 
     @GetMapping("/khach-hang/hien-thi")
-    public String hienThiTrangQuanLyKhachHang(Model model, @RequestParam(defaultValue = "1") int page){
+    public String hienThiTrangQuanLyKhachHang(Model model, @RequestParam(defaultValue = "1") int page,
+                                              @RequestParam(required = false) String maKhachHangTimKiem,
+                                              @RequestParam(required = false) String sdtTimKiem,
+                                              @RequestParam(required = false) String trangThaiTimKiem
+                                              ) {
+        Page<KhachHang> pageOfKhachHang;
         int pageSize = 2; //Đặt kích thước trang
-
+        int trangThai = 0;
         Pageable pageable = PageRequest.of(page - 1, pageSize); // số trang bắt đầu từ 0
 
-        Page<KhachHang> pageOfKhachHang = iKhachHangService.pageOfKhachHang(pageable);
+        if (maKhachHangTimKiem != null || sdtTimKiem != null || trangThaiTimKiem != null) {
+            // xử lý trạng thái
+            if (trangThaiTimKiem.equals("99")) {
+                trangThai = -1;
+            } else if (trangThaiTimKiem.equals("1")) {
+                trangThai = 1;
+            } else if (trangThaiTimKiem.equals("0")) {
+                trangThai = 0;
+            }
+            pageOfKhachHang = iKhachHangService.searchKhachHang(maKhachHangTimKiem, sdtTimKiem,trangThai, pageable);
+        }else{
+            pageOfKhachHang = iKhachHangService.pageOfKhachHang(pageable);
+        }
+
         model.addAttribute("pageOfKhachHang", pageOfKhachHang);
         model.addAttribute("listDiaChi", iDiaChiService.finAll(pageable));
         return "admin/quanly/KhachHang";
