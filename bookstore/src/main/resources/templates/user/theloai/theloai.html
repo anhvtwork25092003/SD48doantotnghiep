@@ -20,11 +20,10 @@
         <div class="tong">
             <div class="row">
                 <div class="col-4">
-                    <div class="boxsearch">
-                        <h6 style="text-align: center;">Tìm theo Tên</h6>
-                        <div class="search">
-                            <input class="form-control" type="search" placeholder="Search">
-                        </div>
+                    <div class="boxsearchforname">
+                        <form th:action="@{/the-loai/hien-thi}" method="get" enctype="multipart/form-data">
+                            <h4 for="productName"  style="text-align: center;margin-bottom: 10px;"  >Tên Thể Loại:</h4>
+                            <input type="text" id="productName" name="productNameSearch" class="form-control"/><br>
                     </div>
                     <br>
                     <br>
@@ -60,8 +59,9 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-success" style="margin-left: 100px;margin-top: 15px;">Tìm Kiếm
+                    <button type="submit" class="btn btn-success" style="margin-left: 100px;margin-top: 15px;">Tìm Kiếm
                     </button>
+                    </form>
                 </div>
                 <div class="col-8">
                     <div class="box">
@@ -69,9 +69,6 @@
                             <thead class="table-dark">
                             <h4 style="text-align: left;">Danh Sách Thể Loại</h4>
                             <div class="buttont-heloai">
-                                <!-- <button type="button" class="btn btn-success">Thêm Mới</button>
-                                <button type="button" class="btn btn-success">Xuất File</button>
-                              </div>  -->
                                 <button type="button" for="modalTrang1" class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#staticBackdrop">
                                     Thêm mới
@@ -117,9 +114,7 @@
                                                     </div>
                                                     <button type="submit" class="btn btn-primary" id="saveBtn">Thêm
                                                     </button>
-
                                                 </form>
-
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">
@@ -131,7 +126,6 @@
                                         </di>
                                     </div>
                                 </div>
-
                                 <tr>
                                     <th scope="col">Id Thể Loại</th>
                                     <th scope="col">Tên Thể Loại</th>

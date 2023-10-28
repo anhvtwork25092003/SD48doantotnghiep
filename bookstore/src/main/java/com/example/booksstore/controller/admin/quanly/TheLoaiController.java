@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.awt.*;
 import java.awt.print.Pageable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -26,14 +27,29 @@ public class TheLoaiController {
     private ITheLoaiServiec theLoaiServiec;
 
     @GetMapping("/hien-thi")
-    public String TheLoai(Model model, @RequestParam(defaultValue = "1") int page){
+    public String TheLoai(Model model, @RequestParam(defaultValue = "1") int page,@RequestParam(required = false) String productNameSearch
+//        int pagesize=3;
+//        PageRequest pageable = PageRequest.of(page-1,pagesize);
+//        Page<TheLoai> pageOfTheloai = theLoaiServiec.pageOfTheLoai(pageable);
+//        model.addAttribute("data",pageOfTheloai);
+//        return "/user/theloai/theloai";
+    ) {
+        Page<TheLoai> pageOfTheloai;
         int pagesize=3;
         PageRequest pageable = PageRequest.of(page-1,pagesize);
-        Page<TheLoai> pageOfTheloai = theLoaiServiec.pageOfTheLoai(pageable);
+        if (productNameSearch != null) {
+            pageOfTheloai = theLoaiServiec.searchTheLoai(productNameSearch, pageable);
+        } else {
+            pageOfTheloai = theLoaiServiec.pageOfTheLoai(pageable);
+        }
+
+
         model.addAttribute("data",pageOfTheloai);
         return "/user/theloai/theloai";
 
     }
+
+
     @Transactional
     @PostMapping("/them-moi")
     public String themTheLoai(
@@ -41,18 +57,18 @@ public class TheLoaiController {
             @RequestParam("mota") String mota,
             @RequestParam("trangThai") String trangthai
 
-    )
-    {try {
-        TheLoai theLoai = TheLoai .builder()
-                .tenTheLoai(tentheloai)
-                .moTa(mota)
-                .trangThai(Integer.parseInt(trangthai))
-                .build();
-        this.theLoaiServiec.creatTheLoai(theLoai);
+    ) {
+        try {
+            TheLoai theLoai = TheLoai.builder()
+                    .tenTheLoai(tentheloai)
+                    .moTa(mota)
+                    .trangThai(Integer.parseInt(trangthai))
+                    .build();
+            this.theLoaiServiec.creatTheLoai(theLoai);
 
-    }catch (Exception e){
-        e.printStackTrace();
-    }
-       return "redirect:/the-loai/hien-thi";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/the-loai/hien-thi";
     }
 }
