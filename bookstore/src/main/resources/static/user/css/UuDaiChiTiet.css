@@ -3,9 +3,10 @@
     margin: 0;
     padding: 0;
 }
+*/
 .row {
     display: block;
-} */
+} 
 
 header {
     text-align: center;
@@ -28,9 +29,35 @@ header img {
     flex-wrap: nowrap;
     background-color: white;
 }
-.nav{
-    text-align: center;
-}
+.nav {
+    background-color: #FCDAB0; /* Màu nền đen cho thanh nav */;
+  }
+  
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    display: flex; /* Sử dụng flexbox để xếp các mục ngang */
+    justify-content: center; /* Canh giữa các mục */
+  }
+  
+  .nav-item {
+    margin: 0;
+  }
+  
+  .nav-link {
+    display: block;
+    text-decoration: none;
+    font-size: 120%;
+    color: black; /* Màu chữ trắng cho menu */
+    padding: 10px; /* Khoảng cách giữa các mục menu */
+    font-weight: bold; /* Đậm */
+    letter-spacing: 2px; /* Khoảng cách giữa các ký tự */
+    transition: background-color 0.3s, color 0.3s; /* Hiệu ứng hover màu chữ và nền */
+  }
+  
+  .nav-link:hover {
+    background-color:white; /* Màu nền khi di chuột vào */
+  }
 
 .product-item {
     width: 20%;
@@ -50,15 +77,24 @@ header img {
     width: 150px;
     height: 150px;
 }
-.button > a {
-    margin-top: -29px;
-    position: absolute;
-    background: #e94259;
-    padding: 10px 20px;
-    border-radius: 6px;
-    margin-left: -535px;
-    color: white;
-}
+.product-item:hover .product-image img {
+    border: 1px solid red; /* Màu viền và độ rộng của viền tùy chọn */
+  }
+  .button a:hover {
+    background-color: #e94259; /* Màu nền nút khi di chuột vào */
+  }
+  .button > a {
+      position: absolute;
+      left:calc(50% - 55px);
+      top: calc(50% + 155px);
+      padding: 10px 20px;
+      border-radius: 6px;
+      color: white;
+      display: inline-block;
+      background-color: blue; /* Màu nền của nút */
+      text-decoration: none;
+      border: 1px solid pink; /* Viền nút */
+  }
 .row {
     background: white;    
     text-align: left;
