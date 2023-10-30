@@ -1,5 +1,6 @@
 package com.example.booksstore.controller.admin.quanly;
 
+import com.example.booksstore.entities.NhanVien;
 import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.service.TacGiaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,13 +28,32 @@ public class TacGiaController {
     TacGiaService ser;
     @Value("${upload.directory1}")
     private String uploadDirectory1;
+
     @GetMapping("/tac-gia/getall")
-    public String GetIndex(Model model , @RequestParam(defaultValue = "1") int page){
-        int pageSize=3;
+    public String hienThiManHinhTacGia(Model model, @RequestParam(defaultValue = "1") int page,
+                                               @RequestParam(required = false) String memberNameTacGia,
+                                               @RequestParam(required = false) String memberCodeTacGia,
+                                               @RequestParam(required = false) String memberStatusSearch
+    ) {
+        Page<TacGia> pageOfTacGia;
+        int trangThai = 0;
+        int pageSize = 4; // Đặt kích thước trang mặc định
+        Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
+//  moi khoi tao trang
+        if (memberNameTacGia != null || memberCodeTacGia != null || memberStatusSearch != null) {
 
-        Pageable pageable= PageRequest.of(page-1,pageSize);
-
-        Page<TacGia> pageOfTacGia=ser.pageOfTacGia(pageable);
+            // xuu ly trang thai
+            if (memberStatusSearch.equals("99")) {
+                trangThai = -1;
+            } else if (memberStatusSearch.equals("1")) {
+                trangThai = 1;
+            } else if (memberStatusSearch.equals("0")) {
+                trangThai = 0;
+            }
+            pageOfTacGia = ser.searchTacGia(memberNameTacGia,memberCodeTacGia,trangThai,pageable);
+        } else {
+            pageOfTacGia = ser.pageOfTacGia(pageable);
+        }
 
         model.addAttribute("data",pageOfTacGia);
         return "admin/quanly/tacgia/thanh_tacgia";
@@ -43,9 +64,9 @@ public class TacGiaController {
         model.addAttribute("tacgia",new TacGia());
         return "redirect:/tac-gia/getall";
     }
-
+    @Transactional
     @PostMapping("/tac-gia/add")
-    private String CreateTacgia(
+    public  String CreateTacgia(
             @RequestParam("hoVaTen") String hoVaTen,
             @RequestParam("email") String email,
             @RequestParam("trangThai") Integer trangThai,
@@ -78,11 +99,10 @@ public class TacGiaController {
     }
 
 
-    @GetMapping("/tac-gia/getct/{ma}")
-    private String getCt(@PathVariable("ma") Integer ma, TacGia tacGia, Model model){
-        TacGia t=ser.GetTacGiaByID(ma);
-        model.addAttribute("tacgia",t);
-        return "";
+    @GetMapping("/tac-gia/getct/{tenTacGia}")
+    private String getCt(@PathVariable("tenTacGia") String tenTacGia,  Model model){
+
+        return "redirect:/tac-gia/getall";
     }
     @PostMapping("/tac-gia/edit/")
     public String Edit(@RequestParam("editLinkAnhTacGia")MultipartFile fileAnhTacGia){

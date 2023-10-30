@@ -17,4 +17,6 @@ public interface TacGiaService {
     List<TacGia> findAllTacGia();
 
     TacGia UpdateTacGia(Integer id,TacGia tacGia);
+
+    Page<TacGia> searchTacGia(String hoVaTen , String email,Integer trangThai,Pageable pageable);
 }

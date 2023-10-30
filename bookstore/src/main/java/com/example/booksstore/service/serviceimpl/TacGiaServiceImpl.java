@@ -3,9 +3,11 @@ package com.example.booksstore.service.serviceimpl;
 import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.repository.TacGiaRepository;
 import com.example.booksstore.service.TacGiaService;
+import com.example.booksstore.specification.TacGiaSpectification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +25,13 @@ public class TacGiaServiceImpl implements TacGiaService {
 
     @Override
     public TacGia createTacGia(TacGia tacgia) {
-        TacGia tacgiaa = new TacGia();
-        tacgiaa.setHoVaTen(tacgia.getHoVaTen());
-        tacgiaa.setEmail(tacgia.getEmail());
-        tacgiaa.setLinkAnhTacGia(tacgia.getLinkAnhTacGia());
-        tacgiaa.setSdt(tacgia.getSdt());
-        tacgiaa.setTrangThai(tacgia.getTrangThai());
-        re.save(tacgiaa);
+//        TacGia tacgiaa = new TacGia();
+//        tacgiaa.setHoVaTen(tacgia.getHoVaTen());
+//        tacgiaa.setEmail(tacgia.getEmail());
+//        tacgiaa.setLinkAnhTacGia(tacgia.getLinkAnhTacGia());
+//        tacgiaa.setSdt(tacgia.getSdt());
+//        tacgiaa.setTrangThai(tacgia.getTrangThai());
+        re.save(tacgia);
         return tacgia;
     }
 
@@ -59,4 +61,12 @@ public class TacGiaServiceImpl implements TacGiaService {
         re.save(tacgia1);
         return tacGia;
     }
+
+    @Override
+    public Page<TacGia> searchTacGia(String hoVaTen, String email,Integer trangThai,Pageable pageable) {
+        Specification<TacGia> spe= TacGiaSpectification.filterTacGia(hoVaTen,email,trangThai);
+        return re.findAll(spe,pageable);
+    }
+
+
 }
