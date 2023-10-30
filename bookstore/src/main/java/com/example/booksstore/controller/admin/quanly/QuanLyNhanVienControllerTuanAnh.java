@@ -42,7 +42,7 @@ public class QuanLyNhanVienControllerTuanAnh {
                                               ) {
         Page<NhanVien> pageOfNhanVien;
         int trangThai = 0;
-        int pageSize = 5; // Đặt kích thước trang mặc định
+        int pageSize = 2; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
 //  moi khoi tao trang
         if (memberNameSearch != null || memberCodeSearch != null || memberStatusSearch != null) {
@@ -107,8 +107,9 @@ public class QuanLyNhanVienControllerTuanAnh {
 
     @PostMapping("/nhan-vien/cap-nhat")
     public String nhanviensua(
-            @RequestParam("checkthayDoiImage-") String trangThaiThayDoiAnh1,
+            @RequestParam("checkthayDoiImage") String trangThaiThayDoiAnh1,
             @RequestParam("idNhanVien") String idNhanVien,
+            @RequestParam("maNhanVien") String maNhanVien,
             @RequestParam("hoVaTen") String hoVaTen,
             @RequestParam("sdt") String sdt,
             @RequestParam("ngaySinh") Date ngaySinh,
@@ -116,26 +117,28 @@ public class QuanLyNhanVienControllerTuanAnh {
             @RequestParam("matKhau") String matKhau,
             @RequestParam("email") String email,
             @RequestParam("chucVu") String chucVu,
-            @RequestParam("editlinkAnh1") MultipartFile linkAnh1
+            @RequestParam("editlinkAnhNhanVien") MultipartFile linkAnhNhanVien
 
     ) throws IOException {
+        System.out.println(trangThaiThayDoiAnh1);
         NhanVien nhanVien = this.service.getOne(Integer.parseInt(idNhanVien));
-        String duongDanCotDinh = "/image/anhsanpham/";
+        String duongDanCotDinh = "/image/anhnhanvien/";
         String duongDanLuuAnhNhanVien = "";
         if (trangThaiThayDoiAnh1.equalsIgnoreCase("DaThayDoi")) {
-            if (linkAnh1.isEmpty()) {
+            if (linkAnhNhanVien.isEmpty()) {
                 duongDanLuuAnhNhanVien = "";
             } else {
-                byte[] bytes = linkAnh1.getBytes();
-                Path path = Paths.get(uploadanhnhanvien + linkAnh1.getOriginalFilename());
+                byte[] bytes = linkAnhNhanVien.getBytes();
+                Path path = Paths.get(uploadanhnhanvien + linkAnhNhanVien.getOriginalFilename());
                 Files.write(path, bytes);
-                duongDanLuuAnhNhanVien = duongDanCotDinh + linkAnh1.getOriginalFilename();
+                duongDanLuuAnhNhanVien = duongDanCotDinh + linkAnhNhanVien.getOriginalFilename();
             }
         } else {
             duongDanLuuAnhNhanVien = nhanVien.getLinkAnhNhanVien();
         }
         NhanVien nhanvienUpDate = NhanVien.builder()
                 .idNhanVien(Integer.parseInt(idNhanVien))
+                .maNhanVien(maNhanVien)
                 .hoVaTen(hoVaTen)
                 .sdt(sdt)
                 .ngaySinh(ngaySinh)

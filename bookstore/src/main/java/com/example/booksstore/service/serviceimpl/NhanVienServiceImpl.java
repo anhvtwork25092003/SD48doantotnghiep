@@ -45,7 +45,7 @@ public class NhanVienServiceImpl implements INhanVienService {
 
     @Override
     public Page<NhanVien> searchNhanVien(String maNhanVien, String tenNhanVien, Integer trangThai, Pageable pageable) {
-        Specification<NhanVien> spec = NhanVienSpecification.filterNhanVien(tenNhanVien,maNhanVien,trangThai);
+        Specification<NhanVien> spec = NhanVienSpecification.filterNhanVien(maNhanVien,tenNhanVien,trangThai);
         return nhanVienRepository.findAll(spec, pageable);
 
     }

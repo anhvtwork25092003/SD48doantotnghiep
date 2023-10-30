@@ -13,12 +13,12 @@ public class NhanVienSpecification {
             // Tạo một danh sách các điều kiện tìm kiếm
             List<Predicate> predicates = new ArrayList<>();
 
-            // Tên sách
+            // Tên nhân viên
             if (hoVaTen != null && !hoVaTen.isEmpty()) {
                 predicates.add(criteriaBuilder.like(root.get("hoVaTen"), "%" + hoVaTen + "%"));
             }
 
-            // Mã sách
+            // Mã Nhân Viên
             if (maNhanVien != null && !maNhanVien.isEmpty()) {
                 predicates.add(criteriaBuilder.equal(root.get("maNhanVien"), maNhanVien));
             }

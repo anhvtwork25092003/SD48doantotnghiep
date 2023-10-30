@@ -3,7 +3,7 @@ function changeImage(index) {
     var fileInput = document.getElementById('imageInput' + index);
 
     // Lấy đối tượng ảnh hiện tại
-    var image = document.getElementById('Image' + index);
+    var image = document.getElementById('SachImage' + index);
 
     // Đảm bảo người dùng đã chọn filenhanvien
     if (fileInput.files && fileInput.files[0]) {
@@ -21,9 +21,9 @@ window.onload = function () {
     var fileInputs = document.querySelectorAll('[id^="editlinkAnhNhanVien-"]');
 
     fileInputs.forEach(function (fileInput) {
-        var sachId = fileInput.id.replace('editlinkAnhNhanVien-', '');
-        var imageElement = document.getElementById('editlinkAnhNhanVien-' + idNhanVien);
-        var deleteButton = document.getElementById('deleteButton1-' + idNhanVien);
+        var NhanVienId = fileInput.id.replace('editlinkAnhNhanVien-', '');
+        var imageElement = document.getElementById('editviewLinkAnhNhanVien-' + NhanVienId);
+        var deleteButton = document.getElementById('deleteButton1-' + NhanVienId);
 
         if (fileInput.files && fileInput.files[0]) {
             var reader = new FileReader();
@@ -59,7 +59,7 @@ function displayImage(input, imageId) {
 
     // Đặt giá trị mới tại đây
     var newImageUrl = "DaThayDoi";
-    document.getElementById("checkthayDoiImage-").value = newImageUrl;
+    document.getElementById("checkthayDoiImage").value = newImageUrl;
 }
 
 function deleteImage(imageId, inputId, tinhTrangThayDoi, event) {
