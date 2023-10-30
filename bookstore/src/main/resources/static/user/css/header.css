@@ -20,7 +20,7 @@
   white-space: nowrap;
 }
 .header-icons {
-  margin-left: auto;
+  margin-left: 60px;
   display: flex;
   align-items: center;
 }
@@ -93,7 +93,7 @@
 
 
 .search{
-  margin-left: 100px;
+  margin-left: 60px;
   width: 60%;
 }
 .search-container {
