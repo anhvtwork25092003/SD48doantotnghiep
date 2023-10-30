@@ -31,13 +31,13 @@ public class TheLoaiServiceImpl implements ITheLoaiServiec {
     }
 
     @Override
-    public TheLoai GetTheLoaiByID(Integer id) {
+    public TheLoai  delete(Integer id) {
         return theLoaiRepository.findTheLoaiByID(id);
     }
 
     @Override
-    public Page<TheLoai> searchTheLoai(String tentheloai, Pageable pageable) {
-        Specification<TheLoai> spec = TheLoaiSpecification.filterTheLoai(tentheloai);
+    public Page<TheLoai> searchTheLoai(String tentheloai,Integer trangthai, Pageable pageable) {
+        Specification<TheLoai> spec = TheLoaiSpecification.filterTheLoai(tentheloai,trangthai);
         return theLoaiRepository.findAll(spec,pageable);
     }
 

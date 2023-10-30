@@ -16,9 +16,9 @@ public interface ITheLoaiServiec {
 
     TheLoai creatTheLoai(TheLoai theLoai);
 
-    TheLoai GetTheLoaiByID(Integer id);
+    TheLoai delete(Integer id);
 
-    Page<TheLoai> searchTheLoai(String tentheloai, Pageable pageable);
+    Page<TheLoai> searchTheLoai(String tentheloai,Integer trangthai, Pageable pageable);
 
     List<TheLoai>findAllTheLoai();
 

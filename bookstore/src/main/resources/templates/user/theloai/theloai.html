@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}">
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}" xmlns="http://www.w3.org/1999/html">
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
@@ -24,41 +24,15 @@
                         <form th:action="@{/the-loai/hien-thi}" method="get" enctype="multipart/form-data">
                             <h4 for="productName"  style="text-align: center;margin-bottom: 10px;"  >Tên Thể Loại:</h4>
                             <input type="text" id="productName" name="productNameSearch" class="form-control"/><br>
+                            <h4 for="productName"  style="text-align: center;margin-bottom: 10px;"  >Trạng Thái:</h4>
+                            <select id="productStatus" name="productStatusSearch" class="form-control">
+                                <option value="1">Hoạt động</option>
+                                <option value="0">Ngừng hoạt động</option>
+                            </select>
+                            <br>
                     </div>
                     <br>
                     <br>
-                    <div class="boxtrang">
-                        <h4 style="text-align: center;margin-bottom: 10px;">Trạng Thái</h4>
-                        <div class="row">
-                            <div class="col-2,5">
-                                <div class="trong" style="margin-left: 40px;">
-                                    <input
-                                            type="radio"
-                                            name="address"
-                                    >
-                                    <br>
-                                    <input
-                                            type="radio"
-                                            name="address"
-                                    >
-                                    <br>
-                                    <input
-                                            type="radio"
-                                            name="address"
-                                    >
-                                </div>
-                            </div>
-                            <div class="col-7">
-                                <div class="hhhh" style="margin-right: 15px">
-                                    <h6>Đang Hoạt Động</h6>
-                                    <h6>Chưa Hoạt Động</h6>
-                                    <h6>Tât cả</h6>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
                     <button type="submit" class="btn btn-success" style="margin-left: 100px;margin-top: 15px;">Tìm Kiếm
                     </button>
                     </form>
@@ -109,9 +83,11 @@
                                                     </div>
                                                     <div class="input-field">
                                                         <label for="trangThai">Trạng Thái:</label>
-                                                        <input type="text" id="trangThai" class="form-control"
-                                                               + name="trangThai">
-                                                    </div>
+                                                        <select id="trangThai" name="trangThai" class="form-control">
+                                                            <option value="1">Hoạt động</option>
+                                                            <option value="0">Ngừng hoạt động</option>
+                                                        </select>
+                                                    </div><br>
                                                     <button type="submit" class="btn btn-primary" id="saveBtn">Thêm
                                                     </button>
                                                 </form>
@@ -131,23 +107,23 @@
                                     <th scope="col">Tên Thể Loại</th>
                                     <th scope="col">Mô Tả</th>
                                     <th scope="col">Trạng Thái</th>
-                                    <th colspan="2">Hành Động</th>
+                                    <th colspan="3">Hành Động</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <th:block th:each="theloai :${data}">
+                            <th:block th:each="theloai, iterStat :${data.content}">
                                 <tr>
                                     <th>[[${theloai.idTheLoai}]]</th>
                                     <td>[[${theloai.tenTheLoai}]]</td>
                                     <td>[[${theloai.moTa}]]</td>
-                                    <td>[[${theloai.trangThai == 0 ? 'Hoạt Động' : 'Không Hoạt Động'}]]</td>
+                                    <td>[[${theloai.trangThai == 1? 'Hoạt Động' : 'Ngưng Hoạt Động'}]]</td>
                                     <td>
-                                        <button type="button" class="btn btn-outline-info" id="editModalBtn"
-                                                data-toggle="modal"
-                                                data-target="#editModal" style="width: auto;height: auto;">
+                                        <button type="button" class="btn btn-outline-info"
+                                                data-toggle="modal" th:attr="data-target='#editModal' + ${theloai.idTheLoai}"
+                                                style="width: auto;height: auto;">
                                             <i class="fa-solid fa-pen"></i>
                                         </button>
-                                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                                        <div class="modal fade" th:id="'editModal'+${theloai.idTheLoai}" tabindex="-1" role="dialog"
                                              aria-labelledby="editModalLabel"
                                              aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -161,30 +137,35 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <!-- Form for Editing Product Details -->
-                                                        <div class="form-group">
-                                                            <label for="idTheLoai">ID Thể Loại:</label>
-                                                            <input type="text" id="idTheloai" class="form-control">
+                                                        <form th:action="@{/the-loai/cap-nhat}" method="post" th:object="${theloai}"
+                                                              id="editProductForm" enctype="multipart/form-data">
+                                                        <div class="input-field">
+                                                            <label for="IdTheLoai">ID Thể Loại:</label>
+                                                            <input type="text" th:value="${theloai.IdTheLoai}" name="IdTheLoai" class="form-control" readonly>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="input-field">
                                                             <label for="tenTheLoai">Tên Thể Loại:</label>
-                                                            <input type="text" id="tenTheLoai" class="form-control">
+                                                            <input type="text" id="tenTheLoai"  th:value="${theloai.tenTheLoai}" class="form-control" name="tenTheLoai">
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="input-field">
                                                             <label for="moTa">Mô Tả:</label>
-                                                            <input id="text" class="form-control">
+                                                            <input type="text" class="form-control" th:value="${theloai.moTa}" name="moTa" id="moTa">
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="input-field">
                                                             <label for="trangThai">Trạng Thái:</label>
-                                                            <input type="text" id="trangThai" class="form-control">
-                                                        </div>
-
+                                                            <select  id="trangThai" name="trangThai" class="form-control" th:value="${theloai.trangThai}">
+                                                                <option value="1">Hoạt động</option>
+                                                                <option value="0">Ngừng hoạt động</option>
+                                                            </select>
+                                                        </div><br>
+                                                            <button type="submit" class="btn btn-primary">
+                                                                Lưu
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Đóng
-                                                        </button>
-                                                        <button type="button" class="btn btn-primary" id="saveEditBtn">
-                                                            Lưu
                                                         </button>
                                                     </div>
                                                 </div>
@@ -214,22 +195,22 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <!-- Form for Editing Product Details -->
-                                                        <div class="form-group">
+                                                        <div class="input-field">
                                                             <label for="idTheLoai">ID Thể Loại:</label>
                                                             <input type="text" class="form-control"
                                                                    th:value="${theloai.idTheLoai}" disabled>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="input-field">
                                                             <label for="tenTheLoai">Tên Thể Loại:</label>
                                                             <input type="text" class="form-control"
                                                                    th:value="${theloai.tenTheLoai}" disabled>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="input-field">
                                                             <label for="moTa">Mô Tả:</label>
                                                             <input type="text" class="form-control"
                                                                    th:value="${theloai.moTa}" disabled>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="input-field">
                                                             <label for="trangThai">Trạng Thái:</label>
                                                             <input type="text" class="form-control"
                                                                    th:value="${theloai.trangThai==0?'Hoạt Động':'Không Hoạt Đông'}"
@@ -246,6 +227,12 @@
                                             </div>
                                         </div>
                                     </td>
+<!--                                    <td>-->
+<!--                                        <button type="button" class="btn btn-outline-info"-->
+<!--                                                data-toggle="modal"  style="width: auto;height: auto;">-->
+<!--                                            <i class="fa-solid fa-trash-can"></i>-->
+<!--                                        </button>-->
+<!--                                    </td>-->
                                 </tr>
                             </th:block>
                             </tbody>
