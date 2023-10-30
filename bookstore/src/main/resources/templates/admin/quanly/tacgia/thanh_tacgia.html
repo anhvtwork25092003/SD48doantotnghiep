@@ -38,10 +38,6 @@
                                 <option value="0">Ngừng hoạt động</option>
                             </select>
                             <br>
-
-
-
-
                             <!-- Thêm các radio button cho các khoảng giá khác -->
                             <button type="submit">Tìm kiếm</button>
                         </form>
@@ -83,11 +79,14 @@
 
                                             <div class="input-field">
                                                 <label for="email">Email :</label>
-                                                <textarea id="email" class="form-control" name="email"></textarea>
+                                                <input id="email" class="form-control" name="email"></input>
                                             </div>
                                             <div class="input-field">
                                                 <label for="trangThai">Trạng Thái:</label>
-                                                <input type="text" id="trangThai" class="form-control" name="trangThai">
+                                                <select  id="trangThai" class="form-control" name="trangThai">
+                                                    <option value="1">Đang Hoạt Động</option>
+                                                    <option value="0">Không Hoạt Động </option>
+                                                </select>
                                             </div>
                                             <div class="input-field">
                                                 <label for="sdt">sdt:</label>
@@ -95,23 +94,24 @@
                                                        class="form-control">
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="linkAnhTacGia">Chọn ảnh :</label> <br>
-                                                <!--anh 1-->
-                                                <input type="file" id="linkAnhTacGia" name="linkAnhTacGia" accept="image/*"
-                                                       onchange="displayImage(this, 'selectedImage1')"/>
-                                                <!-- hien thi anh 1-->
+                                            <label for="linkAnhTacGia">Chọn ảnh :</label> <br>
+                                            <!--anh 1-->
+                                            <input type="file" id="linkAnhTacGia" name="linkAnhTacGia" accept="image/*"
+                                                   onchange="displayImage(this, 'selectedImage1')"/>
+                                            <!-- hien thi anh 1-->
+                                            <img id="selectedImage1" src="#" alt="Ảnh đã chọn"
+                                                 style="max-width: 88px; height: auto; display: none;"/>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary" id="saveBtn">Thêm</button>
+
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng
+                                                </button>
                                             </div>
-
-                                            <button type="submit" class="btn btn-primary" id="saveBtn">Thêm</button>
-
                                         </form>
 
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng
-                                        </button>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -182,7 +182,7 @@
                                             <h6 class="product-description">email:</h6>
                                             <p id="viewEmail" th:text="${t.email}"></p>
                                             <h6 class="product-status">Trạng Thái:</h6>
-                                            <p id="viewtrangThai" th:text="${t.trangThai}"></p>
+                                            <input class="form-control" id="viewTrangThai" th:value="${t.trangThai == 1 ? 'Đang Hoạt Động': 'Không Hoạt Động'}" disabled/>
                                             <h6 class="product-quantity">SDT</h6>
                                             <p id="viewSDT" th:text="${t.sdt}"></p>
                                             <h6 class="product-images">Ảnh:</h6>
@@ -220,7 +220,7 @@
                                             <div class="form-group">
                                                 <label for="idTacGia">Mã Tac Gia:</label>
                                                 <input type="text" th:value="${t.idTacGia}" id="idTacGia"
-                                                       class="form-control" readonly>
+                                                       class="form-control" disabled/>
                                             </div>
                                             <div class="form-group">
                                                 <label for="hoVaTen">Tên Tac Gia:</label>
@@ -229,13 +229,15 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email:</label>
-                                                <textarea id="email" class="form-control"
-                                                          th:value="${t.email}"></textarea>
+                                                <input id="email" class="form-control"
+                                                          th:value="${t.email}"></input>
                                             </div>
                                             <div class="form-group">
                                                 <label for="trangThai">Trạng Thái:</label>
-                                                <input type="text" id="trangThai" class="form-control"
-                                                       th:value="${t.trangThai}">
+                                                <select id="trangThai" class="form-control" name="trangThai">
+                                                    <option th:selected="${t.trangThai == 1}" value="1">Đang Hoạt Động</option>
+                                                    <option th:selected="${t.trangThai == 0}" value="0">Không Hoạt Động</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="SDT">SDT</label>
@@ -280,20 +282,17 @@
                                                     <!--                                                vẫn bị config với các button chỉnh sửa-->
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="idTacGia">Id Tac Gia</label>
-                                                <input type="text" id="idTacGia" class="form-control"
-                                                       th:value="${t.idTacGia}">
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-secondary">
+                                                    Lưu Ảnh
+                                                </button>
+                                                <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu
+                                                </button>
                                             </div>
-                                            <button type="submit" class="btn btn-secondary">
-                                                Lưu 2
-                                            </button>
                                         </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu
-                                        </button>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -333,5 +332,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
+<script src="/user/js/tacgia.js"></script>
 
 </html>
