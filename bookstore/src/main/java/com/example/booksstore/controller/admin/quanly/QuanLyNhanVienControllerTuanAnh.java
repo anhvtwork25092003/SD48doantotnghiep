@@ -1,6 +1,8 @@
 package com.example.booksstore.controller.admin.quanly;
 
 import com.example.booksstore.entities.NhanVien;
+import com.example.booksstore.entities.Sach;
+import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.service.INhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,24 +18,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/quan-ly")
 public class QuanLyNhanVienControllerTuanAnh {
     @Autowired
     INhanVienService service;
-    @Value("${upload.directory}")
-    private String uploadDirectory;
+    @Value("${upload.anhnhanvien}")
+    private String uploadanhnhanvien;
 
     @GetMapping("/nhan-vien/hien-thi")
-    public String hienThiManHinhQuanlyNhanVien(Model model, @RequestParam(defaultValue = "1") int page) {
-        int pageSize = 3;
-        Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<NhanVien> pageOfNhanVien = service.pageOfNhanVien(pageable);
+    public String hienThiManHinhQuanlyNhanVien(Model model, @RequestParam(defaultValue = "1") int page,
+                                               @RequestParam(required = false) String memberNameSearch,
+                                               @RequestParam(required = false) String memberCodeSearch,
+                                               @RequestParam(required = false) String memberStatusSearch
+                                              ) {
+        Page<NhanVien> pageOfNhanVien;
+        int trangThai = 0;
+        int pageSize = 5; // Đặt kích thước trang mặc định
+        Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
+//  moi khoi tao trang
+        if (memberNameSearch != null || memberCodeSearch != null || memberStatusSearch != null) {
+
+            // xuu ly trang thai
+            if (memberStatusSearch.equals("99")) {
+                trangThai = -1;
+            } else if (memberStatusSearch.equals("1")) {
+                trangThai = 1;
+            } else if (memberStatusSearch.equals("0")) {
+                trangThai = 0;
+            }
+            pageOfNhanVien = service.searchNhanVien(memberNameSearch,memberCodeSearch,trangThai,pageable);
+        } else {
+            pageOfNhanVien = service.pageOfNhanVien(pageable);
+        }
+
         model.addAttribute("pageOfNhanVien", pageOfNhanVien);
         return "/user/nhanvien/thanh_nhanvien";
     }
@@ -50,17 +76,15 @@ public class QuanLyNhanVienControllerTuanAnh {
             @RequestParam("chucVu") String chucVu,
             @RequestParam("linkAnhNhanVien") MultipartFile linkAnhNhanVien) {
         try {
-            String duongDanCotDinh = "/image/anhsanpham/";
+            String duongDanCotDinh = "/image/anhnhanvien/";
             String duongDanLuuAnh = duongDanCotDinh + linkAnhNhanVien.getOriginalFilename();
             System.out.println(duongDanCotDinh + linkAnhNhanVien.getOriginalFilename());
             if (linkAnhNhanVien.isEmpty()) {
-                // Xử lý lỗi khi tệp rỗng
                 duongDanLuuAnh = "";
             } else {
                 byte[] bytes = linkAnhNhanVien.getBytes();
-                Path path = Paths.get(uploadDirectory + linkAnhNhanVien.getOriginalFilename());
+                Path path = Paths.get(uploadanhnhanvien + linkAnhNhanVien.getOriginalFilename());
                 Files.write(path, bytes);
-
             }
             NhanVien nhanvien = NhanVien.builder()
                     .hoVaTen(hoVaTen)
@@ -78,8 +102,51 @@ public class QuanLyNhanVienControllerTuanAnh {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-//sau khi them moi thanh cong, chuyen ve trang chu
         return "redirect:/quan-ly/nhan-vien/hien-thi";
     }
+
+    @PostMapping("/nhan-vien/cap-nhat")
+    public String nhanviensua(
+            @RequestParam("checkthayDoiImage-") String trangThaiThayDoiAnh1,
+            @RequestParam("idNhanVien") String idNhanVien,
+            @RequestParam("hoVaTen") String hoVaTen,
+            @RequestParam("sdt") String sdt,
+            @RequestParam("ngaySinh") Date ngaySinh,
+            @RequestParam("trangThai") String trangThai,
+            @RequestParam("matKhau") String matKhau,
+            @RequestParam("email") String email,
+            @RequestParam("chucVu") String chucVu,
+            @RequestParam("editlinkAnh1") MultipartFile linkAnh1
+
+    ) throws IOException {
+        NhanVien nhanVien = this.service.getOne(Integer.parseInt(idNhanVien));
+        String duongDanCotDinh = "/image/anhsanpham/";
+        String duongDanLuuAnhNhanVien = "";
+        if (trangThaiThayDoiAnh1.equalsIgnoreCase("DaThayDoi")) {
+            if (linkAnh1.isEmpty()) {
+                duongDanLuuAnhNhanVien = "";
+            } else {
+                byte[] bytes = linkAnh1.getBytes();
+                Path path = Paths.get(uploadanhnhanvien + linkAnh1.getOriginalFilename());
+                Files.write(path, bytes);
+                duongDanLuuAnhNhanVien = duongDanCotDinh + linkAnh1.getOriginalFilename();
+            }
+        } else {
+            duongDanLuuAnhNhanVien = nhanVien.getLinkAnhNhanVien();
+        }
+        NhanVien nhanvienUpDate = NhanVien.builder()
+                .idNhanVien(Integer.parseInt(idNhanVien))
+                .hoVaTen(hoVaTen)
+                .sdt(sdt)
+                .ngaySinh(ngaySinh)
+                .trangThai(Integer.parseInt(trangThai))
+                .matKhau(matKhau)
+                .email(email)
+                .chucVu(chucVu)
+                .linkAnhNhanVien(duongDanLuuAnhNhanVien)
+                .build();
+        this.service.save(nhanvienUpDate);
+        return "redirect:/quan-ly/nhan-vien/hien-thi";
+    }
+
 }
