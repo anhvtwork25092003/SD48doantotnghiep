@@ -166,7 +166,27 @@ function deleteImage(imageId, inputId, tinhTrangThayDoi, event) {
     var fileInput = document.getElementById(inputId);
     fileInput.value = '';
 }
+function editImage(inputId, tinhTrangThayDoi) {
+    var fileInput = document.getElementById(inputId);
+    var newImageUrl = "DaThayDoi";
+    document.getElementById(tinhTrangThayDoi).value = newImageUrl;
+    if (fileInput.files && fileInput.files[0]) {
+        var reader = new FileReader();
 
+        reader.onload = function (e) {
+            var imageElement = fileInput.previousElementSibling.querySelector('img');
+            imageElement.src = e.target.result;
+
+            var deleteButton = fileInput.nextElementSibling;
+            deleteButton.style.display = "inline-block";
+
+            var checkthayDoiImage = fileInput.parentElement.parentElement.querySelector('[name="checkthayDoiImage"]');
+            checkthayDoiImage.value = "DaThayDoi";
+        };
+
+        reader.readAsDataURL(fileInput.files[0]);
+    }
+}
 
 
 
