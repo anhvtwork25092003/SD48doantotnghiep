@@ -1,77 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="/bookstore/src/main/resources/static/user/css/son_layout.css"
-    />
-    <link
-      rel="stylesheet"
-      href="/bookstore/src/main/resources/static/user/css/son_menu.css"
-    />
-    <link
-      rel="stylesheet"
-      href="/bookstore/src/main/resources/static/user/css/son_address.css"
-    />
-    <link
-      rel="stylesheet"
-      href="/bookstore/src/main/resources/static/user/css/son_lichsudonhang.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
-      integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@500&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <section
-      class="content"
-      style="height: 150vh; background-color: rgb(223, 223, 223)"
-    >
-      <aside>
-        <ul>
-          <li>
-            <h2>Tài Khoản</h2>
-          </li>
-          <li class="active">
-            <a href="thongtintaikhoan.html" target="loadpage"
-              >Thông tin tài khoản</a
-            >
-          </li>
-          <li>
-            <a href="sanphamyeuthich.html" target="loadpage"
-              >Sản phẩm yêu thích</a
-            >
-          </li>
-          <li>
-            <a href="diachinhanhang.html" target="loadpage"
-              >Địa chỉ nhận hàng</a
-            >
-          </li>
-          <li>
-            <a href="lichsudonhang.html" target="loadpage">Lịch Sử Đơn Hàng</a>
-          </li>
-        </ul>
-      </aside>
-      <article>
-        <iframe
-          name="loadpage"
-          frameborder="0"
-          width="950"
-          height="1200"
-        ></iframe>
-      </article>
-    </section>
-  </body>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Thông Tin Người Dùng</title>
+<!--  <link rel="stylesheet" href="/user/css/son_layout.css">-->
+  <link rel="stylesheet" href="/user/css/son_diachinhanhang.css">
+<!--  <link rel="stylesheet" href="/user/css/son_diachinhanhang.css">-->
+<!--  <link rel="stylesheet" href="/user/css/son_lichsudonhang.css">-->
+  <link rel="stylesheet" href="/user/css/son_menu.css">
+<!--  <link rel="stylesheet" href="/user/css/son_thongtintaikhoan.css">-->
+<!--  <link rel="stylesheet" href="/user/css/son_sanphamyeuthich.css">-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
+        integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="/user/js/DiaChi.js"></script>
+</head>
+<body>
+<section>
+  <nav>
+    <h2>Tài Khoản</h2>
+    <ul>
+      <li><a href="#">Thông tin tài khoản</a></li>
+      <li><a href="#">Sản phẩm yêu thích</a></li>
+      <li ><a href="/menu-nguoi-dung/dia-chi/hien-thi">Địa chỉ nhận hàng</a></li>
+      <li><a href="#">Phương thức thanh toán</a></li>
+    </ul>
+  </nav>
+  <article layout:fragment="noiDung">
+
+  </article>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
 </html>

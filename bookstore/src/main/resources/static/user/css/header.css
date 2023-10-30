@@ -1,6 +1,5 @@
-.container {
+.container-fluid {
   border-radius: 4px;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   scroll-behavior: smooth;
@@ -10,7 +9,6 @@
   position: relative;
 }
 
-
 .logo {
   width: 200px;
 }
@@ -18,18 +16,8 @@
 .header {
   display: flex;
   align-items: center;
-  height: 62px;
-  width: 100%;
+  height: 80px;
   white-space: nowrap;
-  flex-shrink: 0;
-  font-weight: 600;
-  font-size: 15px;
-  border-bottom: 1px solid rgba(44, 45, 42, 0.25);
-  position: sticky;
-  top: 0;
-  left: 0;
-  background-color: var(--beach-bg);
-  z-index: 6;
 }
 .header-icons {
   margin-left: auto;
@@ -54,13 +42,13 @@
   margin-right: 20px;
 }
 .account-dropdown {
-  right: 2%;
   display: none;
-  position: absolute;
+  position: fixed;
+  right: 35px;
+  top:75px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
-
   padding: 10px;
   flex-direction: column;
 }
@@ -103,14 +91,7 @@
   border-radius: 20px;
 }
 
-.account-icon:hover .account-dropdown {
-  display: block;
-}
 
-.account-icon:hover+.account-dropdown,
-.account-dropdown:hover {
-  display: block;
-}
 .search{
   margin-left: 100px;
   width: 60%;
@@ -146,15 +127,14 @@
 }
 
 .notification-popup {
-  top: 90%;
-  right: 5%;
   display: none;
-  position: absolute;
+  position: fixed;
+  top: 75px;
+  right: 150px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
-
-  padding: 10px;
+  padding: 0px 15px 20px 15px;
   flex-direction: column;
 }
 .notification-tabs {

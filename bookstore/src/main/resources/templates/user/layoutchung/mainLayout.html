@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/user/css/header.css">
   <link rel="stylesheet" href="/user/css/footer.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <div class="container-fluid">
@@ -25,16 +26,7 @@
       </div>
       <div class="header-icons">
         <div class="notify-icon" id="notification-icon">
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="32" viewBox="0 0 30 32">
-            <defs>
-              <g id="icon-bell">
-                <path class="path1" d="M15.143 30.286q0-0.286-0.286-0.286-1.054 0-1.813-0.759t-0.759-1.813q0-0.286-0.286-0.286t-0.286 0.286q0 1.304 0.92 2.223t2.223 0.92q0.286 0 0.286-0.286zM3.268 25.143h23.179q-2.929-3.232-4.402-7.348t-1.473-8.652q0-4.571-5.714-4.571t-5.714 4.571q0 4.536-1.473 8.652t-4.402 7.348zM29.714 25.143q0 0.929-0.679 1.607t-1.607 0.679h-8q0 1.893-1.339 3.232t-3.232 1.339-3.232-1.339-1.339-3.232h-8q-0.929 0-1.607-0.679t-0.679-1.607q3.393-2.875 5.125-7.098t1.732-8.902q0-2.946 1.714-4.679t4.714-2.089q-0.143-0.321-0.143-0.661 0-0.714 0.5-1.214t1.214-0.5 1.214 0.5 0.5 1.214q0 0.339-0.143 0.661 3 0.357 4.714 2.089t1.714 4.679q0 4.679 1.732 8.902t5.125 7.098z" />
-              </g>
-            </defs>
-            <g fill="#000000">
-              <use xlink:href="#icon-bell" transform="translate(0 0)"></use>
-            </g>
-          </svg>
+          <i class="fa-regular fa-bell fa-shake fa-xl"></i>
         </div>
         <div class="notification-popup" id="notification-popup">
           <h3>Hộp Thư Đến</h3>
@@ -55,11 +47,8 @@
             Nội dung của tab "Ưu đãi" ở đây.
           </div>
         </div>
-        <div class="account-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path
-              d="M437.02 330.98c-27.883-27.882-61.071-48.523-97.281-61.018C378.521 243.251 404 198.548 404 148 404 66.393 337.607 0 256 0S108 66.393 108 148c0 50.548 25.479 95.251 64.262 121.962-36.21 12.495-69.398 33.136-97.281 61.018C26.629 379.333 0 443.62 0 512h40c0-119.103 96.897-216 216-216s216 96.897 216 216h40c0-68.38-26.629-132.667-74.98-181.02zM256 256c-59.551 0-108-48.448-108-108S196.449 40 256 40s108 48.448 108 108-48.449 108-108 108z" />
-          </svg>
+        <div class="account-icon" >
+          <i class="fa-regular fa-user fa-xl"></i>
           <div class="account-dropdown">
             <a href="#" class="thongtin">Thông tin chi tiết</a>
             <a href="#" class="dangxuat">Đăng xuất</a>
@@ -67,10 +56,7 @@
           </div>
         </div>
         <div class="cart-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 208.955 208.955">
-            <path
-              d="M190.85 200.227L178.135 58.626a7.5 7.5 0 00-7.47-6.829h-26.221V39.971c0-22.04-17.93-39.971-39.969-39.971-22.038 0-39.966 17.931-39.966 39.971v11.826H38.27a7.5 7.5 0 00-7.47 6.829L18.035 200.784a7.5 7.5 0 007.47 8.17h157.946a7.5 7.5 0 007.399-8.727zM79.509 39.971c0-13.769 11.2-24.971 24.967-24.971 13.768 0 24.969 11.202 24.969 24.971v11.826H79.509V39.971zm-45.8 153.984L45.127 66.797h19.382v13.412a7.5 7.5 0 007.5 7.5 7.5 7.5 0 007.5-7.5V66.797h49.936v13.412a7.5 7.5 0 007.5 7.5 7.5 7.5 0 007.5-7.5V66.797h19.364l11.418 127.158H33.709z" />
-          </svg>
+          <i class="fa-solid fa-cart-shopping fa-bounce fa-xl"></i>
         </div>
       </div>
     </div>
@@ -83,9 +69,9 @@
   <div class="footer-column">
     <h2>Thông Tin Liên Hệ</h2>
     <ul>
-      <li><a href="#">emailhihi@gmail.com</a></li>
-      <li><a href="#">0979122046</a></li>
-      <img src="/image/logoicon/vnpay_logo.png" alt="VNP" style="width: 150px; height: 80px; float: right;" />
+      <li><a href="#">fahasa@fpt.edu.vn</a></li>
+      <li><a href="#">036999999</a></li>
+      <img src="/image/logoicon/vnpay_logo.png" alt="VNP" style="width: 200px; height: 100px; float: right;" />
     </ul>
   </div>
   <div class="footer-column">

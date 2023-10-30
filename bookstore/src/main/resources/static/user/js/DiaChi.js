@@ -41,28 +41,3 @@ $("#district").change(() => {
 $("#ward").change(() => {
     printResult();
 })
-
-// var printResult = () => {
-//     if ($("#district").val() != "" && $("#province").val() != "" &&
-//         $("#ward").val() != "") {
-//         let result = $("#province option:selected").text() +
-//             " | " + $("#district option:selected").text() + " | " +
-//             $("#ward option:selected").text();
-//         $("#result").text(result)
-//     }
-// }
-
-
-// document.getElementById("paymentButton").addEventListener("click", function() {
-//     // Hiển thị hộp thoại xác nhận
-//     var confirmation = confirm("Bạn có chắc chắn muốn thanh toán không?");
-    
-//     // Kiểm tra xem người dùng đã nhấn "OK" hay "Hủy"
-//     if (confirmation) {
-//         // Người dùng đã nhấn "OK", thực hiện hành động thanh toán ở đây
-//         alert("Đã thanh toán!");
-//     } else {
-//         // Người dùng đã nhấn "Hủy", không thực hiện hành động nào
-//         alert("Thanh toán đã bị hủy bỏ.");
-//     }
-// });

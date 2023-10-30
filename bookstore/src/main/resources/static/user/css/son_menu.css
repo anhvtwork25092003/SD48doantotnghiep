@@ -1,26 +1,9 @@
-.content {
-    display: grid;
-    grid-template-columns: 3fr 8fr;
-    gap: 5px;
-    padding: 10px 0;
-    text-align: center;
 
-}
-aside,
-article {
-    background-color: white;
-}
-
-aside ul {
-    margin: 0;
-    padding: 0;
-}
-
-aside ul li :not(h2) {
+ul li :not(h2) {
     display: flex;
 }
 
-aside ul li a {
+ul li a {
     width: 60%;
     text-align: left;
     margin: auto;
@@ -28,22 +11,51 @@ aside ul li a {
     box-shadow: 1px 2px 0px -1px rgb(199, 199, 199);
 }
 
-aside ul li a:hover {
+ul li a:hover {
     color: red;
 }
 
 
-aside ul li h2 {
+ul li h2 {
     text-align: center;
     color: red;
 }
 
-article h2 {
-    margin-left: 13%;
+li {
+    font-size: 110%;
+    margin-left: -100px;
 }
-a{
-    font-size: 20px;
+
+
+nav {
+    float: left;
+    width: 20%;
+    height: 350px;
+    background: #ccc;
+    padding: 0px;
 }
-h2{
-    font-size: 25px;
+
+nav ul {
+    list-style-type: none;
+    padding-top: 45px;
+    padding-left: 80px;
+}
+
+article {
+    float: left;
+    padding: 20px;
+    width: 80%;
+    height: 450px;
+}
+
+/*section:after {*/
+/*    content: "";*/
+/*    display: table;*/
+/*    clear: both;*/
+/*}*/
+@media ( max-width: 700px) {
+    nav, article {
+        width: 100%;
+        height: auto;
+    }
 }

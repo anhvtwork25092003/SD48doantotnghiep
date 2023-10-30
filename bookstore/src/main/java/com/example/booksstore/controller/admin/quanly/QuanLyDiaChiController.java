@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/dia-chi")
+@RequestMapping("/menu-nguoi-dung")
 public class QuanLyDiaChiController {
 
     @Autowired
     IDiaChiService iDiaChiService;
 
-    @GetMapping("/hien-thi")
+    @GetMapping("/dia-chi/hien-thi")
     public String hienThiTrangDiaChi(Model model, @RequestParam(defaultValue = "1") int page){
         int pageSize = 10; //đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page -1, pageSize);

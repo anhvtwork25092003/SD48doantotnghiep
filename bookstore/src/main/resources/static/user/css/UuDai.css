@@ -16,7 +16,7 @@ header img {
     height: 250px;
 }
 
-.container-fluid {
+.container{
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
