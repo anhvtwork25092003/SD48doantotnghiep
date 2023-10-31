@@ -1,6 +1,5 @@
 package com.example.booksstore.controller.admin.quanly;
 
-import com.example.booksstore.entities.NhanVien;
 import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.service.TacGiaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,25 +10,25 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.util.List;
 
 @Controller
+@RequestMapping("/quan-ly")
 public class TacGiaController {
     @Autowired
     TacGiaService ser;
     @Value("${upload.directory1}")
     private String uploadDirectory1;
 
-    @GetMapping("/tac-gia/getall")
+    @GetMapping("/tac-gia/hien-thi")
     public String hienThiManHinhTacGia(Model model, @RequestParam(defaultValue = "1") int page,
                                                @RequestParam(required = false) String memberNameTacGia,
                                                @RequestParam(required = false) String memberCodeTacGia,
@@ -59,13 +58,13 @@ public class TacGiaController {
         return "admin/quanly/tacgia/thanh_tacgia";
     }
 
-    @GetMapping("/tac-gia/getcreate")
+/*    @GetMapping("/tac-gia/getcreate")
     private  String getTacGiaCreate(Model model){
         model.addAttribute("tacgia",new TacGia());
         return "redirect:/tac-gia/getall";
-    }
+    }*/
     @Transactional
-    @PostMapping("/tac-gia/add")
+    @PostMapping("/tac-gia/them-moi")
     public  String CreateTacgia(
             @RequestParam("hoVaTen") String hoVaTen,
             @RequestParam("email") String email,
@@ -73,7 +72,7 @@ public class TacGiaController {
             @RequestParam("sdt") String sdt,
             @RequestParam("linkAnhTacGia") MultipartFile linkAnhTacGia) {
         try {
-            String duongDanCotDinh = "/image/anhcuathanh";
+            String duongDanCotDinh = "/image/anhcuathanh/";
             String duongDanAnhTacGia = duongDanCotDinh + linkAnhTacGia.getOriginalFilename();
             if (linkAnhTacGia.isEmpty()) {
                 duongDanAnhTacGia = "";
@@ -95,33 +94,53 @@ public class TacGiaController {
             e.printStackTrace();
         }
 
-        return "redirect:/tac-gia/getall";
+        return "redirect:/quan-ly/tac-gia/hien-thi";
     }
 
 
-    @GetMapping("/tac-gia/getct/{tenTacGia}")
-    private String getCt(@PathVariable("tenTacGia") String tenTacGia,  Model model){
+//    @GetMapping("/tac-gia/getct/{tenTacGia}")
+//    private String getCt(@PathVariable("tenTacGia") String tenTacGia,  Model model){
+//
+//        return "redirect:/quan-ly/tac-gia/hien-thi";
+//    }
 
-        return "redirect:/tac-gia/getall";
-    }
-    @PostMapping("/tac-gia/edit/")
-    public String Edit(@RequestParam("editLinkAnhTacGia")MultipartFile fileAnhTacGia){
-        String ketqua = "";
-        System.out.println("dấdnáiđá");
+    @PostMapping("/tac-gia/cap-nhat")
+    public String tacGiaSua(
+            @RequestParam("checkthayDoiImage") String trangThaiThayDoiAnh1,
+            @RequestParam("idTacGia") String idTacGia,
+            @RequestParam("hoVaTen") String hoVaTen,
+            @RequestParam("email") String email,
+            @RequestParam("trangThai") String trangThai,
+            @RequestParam("sdt") String sdt,
+            @RequestParam("editlinkAnhTacGia") MultipartFile linkAnhTacGia
 
-        if (fileAnhTacGia.isEmpty()) {
-            System.out.println("aaaa");
-            ketqua = "file ảnh trống";
-            System.out.println("file ảnh trống");
+    ) throws IOException {
+        System.out.println(trangThaiThayDoiAnh1);
+        TacGia tacGia = this.ser.getOne(Integer.parseInt(idTacGia));
+        String duongDanCotDinh = "/image/anhcuathanh/";
+        String duongDanLuuAnhTacGia = "";
+        if (trangThaiThayDoiAnh1.equalsIgnoreCase("DaThayDoi")) {
+            if (linkAnhTacGia.isEmpty()) {
+                duongDanLuuAnhTacGia = "";
+            } else {
+                byte[] bytes = linkAnhTacGia.getBytes();
+                Path path = Paths.get(uploadDirectory1 + linkAnhTacGia.getOriginalFilename());
+                Files.write(path, bytes);
+                duongDanLuuAnhTacGia = duongDanCotDinh + linkAnhTacGia.getOriginalFilename();
+            }
         } else {
-            System.out.println("sssss");
-            ketqua = fileAnhTacGia.getOriginalFilename();
-            System.out.println(fileAnhTacGia.getOriginalFilename());
+            duongDanLuuAnhTacGia = tacGia.getLinkAnhTacGia();
         }
-        return "";
+        TacGia tacgiaUpdate = TacGia.builder()
+                .idTacGia(Integer.parseInt(idTacGia))
+                .hoVaTen(hoVaTen)
+                .sdt(sdt)
+                .trangThai(Integer.parseInt(trangThai))
+                .email(email)
+                .linkAnhTacGia(duongDanLuuAnhTacGia)
+                .build();
+        this.ser.createTacGia(tacgiaUpdate);
+        return "redirect:/quan-ly/tac-gia/hien-thi";
     }
-
-
-
 
 }
