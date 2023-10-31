@@ -28,9 +28,11 @@
                     <div class="boxsearchforname">
                         <form th:action="@{/quan-ly/sach/hien-thi}" method="get" enctype="multipart/form-data">
                             <label for="productName">Tên sản phẩm:</label><br>
-                            <input class="form-control" type="text" id="productName" name="productNameSearch"/><br>
+                            <input class="form-control" type="text" id="productName" name="productNameSearch"
+                                   th:value="${param.productNameSearch}"/><br>
                             <label for="productCode">Mã sản phẩm:</label><br>
-                            <input class="form-control" type="text" id="productCode" name="productCodeSearch"/><br>
+                            <input class="form-control" type="text" id="productCode" name="productCodeSearch"
+                                   th:value="${param.productCodeSearch}"/><br>
                             <label for="productStatus">Trạng thái:</label><br>
                             <select id="productStatus" name="productStatusSearch" class="form-control">
                                 <option value="99">Tất cả</option>
@@ -39,20 +41,35 @@
                             </select>
                             <br>
                             <label>Thể loại:</label><br>
+                            <!--                            <div id="categoryList" style="max-height: 200px; overflow-y: scroll;">-->
+                            <!--                                <th:block th:each="category : ${listTheLoai}">-->
+                            <!--                                    <input type="checkbox" th:id="${'category_' + category.idTheLoai}"-->
+                            <!--                                           th:name="categorySearch" th:value="${category.idTheLoai}"-->
+                            <!--                                           th:checked="${categorySearch != null && categorySearch.contains(category.idTheLoai)}"/>-->
+                            <!--                                    <label th:for="${'category_' + category.idTheLoai}"-->
+                            <!--                                           th:text="${category.tenTheLoai}"></label><br>-->
+                            <!--                                </th:block>-->
+                            <!--                            </div>-->
                             <div id="categoryList" style="max-height: 200px; overflow-y: scroll;">
                                 <th:block th:each="category : ${listTheLoai}">
-                                    <input type="checkbox" th:id="${'category_' + category.idTheLoai}"
-                                           th:name="categorySearch" th:value="${category.idTheLoai}"/>
-                                    <label th:for="${'category_' + category.idTheLoai}"
+                                    <input type="checkbox" th:id="'category_' + ${category.idTheLoai}"
+                                           th:name="categorySearch" th:value="${category.idTheLoai}"
+                                           th:checked="${categorySearch != null and categorySearch.contains(category.idTheLoai)}"/>
+                                    <label th:for="'category_' + ${category.idTheLoai}"
                                            th:text="${category.tenTheLoai}"></label><br>
                                 </th:block>
                             </div>
 
+
                             <label>Khoảng giá:</label><br>
-                            <input type="radio" name="priceRangeSearch" value="all"> Tất cả<br>
-                            <input type="radio" name="priceRangeSearch" value="1"> Dưới 100.000 vnd<br>
-                            <input type="radio" name="priceRangeSearch" value="2">Từ 100.000 đến 500.000<br>
-                            <input type="radio" name="priceRangeSearch" value="3"> Trên 500.000<br>
+                            <input type="radio" name="priceRangeSearch" value="all"
+                                   th:checked="${param.priceRangeSearch == 'all'}"> Tất cả<br>
+                            <input type="radio" name="priceRangeSearch" value="1"
+                                   th:checked="${param.priceRangeSearch == '1'}"> Dưới 100.000 vnd<br>
+                            <input type="radio" name="priceRangeSearch" value="2"
+                                   th:checked="${param.priceRangeSearch == '2'}">Từ 100.000 đến 500.000<br>
+                            <input type="radio" name="priceRangeSearch" value="3"
+                                   th:checked="${param.priceRangeSearch == '3'}"> Trên 500.000<br>
                             <!-- Thêm các radio button cho các khoảng giá khác -->
                             <button class="form-control btn btn-success" type="submit">Tìm kiếm</button>
                         </form>
@@ -113,7 +130,7 @@
                                             </div>
                                             <div class="input-field">
                                                 <label for="trangThai">Trạng Thái:</label>
-                                                <select  id="trangThai" class="form-control" name="trangThai">
+                                                <select id="trangThai" class="form-control" name="trangThai">
                                                     <option value="1">Đang kinh doanh</option>
                                                     <option value="0">Ngừng kinh doanh</option>
                                                 </select>
@@ -239,17 +256,23 @@
                                         <!-- Display Product Details -->
                                         <div class="product-details">
                                             <h6 class="product-name">Mã Sách:</h6>
-                                            <input class="form-control" id="viewMaSach" th:value="${sach.maSach}" disabled/>
+                                            <input class="form-control" id="viewMaSach" th:value="${sach.maSach}"
+                                                   disabled/>
                                             <h6 class="product-name">Tên Sách:</h6>
-                                            <input class="form-control" id="viewTenSach" th:value="${sach.tenSach}" disabled/>
+                                            <input class="form-control" id="viewTenSach" th:value="${sach.tenSach}"
+                                                   disabled/>
                                             <h6 class="product-description">Mô tả:</h6>
                                             <input class="form-control" id="viewMoTa" th:value="${sach.moTa}" disabled/>
                                             <h6 class="product-status">Trạng Thái:</h6>
-                                            <input class="form-control" id="viewTrangThai" th:value="${sach.trangThai == 1 ? 'Đang kinh doanh': 'Ngừng kinh doanh'}" disabled/>
+                                            <input class="form-control" id="viewTrangThai"
+                                                   th:value="${sach.trangThai == 1 ? 'Đang kinh doanh': 'Ngừng kinh doanh'}"
+                                                   disabled/>
                                             <h6 class="product-quantity">Số Lượng:</h6>
-                                            <input class="form-control" id="viewSoLuong" th:value="${sach.soLuongTonKho}" disabled/>
+                                            <input class="form-control" id="viewSoLuong"
+                                                   th:value="${sach.soLuongTonKho}" disabled/>
                                             <h6 class="product-price">Giá Bán:</h6>
-                                            <input class="form-control" id="viewGiaBan" th:value="${sach.giaBan}" disabled />
+                                            <input class="form-control" id="viewGiaBan" th:value="${sach.giaBan}"
+                                                   disabled/>
                                             <h6 class="product-images">Ảnh:</h6>
                                             <img th:src="@{|${sach.linkAnh1}|}" id="viewLinkAnh1" alt="anh 1"
                                                  width="88px" height="88px">
@@ -262,7 +285,8 @@
                                             <img th:src="@{|${sach.linkAnh5}|}" id="viewLinkAnh5" alt="anh 5"
                                                  width="88px" height="88px">
                                             <h6 class="product-barcode">Mã Vạch:</h6>
-                                            <input class="form-control" id="viewMaVach" th:value="${sach.maVach}" disabled/>
+                                            <input class="form-control" id="viewMaVach" th:value="${sach.maVach}"
+                                                   disabled/>
                                             <h4 class="viewTacGia">Tác Giả:</h4>
                                             <select id="tacgia" name="tacGiaList" class="form-control">
                                                 <th:block th:each="tacGia : ${sach.tacgia}">
@@ -308,7 +332,7 @@
                                               id="editProductForm" enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <label for="maSach">Mã Sách:</label>
-                                                <input type="text" th:value="${sach.maSach}" id="maSach"  name="maSach"
+                                                <input type="text" th:value="${sach.maSach}" id="maSach" name="maSach"
                                                        class="form-control" readonly>
                                             </div>
                                             <input type="text" id="IdSach" class="form-control"
@@ -320,19 +344,25 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="moTa">Mô tả:</label>
-                                                <textarea id="moTa" class="form-control" th:value="${sach.moTa}" name="moTa"></textarea>
+                                                <textarea id="moTa" class="form-control" th:value="${sach.moTa}"
+                                                          name="moTa"></textarea>
 
                                             </div>
                                             <div class="form-group">
                                                 <label for="trangThai">Trạng Thái:</label>
                                                 <select id="trangThai" class="form-control" name="trangThai">
-                                                    <option th:selected="${sach.trangThai == 1}" value="1">Đang kinh doanh</option>
-                                                    <option th:selected="${sach.trangThai == 0}" value="0">Ngừng kinh doanh</option>
+                                                    <option th:selected="${sach.trangThai == 1}" value="1">Đang kinh
+                                                        doanh
+                                                    </option>
+                                                    <option th:selected="${sach.trangThai == 0}" value="0">Ngừng kinh
+                                                        doanh
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="soLuong">Số Lượng:</label>
-                                                <input type="number" id="soLuong" class="form-control" name="soLuongTonKho"
+                                                <input type="number" id="soLuong" class="form-control"
+                                                       name="soLuongTonKho"
                                                        th:value="${sach.soLuongTonKho}">
                                             </div>
                                             <div class="form-group">
@@ -361,7 +391,7 @@
                                                     ></option>
                                                 </select>
                                             </div>
-<!--                                             anh 1-->
+                                            <!--                                             anh 1-->
                                             <div class="image-container">
                                                 <label th:for="'editlinkAnh1-' + ${sach.idSach}">
                                                     <img th:src="@{|${sach.linkAnh1}|}"
@@ -382,7 +412,7 @@
                                                     Xóa Ảnh
                                                 </button>
                                             </div>
-<!--                                             anh 2-->
+                                            <!--                                             anh 2-->
                                             <div class="image-container">
                                                 <input type="text" name="checkthayDoiImage2"
                                                        th:id="'checkthayDoiImage2-' + ${sach.idSach}"
@@ -405,7 +435,7 @@
                                                     Xóa Ảnh
                                                 </button>
                                             </div>
-<!--                                             anh 3-->
+                                            <!--                                             anh 3-->
                                             <div class="image-container">
                                                 <label th:for="'editlinkAnh3-' + ${sach.idSach}">
                                                     <img th:src="@{|${sach.linkAnh3}|}"
@@ -427,7 +457,7 @@
                                                     Xóa Ảnh
                                                 </button>
                                             </div>
-<!--                                             anh 4-->
+                                            <!--                                             anh 4-->
                                             <div class="image-container">
                                                 <label th:for="'editlinkAnh4-' + ${sach.idSach}">
                                                     <img th:src="@{|${sach.linkAnh4}|}"
@@ -448,7 +478,7 @@
                                                     Xóa Ảnh
                                                 </button>
                                             </div>
-<!--                                             anh 5-->
+                                            <!--                                             anh 5-->
                                             <div class="image-container">
                                                 <label th:for="'editlinkAnh5-' + ${sach.idSach}">
                                                     <img th:src="@{|${sach.linkAnh5}|}"

@@ -35,8 +35,16 @@ public class SachSpecification {
 
             // Thể loại sách (nếu được chọn)
             if (theLoai != null && !theLoai.isEmpty()) {
-                predicates.add(root.join("theLoais").in(theLoai));
+                List<Predicate> orPredicates = new ArrayList<>();
+
+                for (TheLoai selectedTheLoai : theLoai) {
+                    orPredicates.add(criteriaBuilder.isMember(selectedTheLoai, root.get("theLoais")));
+                }
+
+                Predicate finalOrPredicate = criteriaBuilder.or(orPredicates.toArray(new Predicate[0]));
+                predicates.add(finalOrPredicate);
             }
+
             if (trangThai != -1) {
                 if (trangThai == 1) {
                     predicates.add(criteriaBuilder.equal(root.get("trangThai"), 1)); // Đang hoạt động
