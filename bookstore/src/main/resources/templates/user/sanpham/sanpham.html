@@ -201,7 +201,7 @@
                         <!--end button xuat file-->
                     </div>
                     <!-- end các button thêm mới, import, và xuất file-->
-
+                    <th:block th:if="${not pageOfSach.isEmpty()}">
                     <table class="table" style=" border: 0px solid blue;">
                         <thead class="table-dark">
                         <tr>
@@ -522,6 +522,10 @@
 
 
                     </table>
+                        <th:block th:if="${pageOfSach.isEmpty()}">
+                            <h2>Không có dữ liệu nào cả!!!</h2>
+                        </th:block>
+                        <h6 style="color: red;"><b><i>Đang có <span th:text="${pageOfSach.totalElements}"></span> Sản Phẩm!</i> </b></h6>
                     <!-- phân trang-->
                     <div>
                         <span th:if="${pageOfSach.number + 1 > 1}">
