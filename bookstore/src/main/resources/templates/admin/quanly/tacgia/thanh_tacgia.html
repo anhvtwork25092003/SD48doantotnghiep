@@ -27,11 +27,13 @@
                     <div class="boxsearchforname">
                         <form th:action="@{/quan-ly/tac-gia/hien-thi}" method="get" enctype="multipart/form-data">
                             <label for="hoVaTen">Tìm Tên Tác Giả:</label><br>
-                            <input class="form-control" type="text" id="hoVaTen" name="hoVaTen"/><br>
+                            <input class="form-control" type="text" id="hoVaTen" name="memberNameTacGia"
+                                   th:value="${param.memberNameTacGia}"/><br><br>
                             <label for="email"> Tìm Email:</label><br>
-                            <input class="form-control" type="text" id="email" name="email"/><br>
-                            <label for="productStatus">Trạng thái:</label><br>
-                            <select class="form-control" id="productStatus" name="productStatusSearch">
+                            <input class="form-control" type="text" id="email" name="memberCodeTacGia"
+                                   th:value="${param.memberCodeTacGia}"/><br><br>
+                            <label for="trangThai">Trạng thái:</label><br>
+                            <select id="trangThai" name="memberStatusSearch" class="form-control">
                                 <option value="99">Tất cả</option>
                                 <option value="1">Hoạt động</option>
                                 <option value="0">Ngừng hoạt động</option>
