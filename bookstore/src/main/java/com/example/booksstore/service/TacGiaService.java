@@ -1,5 +1,6 @@
 package com.example.booksstore.service;
 
+import com.example.booksstore.entities.NhanVien;
 import com.example.booksstore.entities.TacGia;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +20,6 @@ public interface TacGiaService {
     TacGia UpdateTacGia(Integer id,TacGia tacGia);
 
     Page<TacGia> searchTacGia(String hoVaTen , String email,Integer trangThai,Pageable pageable);
+    TacGia getOne(int id);
+
 }

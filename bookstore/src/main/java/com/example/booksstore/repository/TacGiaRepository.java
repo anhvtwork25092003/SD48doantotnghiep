@@ -13,4 +13,6 @@ public interface TacGiaRepository extends JpaRepository<TacGia,Integer> {
     TacGia findTacGiaByID(Integer id);
     Page<TacGia> findAll(Specification<TacGia> spec, Pageable pageable);
 
+    TacGia findByIdTacGia(int id);
+
 }
