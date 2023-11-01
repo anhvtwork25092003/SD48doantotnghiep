@@ -46,7 +46,7 @@ public class QuanLySachController {
     public String hienThiTrangTongQuanQuanLy(Model model, @RequestParam(defaultValue = "1") int page,
                                              @RequestParam(required = false) String productNameSearch,
                                              @RequestParam(required = false) String productCodeSearch,
-                                             @RequestParam(required = false) String productStatusSearch,
+                                             @RequestParam( value = "productStatusSearch", required = false) String productStatusSearch,
                                              @RequestParam(required = false) String priceRangeSearch,
                                              @RequestParam(required = false) Set<TheLoai> categorySearch
     ) {

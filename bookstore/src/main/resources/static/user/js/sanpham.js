@@ -189,53 +189,26 @@ function editImage(inputId, tinhTrangThayDoi) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const bookList = document.getElementById("book-list");
-    const paginationButtons = document.getElementById("pagination-buttons");
+// Lấy tham chiếu đến phần tử select
+const selectElement = document.getElementById("mySelect");
 
-    paginationButtons.addEventListener("click", function (e) {
-        if (e.target.classList.contains("page-link")) {
-            // Lấy giá trị data-page từ nút
-            const pageValue = e.target.getAttribute("data-page");
+// Lấy giá trị đã chọn từ Local Storage (nếu có)
+const selectedValue = localStorage.getItem("selectedValue");
 
-            // Kiểm tra nếu là nút "First"
-            if (pageValue === "0") {
-                loadBooks(0);
-            }
-            // Kiểm tra nếu là nút "Previous"
-            else if (pageValue === "-1") {
-                const currentPage = parseInt(paginationButtons.querySelector(".active").getAttribute("data-page"));
-                loadBooks(currentPage - 1);
-            }
-            // Kiểm tra nếu là nút "Last"
-            else if (pageValue === "last") {
-                const lastPage = parseInt(paginationButtons.querySelector(".page-link:last-child").getAttribute("data-page"));
-                loadBooks(lastPage);
-            }
-            // Nếu là nút bình thường
-            else {
-                // Lấy giá trị trang từ data-page
-                const page = parseInt(pageValue);
-                loadBooks(page);
-            }
-        }
-    });
+// Thiết lập giá trị đã chọn (nếu có) hoặc giá trị mặc định
+if (selectedValue) {
+    selectElement.value = selectedValue;
+}
 
-    // Hàm AJAX để tải dữ liệu sách
-    function loadBooks(page) {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "/quan-ly/sach/hien-thi-test?page=" + page, true);
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                // Cập nhật nội dung của div book-list với dữ liệu mới
-                bookList.innerHTML = xhr.responseText;
-            }
-        };
-
-        xhr.send();
-    }
+// Lắng nghe sự kiện thay đổi của select và lưu giá trị đã chọn vào Local Storage
+selectElement.addEventListener("change", function () {
+    localStorage.setItem("selectedValue", selectElement.value);
 });
+
+// Xóa giá trị đã chọn khi cần thiết (ví dụ: khi bạn muốn làm mới)
+function clearSelectedValue() {
+    localStorage.removeItem("selectedValue");
+}
 
 
 

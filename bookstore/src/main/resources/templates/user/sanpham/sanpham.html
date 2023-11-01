@@ -34,25 +34,13 @@
                             <input class="form-control" type="text" id="productCode" name="productCodeSearch"
                                    th:value="${param.productCodeSearch}"/><br>
                             <label for="productStatus">Trạng thái:</label><br>
-                            <select id="productStatus" name="productStatusSearch" class="form-control">
-                                <option value="S1" th:selected="${param.productStatusSearch == 'S1'}">Tất cả</option>
-                                <option value="S2" th:selected="${param.productStatusSearch == 'S2'}">Hoạt động</option>
-                                <option value="S3" th:selected="${param.productStatusSearch == 'S3'}">Ngừng hoạt động</option>
+                            <select id="productStatus" th:name="productStatusSearch" class="form-control">
+                                <option th:value="S1" th:selected="${productStatusSearch == 'S1'}">Tất cả</option>
+                                <option th:value="S2" th:selected="${productStatusSearch == 'S2'}">Hoạt động</option>
+                                <option th:value="S3" th:selected="${productStatusSearch == 'S3'}">Ngừng hoạt động</option>
                             </select>
-
-
-
                             <br>
                             <label>Thể loại:</label><br>
-                            <!--                            <div id="categoryList" style="max-height: 200px; overflow-y: scroll;">-->
-                            <!--                                <th:block th:each="category : ${listTheLoai}">-->
-                            <!--                                    <input type="checkbox" th:id="${'category_' + category.idTheLoai}"-->
-                            <!--                                           th:name="categorySearch" th:value="${category.idTheLoai}"-->
-                            <!--                                           th:checked="${categorySearch != null && categorySearch.contains(category.idTheLoai)}"/>-->
-                            <!--                                    <label th:for="${'category_' + category.idTheLoai}"-->
-                            <!--                                           th:text="${category.tenTheLoai}"></label><br>-->
-                            <!--                                </th:block>-->
-                            <!--                            </div>-->
                             <div id="categoryList" style="max-height: 200px; overflow-y: scroll;">
                                 <th:block th:each="category : ${listTheLoai}">
                                     <input type="checkbox" th:id="'category_' + ${category.idTheLoai}"
