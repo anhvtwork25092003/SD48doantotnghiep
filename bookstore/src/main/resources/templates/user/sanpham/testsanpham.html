@@ -26,7 +26,7 @@
                 <div class="col-4">
                     <!--search -->
                     <div class="boxsearchforname">
-                        <form th:action="@{/quan-ly/sach/hien-thi}" method="get" enctype="multipart/form-data">
+                        <form th:action="@{/quan-ly/sach/hien-thi-test}" method="get" enctype="multipart/form-data">
                             <label for="productName">Tên sản phẩm:</label><br>
                             <input class="form-control" type="text" id="productName" name="productNameSearch"
                                    th:value="${param.productNameSearch}"/><br>
@@ -35,13 +35,10 @@
                                    th:value="${param.productCodeSearch}"/><br>
                             <label for="productStatus">Trạng thái:</label><br>
                             <select id="productStatus" name="productStatusSearch" class="form-control">
-                                <option value="S1" th:selected="${param.productStatusSearch == 'S1'}">Tất cả</option>
-                                <option value="S2" th:selected="${param.productStatusSearch == 'S2'}">Hoạt động</option>
-                                <option value="S3" th:selected="${param.productStatusSearch == 'S3'}">Ngừng hoạt động</option>
+                                <option value="99">Tất cả</option>
+                                <option value="1">Hoạt động</option>
+                                <option value="0">Ngừng hoạt động</option>
                             </select>
-
-
-
                             <br>
                             <label>Thể loại:</label><br>
                             <!--                            <div id="categoryList" style="max-height: 200px; overflow-y: scroll;">-->
@@ -66,7 +63,7 @@
 
                             <label>Khoảng giá:</label><br>
                             <input type="radio" name="priceRangeSearch" value="all"
-                                   th:checked="${param.priceRangeSearch == 'all'?'checked' :''}"> Tất cả<br>
+                                   th:checked="${param.priceRangeSearch == 'all'}"> Tất cả<br>
                             <input type="radio" name="priceRangeSearch" value="1"
                                    th:checked="${param.priceRangeSearch == '1'}"> Dưới 100.000 vnd<br>
                             <input type="radio" name="priceRangeSearch" value="2"
@@ -77,7 +74,6 @@
                             <button class="form-control btn btn-success" type="submit">Tìm kiếm</button>
                         </form>
                     </div>
-
                 </div>
                 <div class="col-8">
                     <!-- các button thêm mới, import, và xuất file-->
@@ -205,6 +201,7 @@
                     </div>
                     <!-- end các button thêm mới, import, và xuất file-->
 
+                    <div id="book-list">
                     <table class="table" style=" border: 0px solid blue;">
                         <thead class="table-dark">
                         <tr>
@@ -525,17 +522,20 @@
 
 
                     </table>
-                    <!-- phân trang-->
-                    <div>
-                        <span th:if="${pageOfSach.number + 1 > 1}">
-                            <a th:href="@{'/quan-ly/sach/hien-thi?page=' + ${pageOfSach.number}}">Previous</a>
-                        </span>
-                        <span th:text="${pageOfSach.number + 1} + ' / ' + ${pageOfSach.totalPages}"></span>
-                        <span th:if="${pageOfSach.number + 1 < pageOfSach.totalPages}">
-                            <a th:href="@{'/quan-ly/sach/hien-thi?page=' + ${pageOfSach.number + 2}}">Next</a>
-                        </span>
                     </div>
-                    <!--end phân trang-->
+                    <div id="pagination-buttons">
+                        <button class="page-link" data-page="0">First</button>
+                        <button class="page-link" data-page="-1">Previous</button>
+
+                        <!-- Sử dụng một vòng lặp Thymeleaf để tạo các nút chuyển trang dựa trên số trang -->
+                        <th:block th:each="pageNumber : ${#numbers.sequence(0, pageOfSach.totalPages - 1)}">
+                            <button class="page-link" th:attr="data-page=${pageNumber}">[[${pageNumber + 1}]]</button>
+                        </th:block>
+
+                        <button class="page-link" data-page="+1">Next</button>
+                        <button class="page-link" data-page="last">Last</button>
+                    </div>
+
 
 
                 </div>

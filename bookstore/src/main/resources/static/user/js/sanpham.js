@@ -166,6 +166,7 @@ function deleteImage(imageId, inputId, tinhTrangThayDoi, event) {
     var fileInput = document.getElementById(inputId);
     fileInput.value = '';
 }
+
 function editImage(inputId, tinhTrangThayDoi) {
     var fileInput = document.getElementById(inputId);
     var newImageUrl = "DaThayDoi";
@@ -187,6 +188,56 @@ function editImage(inputId, tinhTrangThayDoi) {
         reader.readAsDataURL(fileInput.files[0]);
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const bookList = document.getElementById("book-list");
+    const paginationButtons = document.getElementById("pagination-buttons");
+
+    paginationButtons.addEventListener("click", function (e) {
+        if (e.target.classList.contains("page-link")) {
+            // Lấy giá trị data-page từ nút
+            const pageValue = e.target.getAttribute("data-page");
+
+            // Kiểm tra nếu là nút "First"
+            if (pageValue === "0") {
+                loadBooks(0);
+            }
+            // Kiểm tra nếu là nút "Previous"
+            else if (pageValue === "-1") {
+                const currentPage = parseInt(paginationButtons.querySelector(".active").getAttribute("data-page"));
+                loadBooks(currentPage - 1);
+            }
+            // Kiểm tra nếu là nút "Last"
+            else if (pageValue === "last") {
+                const lastPage = parseInt(paginationButtons.querySelector(".page-link:last-child").getAttribute("data-page"));
+                loadBooks(lastPage);
+            }
+            // Nếu là nút bình thường
+            else {
+                // Lấy giá trị trang từ data-page
+                const page = parseInt(pageValue);
+                loadBooks(page);
+            }
+        }
+    });
+
+    // Hàm AJAX để tải dữ liệu sách
+    function loadBooks(page) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "/quan-ly/sach/hien-thi-test?page=" + page, true);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Cập nhật nội dung của div book-list với dữ liệu mới
+                bookList.innerHTML = xhr.responseText;
+            }
+        };
+
+        xhr.send();
+    }
+});
+
+
 
 
 
