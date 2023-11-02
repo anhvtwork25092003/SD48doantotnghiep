@@ -195,341 +195,349 @@
                     </div>
                     <!-- end các button thêm mới, import, và xuất file-->
                     <th:block th:if="${not pageOfSach.isEmpty()}">
-                    <table class="table" style=" border: 0px solid blue;">
-                        <thead class="table-dark">
-                        <tr>
-                            <th scope="col">Mã Sản Phẩm</th>
-                            <th scope="col">Tên Sản Phẩm</th>
-                            <th scope="col">Giá</th>
-                            <th scope="col">Số Lượng</th>
-                            <th scope="col">Trạng Thái</th>
-                            <th scope="col">Mã Vạch</th>
-                            <th scope="col">Hành Động</th>
+                        <table class="table" style=" border: 0px solid blue;">
+                            <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Mã Sản Phẩm</th>
+                                <th scope="col">Tên Sản Phẩm</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Số Lượng</th>
+                                <th scope="col">Trạng Thái</th>
+                                <th scope="col">Mã Vạch</th>
+                                <th scope="col">Hành Động</th>
 
-                        </tr>
-                        </thead>
-                        <tbody th:each="sach, iterStat : ${pageOfSach.content}">
-                        <tr>
-                            <td th:text="${sach.maSach}"></td>
-                            <td th:text="${sach.tenSach}"></td>
-                            <td th:text="${sach.giaBan}"></td>
-                            <td th:text="${sach.soLuongTonKho}"></td>
-                            <td th:text="${sach.trangThai == 1 ? 'Đang kinh doanh' :'Ngừng kinh doanh'}"></td>
-                            <td th:text="${sach.maVach}"></td>
-                            <td>
-                                <!-- Sửa -->
-                                <!-- Button to Open the Edit Product Modal -->
-                                <button type="button" class="btn btn-info" data-toggle="modal"
-                                        th:attr="data-target='#modalEditSach-' + ${sach.idSach}">
-                                    <img src="/image/anhCuaThanh/edit1.jpg" width="26" height="26">
-                                </button>
-                                <!-- Xem -->
-                                <!-- Button to Open the View Product Modal -->
-                                <button type="button" class="btn btn-info" data-toggle="modal"
-                                        th:attr="data-target='#modalSach-' + ${sach.idSach}">
-                                    <img src="/image/anhCuaThanh/redeye12.jpg" width="26" height="26">
-                                </button>
-                            </td>
-                        </tr>
+                            </tr>
+                            </thead>
+                            <tbody th:each="sach, iterStat : ${pageOfSach.content}">
+                            <tr>
+                                <td th:text="${sach.maSach}"></td>
+                                <td th:text="${sach.tenSach}"></td>
+                                <td th:text="${sach.giaBan}"></td>
+                                <td th:text="${sach.soLuongTonKho}"></td>
+                                <td th:text="${sach.trangThai == 1 ? 'Đang kinh doanh' :'Ngừng kinh doanh'}"></td>
+                                <td th:text="${sach.maVach}"></td>
+                                <td>
+                                    <!-- Sửa -->
+                                    <!-- Button to Open the Edit Product Modal -->
+                                    <button type="button" class="btn btn-info" data-toggle="modal"
+                                            th:attr="data-target='#modalEditSach-' + ${sach.idSach}">
+                                        <img src="/image/anhCuaThanh/edit1.jpg" width="26" height="26">
+                                    </button>
+                                    <!-- Xem -->
+                                    <!-- Button to Open the View Product Modal -->
+                                    <button type="button" class="btn btn-info" data-toggle="modal"
+                                            th:attr="data-target='#modalSach-' + ${sach.idSach}">
+                                        <img src="/image/anhCuaThanh/redeye12.jpg" width="26" height="26">
+                                    </button>
+                                </td>
+                            </tr>
 
-                        <!--start modal for view action-->
-                        <div class="modal fade" th:id="'modalSach-' + ${sach.idSach}" tabindex="-1" role="dialog"
-                             aria-labelledby="viewModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="viewModalLabel">Thông Tin Sản Phẩm</h5>
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!-- Display Product Details -->
-                                        <div class="product-details">
-                                            <h6 class="product-name">Mã Sách:</h6>
-                                            <input class="form-control" id="viewMaSach" th:value="${sach.maSach}"
-                                                   disabled/>
-                                            <h6 class="product-name">Tên Sách:</h6>
-                                            <input class="form-control" id="viewTenSach" th:value="${sach.tenSach}"
-                                                   disabled/>
-                                            <h6 class="product-description">Mô tả:</h6>
-                                            <input class="form-control" id="viewMoTa" th:value="${sach.moTa}" disabled/>
-                                            <h6 class="product-status">Trạng Thái:</h6>
-                                            <input class="form-control" id="viewTrangThai"
-                                                   th:value="${sach.trangThai == 1 ? 'Đang kinh doanh': 'Ngừng kinh doanh'}"
-                                                   disabled/>
-                                            <h6 class="product-quantity">Số Lượng:</h6>
-                                            <input class="form-control" id="viewSoLuong"
-                                                   th:value="${sach.soLuongTonKho}" disabled/>
-                                            <h6 class="product-price">Giá Bán:</h6>
-                                            <input class="form-control" id="viewGiaBan" th:value="${sach.giaBan}"
-                                                   disabled/>
-                                            <h6 class="product-images">Ảnh:</h6>
-                                            <img th:src="@{|${sach.linkAnh1}|}" id="viewLinkAnh1" alt="anh 1"
-                                                 width="88px" height="88px">
-                                            <img th:src="@{|${sach.linkAnh2}|}" id="viewLinkAnh2" alt="anh 2"
-                                                 width="88px" height="88px">
-                                            <img th:src="@{|${sach.linkAnh3}|}" id="viewLinkAnh3" alt="anh 3"
-                                                 width="88px" height="88px">
-                                            <img th:src="@{|${sach.linkAnh4}|}" id="viewLinkAnh4" alt="anh 4"
-                                                 width="88px" height="88px">
-                                            <img th:src="@{|${sach.linkAnh5}|}" id="viewLinkAnh5" alt="anh 5"
-                                                 width="88px" height="88px">
-                                            <h6 class="product-barcode">Mã Vạch:</h6>
-                                            <input class="form-control" id="viewMaVach" th:value="${sach.maVach}"
-                                                   disabled/>
-                                            <h4 class="viewTacGia">Tác Giả:</h4>
-                                            <select id="tacgia" name="tacGiaList" class="form-control">
-                                                <th:block th:each="tacGia : ${sach.tacgia}">
-                                                    <option th:value="${tacGia.idTacGia}"
-                                                            th:text="${tacGia.hoVaTen}"></option>
-                                                </th:block>
-                                            </select>
-                                            <h6 class="viewTacGia">Thể Loại:</h6>
-                                            <select id="theLoaiView" name="theLoaiList" class="form-control">
-                                                <th:block th:each="theLoai : ${sach.theLoais}">
-                                                    <option th:value="${theLoai.idTheLoai}"
-                                                            th:text="${theLoai.tenTheLoai}"></option>
-                                                </th:block>
-                                            </select>
+                            <!--start modal for view action-->
+                            <div class="modal fade" th:id="'modalSach-' + ${sach.idSach}" tabindex="-1" role="dialog"
+                                 aria-labelledby="viewModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="viewModalLabel">Thông Tin Sản Phẩm</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Display Product Details -->
+                                            <div class="product-details">
+                                                <h6 class="product-name">Mã Sách:</h6>
+                                                <input class="form-control" id="viewMaSach" th:value="${sach.maSach}"
+                                                       disabled/>
+                                                <h6 class="product-name">Tên Sách:</h6>
+                                                <input class="form-control" id="viewTenSach" th:value="${sach.tenSach}"
+                                                       disabled/>
+                                                <h6 class="product-description">Mô tả:</h6>
+                                                <input class="form-control" id="viewMoTa" th:value="${sach.moTa}"
+                                                       disabled/>
+                                                <h6 class="product-status">Trạng Thái:</h6>
+                                                <input class="form-control" id="viewTrangThai"
+                                                       th:value="${sach.trangThai == 1 ? 'Đang kinh doanh': 'Ngừng kinh doanh'}"
+                                                       disabled/>
+                                                <h6 class="product-quantity">Số Lượng:</h6>
+                                                <input class="form-control" id="viewSoLuong"
+                                                       th:value="${sach.soLuongTonKho}" disabled/>
+                                                <h6 class="product-price">Giá Bán:</h6>
+                                                <input class="form-control" id="viewGiaBan" th:value="${sach.giaBan}"
+                                                       disabled/>
+                                                <h6 class="product-images">Ảnh:</h6>
+                                                <img th:src="@{|${sach.linkAnh1}|}" id="viewLinkAnh1" alt="anh 1"
+                                                     width="88px" height="88px">
+                                                <img th:src="@{|${sach.linkAnh2}|}" id="viewLinkAnh2" alt="anh 2"
+                                                     width="88px" height="88px">
+                                                <img th:src="@{|${sach.linkAnh3}|}" id="viewLinkAnh3" alt="anh 3"
+                                                     width="88px" height="88px">
+                                                <img th:src="@{|${sach.linkAnh4}|}" id="viewLinkAnh4" alt="anh 4"
+                                                     width="88px" height="88px">
+                                                <img th:src="@{|${sach.linkAnh5}|}" id="viewLinkAnh5" alt="anh 5"
+                                                     width="88px" height="88px">
+                                                <h6 class="product-barcode">Mã Vạch:</h6>
+                                                <input class="form-control" id="viewMaVach" th:value="${sach.maVach}"
+                                                       disabled/>
+                                                <h4 class="viewTacGia">Tác Giả:</h4>
+                                                <select id="tacgia" name="tacGiaList" class="form-control">
+                                                    <th:block th:each="tacGia : ${sach.tacgia}">
+                                                        <option th:value="${tacGia.idTacGia}"
+                                                                th:text="${tacGia.hoVaTen}"></option>
+                                                    </th:block>
+                                                </select>
+                                                <h6 class="viewTacGia">Thể Loại:</h6>
+                                                <select id="theLoaiView" name="theLoaiList" class="form-control">
+                                                    <th:block th:each="theLoai : ${sach.theLoais}">
+                                                        <option th:value="${theLoai.idTheLoai}"
+                                                                th:text="${theLoai.tenTheLoai}"></option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                                Đóng
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">
-                                            Đóng
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--end modal for view action-->
+                            <!--end modal for view action-->
 
-                        <!-- Edit Product Modal -->
-                        <div class="modal fade" th:id="'modalEditSach-' + ${sach.idSach}" tabindex="-1" role="dialog"
-                             aria-labelledby="editModalLabel"
-                             aria-hidden="true">+
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content ">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editModalLabel">Sửa Sản Phẩm</h5>
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!-- Form for Edetaiiting Product Dls -->
-                                        <form th:action="@{/quan-ly/sach/cap-nhat}" method="post" th:object="${sach2}"
-                                              id="editProductForm" enctype="multipart/form-data">
-                                            <div class="form-group">
-                                                <label for="maSach">Mã Sách:</label>
-                                                <input type="text" th:value="${sach.maSach}" id="maSach" name="maSach"
-                                                       class="form-control" readonly>
-                                            </div>
-                                            <input type="text" id="IdSach" class="form-control"
-                                                   th:value="${sach.IdSach}" name="IdSach" hidden>
-                                            <div class="form-group">
-                                                <label for="tenSach">Tên Sách:</label>
-                                                <input type="text" id="tenSach" class="form-control"
-                                                       th:value="${sach.tenSach}" name="tenSach">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="moTa">Mô tả:</label>
-                                                <textarea id="moTa" class="form-control" th:value="${sach.moTa}"
-                                                          name="moTa"></textarea>
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="trangThai">Trạng Thái:</label>
-                                                <select id="trangThai" class="form-control" name="trangThai">
-                                                    <option th:selected="${sach.trangThai == 1}" value="1">Đang kinh
-                                                        doanh
-                                                    </option>
-                                                    <option th:selected="${sach.trangThai == 0}" value="0">Ngừng kinh
-                                                        doanh
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="soLuong">Số Lượng:</label>
-                                                <input type="number" id="soLuong" class="form-control"
-                                                       name="soLuongTonKho"
-                                                       th:value="${sach.soLuongTonKho}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="giaBan">Giá Bán:</label>
-                                                <input type="number" id="giaBan" class="form-control" name="giaBan"
-                                                       th:value="${sach.giaBan}">
-                                            </div>
-
-                                            <div class="input-field">
-                                                <label for="maSach">Thể loại:</label>
-                                                <select multiple="multiple" name="theLoais" class="form-control">
-                                                    <option th:each="listTheLoai : ${listTheLoai}"
-                                                            th:value="${listTheLoai.idTheLoai}"
-                                                            th:text="${listTheLoai.tenTheLoai}"
-                                                            th:selected="${sach.theLoais.contains(listTheLoai)}"
-                                                    ></option>
-                                                </select>
-                                            </div>
-                                            <div class="input-field">
-                                                <label for="maSach">Tác giả:</label>
-                                                <select multiple="multiple" name="tacgia" class="form-control">
-                                                    <option th:each="listTheLoai : ${authors}"
-                                                            th:value="${listTheLoai.idTacGia}"
-                                                            th:text="${listTheLoai.hoVaTen}"
-                                                            th:selected="${sach.tacgia.contains(listTheLoai)}"
-                                                    ></option>
-                                                </select>
-                                            </div>
-                                            <!--                                             anh 1-->
-                                            <div class="image-container">
-                                                <label th:for="'editlinkAnh1-' + ${sach.idSach}">
-                                                    <img th:src="@{|${sach.linkAnh1}|}"
-                                                         th:id="'editviewLinkAnh1-' + ${sach.idSach}"
-                                                         alt="anh 1" width="88px" height="88px"
-                                                         th:onclick="'editImage(\'' + 'editlinkAnh1-' + ${sach.idSach} + '\', \'checkthayDoiImage-' + ${sach.idSach} + '\')'"/>
-                                                </label>
-                                                <input type="text" name="checkthayDoiImage1"
-                                                       th:id="'checkthayDoiImage-' + ${sach.idSach}" value="chuaThayDoi"
-                                                       hidden>
-                                                <input type="file" class="custom-file-input"
-                                                       th:id="'editlinkAnh1-' + ${sach.idSach}"
-                                                       name="editlinkAnh1" accept="image/*"
-                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnh1-' + ${sach.idSach} + '\')'"/>
-
-                                                <button class="delete-button"
-                                                        th:attr="onclick=|deleteImage('editviewLinkAnh1-${sach.idSach}', 'editlinkAnh1-${sach.idSach}', 'checkthayDoiImage-${sach.idSach}', event)|">
-                                                    Xóa Ảnh
-                                                </button>
-                                            </div>
-                                            <!--                                             anh 2-->
-                                            <div class="image-container">
-                                                <input type="text" name="checkthayDoiImage2"
-                                                       th:id="'checkthayDoiImage2-' + ${sach.idSach}"
-                                                       value="chuaThayDoi"
-                                                       hidden>
-                                                <label th:for="'editlinkAnh2-' + ${sach.idSach}">
-                                                    <img th:src="@{|${sach.linkAnh2}|}"
-                                                         th:id="'editviewLinkAnh2-' + ${sach.idSach}"
-                                                         alt="anh 1" width="88px" height="88px"
-                                                         th:onclick="'editImage(\'' + 'editlinkAnh2-' + ${sach.idSach} + '\', \'checkthayDoiImage2-' + ${sach.idSach} + '\')'"/>
-                                                </label>
-
-                                                <input type="file" class="custom-file-input"
-                                                       th:id="'editlinkAnh2-' + ${sach.idSach}"
-                                                       name="editlinkAnh2" accept="image/*"
-                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnh2-' + ${sach.idSach} + '\')'"/>
-
-                                                <button class="delete-button"
-                                                        th:attr="onclick=|deleteImage('editviewLinkAnh2-${sach.idSach}', 'editlinkAnh2-${sach.idSach}', 'checkthayDoiImage2-${sach.idSach}', event)|">
-                                                    Xóa Ảnh
-                                                </button>
-                                            </div>
-                                            <!--                                             anh 3-->
-                                            <div class="image-container">
-                                                <label th:for="'editlinkAnh3-' + ${sach.idSach}">
-                                                    <img th:src="@{|${sach.linkAnh3}|}"
-                                                         th:id="'editviewLinkAnh3-' + ${sach.idSach}"
-                                                         alt="anh 1" width="88px" height="88px"
-                                                         th:onclick="'editImage(\'' + 'editlinkAnh1-' + ${sach.idSach} + '\', \'checkthayDoiImage3-' + ${sach.idSach} + '\')'"/>
-                                                </label>
-                                                <input type="text" name="checkthayDoiImage3"
-                                                       th:id="'checkthayDoiImage3-' + ${sach.idSach}"
-                                                       value="chuaThayDoi"
-                                                       hidden>
-                                                <input type="file" class="custom-file-input"
-                                                       th:id="'editlinkAnh3-' + ${sach.idSach}"
-                                                       name="editlinkAnh3" accept="image/*"
-                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnh3-' + ${sach.idSach} + '\')'"/>
-
-                                                <button class="delete-button"
-                                                        th:attr="onclick=|deleteImage('editviewLinkAnh3-${sach.idSach}', 'editlinkAnh3-${sach.idSach}', 'checkthayDoiImage3-${sach.idSach}', event)|">
-                                                    Xóa Ảnh
-                                                </button>
-                                            </div>
-                                            <!--                                             anh 4-->
-                                            <div class="image-container">
-                                                <label th:for="'editlinkAnh4-' + ${sach.idSach}">
-                                                    <img th:src="@{|${sach.linkAnh4}|}"
-                                                         th:id="'editviewLinkAnh4-' + ${sach.idSach}"
-                                                         alt="anh 1" width="88px" height="88px"
-                                                         th:onclick="'editImage(\'' + 'editlinkAnh4-' + ${sach.idSach} + '\', \'checkthayDoiImage4-' + ${sach.idSach} + '\')'"/>
-                                                </label>
-                                                <input type="text" name="checkthayDoiImage4"
-                                                       th:id="'checkthayDoiImage4-' + ${sach.idSach}"
-                                                       value="chuaThayDoi"
-                                                       hidden>
-                                                <input type="file" class="custom-file-input"
-                                                       th:id="'editlinkAnh4-' + ${sach.idSach}"
-                                                       name="editlinkAnh4" accept="image/*"
-                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnh4-' + ${sach.idSach} + '\')'"/>
-                                                <button class="delete-button"
-                                                        th:attr="onclick=|deleteImage('editviewLinkAnh4-${sach.idSach}', 'editlinkAnh4-${sach.idSach}', 'checkthayDoiImage4-${sach.idSach}', event)|">
-                                                    Xóa Ảnh
-                                                </button>
-                                            </div>
-                                            <!--                                             anh 5-->
-                                            <div class="image-container">
-                                                <label th:for="'editlinkAnh5-' + ${sach.idSach}">
-                                                    <img th:src="@{|${sach.linkAnh5}|}"
-                                                         th:id="'editviewLinkAnh5-' + ${sach.idSach}"
-                                                         alt="anh 1" width="88px" height="88px"
-                                                         th:onclick="'editImage(\'' + 'editlinkAnh1-' + ${sach.idSach} + '\', \'checkthayDoiImage5-' + ${sach.idSach} + '\')'"/>
-                                                </label>
-                                                <input type="text" name="checkthayDoiImage5"
-                                                       th:id="'checkthayDoiImage5-' + ${sach.idSach}"
-                                                       value="chuaThayDoi"
-                                                       hidden>
-                                                <input type="file" class="custom-file-input"
-                                                       th:id="'editlinkAnh5-' + ${sach.idSach}"
-                                                       name="editlinkAnh5" accept="image/*"
-                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnh5-' + ${sach.idSach} + '\')'"/>
-                                                <button class="delete-button"
-                                                        th:attr="onclick=|deleteImage('editviewLinkAnh5-${sach.idSach}', 'editlinkAnh5-${sach.idSach}', 'checkthayDoiImage5-${sach.idSach}', event)|">
-                                                    Xóa Ảnh
-                                                </button>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="maVach">Mã Vạch:</label>
-                                                <input type="text" id="maVach" class="form-control"
-                                                       th:value="${sach.maVach}" name="maVach">
-                                            </div>
-                                            <br>
-                                            <button type="submit" class="btn btn-primary">
-                                                Lưu
+                            <!-- Edit Product Modal -->
+                            <div class="modal fade" th:id="'modalEditSach-' + ${sach.idSach}" tabindex="-1"
+                                 role="dialog"
+                                 aria-labelledby="editModalLabel"
+                                 aria-hidden="true">+
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content ">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel">Sửa Sản Phẩm</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
                                             </button>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng
-                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Form for Edetaiiting Product Dls -->
+                                            <form th:action="@{/quan-ly/sach/cap-nhat}" method="post"
+                                                  th:object="${sach2}"
+                                                  id="editProductForm" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label for="maSach">Mã Sách:</label>
+                                                    <input type="text" th:value="${sach.maSach}" id="maSach"
+                                                           name="maSach"
+                                                           class="form-control" readonly>
+                                                </div>
+                                                <input type="text" id="IdSach" class="form-control"
+                                                       th:value="${sach.IdSach}" name="IdSach" hidden>
+                                                <div class="form-group">
+                                                    <label for="tenSach">Tên Sách:</label>
+                                                    <input type="text" id="tenSach" class="form-control"
+                                                           th:value="${sach.tenSach}" name="tenSach">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="moTa">Mô tả:</label>
+                                                    <textarea id="moTa" class="form-control" th:value="${sach.moTa}"
+                                                              name="moTa"></textarea>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="trangThai">Trạng Thái:</label>
+                                                    <select id="trangThai" class="form-control" name="trangThai">
+                                                        <option th:selected="${sach.trangThai == 1}" value="1">Đang kinh
+                                                            doanh
+                                                        </option>
+                                                        <option th:selected="${sach.trangThai == 0}" value="0">Ngừng
+                                                            kinh
+                                                            doanh
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="soLuong">Số Lượng:</label>
+                                                    <input type="number" id="soLuong" class="form-control"
+                                                           name="soLuongTonKho"
+                                                           th:value="${sach.soLuongTonKho}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="giaBan">Giá Bán:</label>
+                                                    <input type="number" id="giaBan" class="form-control" name="giaBan"
+                                                           th:value="${sach.giaBan}">
+                                                </div>
+
+                                                <div class="input-field">
+                                                    <label for="maSach">Thể loại:</label>
+                                                    <select multiple="multiple" name="theLoais" class="form-control">
+                                                        <option th:each="listTheLoai : ${listTheLoai}"
+                                                                th:value="${listTheLoai.idTheLoai}"
+                                                                th:text="${listTheLoai.tenTheLoai}"
+                                                                th:selected="${sach.theLoais.contains(listTheLoai)}"
+                                                        ></option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-field">
+                                                    <label for="maSach">Tác giả:</label>
+                                                    <select multiple="multiple" name="tacgia" class="form-control">
+                                                        <option th:each="listTheLoai : ${authors}"
+                                                                th:value="${listTheLoai.idTacGia}"
+                                                                th:text="${listTheLoai.hoVaTen}"
+                                                                th:selected="${sach.tacgia.contains(listTheLoai)}"
+                                                        ></option>
+                                                    </select>
+                                                </div>
+                                                <!--                                             anh 1-->
+                                                <div class="image-container">
+                                                    <label th:for="'editlinkAnh1-' + ${sach.idSach}">
+                                                        <img th:src="@{|${sach.linkAnh1}|}"
+                                                             th:id="'editviewLinkAnh1-' + ${sach.idSach}"
+                                                             alt="anh 1" width="88px" height="88px"
+                                                             th:onclick="'editImage(\'' + 'editlinkAnh1-' + ${sach.idSach} + '\', \'checkthayDoiImage-' + ${sach.idSach} + '\')'"/>
+                                                    </label>
+                                                    <input type="text" name="checkthayDoiImage1"
+                                                           th:id="'checkthayDoiImage-' + ${sach.idSach}"
+                                                           value="chuaThayDoi"
+                                                           hidden>
+                                                    <input type="file" class="custom-file-input"
+                                                           th:id="'editlinkAnh1-' + ${sach.idSach}"
+                                                           name="editlinkAnh1" accept="image/*"
+                                                           th:attr="onchange='displayImage(this, \'editviewLinkAnh1-' + ${sach.idSach} + '\')'"/>
+
+                                                    <button class="delete-button"
+                                                            th:attr="onclick=|deleteImage('editviewLinkAnh1-${sach.idSach}', 'editlinkAnh1-${sach.idSach}', 'checkthayDoiImage-${sach.idSach}', event)|">
+                                                        Xóa Ảnh
+                                                    </button>
+                                                </div>
+                                                <!--                                             anh 2-->
+                                                <div class="image-container">
+                                                    <input type="text" name="checkthayDoiImage2"
+                                                           th:id="'checkthayDoiImage2-' + ${sach.idSach}"
+                                                           value="chuaThayDoi"
+                                                           hidden>
+                                                    <label th:for="'editlinkAnh2-' + ${sach.idSach}">
+                                                        <img th:src="@{|${sach.linkAnh2}|}"
+                                                             th:id="'editviewLinkAnh2-' + ${sach.idSach}"
+                                                             alt="anh 1" width="88px" height="88px"
+                                                             th:onclick="'editImage(\'' + 'editlinkAnh2-' + ${sach.idSach} + '\', \'checkthayDoiImage2-' + ${sach.idSach} + '\')'"/>
+                                                    </label>
+
+                                                    <input type="file" class="custom-file-input"
+                                                           th:id="'editlinkAnh2-' + ${sach.idSach}"
+                                                           name="editlinkAnh2" accept="image/*"
+                                                           th:attr="onchange='displayImage(this, \'editviewLinkAnh2-' + ${sach.idSach} + '\')'"/>
+
+                                                    <button class="delete-button"
+                                                            th:attr="onclick=|deleteImage('editviewLinkAnh2-${sach.idSach}', 'editlinkAnh2-${sach.idSach}', 'checkthayDoiImage2-${sach.idSach}', event)|">
+                                                        Xóa Ảnh
+                                                    </button>
+                                                </div>
+                                                <!--                                             anh 3-->
+                                                <div class="image-container">
+                                                    <label th:for="'editlinkAnh3-' + ${sach.idSach}">
+                                                        <img th:src="@{|${sach.linkAnh3}|}"
+                                                             th:id="'editviewLinkAnh3-' + ${sach.idSach}"
+                                                             alt="anh 1" width="88px" height="88px"
+                                                             th:onclick="'editImage(\'' + 'editlinkAnh1-' + ${sach.idSach} + '\', \'checkthayDoiImage3-' + ${sach.idSach} + '\')'"/>
+                                                    </label>
+                                                    <input type="text" name="checkthayDoiImage3"
+                                                           th:id="'checkthayDoiImage3-' + ${sach.idSach}"
+                                                           value="chuaThayDoi"
+                                                           hidden>
+                                                    <input type="file" class="custom-file-input"
+                                                           th:id="'editlinkAnh3-' + ${sach.idSach}"
+                                                           name="editlinkAnh3" accept="image/*"
+                                                           th:attr="onchange='displayImage(this, \'editviewLinkAnh3-' + ${sach.idSach} + '\')'"/>
+
+                                                    <button class="delete-button"
+                                                            th:attr="onclick=|deleteImage('editviewLinkAnh3-${sach.idSach}', 'editlinkAnh3-${sach.idSach}', 'checkthayDoiImage3-${sach.idSach}', event)|">
+                                                        Xóa Ảnh
+                                                    </button>
+                                                </div>
+                                                <!--                                             anh 4-->
+                                                <div class="image-container">
+                                                    <label th:for="'editlinkAnh4-' + ${sach.idSach}">
+                                                        <img th:src="@{|${sach.linkAnh4}|}"
+                                                             th:id="'editviewLinkAnh4-' + ${sach.idSach}"
+                                                             alt="anh 1" width="88px" height="88px"
+                                                             th:onclick="'editImage(\'' + 'editlinkAnh4-' + ${sach.idSach} + '\', \'checkthayDoiImage4-' + ${sach.idSach} + '\')'"/>
+                                                    </label>
+                                                    <input type="text" name="checkthayDoiImage4"
+                                                           th:id="'checkthayDoiImage4-' + ${sach.idSach}"
+                                                           value="chuaThayDoi"
+                                                           hidden>
+                                                    <input type="file" class="custom-file-input"
+                                                           th:id="'editlinkAnh4-' + ${sach.idSach}"
+                                                           name="editlinkAnh4" accept="image/*"
+                                                           th:attr="onchange='displayImage(this, \'editviewLinkAnh4-' + ${sach.idSach} + '\')'"/>
+                                                    <button class="delete-button"
+                                                            th:attr="onclick=|deleteImage('editviewLinkAnh4-${sach.idSach}', 'editlinkAnh4-${sach.idSach}', 'checkthayDoiImage4-${sach.idSach}', event)|">
+                                                        Xóa Ảnh
+                                                    </button>
+                                                </div>
+                                                <!--                                             anh 5-->
+                                                <div class="image-container">
+                                                    <label th:for="'editlinkAnh5-' + ${sach.idSach}">
+                                                        <img th:src="@{|${sach.linkAnh5}|}"
+                                                             th:id="'editviewLinkAnh5-' + ${sach.idSach}"
+                                                             alt="anh 1" width="88px" height="88px"
+                                                             th:onclick="'editImage(\'' + 'editlinkAnh1-' + ${sach.idSach} + '\', \'checkthayDoiImage5-' + ${sach.idSach} + '\')'"/>
+                                                    </label>
+                                                    <input type="text" name="checkthayDoiImage5"
+                                                           th:id="'checkthayDoiImage5-' + ${sach.idSach}"
+                                                           value="chuaThayDoi"
+                                                           hidden>
+                                                    <input type="file" class="custom-file-input"
+                                                           th:id="'editlinkAnh5-' + ${sach.idSach}"
+                                                           name="editlinkAnh5" accept="image/*"
+                                                           th:attr="onchange='displayImage(this, \'editviewLinkAnh5-' + ${sach.idSach} + '\')'"/>
+                                                    <button class="delete-button"
+                                                            th:attr="onclick=|deleteImage('editviewLinkAnh5-${sach.idSach}', 'editlinkAnh5-${sach.idSach}', 'checkthayDoiImage5-${sach.idSach}', event)|">
+                                                        Xóa Ảnh
+                                                    </button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="maVach">Mã Vạch:</label>
+                                                    <input type="text" id="maVach" class="form-control"
+                                                           th:value="${sach.maVach}" name="maVach">
+                                                </div>
+                                                <br>
+                                                <button type="submit" class="btn btn-primary">
+                                                    Lưu
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- end dit modal-->
-                        </tbody>
+                            <!-- end dit modal-->
+                            </tbody>
 
 
-                    </table>
+                        </table>
                         <th:block th:if="${pageOfSach.isEmpty()}">
                             <h2>Không có dữ liệu nào cả!!!</h2>
                         </th:block>
-                        <h6 style="color: red;"><b><i>Đang có <span th:text="${pageOfSach.totalElements}"></span> Sản Phẩm!</i> </b></h6>
-                    <!-- phân trang-->
-                    <div>
+                        <h6 style="color: red;"><b><i>Đang có <span th:text="${pageOfSach.totalElements}"></span> Sản
+                            Phẩm!</i> </b></h6>
+                        <!-- phân trang-->
+                        <div>
                         <span th:if="${pageOfSach.number + 1 > 1}">
                             <a th:href="@{'/quan-ly/sach/hien-thi?page=' + ${pageOfSach.number}}">Previous</a>
                         </span>
-                        <span th:text="${pageOfSach.number + 1} + ' / ' + ${pageOfSach.totalPages}"></span>
-                        <span th:if="${pageOfSach.number + 1 < pageOfSach.totalPages}">
+                            <span th:text="${pageOfSach.number + 1} + ' / ' + ${pageOfSach.totalPages}"></span>
+                            <span th:if="${pageOfSach.number + 1 < pageOfSach.totalPages}">
                             <a th:href="@{'/quan-ly/sach/hien-thi?page=' + ${pageOfSach.number + 2}}">Next</a>
                         </span>
-                    </div>
-                    <!--end phân trang-->
+                        </span>
+                        </div>
+                        <!--end phân trang-->
 
 
                 </div>
