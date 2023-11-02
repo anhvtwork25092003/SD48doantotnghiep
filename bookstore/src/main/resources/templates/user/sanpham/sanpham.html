@@ -2,6 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}">
 <html xmlns:th="http://www.thymeleaf.org">
+
 <html lang="en">
 
 <head>
@@ -35,9 +36,9 @@
                                    th:value="${param.productCodeSearch}"/><br>
                             <label for="productStatus">Trạng thái:</label><br>
                             <select id="productStatus" th:name="productStatusSearch" class="form-control">
-                                <option th:value="S1" th:selected="${productStatusSearch == 'S1'}">Tất cả</option>
-                                <option th:value="S2" th:selected="${productStatusSearch == 'S2'}">Hoạt động</option>
-                                <option th:value="S3" th:selected="${productStatusSearch == 'S3'}">Ngừng hoạt động</option>
+                                <option th:value="S1" th:selected="${psta=='S1'}">Tất cả</option>
+                                <option th:value="S2" th:selected="${psta=='S2'}">Hoạt động</option>
+                                <option th:value="S3" th:selected="${psta=='S3'}">Ngừng hoạt động</option>
                             </select>
                             <br>
                             <label>Thể loại:</label><br>
@@ -45,7 +46,8 @@
                                 <th:block th:each="category : ${listTheLoai}">
                                     <input type="checkbox" th:id="'category_' + ${category.idTheLoai}"
                                            th:name="categorySearch" th:value="${category.idTheLoai}"
-                                           th:checked="${categorySearch != null and categorySearch.contains(category.idTheLoai)}"/>
+                                           th:checked="${catego.contains(category)}"
+                                    />
                                     <label th:for="'category_' + ${category.idTheLoai}"
                                            th:text="${category.tenTheLoai}"></label><br>
                                 </th:block>
@@ -54,13 +56,13 @@
 
                             <label>Khoảng giá:</label><br>
                             <input type="radio" name="priceRangeSearch" value="all"
-                                   th:checked="${param.priceRangeSearch == 'all'?'checked' :''}"> Tất cả<br>
+                                   th:checked="${price=='all'}"> Tất cả<br>
                             <input type="radio" name="priceRangeSearch" value="1"
-                                   th:checked="${param.priceRangeSearch == '1'}"> Dưới 100.000 vnd<br>
+                                   th:checked="${price=='1'}"> Dưới 100.000 vnd<br>
                             <input type="radio" name="priceRangeSearch" value="2"
-                                   th:checked="${param.priceRangeSearch == '2'}">Từ 100.000 đến 500.000<br>
+                                   th:checked="${price=='2'}">Từ 100.000 đến 500.000<br>
                             <input type="radio" name="priceRangeSearch" value="3"
-                                   th:checked="${param.priceRangeSearch == '3'}"> Trên 500.000<br>
+                                   th:checked="${price=='3'}"> Trên 500.000<br>
                             <!-- Thêm các radio button cho các khoảng giá khác -->
                             <button class="form-control btn btn-success" type="submit">Tìm kiếm</button>
                         </form>

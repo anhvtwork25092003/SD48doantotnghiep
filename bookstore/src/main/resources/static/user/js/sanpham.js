@@ -189,28 +189,6 @@ function editImage(inputId, tinhTrangThayDoi) {
     }
 }
 
-// Lấy tham chiếu đến phần tử select
-const selectElement = document.getElementById("mySelect");
-
-// Lấy giá trị đã chọn từ Local Storage (nếu có)
-const selectedValue = localStorage.getItem("selectedValue");
-
-// Thiết lập giá trị đã chọn (nếu có) hoặc giá trị mặc định
-if (selectedValue) {
-    selectElement.value = selectedValue;
-}
-
-// Lắng nghe sự kiện thay đổi của select và lưu giá trị đã chọn vào Local Storage
-selectElement.addEventListener("change", function () {
-    localStorage.setItem("selectedValue", selectElement.value);
-});
-
-// Xóa giá trị đã chọn khi cần thiết (ví dụ: khi bạn muốn làm mới)
-function clearSelectedValue() {
-    localStorage.removeItem("selectedValue");
-}
-
-
 
 
 

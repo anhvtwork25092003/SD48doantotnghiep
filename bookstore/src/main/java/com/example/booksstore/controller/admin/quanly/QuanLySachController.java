@@ -93,6 +93,12 @@ public class QuanLySachController {
         }
 
 
+        model.addAttribute("psta", productStatusSearch);
+        model.addAttribute("price", priceRangeSearch);
+        model.addAttribute("catego", categorySearch);
+
+
+
         model.addAttribute("pageOfSach", pageOfSach);
         model.addAttribute("authors", tacGiaService.findAllTacGia());
         model.addAttribute("listTheLoai", iTheLoaiService.findAllTheLoai());
