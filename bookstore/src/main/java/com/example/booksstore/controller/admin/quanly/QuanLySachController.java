@@ -46,7 +46,7 @@ public class QuanLySachController {
     public String hienThiTrangTongQuanQuanLy(Model model, @RequestParam(defaultValue = "1") int page,
                                              @RequestParam(required = false) String productNameSearch,
                                              @RequestParam(required = false) String productCodeSearch,
-                                             @RequestParam( value = "productStatusSearch", required = false) String productStatusSearch,
+                                             @RequestParam(value = "productStatusSearch", required = false) String productStatusSearch,
                                              @RequestParam(required = false) String priceRangeSearch,
                                              @RequestParam(required = false) Set<TheLoai> categorySearch
     ) {
@@ -76,27 +76,29 @@ public class QuanLySachController {
                     giaMin = new BigDecimal("500000");
                     giaMax = new BigDecimal("99999999999999999999999999");
                 }
+                model.addAttribute("price", priceRangeSearch);
+            }
+            if (categorySearch != null) {
+                model.addAttribute("catego", categorySearch);
+
             }
 
-
             // xuu ly trang thai
-            if (productStatusSearch.equals("S1")) {
-                trangThai = -1;
-            } else if (productStatusSearch.equals("S2")) {
-                trangThai = 1;
-            } else if (productStatusSearch.equals("S3")) {
-                trangThai = 0;
+            if (productStatusSearch != null) {
+                if (productStatusSearch.equals("S1")) {
+                    trangThai = -1;
+                } else if (productStatusSearch.equals("S2")) {
+                    trangThai = 1;
+                } else if (productStatusSearch.equals("S3")) {
+                    trangThai = 0;
+                }
+                model.addAttribute("psta", productStatusSearch);
+
             }
             pageOfSach = iSachService.searchSach(productNameSearch, productCodeSearch, giaMin, giaMax, categorySearch, trangThai, pageable);
         } else {
             pageOfSach = iSachService.pageOfSach(pageable);
         }
-
-
-        model.addAttribute("psta", productStatusSearch);
-        model.addAttribute("price", priceRangeSearch);
-        model.addAttribute("catego", categorySearch);
-
 
 
         model.addAttribute("pageOfSach", pageOfSach);
@@ -348,19 +350,19 @@ public class QuanLySachController {
 
     @GetMapping("/sach/hien-thi-test")
     public String hienThiTrangTongQuanQuanLyTest(Model model, @RequestParam(defaultValue = "1") int page,
-                                             @RequestParam(required = false) String productNameSearch,
-                                             @RequestParam(required = false) String productCodeSearch,
-                                             @RequestParam(required = false) String productStatusSearch,
-                                             @RequestParam(required = false) String priceRangeSearch,
-                                             @RequestParam(required = false) Set<TheLoai> categorySearch
+                                                 @RequestParam(required = false) String productNameSearch,
+                                                 @RequestParam(required = false) String productCodeSearch,
+                                                 @RequestParam(required = false) String productStatusSearch,
+                                                 @RequestParam(required = false) String priceRangeSearch,
+                                                 @RequestParam(required = false) Set<TheLoai> categorySearch
     ) {
         Page<Sach> pageOfSach;
 
         BigDecimal giaMin = null;
         BigDecimal giaMax = null;
         int trangThai = 0;
-        if(page <= 0) {
-            page  = 1;
+        if (page <= 0) {
+            page = 1;
         }
         int pageSize = 5; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
