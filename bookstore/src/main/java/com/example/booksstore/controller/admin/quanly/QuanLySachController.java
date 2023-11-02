@@ -25,6 +25,8 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -78,10 +80,6 @@ public class QuanLySachController {
                 }
                 model.addAttribute("price", priceRangeSearch);
             }
-            if (categorySearch != null) {
-                model.addAttribute("catego", categorySearch);
-
-            }
 
             // xuu ly trang thai
             if (productStatusSearch != null) {
@@ -98,6 +96,13 @@ public class QuanLySachController {
             pageOfSach = iSachService.searchSach(productNameSearch, productCodeSearch, giaMin, giaMax, categorySearch, trangThai, pageable);
         } else {
             pageOfSach = iSachService.pageOfSach(pageable);
+        }
+
+        if (categorySearch != null) {
+            model.addAttribute("catego", categorySearch);
+        }else{
+            List<TheLoai> list = new ArrayList<TheLoai>();
+            model.addAttribute("catego", list);
         }
 
 
