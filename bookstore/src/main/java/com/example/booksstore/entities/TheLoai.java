@@ -28,6 +28,4 @@ public class TheLoai {
     private String moTa;
     @Column(name = "trangthai")
     private Integer trangThai;
-
-
 }

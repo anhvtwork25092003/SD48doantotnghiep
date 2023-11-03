@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,6 +41,12 @@ public class KhuyenMai {
     @Column(name = "linkanhkhuyenmai")
     private String linkAnhKhuyenMai;
 
-
+    @ManyToMany
+    @JoinTable(
+            name = "sachkhuyenmai",
+            joinColumns = @JoinColumn(name = "idkhuyenmai"),
+            inverseJoinColumns = @JoinColumn(name = "idsach")
+    )
+    private Set<Sach> sachs = new HashSet<>();
 
 }
