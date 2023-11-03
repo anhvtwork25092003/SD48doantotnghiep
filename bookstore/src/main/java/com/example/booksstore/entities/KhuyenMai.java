@@ -23,13 +23,13 @@ public class KhuyenMai {
     @Column(name = "idkhuyenmai")
     private Integer idKhuyenMai;
 
-    @Column(name = "tenkhuyemai")
+    @Column(name = "tenkhuyenmai")
     private String tenKhuyenMai;
 
     @Column(name = "ngaybatdau")
     private Date ngayBatDau;
 
-    @Column(name = "ngaykethuc")
+    @Column(name = "ngayketthuc")
     private Date ngayKetThuc;
 
     @Column(name = "trangthai")
