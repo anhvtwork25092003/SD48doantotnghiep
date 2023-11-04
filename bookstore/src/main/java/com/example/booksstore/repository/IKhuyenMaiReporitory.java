@@ -9,4 +9,5 @@ public interface IKhuyenMaiReporitory  extends JpaRepository<KhuyenMai, Integer>
 
     // lấy chương trình khuyến mãi theo trạng thái
     Page<KhuyenMai> findAllByTrangThaiOrderByIdKhuyenMai(Pageable pageable, int trangThai);
+
 }
