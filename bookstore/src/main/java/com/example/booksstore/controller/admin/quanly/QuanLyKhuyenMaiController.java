@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,7 +18,7 @@ public class QuanLyKhuyenMaiController {
 
     @Autowired
     IKhuyenMaiService iKhuyenMaiService;
-
+    @GetMapping("/khuyen-mai/hien-thi")
     public String hienThiTrangKhuyenMai(Model model, @RequestParam(defaultValue = "1") int page) {
 
 
@@ -25,7 +26,7 @@ public class QuanLyKhuyenMaiController {
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
         Page<KhuyenMai> khuyenMaiPages;
         khuyenMaiPages = iKhuyenMaiService.getAllKhuyenMaiTheoTrangThai(pageable, 1);
-
+        model.addAttribute("khuyenMaiPages", khuyenMaiPages);
         return "/admin/quanly/KhuyenMai2";
     }
 

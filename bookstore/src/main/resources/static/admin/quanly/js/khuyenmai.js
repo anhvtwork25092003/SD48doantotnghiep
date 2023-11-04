@@ -38,41 +38,59 @@ function openModal1() {
 
 
 // Dữ liệu sản phẩm mẫu
-const thongTins = [
-  { id: 1, ma:"1" , ten: "Khuyến mại A", batdau: "10/10/2023", ketthuc:"20/10/2023", hinhthuc:"Mua hàng KM", trangthai: "Kích Hoạt" },
-  { id: 2, ma:"2" , ten: "Khuyến mại B", batdau: "10/10/2023", ketthuc:"20/10/2023", hinhthuc:"Mua hàng KM", trangthai: "Kích Hoạt" },
-  { id: 3, ma:"3" , ten: "Khuyến mại C", batdau: "10/10/2023", ketthuc:"20/10/2023", hinhthuc:"Mua hàng KM", trangthai: "Kích Hoạt" },
-  { id: 4, ma:"4" , ten: "Khuyến mại D", batdau: "10/10/2023", ketthuc:"20/10/2023", hinhthuc:"Mua hàng KM", trangthai: "Kích Hoạt" },
-];
+// const thongTins = [
+//   { id: 1, ma:"1" , ten: "Khuyến mại A", batdau: "10/10/2023", ketthuc:"20/10/2023", hinhthuc:"Mua hàng KM", trangthai: "Kích Hoạt" },
+//   { id: 2, ma:"2" , ten: "Khuyến mại B", batdau: "10/10/2023", ketthuc:"20/10/2023", hinhthuc:"Mua hàng KM", trangthai: "Kích Hoạt" },
+//   { id: 3, ma:"3" , ten: "Khuyến mại C", batdau: "10/10/2023", ketthuc:"20/10/2023", hinhthuc:"Mua hàng KM", trangthai: "Kích Hoạt" },
+//   { id: 4, ma:"4" , ten: "Khuyến mại D", batdau: "10/10/2023", ketthuc:"20/10/2023", hinhthuc:"Mua hàng KM", trangthai: "Kích Hoạt" },
+// ];
+//
+// // Lấy các phần tử HTML
+// const maChuongTrinh = document.getElementById("maChuongTrinh");
+// const tenChuongTrinh = document.getElementById("tenChuongTrinh");
+// const ngayBatDau = document.getElementById("ngayBatDau");
+// const ngayKetThuc = document.getElementById("ngayKetThuc");
+// const hinhThuc = document.getElementById("hinhThuc");
+// const trangThai = document.getElementById("trangThai");
+// const thongTin = document.getElementById("thongTin");
+//
+// // Hàm để hiển thị thông tin sản phẩm khi dòng bảng được click
+// function showProductDetails(id) {
+//   const thongtin = thongTins.find(thongtin => thongtin.id === id);
+//   if (thongtin) {
+//       maChuongTrinh.textContent = thongtin.ma;
+//       tenChuongTrinh.textContent = thongtin.ten;
+//       ngayBatDau.textContent = thongtin.batdau;
+//       ngayKetThuc.textContent = thongtin.ketthuc;
+//       hinhThuc.textContent = thongtin.hinhthuc;
+//       trangThai.textContent = thongtin.trangthai;
+//       thongTin.style.display = "block";
+//   }
+// }
+//
+// // Bắt sự kiện click trên dòng trong bảng
+// document.querySelectorAll(".table tbody tr").forEach(row => {
+//   row.addEventListener("click", () => {
+//       const id = parseInt(row.cells[0].textContent);
+//       showProductDetails(id);
+//   });
+// });
 
-// Lấy các phần tử HTML
-const maChuongTrinh = document.getElementById("maChuongTrinh");
-const tenChuongTrinh = document.getElementById("tenChuongTrinh");
-const ngayBatDau = document.getElementById("ngayBatDau");
-const ngayKetThuc = document.getElementById("ngayKetThuc");
-const hinhThuc = document.getElementById("hinhThuc");
-const trangThai = document.getElementById("trangThai");
-const thongTin = document.getElementById("thongTin");
+$(document).ready(function() {
+    // Bắt sự kiện khi nhấn vào hàng trong bảng
+    $("tbody tr").click(function() {
+        // Lấy thông tin từ hàng đã nhấn
+        var idKhuyenMai = $(this).find("td:nth-child(1)").text();
+        var tenKhuyenMai = $(this).find("td:nth-child(2)").text();
+        var ngayBatDau = $(this).find("td:nth-child(3)").text();
+        var ngayKetThuc = $(this).find("td:nth-child(4)").text();
+        var trangThai = $(this).find("td:nth-child(5)").text();
 
-// Hàm để hiển thị thông tin sản phẩm khi dòng bảng được click
-function showProductDetails(id) {
-  const thongtin = thongTins.find(thongtin => thongtin.id === id);
-  if (thongtin) {
-      maChuongTrinh.textContent = thongtin.ma;
-      tenChuongTrinh.textContent = thongtin.ten;
-      ngayBatDau.textContent = thongtin.batdau;
-      ngayKetThuc.textContent = thongtin.ketthuc;
-      hinhThuc.textContent = thongtin.hinhthuc;
-      trangThai.textContent = thongtin.trangthai;
-      thongTin.style.display = "block";
-  }
-}
-
-// Bắt sự kiện click trên dòng trong bảng
-document.querySelectorAll(".table tbody tr").forEach(row => {
-  row.addEventListener("click", () => {
-      const id = parseInt(row.cells[0].textContent);
-      showProductDetails(id);
-  });
+        // Hiển thị thông tin tương ứng
+        $("#idKhuyenMai").text(idKhuyenMai);
+        $("#tenKhuyenMai").text(tenKhuyenMai);
+        $("#ngayBatDau").text(ngayBatDau);
+        $("#ngayKetThuc").text(ngayKetThuc);
+        $("#trangThai").text(trangThai);
+    });
 });
-
