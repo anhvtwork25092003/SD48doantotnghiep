@@ -33,7 +33,7 @@ public class QuanLyKhachHangController {
         int pageSize = 2; //Đặt kích thước trang
         int trangThai = 0;
         Pageable pageable = PageRequest.of(page - 1, pageSize); // số trang bắt đầu từ 0
-
+        boolean daTimKiem = (trangThaiTimKiem !=null);
         if (maKhachHangTimKiem != null || sdtTimKiem != null || trangThaiTimKiem != null) {
             // xử lý trạng thái
             if (trangThaiTimKiem.equals("99")) {
@@ -43,11 +43,13 @@ public class QuanLyKhachHangController {
             } else if (trangThaiTimKiem.equals("0")) {
                 trangThai = 0;
             }
+            model.addAttribute("trangThai", trangThaiTimKiem);
+
             pageOfKhachHang = iKhachHangService.searchKhachHang(maKhachHangTimKiem, sdtTimKiem,trangThai, pageable);
         }else{
             pageOfKhachHang = iKhachHangService.pageOfKhachHang(pageable);
         }
-
+        model.addAttribute("daTimKiem", daTimKiem);
         model.addAttribute("pageOfKhachHang", pageOfKhachHang);
         model.addAttribute("listDiaChi", iDiaChiService.finAll(pageable));
         return "admin/quanly/KhachHang";
