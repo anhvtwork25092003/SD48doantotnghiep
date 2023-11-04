@@ -72,16 +72,16 @@ VALUES
 (6, 'KH006', N'Ngô Thị F', '0928374651', '1995-04-18', 1, 'password6', 'ngothif@email.com', N'Loại 1', 2);
 select * from KhachHang
 
-
+go
 -- Dữ liệu cho bảng DiaChi
 INSERT INTO DiaChi (IdKhachHang, TinhThanhPho, HuyenQuan, XaPhuong, DiaChiCuthe)
 VALUES
-(14, N'TP Hồ Chí Minh', N'Quận 1', N'Phường Bến Nghé', N'123 Đường ABC'),
-(15, N'TP Hà Nội', N'Quận Hoàn Kiếm', N'Phường Cửa Đông', N'456 Đường XYZ'),
-(16, N'TP Đà Nẵng', N'Quận Sơn Trà', N'Phường Mân Thái', N'789 Đường LMN'),
-(17, N'TP Cần Thơ', N'Quận Ninh Kiều', N'Phường An Khánh', N'101 Đường PQR'),
-(18, N'TP Hải Phòng', N'Quận Lê Chân', N'Phường Đằng Giang', N'202 Đường UVW'),
-(19, N'TP Hồ Chí Minh', N'Quận 7', N'Phường Tân Thuận Đông', N'303 Đường DEF');
+(3, N'TP Hồ Chí Minh', N'Quận 1', N'Phường Bến Nghé', N'123 Đường ABC'),
+(4, N'TP Hà Nội', N'Quận Hoàn Kiếm', N'Phường Cửa Đông', N'456 Đường XYZ'),
+(5, N'TP Đà Nẵng', N'Quận Sơn Trà', N'Phường Mân Thái', N'789 Đường LMN'),
+(6, N'TP Cần Thơ', N'Quận Ninh Kiều', N'Phường An Khánh', N'101 Đường PQR'),
+(7, N'TP Hải Phòng', N'Quận Lê Chân', N'Phường Đằng Giang', N'202 Đường UVW'),
+(8, N'TP Hồ Chí Minh', N'Quận 7', N'Phường Tân Thuận Đông', N'303 Đường DEF');
 
 
 
