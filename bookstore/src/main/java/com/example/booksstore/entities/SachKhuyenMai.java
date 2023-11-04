@@ -22,10 +22,6 @@ public class SachKhuyenMai {
     @Column(name = "idsachkhuyenmai")
     private Integer idSachKhuyenMai;
 
-
-    @Column(name = "sophantramgiamgia")
-    private Integer soPhanTramGiamGia;
-
     @ManyToOne
     @JoinColumn(name = "idsach")
     private Sach sachList;

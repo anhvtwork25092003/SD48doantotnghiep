@@ -41,6 +41,9 @@ public class KhuyenMai {
     @Column(name = "linkanhkhuyenmai")
     private String linkAnhKhuyenMai;
 
+    @Column(name = "sophantramgiamgia")
+    private Integer soPhanTramGiamGia;
+
     @ManyToMany
     @JoinTable(
             name = "sachkhuyenmai",

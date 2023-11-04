@@ -254,3 +254,11 @@ create table DiaChi(
 alter table DiaChi
 alter column DiaChiCuthe  nvarchar(50)
 
+ALTER TABLE KhuyenMai
+ALTER COLUMN NgayBatDau datetime
+ALTER COLUMN NgayKetThuc datetime
+
+ALTER TABLE SachKhuyenMai
+DROP COLUMN SoPhanTramGiamGia;
+alter table khuyenmai
+add SoPhanTramGiamGia int
