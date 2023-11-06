@@ -158,7 +158,7 @@
     <div class="product">
         <div th:each="sm : ${sachmoi}" class="product-item">
             <div class="product-image">
-                <img th:src="@{'/image/anhsanpham/' + ${sm.linkAnh1}}" th:alt="${sm.tenSach}">
+                <img th:src="${sm.linkAnh1}" th:alt="${sm.tenSach}">
             </div>
             <h3 th:text="${sm.tenSach}"></h3>
             <div class="price">
