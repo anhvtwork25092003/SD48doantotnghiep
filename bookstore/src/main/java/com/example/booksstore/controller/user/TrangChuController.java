@@ -17,7 +17,10 @@ public class TrangChuController {
     @GetMapping("/trang-chu")
     public String HienThiTrangChu(Model model){
         List<Sach> sachList = iSachService.sachmoi();
-        model.addAttribute("sachmoi", sachList);
+        List<Sach> saches = sachList.subList(0, 5);
+
+        model.addAttribute("sachmoi", saches);
+
         return "user/TrangChu";
     }
 
