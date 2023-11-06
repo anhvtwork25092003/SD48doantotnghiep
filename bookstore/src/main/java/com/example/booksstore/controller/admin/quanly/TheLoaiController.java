@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,17 +35,18 @@ public class TheLoaiController {
         int pagesize=3;
         PageRequest pageable = PageRequest.of(page-1,pagesize);
         if (productNameSearch != null || productStatusSearch != null) {
-              if (productStatusSearch.equals("1")) {
+            if (productStatusSearch.equals("99")) {
+                trangThai = -1;
+            }else if (productStatusSearch.equals("1")) {
                 trangThai = 1;
             } else if (productStatusSearch.equals("0")) {
                 trangThai = 0;
             }
+            model.addAttribute("trangThai", productStatusSearch);
             pageOfTheloai = theLoaiServiec.searchTheLoai(productNameSearch,trangThai, pageable);
         } else {
             pageOfTheloai = theLoaiServiec.pageOfTheLoai(pageable);
         }
-
-
         model.addAttribute("data",pageOfTheloai);
         return "/user/theloai/theloai";
 
@@ -89,10 +91,6 @@ public class TheLoaiController {
         this.theLoaiServiec.creatTheLoai(theLoaiUpdate);
         return "redirect:/the-loai/hien-thi";
     }
-    @GetMapping("/xoa")
-    public String delete( @RequestParam("id") Integer id) {
-        theLoaiServiec.delete(id);
-        return "redirect:/the-loai/hien-thi";
-    }
+
 
 }

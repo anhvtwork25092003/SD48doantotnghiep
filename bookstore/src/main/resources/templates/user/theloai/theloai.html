@@ -23,11 +23,12 @@
                     <div class="boxsearchforname">
                         <form th:action="@{/the-loai/hien-thi}" method="get" enctype="multipart/form-data">
                             <h4 for="productName"  style="text-align: center;margin-bottom: 10px;"  >Tên Thể Loại:</h4>
-                            <input type="text" id="productName" name="productNameSearch" class="form-control"/><br>
+                            <input type="text" id="productName" name="productNameSearch" class="form-control" th:value="${param.productNameSearch}"/><br>
                             <h4 for="productName"  style="text-align: center;margin-bottom: 10px;"  >Trạng Thái:</h4>
-                            <select id="productStatus" name="productStatusSearch" class="form-control">
-                                <option value="1">Hoạt động</option>
-                                <option value="0">Ngừng hoạt động</option>
+                            <select id="productStatus" name="productStatusSearch" class="form-control" >
+                                <option value="99" th:selected="${trangThai == '99'}">Tất cả</option>
+                                <option value="1" th:selected="${trangThai == '1'}">Hoạt động</option>
+                                <option value="0" th:selected="${trangThai == '0'}">Ngừng hoạt động</option>
                             </select>
                             <br>
                     </div>
@@ -225,18 +226,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-outline-info"
-                                                data-toggle="modal"  style="width: auto;height: auto;">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </button>
+                                            </div>
                                     </td>
                                 </tr>
                             </th:block>
                             </tbody>
-
                         </table>
                         <div>
                         <span th:if="${data.number +1> 1}">

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/menu}"
+
+      xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link
       rel="stylesheet"
-      href="/bookstore/src/main/resources/static/user/css/son_thongtintaikhoan.css"
+      href="/user/css/son_thongtintaikhoan.css"
     />
     <link
       rel="stylesheet"
@@ -24,40 +27,60 @@
   </head>
 
   <body>
-    <article class="content">
+  <article layout:fragment="noiDung">
       <h2>Thông tin tài khoản</h2>
-      <form action="" method="post">
+        <tbody th:each="thongtintaikhoan, iterStat : ${pageOfKhachHang}">
+      <form th:action="@{/quan-ly/thong-tin/cap-nhat}" method="post">
         <div class="group">
-          <label for="firstname">Họ<span style="color: red">*</span></label>
-          <input class="text-input" id="firstname" type="text" />
+          <input class="text-input" id="idKhachHang" type="text" name="idKhachHang" th:value="${thongtintaikhoan.idKhachHang}" hidden/>
         </div>
         <div class="group">
-          <label for="lastname">Tên<span style="color: red">*</span></label>
-          <input class="text-input" id="lastname" type="text" />
+          <input class="text-input" id="idGioHang" type="text" name="idGioHang" th:value="${thongtintaikhoan.idGioHang}" hidden/>
         </div>
         <div class="group">
-          <label for="phonenumber">Số điện thoại</label>
-          <input class="text-input" id="phonenumber" type="tel" />
+          <input class="text-input" id="matKhau" type="text" name="matKhau" th:value="${thongtintaikhoan.matKhau}" hidden/>
         </div>
+        <div class="group">
+          <input class="text-input" id="trangThai" type="text" name="trangThai" th:value="${thongtintaikhoan.trangThai}" hidden/>
+        </div>
+        <div class="group">
+          <input class="text-input" id="loaiKhachHang" type="text" name="loaiKhachHang" th:value="${thongtintaikhoan.loaiKhachHang}" hidden/>
+        </div>
+        <input class="text-input" id="ngayTaoTaiKhoan" type="text" name="ngayTaoTaiKhoan" th:value="${thongtintaikhoan.ngayTaoTaiKhoan}" hidden/>
+        </div>
+        <br>
+        <div class="group">
+          <label for="hoVaTen">Họ Và Tên<span style="color: #ff0000">*</span></label>
+          <input class="text-input" id="hoVaTen" type="text" name="hoVaTen" th:value="${thongtintaikhoan.hoVaTen}" />
+        </div><br>
+        <div class="group">
+          <label for="sdt">Số điện thoại</label>
+          <input class="text-input" id="sdt" type="tel"  name="sdt" th:value="${thongtintaikhoan.sdt}" />
+        </div>
+        <br>
         <div class="group">
           <label for="email">Email</label>
-          <input class="text-input" id="email" type="email" />
+          <input class="text-input" id="email" type="email" name="email" th:value="${thongtintaikhoan.email}"  />
         </div>
+        <br>
         <div class="group gender">
-          <label for="gender">Giới tính</label>
-          <input id="gender" name="gender" checked type="radio" value="1" />
+          <label for="gioiTinh">Giới tính</label>
+          <input id="gioiTinh" name="gioiTinh"  checked type="radio" value="1" th:checked="${thongtintaikhoan.gioiTinh == 1}"/>
           <span>Nam</span>
-          <input id="gender" name="gender" type="radio" value="0" />
+          <input id="gioiTinh" name="gioiTinh" type="radio" value="0" th:checked="${thongtintaikhoan.gioiTinh == 0}" />
           <span>Nữ</span>
         </div>
+         <br>
         <div class="group">
-          <label for="date">Ngày sinh</label>
-          <input class="text-input" id="date" type="date" />
+          <label for="ngaySinh">Ngày sinh</label>
+          <input class="text-input" id="ngaySinh" type="date" name="ngaySinh" th:value="${thongtintaikhoan.ngaySinh}"/>
         </div>
         <div class="group btn">
-          <button class="btn-warning" id="save">Lưu thay đổi</button>
+          <button class="btn-warning" type="submit">Lưu thay đổi</button>
         </div>
       </form>
-    </article>
+        </tbody>
+
+  </article>
   </body>
 </html>

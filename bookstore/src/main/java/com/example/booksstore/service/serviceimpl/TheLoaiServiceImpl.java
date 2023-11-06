@@ -1,6 +1,7 @@
 package com.example.booksstore.service.serviceimpl;
 
 import com.example.booksstore.entities.Sach;
+import com.example.booksstore.entities.SachTheLoai;
 import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.repository.TheLoaiRepository;
 import com.example.booksstore.service.ITheLoaiServiec;
@@ -20,6 +21,7 @@ public class TheLoaiServiceImpl implements ITheLoaiServiec {
     private TheLoaiRepository theLoaiRepository;
 
 
+
     @Override
     public Page<TheLoai> pageOfTheLoai(Pageable pageable) {
         return theLoaiRepository.findAll(pageable);
@@ -31,8 +33,8 @@ public class TheLoaiServiceImpl implements ITheLoaiServiec {
     }
 
     @Override
-    public TheLoai  delete(Integer id) {
-        return theLoaiRepository.findTheLoaiByID(id);
+    public TheLoai  delete(Integer idtheloai) {
+        return theLoaiRepository.findTheLoaiByID(idtheloai);
     }
 
     @Override

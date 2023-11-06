@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class KhachHangServiceImpl implements IKhachHangService {
 
@@ -24,5 +26,15 @@ public class KhachHangServiceImpl implements IKhachHangService {
     public Page<KhachHang> searchKhachHang(String maKhachHang, String sdt, Integer trangThai, Pageable pageable) {
          Specification<KhachHang> spec = KhachHangSpecification.filterKhachHang(maKhachHang,sdt, trangThai);
          return iKhachHangRepository.findAll(spec, pageable);
+    }
+
+    @Override
+    public KhachHang save(KhachHang khachHang) {
+        return iKhachHangRepository.save(khachHang);
+    }
+
+    @Override
+    public List<KhachHang> findAll() {
+        return iKhachHangRepository.findAll();
     }
 }

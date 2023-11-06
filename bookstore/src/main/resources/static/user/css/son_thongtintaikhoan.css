@@ -1,30 +1,36 @@
-.content {
-    display: grid;
-    grid-template-columns: 10fr ;
+/*.content {*/
+/*    display: grid;*/
+/*    grid-template-columns: 10fr ;*/
+/*    text-align: center;*/
 
-    text-align: center;
-
-}
-article {
-    background-color: white;
-   
-}
-form {
-    width: 100%;
-    height: 100px;
-    margin: auto;
-    display: grid;
-    gap: 20px;
-}
+/*}*/
+/*article {*/
+/*    background-color: white;*/
+/*   */
+/*}*/
+/*form {*/
+/*    width: 100%;*/
+/*    height: 100px;*/
+/*    margin: auto;*/
+/*    display: grid;*/
+/*    gap: 20px;*/
+/*}*/
 
 .group {
     display: grid;
-    grid-template-columns: 2fr 5fr;
+    grid-template-columns: 1fr 5fr;
 }
 
-.group.gender {
-    grid-template-columns: 2fr 1fr 1fr 1fr 3fr;
-    justify-content: center;
+.group.gender input[type="radio"] {
+    grid-template-columns: 5fr 1fr 1fr 1fr 5fr;
+    /*justify-content: center;*/
+    width: 20px; /* Adjust the width as needed */
+    height: 20px; /* Adjust the height as needed */
+    margin-right: 5px; /* Add some spacing between radio buttons and labels */
+}
+.group.gender span {
+    display: inline-block;
+    margin-right: 5px;
 }
 
 .group.btn {
@@ -36,7 +42,7 @@ form {
 
 .text-input {
     border-radius: 100px;
-    padding: 8px 10px;
+    padding: 2px 5px;
     border: none;
     box-shadow: 0 0 2px;
     background-color: white;
