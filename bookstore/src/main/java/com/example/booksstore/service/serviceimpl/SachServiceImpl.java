@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -38,5 +39,10 @@ public class SachServiceImpl implements ISachService {
     @Override
     public Sach getOne(int id) {
         return iSachRepository.findByIdSach(id);
+    }
+
+    @Override
+    public List<Sach> sachmoi() {
+        return iSachRepository.findAllByOrderByIdSachDesc();
     }
 }

@@ -7,8 +7,11 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 public interface ISachRepository extends JpaRepository<Sach ,Integer> {
     Page<Sach> findAll(Pageable pageable);
     Page<Sach> findAll(Specification<Sach> spec, Pageable pageable);
     Sach findByIdSach(int id);
+    List<Sach> findAllByOrderByIdSachDesc();
 }
