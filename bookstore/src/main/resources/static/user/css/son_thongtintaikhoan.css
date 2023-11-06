@@ -32,6 +32,10 @@
     display: inline-block;
     margin-right: 5px;
 }
+.group.gender {
+    grid-template-columns: 2fr 1fr 1fr 1fr 3fr;
+    justify-content: center;
+}
 
 .group.btn {
     display: flex;

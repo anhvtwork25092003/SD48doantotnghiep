@@ -23,10 +23,6 @@
     grid-template-columns: 1fr 5fr;
 }
 
-.group.gender {
-    grid-template-columns: 2fr 1fr 1fr 1fr 3fr;
-    justify-content: center;
-}
 
 .group.btn {
     display: flex;
