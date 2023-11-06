@@ -79,4 +79,16 @@ public class Sach {
             inverseJoinColumns = @JoinColumn(name = "idtacgia")
     )
     private Set<TacGia> tacgia = new HashSet<>();
+
+
+    @ManyToMany(mappedBy = "sachs")
+    private Set<KhuyenMai> khuyenMais = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "sachkhuyenmai",
+            joinColumns = @JoinColumn(name = "idsach"),
+            inverseJoinColumns = @JoinColumn(name = "idkhuyenmai")
+    )
+    private Set<SachKhuyenMai> sachKhuyenMais = new HashSet<>();
 }

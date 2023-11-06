@@ -1,13 +1,21 @@
 package com.example.booksstore.entities;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,6 +51,8 @@ public class KhuyenMai {
 
     @Column(name = "sophantramgiamgia")
     private Integer soPhanTramGiamGia;
+    @Column(name = "trangthaihienthi")
+    private Integer trangThaiHienThi;
 
     @ManyToMany
     @JoinTable(
@@ -52,4 +62,13 @@ public class KhuyenMai {
     )
     private Set<Sach> sachs = new HashSet<>();
 
+    // update trang thai ap dung khuyen mai
+    public void updateTrangThai() {
+        Date currentDate = new Date();
+        if (currentDate.after(ngayBatDau) && currentDate.before(ngayKetThuc)) {
+            trangThai = 1;
+        } else {
+            trangThai = 0;
+        }
+    }
 }
