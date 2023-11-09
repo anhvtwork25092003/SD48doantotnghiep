@@ -1,63 +1,61 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{user/layoutchung/mainLayout}"
-      xmlns:th="http://www.thymeleaf.org">
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Chủ</title>
+    <title>Tác Giả</title>
+    <link rel="stylesheet" href="/user/css/TrangChu.css"/>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"/>
-    <link rel="stylesheet" href="/user/css/TrangChu.css"/>
+
 </head>
 <body>
 <article layout:fragment="noiDung">
-<div class="container">
-    <!-- HEADER -->
     <header>
-        <h1><img src="/image/banner/bannerTrangChu.jpg"></h1>
+        <h1><img src="/image/banner/bannerUuDai.png"></h1>
     </header>
     <!-- HEADER -->
-
-    <!-- ảnh banner khuyến mãi -->
-    <div class="columnBaner">
-        <div class="column">
-            <img src="/image/anhkhac/sale1.png" alt="Hình ảnh 1">
-        </div>
-        <div class="column">
-            <img src="/image/anhkhac/sale2.jpg" alt="Hình ảnh 2">
-        </div>
-        <div class="column">
-            <img src="/image/anhkhac/sale3.png" alt="Hình ảnh 3">
-        </div>
-        <div class="column">
-            <img src="/image/anhkhac/sale4.png" alt="Hình ảnh 4">
-        </div>
-    </div>
-    <!-- end ảnh banner khuyến mãi -->
-
     <!-- chuyển trang -->
-        <div class="nav">
-            <ul class="nav-list">
-                <li class="nav-item">
-                    <a class="nav-link" href="/trang-chu">TRANG CHỦ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/uu-dai">ƯU ĐÃI</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/ban-chay">BÁN CHẠY</a>
-                </li>
-                <!-- Thêm các mục menu khác nếu cần -->
-            </ul>
-        </div>
-    <!-- end chuyển trang -->
-
-    <!-- ưu đãi lớn -->
-    <div class="row"><h2>Ưu đãi lớn</h2></div>
+    <div class="nav">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a class="nav-link" href="/trang-chu">TRANG CHỦ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/uu-dai">BÁN CHẠY</a>
+            </li>
+            <!-- Thêm các mục menu khác nếu cần -->
+        </ul>
+    </div>
     <div class="product">
+        <div class="product-item">
+            <div class="product-image">
+                <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
+            </div>
+            <h3>Doraemon Plus 1</h3>
+            <div class="price"><h4>20.000 đ</h4></div>
+            <div class="sale"><h5>25.000 đ</h5></div>
+        </div>
+        <div class="product-item">
+            <div class="product-image">
+                <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
+            </div>
+            <h3>Doraemon Plus 1</h3>
+            <div class="price"><h4>20.000 đ</h4></div>
+            <div class="sale"><h5>25.000 đ</h5></div>
+        </div>
+        <div class="product-item">
+            <div class="product-image">
+                <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
+            </div>
+            <h3>Doraemon Plus 1</h3>
+            <div class="price"><h4>20.000 đ</h4></div>
+            <div class="sale"><h5>25.000 đ</h5></div>
+        </div>
         <div class="product-item">
             <div class="product-image">
                 <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
@@ -99,91 +97,10 @@
             <div class="sale"><h5>25.000 đ</h5></div>
         </div>
         <!-- Các sản phẩm khác -->
-        <div class="button"><a href="#">Xem thêm</a></div>
+
     </div>
-    <!-- end ưu đãi lớn -->
 
-    <br>
-
-    <!-- sảm phẩm bán chạy -->
-    <div class="row"><h2>Sản phẩm bán chạy</h2></div>
-    <div class="product">
-
-        <div class="product-item">
-            <div class="product-image">
-                <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
-            </div>
-            <h3>Doraemon Plus 1</h3>
-            <div class="price"><h4>20.000 đ</h4></div>
-            <div class="sale"><h5>25.000 đ</h5></div>
-        </div>
-        <div class="product-item">
-            <div class="product-image">
-                <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
-            </div>
-            <h3>Doraemon Plus 1</h3>
-            <div class="price"><h4>20.000 đ</h4></div>
-            <div class="sale"><h5>25.000 đ</h5></div>
-        </div>
-        <div class="product-item">
-            <div class="product-image">
-                <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
-            </div>
-            <h3>Doraemon Plus 1</h3>
-            <div class="price"><h4>20.000 đ</h4></div>
-            <div class="sale"><h5>25.000 đ</h5></div>
-        </div>
-        <div class="product-item">
-            <div class="product-image">
-                <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
-            </div>
-            <h3>Doraemon Plus 1</h3>
-            <div class="price"><h4>20.000 đ</h4></div>
-            <div class="sale"><h5>25.000 đ</h5></div>
-        </div>
-        <div class="product-item">
-            <div class="product-image">
-                <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
-            </div>
-            <h3>Doraemon Plus 1</h3>
-            <div class="price"><h4>20.000 đ</h4></div>
-            <div class="sale"><h5>25.000 đ</h5></div>
-        </div>
-        <!-- Các sản phẩm khác -->
-        <div class="button"><a href="/trang-chu-them">Xem thêm</a></div>
-    </div>
-    <!-- end sảm phẩm bán chạy -->
-    <br>
-
-    <!-- sản phẩm mới nhất -->
-    <div class="row">
-        <h2>Sản phẩm mới nhất</h2>
-    </div>
-    <div class="product">
-        <div th:each="sm : ${sachmoi}" class="product-item">
-            <div class="product-image">
-                <img th:src="${sm.linkAnh1}" th:alt="${sm.tenSach}">
-            </div>
-            <h3 th:text="${sm.tenSach}"></h3>
-            <div class="price">
-                <h4 th:text="${sm.giaBan} + ' đ'"></h4>
-            </div>
-<!--            <div class="sale">-->
-<!--                <h5 th:text="${product.salePrice} + ' đ'"></h5>-->
-<!--            </div>-->
-        </div>
-        <!-- Các sản phẩm khác -->
-        <div class="button"><a href="#">Xem thêm</a></div>
-    </div>
-    <!-- end sản phẩm mới nhất -->
-
-    <br>
-</div>
 </article>
-
 </body>
 <script src="/user/js/TrangChu.js"></script>
 </html>
-
-
-

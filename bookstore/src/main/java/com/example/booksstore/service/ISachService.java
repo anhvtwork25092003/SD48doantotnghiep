@@ -18,4 +18,6 @@ public interface ISachService {
 
     Sach getOne(int id);
     List<Sach> sachmoi();
+
+    List<Sach>getall();
 }

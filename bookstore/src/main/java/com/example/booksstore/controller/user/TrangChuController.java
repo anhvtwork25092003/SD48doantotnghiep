@@ -24,4 +24,13 @@ public class TrangChuController {
         return "user/TrangChu";
     }
 
+    @GetMapping("/trang-chu-them")
+    public  String TrangChuThem(Model model){
+        List<Sach> sachList = iSachService.sachmoi();
+        List<Sach> saches = sachList.subList(0, 5);
+
+        model.addAttribute("sachmoi", saches);
+        return "user/trang_chu_xem_them";
+    }
+
 }

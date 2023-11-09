@@ -45,4 +45,10 @@ public class SachServiceImpl implements ISachService {
     public List<Sach> sachmoi() {
         return iSachRepository.findAllByOrderByIdSachDesc();
     }
+
+    @Override
+    public List<Sach> getall() {
+        List<Sach> s=iSachRepository.findAll();
+        return s;
+    }
 }
