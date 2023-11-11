@@ -1,6 +1,7 @@
 package com.example.booksstore.controller.admin.quanly;
 
 import com.example.booksstore.entities.KhachHang;
+import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.service.IDiaChiService;
 import com.example.booksstore.service.IKhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.sql.Date;
 
 @Controller
 @RequestMapping("/quan-ly")
@@ -53,6 +57,39 @@ public class QuanLyKhachHangController {
         model.addAttribute("pageOfKhachHang", pageOfKhachHang);
         model.addAttribute("listDiaChi", iDiaChiService.finAll(pageable));
         return "admin/quanly/KhachHang";
+    }
+
+
+    @PostMapping("/khach-hang/cap-nhat")
+    public String khachHangsua(
+            @RequestParam("idKhachHang") String idKhachHang,
+            @RequestParam("hoVaTen") String hoVaTen,
+            @RequestParam("sdt") String sdt,
+            @RequestParam("ngaySinh") Date ngaySinh,
+            @RequestParam("gioiTinh") String gioiTinh,
+            @RequestParam("email") String email,
+            @RequestParam("idGioHang") String idGioHang,
+            @RequestParam("trangThai") String trangThai,
+            @RequestParam("matKhau") String matKhau,
+            @RequestParam("loaiKhachHang") String loaiKhachHang,
+            @RequestParam("ngayTaoTaiKhoan") Date ngayTaoTaiKhoan
+
+    ){
+        KhachHang khachupdate= KhachHang.builder()
+                .idKhachHang(Integer.parseInt(idKhachHang))
+                .idGioHang(Integer.parseInt(idGioHang))
+                .trangThai(Integer.parseInt(trangThai))
+                .ngayTaoTaiKhoan(ngayTaoTaiKhoan)
+                .matKhau(matKhau)
+                .loaiKhachHang(loaiKhachHang)
+                .hoVaTen(hoVaTen)
+                .sdt(sdt)
+                .ngaySinh(ngaySinh)
+                .gioiTinh(Integer.parseInt(gioiTinh))
+                .email(email)
+                .build();
+        this.iKhachHangService.save(khachupdate);
+        return "redirect:/quan-ly/khach-hang/hien-thi";
     }
 
 }

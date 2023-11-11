@@ -94,10 +94,11 @@
                             <!-- start sửa danh sách khách hàng -->
                             <button type="button" class="btn btn-outline-info" id="editModalBtn"
                                     data-toggle="modal"
-                                    data-target="#editModal" style="width: auto;height: auto;">
+                                    th:attr="data-target='#vieweditmodalKH-' + ${khachhang.idKhachHang}" style="width: auto;height: auto;">
                                 <i class="fa-solid fa-pen"></i>
                             </button>
-                            <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+
+                            <div class="modal fade" th:id="'vieweditmodalKH-' + ${khachhang.idKhachHang}" tabindex="-1" role="dialog"
                                  aria-labelledby="editModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -110,10 +111,50 @@
                                             </button>
                                         </div>
                                         <!--start nội dung modal -->
+                                        <form th:action="@{/quan-ly/khach-hang/cap-nhat}" method="post">
                                         <div class="modal-body">
                                             <div class="input-field">
+                                                <input type="text" id="idKhachHang" class="form-control" name="idKhachHang" th:value="${khachhang.idKhachHang}" hidden>
+                                            </div>
+                                            <div class="input-field">
+                                                <input type="text" id="idGioHang" class="form-control" name="idGioHang" th:value="${khachhang.idGioHang}" hidden>
+                                            </div>
+                                            <div class="input-field">
+                                                <input  class="form-control" name="maKhachHang" th:value="${khachhang.maKhachHang}" hidden>
+                                            </div>
+                                              <div class="input-field">
+                                                <input  class="form-control" name="matKhau" th:value="${khachhang.matKhau}" hidden>
+                                            </div>
+                                            <div class="input-field">
+                                                <input type="text" class="form-control" name="hoVaTen" th:value="${khachhang.hoVaTen}" hidden>
+                                            </div>
+                                            <div class="input-field">
+                                                <input type="tel" class="form-control" name="sdt" th:value="${khachhang.sdt}" hidden>
+                                            </div>
+                                            <div class="input-field">
+                                                <input type="date" class="form-control" name="ngaySinh" th:value="${khachhang.ngaySinh}" hidden>
+                                            </div>
+                                            <div class="input-field">
+                                                <input type="email" class="form-control" name="email" th:value="${khachhang.email}" hidden>
+                                            </div>
+                                             <div class="input-field">
+                                                    <input type="radio" class="form-control" name="gioiTinh" value="1" th:checked="${khachhang.gioiTinh == 1}" hidden> 
+                                            </div>
+                                            <div class="input-field">
+                                                    <input type="radio" class="form-control" name="gioiTinh" value="0" th:checked="${khachhang.gioiTinh == 0}" hidden>
+                                            </div>                                            
+                                            <div class="input-field">
+                                                <input type="text" class="form-control" name="loaiKhachHang" th:value="${khachhang.loaiKhachHang}" hidden>
+                                            </div>
+                                            <div class="input-field">
+                                                <input type="datetime" class="form-control" name="ngayTaoTaiKhoan" th:value="${khachhang.ngayTaoTaiKhoan}" hidden>
+                                            </div>
+                                            <div class="input-field">
                                                 <label>Trạng Thái</label>
-                                                <input type="text" class="form-control">
+                                                <select id="trangThai" class="form-control" name="trangThai">
+                                                    <option th:selected="${khachhang.trangThai == 1}" value="1">Hoạt động</option>
+                                                    <option th:selected="${khachhang.trangThai == 0}" value="0">Ngừng hoạt động</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <!-- start nội dung modal -->
@@ -121,9 +162,10 @@
                                             <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Đóng
                                             </button>
-                                            <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu
+                                            <button type="submit" class="btn btn-primary" id="saveEditBtn">Lưu
                                             </button>
                                         </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -142,8 +184,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="viewModalLabel">Chi Tiết Danh Sách Khách
-                                                Hàng</h5>
+                                            <h5 class="modal-title" id="viewModalLabel">Chi Tiết Danh Sách Khách Hàng</h5>
                                             <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
