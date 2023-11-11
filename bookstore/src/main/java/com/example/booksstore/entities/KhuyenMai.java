@@ -22,6 +22,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Builder
+
 @Table(name = "khuyenmai")
 public class KhuyenMai {
     @Id

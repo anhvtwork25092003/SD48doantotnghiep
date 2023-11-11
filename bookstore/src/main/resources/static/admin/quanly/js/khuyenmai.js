@@ -53,8 +53,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         var newSelect = document.createElement("select");
         newSelect.className = "form-control";
-        newSelect.name = "sachKM";
-        newSelect.id = "sachKM";
+        newSelect.name = "sachKM2";
+        newSelect.id = "sachKM2";
 
         var option = document.createElement("option");
         option.value = "";
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
             sachContainer.removeChild(xoaSachButton);
         });
 
-        var originalSelect = document.getElementById("sachKM");
+        var originalSelect = document.getElementById("sachKM2");
         for (var i = 0; i < originalSelect.options.length; i++) {
             var clonedOption = originalSelect.options[i].cloneNode(true);
             newSelect.appendChild(clonedOption);

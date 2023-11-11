@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -86,8 +89,7 @@ public class QuanLyKhuyenMaiController {
         System.out.println(ngayKetThuc);
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
-
-
+    @Transactional
     @PostMapping("/khuyen-mai/cap-nhat")
     public String suaKhuyenMai(
             @RequestParam("idKhuyenMai") String idKhuyenMai,
@@ -100,9 +102,8 @@ public class QuanLyKhuyenMaiController {
             @RequestParam("trangThaiHienThi") String trangThaiHienThi
 
     ) {
-        System.out.println(idKhuyenMai);
         for(Sach sach : sachKM2) {
-            System.out.println(sach);
+            System.out.println(sach.getTenSach());
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 

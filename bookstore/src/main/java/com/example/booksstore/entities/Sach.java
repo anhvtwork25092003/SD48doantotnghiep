@@ -20,7 +20,6 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name="sach")
-@ToString
 @Builder
 public class Sach {
     @Id

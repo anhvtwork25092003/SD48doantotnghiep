@@ -238,7 +238,8 @@
                                     </div>
                                     <!--start nội dung modal -->
                                     <div class="modal-body">
-                                        <form th:action="@{/quan-ly/khuyen-mai/cap-nhat}" method="post" enctype="multipart/form-data" >
+                                        <form th:action="@{/quan-ly/khuyen-mai/cap-nhat}" method="post"
+                                              enctype="multipart/form-data">
                                             <div class="input-field">
                                                 <input type="text" id="idKhuyenMai" class="form-control"
                                                        name="idKhuyenMai" th:value="${khuyenmai.idKhuyenMai}" hidden/>
@@ -291,25 +292,46 @@
                                             <div class="input-field">
                                                 <label>Sản phẩm</label>
                                                 <div id="sachContainer1">
-<!--                                                    <select class="form-control" name="sachKM" id="sachKM">-->
-<!--                                                        <option th:each="sach : ${sachs}" th:value="${sach.idSach}"-->
-<!--                                                                th:text="${sach.maSach}"></option>-->
-<!--                                                    </select>-->
+                                                    <!--                                                    <select class="form-control" name="sachKM" id="sachKM">-->
+                                                    <!--                                                        <option th:each="sach : ${sachs}" th:value="${sach.idSach}"-->
+                                                    <!--                                                                th:text="${sach.maSach}"></option>-->
+                                                    <!--                                                    </select>-->
 
-                                                    <select
-                                                            name="sachKM2" id="sachKM2" class="form-control">
-                                                        <option th:each="sachh : ${sachs}"
-                                                                th:value="${sachh.idSach}"
-                                                                th:text="${sachh.maSach}"
-                                                                th:selected="${khuyenmai.sachs.contains(sachh)}">
-                                                        </option>
-                                                    </select>
-                                                    <button class="xoaSachButton" disabled>Xóa sách</button>
-                                                    <button type="button" id="themSachButton1" >Thêm sách</button>
+                                                    <input type="text" id="searchInput" placeholder="Nhập từ khóa tìm kiếm" />
+
+                                                    <div style="height: 200px; overflow-y: scroll;" id="bookList">
+                                                        <div th:each="sachh : ${sachs}" class="bookItem">
+                                                            <input type="checkbox"
+                                                                   th:id="'sachCheckbox_' + ${sachh.idSach}"
+                                                                   th:name="'sachKM2'"
+                                                                   th:value="${sachh.idSach}"
+                                                                   th:checked="${khuyenmai.sachs.contains(sachh)}" />
+                                                            <label th:for="'sachCheckbox_' + ${sachh.idSach}" th:text="${sachh.maSach} + ' '+${sachh.tenSach}  + ' '+${sachh.giaBan}"></label><br/>
+                                                        </div>
+                                                    </div>
+                                                    <script th:inline="javascript">
+                                                        var bookItems = document.getElementsByClassName('bookItem');
+
+                                                        document.getElementById('searchInput').addEventListener('input', function() {
+                                                            var keyword = this.value.toLowerCase();
+
+                                                            Array.from(bookItems).forEach(function(item) {
+                                                                var label = item.querySelector('label');
+                                                                var labelText = label.innerText.toLowerCase();
+
+                                                                if (labelText.includes(keyword)) {
+                                                                    item.style.display = 'block';
+                                                                } else {
+                                                                    item.style.display = 'none';
+                                                                }
+                                                            });
+                                                        });
+                                                    </script>
+
+
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary" id="saveEditBtn">Lưu
-                                            </button>
+                                            <button type="submit" class="btn btn-primary" id="saveEditBtn">Lưu</button>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
@@ -317,9 +339,9 @@
                                                 data-dismiss="modal">Đóng
                                         </button>
                                     </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
                         <!--                        </td>-->
