@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <html lang="en">
 <head>
     <title>Khuyến mại </title>
@@ -76,9 +76,11 @@
                     <h4 style="text-align: left;">Chương trình khuyến mại</h4>
                     <!-- button thêm khuyến mại khi ấn vào thì hiện modal -->
                     <div class="themKhuyenMai">
-                        <button class="btn btn-success" href="#" data-toggle="modal" data-target="#largeModal">
+
+                        <button class="btn btn-success" data-toggle="modal" data-target="#largeModal">
                             <i class="fa-solid fa-circle-plus"></i> Chương Trình Khuyến Mại
                         </button>
+
                         <!-- button thêm khuyến mại khi ấn vào thì hiện modal -->
                         <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
                              aria-hidden="true">
@@ -90,254 +92,338 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body ">
-                                        <div class="box-address">
-                                            <!-- nội dung khuyến mại -->
-                                            <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label>Tên chương trình</label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <label>Trạng thái</label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                               name="exampleRadios" value="option1" checked>
-                                                        <label class="form-check-label">
-                                                            Tất cả
-                                                        </label>
+                                    <form th:action="@{/quan-ly/khuyen-mai/them-moi}" method="post">
+                                        <div class="modal-body ">
+                                            <div class="box-address">
+                                                <!-- nội dung khuyến mại -->
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="tenKhuyenMai">Tên chương trình</label>
+                                                        <input type="text" id="tenKhuyenMai" name="tenKhuyenMai"
+                                                               class="form-control"/>
                                                     </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio"
-                                                               name="exampleRadios" value="option2">
-                                                        <label class="form-check-label">
-                                                            Chưa áp dụng
-                                                        </label>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="soPhanTramGiamGia">Số phần trăm giảm giá</label>
+                                                        <input type="text" id="soPhanTramGiamGia"
+                                                               name="soPhanTramGiamGia" class="form-control"/>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label>Trạng thái</label>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                   name="trangThai" value="1" checked>
+                                                            <label class="form-check-label">
+                                                                Tất cả
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                   name="trangThai" value="0">
+                                                            <label class="form-check-label">
+                                                                Chưa áp dụng
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label>Trạng Thái Hiển Thị</label>
+                                                        <select class="form-control" name="trangThaiHienThi">
+                                                            <option value="1" th:selected="${trangThaiHienThi == 1}">
+                                                                Hiển thị
+                                                            </option>
+                                                            <option value="0" th:selected="${trangThaiHienThi == 0}">
+                                                                Không hiển thị
+                                                            </option>
+                                                        </select>
+
                                                     </div>
                                                 </div>
-                                                <div class="col-3">
-                                                    <label>Ghi Chú</label>
-                                                    <textarea class="form-control" type="textarea" cols="10"></textarea>
-                                                </div>
-                                            </div>
-                                            <!-- nội dung khuyến mại -->
-
-                                            <hr>
-                                            <!-- Thông tin khuyến mại-->
-                                            <div class="div">
-                                                <button data-toggle="collapse" data-target="#collapseExample1"
-                                                        aria-expanded="false" aria-controls="collapseExample1">Thông tin
-                                                    khuyến mại
-                                                </button>
-                                                <button data-toggle="collapse" data-target="#collapseExample2"
-                                                        aria-expanded="false" aria-controls="collapseExample2">Các sản
-                                                    phẩm được áp dụng
-                                                </button>
-                                            </div>
-
-                                            <div class="collapse" id="collapseExample1">
+                                                <!-- nội dung khuyến mại -->
+                                                <hr>
                                                 <h2>Hiệu lực thời gian</h2>
                                                 <div class="col-md-6">
                                                     <label>Ngày bắt đầu:</label>
-                                                    <input type="date" name="">
+                                                    <input type="datetime-local" id="ngayBatDau" step=60
+                                                           name="ngayBatDau">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Ngày kết thúc:</label>
-                                                    <input type="date" name="">
+                                                    <input type="datetime-local" id="ngayKetThuc" step=60
+                                                           name="ngayKetThuc">
                                                 </div>
-                                            </div>
-                                            <!-- end Thông tin khuyến mại-->
-
-                                            <!-- các sản phẩm được áp dungj -->
-                                            <div class="collapse" id="collapseExample2">
+                                                <!-- các sản phẩm được áp dungj -->
                                                 <h2>Các sản phẩm được áp dụng</h2>
-                                                <!-- đây là button thêm KM -->
-                                                <button data-toggle="collapse" class="btn btn-success"
-                                                        data-target="#collapseExample3" aria-expanded="false"
-                                                        aria-controls="collapseExample3"> + Sản phẩm KM
-                                                </button>
-                                                <!-- đây là button thêm KM -->
-
-                                                <!-- đây là nội dung nhập dữ liệu thêm các sản phẩm khuyến mãi -->
-                                                <div class="collapse" id="collapseExample3">
-                                                    <div class="card-body">
-                                                        <div class="form-group">
-                                                            <label>Mã Mặt Hàng</label>
-                                                            <input type="text" class="form-control">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Tên Mặt Hàng</label>
-                                                            <input class="form-control">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Số Lượng</label>
-                                                            <input type="text" class="form-control">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Giá Sản Phẩm</label>
-                                                            <input type="tel" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Thêm Mới</button>
-
-                                                    <!-- đây là nội dung nhập dữ liệu thêm các sản phẩm khuyến mãi -->
+                                                <div id="sachContainer">
+                                                    <select class="form-control" name="sachKM" id="sachKM">
+                                                        <option th:each="sach : ${sachs}" th:value="${sach.idSach}"
+                                                                th:text="${sach.maSach}"></option>
+                                                    </select>
+                                                    <button class="xoaSachButton" disabled>Xóa sách</button>
                                                 </div>
-
-                                                <!-- //table khi thêm dc view ra -->
-                                                <br>
-                                                <table class="table table-striped table-inverse">
-                                                    <thead class="thead-inverse">
-                                                    <tr>
-                                                        <th>Mã mặt hàng</th>
-                                                        <th>Tên mặt hàng</th>
-                                                        <th>Số lượng</th>
-                                                        <th>Giá sản phẩm</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>MH01</td>
-                                                        <td>Sách thiếu nhi</td>
-                                                        <td>10</td>
-                                                        <td>10.0000
-                                                            <p style="text-decoration: line-through;">20.000</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>MH01</td>
-                                                        <td>Sách thiếu nhi</td>
-                                                        <td>10</td>
-                                                        <td>10.0000
-                                                            <p style="text-decoration: line-through;">20.000</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>MH01</td>
-                                                        <td>Sách thiếu nhi</td>
-                                                        <td>10</td>
-                                                        <td>10.0000
-                                                            <p style="text-decoration: line-through;">20.000</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>MH01</td>
-                                                        <td>Sách thiếu nhi</td>
-                                                        <td>10</td>
-                                                        <td>10.0000
-                                                            <p style="text-decoration: line-through;">20.000</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>MH01</td>
-                                                        <td>Sách thiếu nhi</td>
-                                                        <td>10</td>
-                                                        <td>10.0000
-                                                            <p style="text-decoration: line-through;">20.000</p>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                <!-- //table khi thêm dc view ra -->
-
+                                                <button id="themSachButton">Thêm sách</button>
                                             </div>
                                             <!-- các sản phẩm được áp dungj -->
-
                                         </div>
-                                    </div>
-                                    <!-- lưu, hủy modal ngoài -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                                        <button type="button" class="btn btn-primary">Lưu</button>
-                                    </div>
-                                    <!-- end lưu, hủy modal ngoài -->
-
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">Lưu</button>
+                                        </div>
+                                        <!-- end lưu, hủy modal ngoài -->
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <br>
-                    <!-- các chương trình khuyến mãi khi vào trang -->
-                    <table class="table" style=" border: 0px solid blue;">
+                    <!--                    <th:block th:if="${not khuyenMaiPages.isEmpty()}">-->
+                    <table class="table" style="border: 0px solid blue;">
                         <thead class="table-dark">
                         <tr>
-                            <th>Id Chương Trình</th>
-                            <th>Tên Chương Trình</th>
+                            <th>Id chương trình</th>
+                            <th>Tên chương trình</th>
+                            <th>Số phần trăm giảm giá</th>
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
-                            <th>Trạng thái</th>
+                            <th>Trạng thái áp dụng</th>
+                            <th>Trạng thái hiển thị</th>
+                            <th>Hành Động</th>
                         </tr>
                         </thead>
                         <tbody th:each="khuyenmai, iterStat : ${khuyenMaiPages.content}">
-                        <tr data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false"
-                            aria-controls="collapseExample">
+                        <tr>
                             <td th:text="${khuyenmai.idKhuyenMai}"></td>
                             <td th:text="${khuyenmai.tenKhuyenMai}"></td>
+                            <td th:text="${khuyenmai.soPhanTramGiamGia}"></td>
                             <td th:text="${khuyenmai.ngayBatDau}"></td>
                             <td th:text="${khuyenmai.ngayKetThuc}"></td>
-                            <td th:text="${khuyenmai.trangThai == 1 ? 'Đang kích hoạt': 'Không kích hoạt'}"></td>
-                            <!--                            <td th:text="${khuyenmai.linkBannerKhuyenMai}"></td>-->
-                            <!--                            <td th:text="${khuyenmai.linkAnhKhuyenMai}"></td>-->
-                        </tr>
-                        </tbody>
-                    </table>
-                    <!-- end các chương trình khuyến mãi khi vào trang -->
-                    <!-- đây là  khi ấn vào table nó sẽ xuất hiện nội dung của các chương trình khuyến mại -->
-                    <div class="collapse" id="collapseExample3">
-                        <div class="card card-body">
-                            <div id="thongTin">
-                                <h2>Thông tin</h2>
-                                <p><strong>ID chương trình:</strong> <span id="idKhuyenMai"></span></p>
-                                <p><strong>Tên chương trình:</strong> <span id="tenKhuyenMai"></span></p>
-                                <p><strong>Ngày bắt đầu:</strong> <span id="ngayBatDau"></span></p>
-                                <p><strong>Ngày kết thúc:</strong> <span id="ngayKetThuc"></span></p>
-                                <p><strong>Trạng thái:</strong> <span id="trangThai"></span></p>
-                            </div>
-                            <!-- end đây là  khi ấn vào table nó sẽ xuất hiện nội dung của các chương trình khuyến mại -->
+                            <td th:text="${khuyenmai.trangThai == 1 ? 'Đang kích hoạt' : 'Không kích hoạt'}"></td>
+                            <td th:text="${khuyenmai.trangThaiHienThi == 1 ? 'Hiển Thị' : 'Không hiển thị'}"></td>
+                            <td>
+                                <!--                                xem-->
+                                <button type="button" class="btn btn-outline-info"
+                                        data-toggle="modal"
+                                        th:attr="data-target='#viewSachKhuyenMai-' + ${khuyenmai.idKhuyenMai}"
+                                        style="width: auto;height: auto;">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
 
-                            <hr>
-                            <!-- hàng hóa  -->
-                            <div class="hangHoa">
-                                <h3>Hàng Hóa - Mua Hàng Khuyến Mại</h3>
-                                <i>Số lượng hàng khuyến mại nhân theo số lượng mua</i>
-                                <table class="table alert-dark">
-                                    <thead>
-                                    <tr>
-                                        <th>Tên mặt hàng</th>
-                                        <th>Số lượng đã được mua</th>
-                                        <th>Tổng tiền</th>
-                                        <th>Số lượng giảm</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Truyện CoNan Thám tử lừng danh</td>
-                                        <td>10</td>
-                                        <td>400.000đ</td>
-                                        <td>100.000đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Truyện CoNan Thám tử lừng danh</td>
-                                        <td>10</td>
-                                        <td>400.000đ</td>
-                                        <td>100.000đ</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <!--                                sửa-->
+                                <button type="button" class="btn btn-outline-info"
+                                        data-toggle="modal"
+                                        th:attr="data-target='#vieweditmodalKM-' + ${khuyenmai.idKhuyenMai}"
+                                        style="width: auto;height: auto;">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+
+                            </td>
+                        </tr>
+
+                        <!--                        start eidtKM-->
+                        <!--                        <td class="editKM">-->
+
+                        <div class="modal fade" th:id="'vieweditmodalKM-' +${khuyenmai.idKhuyenMai}"
+                             tabindex="-1"
+                             role="dialog"
+                             aria-labelledby="editModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel">Sửa Danh Sách Khuyến Mãi</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <!--start nội dung modal -->
+                                    <div class="modal-body">
+                                        <form th:action="@{/quan-ly/khuyen-mai/cap-nhat}" method="post" enctype="multipart/form-data" >
+                                            <div class="input-field">
+                                                <input type="text" id="idKhuyenMai" class="form-control"
+                                                       name="idKhuyenMai" th:value="${khuyenmai.idKhuyenMai}" hidden/>
+                                            </div>
+                                            <div class="input-field">
+                                                <label> Tên Khuyến Mãi</label>
+                                                <input type="text" id="tenKhuyenMai" class="form-control"
+                                                       name="tenKhuyenMai" th:value="${khuyenmai.tenKhuyenMai}"/>
+                                            </div>
+                                            <div class="input-field">
+                                                <label> Số phần trăm giảm giá</label>
+                                                <input type="text" id="soPhanTramGiamGia" class="form-control"
+                                                       name="soPhanTramGiamGia"
+                                                       th:value="${khuyenmai.soPhanTramGiamGia}"/>
+                                            </div>
+                                            <div class="input-field">
+                                                <label> Ngày Bắt Đầu</label>
+                                                <input type="datetime-local" id="ngayBatDau" class="form-control"
+                                                       name="ngayBatDau" th:value="${khuyenmai.ngayBatDau}"/>
+                                            </div>
+                                            <div class="input-field">
+                                                <label> Ngày Kết Thúc</label>
+                                                <input type="datetime-local" id="ngayKetThuc" class="form-control"
+                                                       name="ngayKetThuc" th:value="${khuyenmai.ngayKetThuc}"/>
+                                            </div>
+                                            <div class="input-field">
+                                                <label>Trạng Thái</label>
+                                                <select class="form-control" id="trangThai" name="trangThai">
+                                                    <option value="1" th:selected="${khuyenmai.trangThai == 1}">Đang
+                                                        kích hoạt
+                                                    </option>
+                                                    <option value="0" th:selected="${khuyenmai.trangThai == 0}">Không
+                                                        kích hoạt
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="input-field">
+                                                <label>Trạng Thái Hiển Thị</label>
+                                                <select class="form-control" id="trangThaiHienThi"
+                                                        name="trangThaiHienThi">
+                                                    <option value="1" th:selected="${khuyenmai.trangThaiHienThi == 1}">
+                                                        Hiển thị
+                                                    </option>
+                                                    <option value="0" th:selected="${khuyenmai.trangThaiHienThi == 0}">
+                                                        Không hiển thị
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="input-field">
+                                                <label>Sản phẩm</label>
+                                                <div id="sachContainer1">
+<!--                                                    <select class="form-control" name="sachKM" id="sachKM">-->
+<!--                                                        <option th:each="sach : ${sachs}" th:value="${sach.idSach}"-->
+<!--                                                                th:text="${sach.maSach}"></option>-->
+<!--                                                    </select>-->
+
+                                                    <select
+                                                            name="sachKM2" id="sachKM2" class="form-control">
+                                                        <option th:each="sachh : ${sachs}"
+                                                                th:value="${sachh.idSach}"
+                                                                th:text="${sachh.maSach}"
+                                                                th:selected="${khuyenmai.sachs.contains(sachh)}">
+                                                        </option>
+                                                    </select>
+                                                    <button class="xoaSachButton" disabled>Xóa sách</button>
+                                                    <button type="button" id="themSachButton1" >Thêm sách</button>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" id="saveEditBtn">Lưu
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Đóng
+                                        </button>
+                                    </div>
                             </div>
-                            <!-- end hàng hóa  -->
                         </div>
                     </div>
+
+
+                        <!--                        </td>-->
+
+                        <div class="modal fade"
+                             th:id="'viewSachKhuyenMai-' +${khuyenmai.idKhuyenMai}"
+                             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Chi tiết danh sách khuyến
+                                            mại</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="thongTin">
+                                            <h2>Thông tin</h2>
+                                            <strong>ID chương trình:</strong>
+                                            <input class="form-control" th:value="${khuyenmai.idKhuyenMai}" disabled/>
+                                            <strong>Số phần trăm giảm giá:</strong>
+                                            <input class="form-control" th:value="${khuyenmai.soPhanTramGiamGia}"
+                                                   disabled/>
+                                            <strong>Ngày bắt đầu:</strong>
+                                            <input class="form-control" th:value="${khuyenmai.ngayBatDau}" disabled/>
+                                            <strong>Ngày kết thúc:</strong>
+                                            <input class="form-control" th:value="${khuyenmai.ngayKetThuc}" disabled/>
+                                            <strong>Trạng thái:</strong>
+                                            <input class="form-control"
+                                                   th:value="${khuyenmai.trangThai == 1 ? 'Đang kích hoạt': 'Không kích hoạt'}"
+                                                   disabled/>
+                                        </div>
+                                        <hr>
+                                        <div class="hangHoa">
+                                            <h3>Hàng Hóa - Mua Hàng Khuyến Mại</h3>
+                                            <i>Số lượng hàng khuyến mại nhân theo số lượng mua</i>
+                                            <ul>
+                                                <li th:each="sachKhuyenMai : ${khuyenmai.sachs}">
+                                                    <p>
+                                                        <strong>Mã mặt hàng:</strong>
+                                                        <input class="form-control" th:value="${sachKhuyenMai.maSach}"
+                                                               disabled/>
+                                                        <strong>Tên mặt hàng:</strong>
+                                                        <input class="form-control" th:value="${sachKhuyenMai.tenSach}"
+                                                               disabled/>
+                                                        <strong>Giá gốc:</strong>
+                                                        <input class="form-control" th:value="${sachKhuyenMai.giaBan}"
+                                                               disabled/>
+                                                        <strong>Giá hiện tại:</strong>
+                                                        <input class="form-control"
+                                                               th:value="${sachKhuyenMai.giaBan -  (khuyenmai.soPhanTramGiamGia)}"
+                                                               disabled/>
+                                                        <strong>Phần Trăm giảm:</strong>
+                                                        <input class="form-control"
+                                                               th:value="${khuyenmai.soPhanTramGiamGia}" disabled/>
+                                                    </p>
+                                                    <br>
+                                                    <hr>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        </tbody>
+                    </table>
+
+                    <!--                        end eidtKM-->
+
+                    <!--         start       viewKM-->
+
+                    <!--             end   viewKM-->
+
+
+                    <!--                    <th:block th:if="${khuyenMaiPages.isEmpty()}">-->
+                    <!--                        <h2>Không có dữ liệu nào cả!!!</h2>-->
+                    <!--                    </th:block>-->
+                    <!--                    <h6 style="color: red;"><b><i>Đang có <span th:text="${khuyenMaiPages.totalElements}"></span> khuyến mại!</i> </b></h6>-->
+
+                    <div>
+                        <span th:if="${khuyenMaiPages.number + 1 > 1}">
+                            <a th:href="@{'/quan-ly/khuyen-mai/hien-thi?page=' + ${khuyenMaiPages.number}}">Previous</a>
+                        </span>
+                        <span th:text="${khuyenMaiPages.number + 1} + ' / ' + ${khuyenMaiPages.totalPages}"></span>
+                        <span th:if="${khuyenMaiPages.number + 1 < khuyenMaiPages.totalPages}">
+                            <a th:href="@{'/quan-ly/khuyen-mai/hien-thi?page=' + ${khuyenMaiPages.number + 2}}">Next</a>
+                        </span>
+                        </span>
+                    </div>
+
+                    <!--                    </th:block>-->
+
                 </div>
             </div>
         </div>
     </div>
-    <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"-->
-    <!--            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"-->
-    <!--            crossorigin="anonymous"></script>-->
-    <!--    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"-->
-    <!--            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"-->
-    <!--            crossorigin="anonymous"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
