@@ -62,7 +62,6 @@ public class QuanLyKhuyenMaiController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date dateNgayBatDau = null;
         Date dateNgayKetThuc = null;
-
         try {
             // Thêm cứng giây thành "00"
             ngayBatDau = ngayBatDau + ":00";
@@ -82,8 +81,6 @@ public class QuanLyKhuyenMaiController {
                         .sachs(sachKM)
                         .build();
                 redirectAttributes.addFlashAttribute("blankError", iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai));
-                return "redirect:/quan-ly/khuyen-mai/hien-thi";
-
             } else {
                 // co sach bị trùng khuyến mãi, không thêm, quay lại báo lỗi ra
                 model.addAttribute("data", result);
@@ -110,12 +107,9 @@ public class QuanLyKhuyenMaiController {
             @RequestParam("ngayKetThuc") String ngayKetThuc,
             @RequestParam("trangThai") String trangThai,
             @RequestParam("sachKM2") Set<Sach> sachKM2,
-            @RequestParam("trangThaiHienThi") String trangThaiHienThi
-
+            @RequestParam("trangThaiHienThi") String trangThaiHienThi,
+            Model model
     ) {
-        for (Sach sach : sachKM2) {
-            System.out.println(sach.getTenSach());
-        }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
         Date dateNgayBatDau = null;
@@ -125,28 +119,32 @@ public class QuanLyKhuyenMaiController {
             // Thêm cứng giây thành "00"
             ngayBatDau = ngayBatDau + ":00";
             ngayKetThuc = ngayKetThuc + ":00";
-
             dateNgayBatDau = dateFormat.parse(ngayBatDau);
             dateNgayKetThuc = dateFormat.parse(ngayKetThuc);
+            List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMai(sachKM2, dateNgayBatDau, dateNgayKetThuc);
+            if (result.isEmpty()) {
+                KhuyenMai KMupdate = KhuyenMai.builder()
+                        .idKhuyenMai(Integer.parseInt(idKhuyenMai))
+                        .soPhanTramGiamGia(Integer.parseInt(soPhanTramGiamGia))
+                        .tenKhuyenMai(tenKhuyenMai)
+                        .ngayBatDau(dateNgayBatDau)
+                        .ngayKetThuc(dateNgayKetThuc)
+                        .trangThai(Integer.parseInt(trangThai))
+                        .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
+                        .sachs(sachKM2)
+                        .build();
+
+                iKhuyenMaiService.SaveOrUpdateKhuyenMai(KMupdate);
+                return "redirect:/quan-ly/khuyen-mai/hien-thi";
+            } else {
+                // co sach bị trùng khuyến mãi, không thêm, quay lại báo lỗi ra
+                model.addAttribute("data", result);
+                System.out.println(result);
+            }
         } catch (ParseException e) {
             e.printStackTrace();
             // Xử lý lỗi nếu cần thiết
         }
-        KhuyenMai KMupdate = KhuyenMai.builder()
-                .idKhuyenMai(Integer.parseInt(idKhuyenMai))
-                .soPhanTramGiamGia(Integer.parseInt(soPhanTramGiamGia))
-                .tenKhuyenMai(tenKhuyenMai)
-                .ngayBatDau(dateNgayBatDau)
-                .ngayKetThuc(dateNgayKetThuc)
-                .trangThai(Integer.parseInt(trangThai))
-                .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
-                .sachs(sachKM2)
-                .build();
-
-        iKhuyenMaiService.SaveOrUpdateKhuyenMai(KMupdate);
-        System.out.println(ngayBatDau);
-        System.out.println(ngayKetThuc);
-
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
 
