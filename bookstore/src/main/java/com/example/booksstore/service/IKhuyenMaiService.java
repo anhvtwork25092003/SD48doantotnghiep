@@ -22,6 +22,6 @@ public interface IKhuyenMaiService {
     List<String> layThongTinSachTrongKhuyenMai(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc);
     List<String> layThongTinSachTrongKhuyenMaiChoUpdate(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc, int IdKhuyenMai);
 
-    Page<KhuyenMai> searchKhuyenMai(String tenKhuyenMai, Integer trangThai, Pageable pageable);
+    Page<KhuyenMai> searchKhuyenMai(String tenKhuyenMai,Date ngayBatDau, Date ngayKetThuc, Integer trangThai, Pageable pageable);
 
 }

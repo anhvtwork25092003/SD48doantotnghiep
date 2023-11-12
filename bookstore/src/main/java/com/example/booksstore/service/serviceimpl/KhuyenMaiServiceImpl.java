@@ -97,8 +97,10 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
     }
 
     @Override
-    public Page<KhuyenMai> searchKhuyenMai(String tenKhuyenMai, Integer trangThai, Pageable pageable) {
-        Specification<KhuyenMai> spec = KhuyenMaiSpecification.filterKhuyenMai(tenKhuyenMai, trangThai);
+    public Page<KhuyenMai> searchKhuyenMai(String tenKhuyenMai, Date ngayBatDau, Date ngayKetThuc, Integer trangThai, Pageable pageable) {
+        Specification<KhuyenMai> spec = KhuyenMaiSpecification.filterKhuyenMai(tenKhuyenMai, ngayBatDau, ngayKetThuc, trangThai);
         return iKhuyenMaiReporitory.findAll(spec, pageable);
     }
+
+
 }

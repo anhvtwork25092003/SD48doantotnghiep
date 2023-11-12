@@ -19,7 +19,7 @@
             <div class="col-2">
                 <!-- tìm theotên khuyến mãi -->
                 <form th:action="@{/quan-ly/khuyen-mai/hien-thi}" method="get" enctype="multipart/form-data">
-                <div class="boxsearch">
+                <div class="boxsearchKhuyenMai">
                     <label for="tenKhuyenMai" style="text-align: center;" >Tìm theo tên khuyến mại</label>
                     <div class="search">
                         <input id="tenKhuyenMai" name="tenKhuyenMaiTimKiem"
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <!-- end tìm theotên khuyến mãi -->
-                    <div class="trangThai">
+                    <div class="trangThaiKhuyenMai">
                         <label for="trangThai" style="text-align: center;">Trạng Thái:</label>
                         <div class="search">
                             <select class="form-control" name="trangThaiTimKiem" id="trangThai"  >
@@ -38,40 +38,40 @@
                     </div>
                 <br>
                 <!-- tìm theo thời gian -->
-                <div class="boxtrang">
+                <div class="boxtrangKhuyenMai">
                     <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
                     <div class="row">
                         <div class="col-11">
-                            <div class="form-check">
-                                <input class="form-check-input col-sm-2 col-form-label" type="radio"
-                                       name="exampleRadios"
-                                       id="exampleRadios1" value="option1" checked>
-                                <label class="form-check-label col-sm-10" for="exampleRadios1">
-                                    Hôm nay
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input col-sm-2 col-form-label" type="radio"
-                                       name="exampleRadios"
-                                       id="exampleRadios2" value="option2">
-                                <label class="form-check-label col-sm-10" for="exampleRadios2">
-                                    Lựa chọn
-                                </label>
+<!--                            <div class="form-check">-->
+<!--                                <input class="form-check-input col-sm-2 col-form-label" type="radio"-->
+<!--                                       name="exampleRadios"-->
+<!--                                       id="exampleRadios1" value="option1" checked>-->
+<!--                                <label class="form-check-label col-sm-10" for="exampleRadios1">-->
+<!--                                    Hôm nay-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                            <div class="form-check">-->
+<!--                                <input class="form-check-input col-sm-2 col-form-label" type="radio"-->
+<!--                                       name="exampleRadios"-->
+<!--                                       id="exampleRadios2" value="option2">-->
+<!--                                <label class="form-check-label col-sm-10" for="exampleRadios2">-->
+<!--                                    Lựa chọn-->
+<!--                                </label>-->
                                 <div class="date">
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Từ</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" type="date" name="">
+                                        <div class="col">
+                                            <input class="form-control" type="datetime-local" name="ngayBatDauTimKiem" th:value="${param.ngayBatDauTimKiem}" >
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Đến</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" type="date" name="">
+                                        <div class="col">
+                                            <input class="form-control" type="datetime-local" name="ngayKetThucTimKiem" th:value="${param.ngayKetThucTimKiem}">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>

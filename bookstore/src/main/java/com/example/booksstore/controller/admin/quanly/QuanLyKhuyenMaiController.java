@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +38,9 @@ public class QuanLyKhuyenMaiController {
     @GetMapping("/khuyen-mai/hien-thi")
     public String hienThiTrangKhuyenMai(Model model, @RequestParam(defaultValue = "1") int page,
                                         @RequestParam(required = false) String tenKhuyenMaiTimKiem,
-                                        @RequestParam(required = false) String trangThaiTimKiem
+                                        @RequestParam(required = false) String trangThaiTimKiem,
+                                        @RequestParam(required = false) String ngayBatDauTimKiem,
+                                        @RequestParam(required = false) String ngayKetThucTimKiem
                                         ) {
         Page<KhuyenMai> khuyenMaiPages;
         int pageSize = 5; // Đặt kích thước trang mặc định
@@ -51,8 +55,32 @@ public class QuanLyKhuyenMaiController {
             }
             model.addAttribute("trangThai", trangThaiTimKiem);
 
+            Date ngayBatDau = null;
+            Date ngayKetThuc = null;
 
-            khuyenMaiPages = iKhuyenMaiService.searchKhuyenMai(tenKhuyenMaiTimKiem,trangThai, pageable);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+            try {
+                if (ngayBatDauTimKiem != null && !ngayBatDauTimKiem.isEmpty()) {
+                    ngayBatDau = sdf.parse(ngayBatDauTimKiem);
+                }
+
+                if (ngayKetThucTimKiem != null && !ngayKetThucTimKiem.isEmpty()) {
+                    ngayKetThuc = sdf.parse(ngayKetThucTimKiem);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace(); // Handle the exception properly in a real-world scenario
+            }
+
+//            if (ngayHomNayTimKiem != null && !ngayHomNayTimKiem.isEmpty()) {
+//                // Set ngayBatDau and ngayKetThuc as today
+//                LocalDate today = LocalDate.now();
+//                ngayBatDau = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+//                ngayKetThuc = Date.from(today.atStartOfDay(ZoneId.systemDefault()).plusDays(1).minusSeconds(1).toInstant());
+//            }
+
+
+            khuyenMaiPages = iKhuyenMaiService.searchKhuyenMai(tenKhuyenMaiTimKiem,ngayBatDau,ngayKetThuc,trangThai, pageable);
         }else{
             khuyenMaiPages = iKhuyenMaiService.getAllKhuyenMaiTheoTrangThai(pageable , 1);
         }
