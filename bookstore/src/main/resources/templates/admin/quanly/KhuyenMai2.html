@@ -81,6 +81,19 @@
                             <i class="fa-solid fa-circle-plus"></i> Chương Trình Khuyến Mại
                         </button>
 
+                        <!-- Thymeleaf equivalent -->
+<!--                        <div th:if="${not #strings.isEmpty(blankError)}" class="alert alert-danger" th:text="${blankError}"></div>-->
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            $(document).ready(function() {
+                                var blankError = /*[[${blankError}]]*/ null; // Lấy giá trị từ Thymeleaf
+
+                                if (blankError) {
+                                    alert(blankError); // Hiển thị thông báo nếu có giá trị
+                                }
+                            });
+                            /*]]>*/
+                        </script>
                         <!-- button thêm khuyến mại khi ấn vào thì hiện modal -->
                         <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
                              aria-hidden="true">
@@ -100,7 +113,7 @@
                                                     <div class="form-group col-md-6">
                                                         <label for="tenKhuyenMai">Tên chương trình</label>
                                                         <input type="text" id="tenKhuyenMai" name="tenKhuyenMai"
-                                                               class="form-control"/>
+                                                               class="form-control"a/>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="soPhanTramGiamGia">Số phần trăm giảm giá</label>
@@ -166,7 +179,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Hủy
                                             </button>
-                                            <button type="submit" class="btn btn-primary">Lưu</button>
+                                            <button type="submit"  onclick="return confirm('Bạn có chắc thêm khuyến mại không?')" class="btn btn-primary">Lưu</button>
                                         </div>
                                         <!-- end lưu, hủy modal ngoài -->
                                     </form>

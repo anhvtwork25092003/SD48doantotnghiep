@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,6 +51,7 @@ public class QuanLyKhuyenMaiController {
     @Transactional
     @PostMapping("/khuyen-mai/them-moi")
     public String themMoiKhuyenMai(
+            RedirectAttributes redirectAttributes,
             @RequestParam("tenKhuyenMai") String tenKhuyenMai,
             @RequestParam("ngayBatDau") String ngayBatDau,
             @RequestParam("soPhanTramGiamGia") String soPhanTramGiamGia,
@@ -58,6 +60,7 @@ public class QuanLyKhuyenMaiController {
             @RequestParam("sachKM") Set<Sach> sachKM,
             @RequestParam("trangThaiHienThi") String trangThaiHienThi
     ) {
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
         Date dateNgayBatDau = null;
@@ -74,6 +77,11 @@ public class QuanLyKhuyenMaiController {
             e.printStackTrace();
             // Xử lý lỗi nếu cần thiết
         }
+        if(tenKhuyenMai.trim().length()== 0 || soPhanTramGiamGia.trim().length() == 0){
+            redirectAttributes.addFlashAttribute("blankError", "Không được để trống thông tin!");
+            return "redirect:/quan-ly/khuyen-mai/hien-thi";
+        }
+
         KhuyenMai khuyenMai = KhuyenMai.builder()
                 .tenKhuyenMai(tenKhuyenMai)
                 .soPhanTramGiamGia(Integer.parseInt(soPhanTramGiamGia))
@@ -84,7 +92,7 @@ public class QuanLyKhuyenMaiController {
                 .sachs(sachKM)
                 .build();
 
-        iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai);
+        redirectAttributes.addFlashAttribute("blankError", iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai));
         System.out.println(ngayBatDau);
         System.out.println(ngayKetThuc);
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
