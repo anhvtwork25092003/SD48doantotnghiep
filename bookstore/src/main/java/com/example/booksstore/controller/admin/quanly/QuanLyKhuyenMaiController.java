@@ -34,11 +34,28 @@ public class QuanLyKhuyenMaiController {
     ISachRepository repository;
 
     @GetMapping("/khuyen-mai/hien-thi")
-    public String hienThiTrangKhuyenMai(Model model, @RequestParam(defaultValue = "1") int page) {
-        int pageSize = 5; // Đặt kích thước trang mặc định
-        Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
+    public String hienThiTrangKhuyenMai(Model model, @RequestParam(defaultValue = "1") int page,
+                                        @RequestParam(required = false) String tenKhuyenMaiTimKiem,
+                                        @RequestParam(required = false) String trangThaiTimKiem
+                                        ) {
         Page<KhuyenMai> khuyenMaiPages;
-        khuyenMaiPages = iKhuyenMaiService.getAllKhuyenMaiTheoTrangThai(pageable, 1);
+        int pageSize = 5; // Đặt kích thước trang mặc định
+        int trangThai = 0;
+        Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
+        if (tenKhuyenMaiTimKiem != null  || trangThaiTimKiem != null) {
+            // xử lý trạng thái
+            if (trangThaiTimKiem.equals("1")) {
+                trangThai = 1;
+            } else if (trangThaiTimKiem.equals("0")) {
+                trangThai = 0;
+            }
+            model.addAttribute("trangThai", trangThaiTimKiem);
+
+
+            khuyenMaiPages = iKhuyenMaiService.searchKhuyenMai(tenKhuyenMaiTimKiem,trangThai, pageable);
+        }else{
+            khuyenMaiPages = iKhuyenMaiService.getAllKhuyenMaiTheoTrangThai(pageable , 1);
+        }
 
         model.addAttribute("sachs", repository.findAll());
         model.addAttribute("khuyenMaiPages", khuyenMaiPages);

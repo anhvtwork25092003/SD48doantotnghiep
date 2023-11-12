@@ -18,15 +18,24 @@
         <div class="row">
             <div class="col-2">
                 <!-- tìm theotên khuyến mãi -->
+                <form th:action="@{/quan-ly/khuyen-mai/hien-thi}" method="get" enctype="multipart/form-data">
                 <div class="boxsearch">
-                    <h6 style="text-align: center;">Tìm theo tên khuyến mại</h6>
+                    <label for="tenKhuyenMai" style="text-align: center;" >Tìm theo tên khuyến mại</label>
                     <div class="search">
-                        <input class="form-control" type="search" placeholder="Search">
-                        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+                        <input id="tenKhuyenMai" name="tenKhuyenMaiTimKiem"
+                               th:value="${param.tenKhuyenMaiTimKiem}" class="form-control" type="search" placeholder="Search">
                     </div>
                 </div>
                 <!-- end tìm theotên khuyến mãi -->
-
+                    <div class="trangThai">
+                        <label for="trangThai" style="text-align: center;">Trạng Thái:</label>
+                        <div class="search">
+                            <select class="form-control" name="trangThaiTimKiem" id="trangThai"  >
+                                <option value="1" th:selected="${trangThai == '1'}">Kích Hoạt</option>
+                                <option value="0" th:selected="${trangThai == '0'}">Không kích hoạt</option>
+                            </select>
+                        </div>
+                    </div>
                 <br>
                 <!-- tìm theo thời gian -->
                 <div class="boxtrang">
@@ -66,8 +75,9 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm
+                <button type="submit" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm
                 </button>
+                </form>
                 <!-- end tìm theo thời gian -->
             </div>
 

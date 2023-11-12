@@ -1,13 +1,17 @@
 package com.example.booksstore.service.serviceimpl;
 
+import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.repository.IKhuyenMaiReporitory;
 import com.example.booksstore.service.IKhuyenMaiService;
 import com.example.booksstore.service.ISachService;
+import com.example.booksstore.specification.KhachHangSpecification;
+import com.example.booksstore.specification.KhuyenMaiSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -90,5 +94,11 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
                                         String.format("Sách '%s' đang ở trong chương trình khuyến mãi '%s' từ %s đến %s.",
                                                 s.getTenSach(), khuyenMai.getTenKhuyenMai(), khuyenMai.getNgayBatDau(), khuyenMai.getNgayKetThuc())))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<KhuyenMai> searchKhuyenMai(String tenKhuyenMai, Integer trangThai, Pageable pageable) {
+        Specification<KhuyenMai> spec = KhuyenMaiSpecification.filterKhuyenMai(tenKhuyenMai, trangThai);
+        return iKhuyenMaiReporitory.findAll(spec, pageable);
     }
 }
