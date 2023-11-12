@@ -4,7 +4,6 @@ import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.IKhuyenMaiService;
-import com.example.booksstore.service.ISachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,8 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -41,7 +38,7 @@ public class QuanLyKhuyenMaiController {
         int pageSize = 5; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
         Page<KhuyenMai> khuyenMaiPages;
-        khuyenMaiPages = iKhuyenMaiService.getAllKhuyenMaiTheoTrangThai(pageable,0);
+        khuyenMaiPages = iKhuyenMaiService.getAllKhuyenMaiTheoTrangThai(pageable, 1);
 
         model.addAttribute("sachs", repository.findAll());
         model.addAttribute("khuyenMaiPages", khuyenMaiPages);
@@ -58,11 +55,11 @@ public class QuanLyKhuyenMaiController {
             @RequestParam("ngayKetThuc") String ngayKetThuc,
             @RequestParam("trangThai") String trangThai,
             @RequestParam("sachKM") Set<Sach> sachKM,
-            @RequestParam("trangThaiHienThi") String trangThaiHienThi
+            @RequestParam("trangThaiHienThi") String trangThaiHienThi,
+            Model model
     ) {
-
+        // xử lý Date
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
         Date dateNgayBatDau = null;
         Date dateNgayKetThuc = null;
 
@@ -70,33 +67,39 @@ public class QuanLyKhuyenMaiController {
             // Thêm cứng giây thành "00"
             ngayBatDau = ngayBatDau + ":00";
             ngayKetThuc = ngayKetThuc + ":00";
-
             dateNgayBatDau = dateFormat.parse(ngayBatDau);
             dateNgayKetThuc = dateFormat.parse(ngayKetThuc);
+            List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMai(sachKM, dateNgayBatDau, dateNgayKetThuc);
+            if (result.isEmpty()) {
+                // active for add new books
+                KhuyenMai khuyenMai = KhuyenMai.builder()
+                        .tenKhuyenMai(tenKhuyenMai)
+                        .soPhanTramGiamGia(Integer.parseInt(soPhanTramGiamGia))
+                        .ngayBatDau(dateNgayBatDau)
+                        .ngayKetThuc(dateNgayKetThuc)
+                        .trangThai(Integer.parseInt(trangThai))
+                        .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
+                        .sachs(sachKM)
+                        .build();
+                redirectAttributes.addFlashAttribute("blankError", iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai));
+                return "redirect:/quan-ly/khuyen-mai/hien-thi";
+
+            } else {
+                // co sach bị trùng khuyến mãi, không thêm, quay lại báo lỗi ra
+                model.addAttribute("data", result);
+                System.out.println(result);
+            }
+            if (tenKhuyenMai.trim().length() == 0 || soPhanTramGiamGia.trim().length() == 0) {
+                redirectAttributes.addFlashAttribute("blankError", "Không được để trống thông tin!");
+                return "redirect:/quan-ly/khuyen-mai/hien-thi";
+            }
+
         } catch (ParseException e) {
             e.printStackTrace();
-            // Xử lý lỗi nếu cần thiết
         }
-        if(tenKhuyenMai.trim().length()== 0 || soPhanTramGiamGia.trim().length() == 0){
-            redirectAttributes.addFlashAttribute("blankError", "Không được để trống thông tin!");
-            return "redirect:/quan-ly/khuyen-mai/hien-thi";
-        }
-
-        KhuyenMai khuyenMai = KhuyenMai.builder()
-                .tenKhuyenMai(tenKhuyenMai)
-                .soPhanTramGiamGia(Integer.parseInt(soPhanTramGiamGia))
-                .ngayBatDau(dateNgayBatDau)
-                .ngayKetThuc(dateNgayKetThuc)
-                .trangThai(Integer.parseInt(trangThai))
-                .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
-                .sachs(sachKM)
-                .build();
-
-        redirectAttributes.addFlashAttribute("blankError", iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai));
-        System.out.println(ngayBatDau);
-        System.out.println(ngayKetThuc);
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
+
     @Transactional
     @PostMapping("/khuyen-mai/cap-nhat")
     public String suaKhuyenMai(
@@ -110,7 +113,7 @@ public class QuanLyKhuyenMaiController {
             @RequestParam("trangThaiHienThi") String trangThaiHienThi
 
     ) {
-        for(Sach sach : sachKM2) {
+        for (Sach sach : sachKM2) {
             System.out.println(sach.getTenSach());
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -146,7 +149,6 @@ public class QuanLyKhuyenMaiController {
 
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
-
 
 
 }

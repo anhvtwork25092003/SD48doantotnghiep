@@ -1,6 +1,7 @@
 package com.example.booksstore.service.serviceimpl;
 
 import com.example.booksstore.entities.KhuyenMai;
+import com.example.booksstore.entities.Sach;
 import com.example.booksstore.repository.IKhuyenMaiReporitory;
 import com.example.booksstore.service.IKhuyenMaiService;
 import com.example.booksstore.service.ISachService;
@@ -10,9 +11,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
@@ -58,5 +62,19 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
             khuyenMai.updateTrangThai();
         }
         iKhuyenMaiReporitory.saveAll(khuyenMais);
+    }
+
+    @Override
+    public List<String> layThongTinSachTrongKhuyenMai(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc) {
+        List<KhuyenMai> khuyenMais = iKhuyenMaiReporitory
+                .findByTimeRange(thoigianketthuc, thoigianbatdau);
+        return khuyenMais.stream()
+                .flatMap(khuyenMai ->
+                        khuyenMai.getSachs().stream()
+                                .filter(s -> sachs.contains(s))
+                                .map(s ->
+                                        String.format("Sách '%s' đang ở trong chương trình khuyến mãi '%s' từ %s đến %s.",
+                                                s.getTenSach(), khuyenMai.getTenKhuyenMai(), khuyenMai.getNgayBatDau(), khuyenMai.getNgayKetThuc())))
+                .collect(Collectors.toList());
     }
 }
