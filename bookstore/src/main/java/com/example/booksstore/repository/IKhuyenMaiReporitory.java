@@ -18,5 +18,8 @@ public interface IKhuyenMaiReporitory extends JpaRepository<KhuyenMai, Integer> 
     @Query("SELECT k FROM KhuyenMai k WHERE k.ngayBatDau < :thoigianketthuc AND k.ngayKetThuc > :thoigianbatdau")
     List<KhuyenMai> findByTimeRange(@Param("thoigianbatdau") Date thoigianbatdau, @Param("thoigianketthuc") Date thoigianketthuc);
 
+    @Query("SELECT k FROM KhuyenMai k WHERE k.ngayBatDau < :thoigianketthuc AND k.ngayKetThuc > :thoigianbatdau AND k.idKhuyenMai <> :idKhuyenMai")
+    List<KhuyenMai> findByTimeRangeUpDate(@Param("thoigianbatdau") Date thoigianbatdau, @Param("thoigianketthuc") Date thoigianketthuc, @Param("idKhuyenMai") int idKhuyenMai);
+
 
 }

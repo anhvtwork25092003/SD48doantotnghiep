@@ -20,5 +20,6 @@ public interface IKhuyenMaiService {
     KhuyenMai updateTrangThai(int IdKhuyenMai, int trạngThaiUpdate);
 
     List<String> layThongTinSachTrongKhuyenMai(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc);
+    List<String> layThongTinSachTrongKhuyenMaiChoUpdate(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc, int IdKhuyenMai);
 
 }

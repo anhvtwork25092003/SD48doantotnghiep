@@ -121,7 +121,7 @@ public class QuanLyKhuyenMaiController {
             ngayKetThuc = ngayKetThuc + ":00";
             dateNgayBatDau = dateFormat.parse(ngayBatDau);
             dateNgayKetThuc = dateFormat.parse(ngayKetThuc);
-            List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMai(sachKM2, dateNgayBatDau, dateNgayKetThuc);
+            List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMaiChoUpdate(sachKM2, dateNgayBatDau, dateNgayKetThuc, Integer.parseInt(idKhuyenMai));
             if (result.isEmpty()) {
                 KhuyenMai KMupdate = KhuyenMai.builder()
                         .idKhuyenMai(Integer.parseInt(idKhuyenMai))
@@ -133,7 +133,6 @@ public class QuanLyKhuyenMaiController {
                         .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
                         .sachs(sachKM2)
                         .build();
-
                 iKhuyenMaiService.SaveOrUpdateKhuyenMai(KMupdate);
                 return "redirect:/quan-ly/khuyen-mai/hien-thi";
             } else {

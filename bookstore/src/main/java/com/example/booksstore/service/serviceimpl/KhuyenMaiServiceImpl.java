@@ -77,4 +77,18 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
                                                 s.getTenSach(), khuyenMai.getTenKhuyenMai(), khuyenMai.getNgayBatDau(), khuyenMai.getNgayKetThuc())))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<String> layThongTinSachTrongKhuyenMaiChoUpdate(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc, int IdKhuyenMai) {
+        List<KhuyenMai> khuyenMais = iKhuyenMaiReporitory
+                .findByTimeRangeUpDate(thoigianketthuc, thoigianbatdau, IdKhuyenMai);
+        return khuyenMais.stream()
+                .flatMap(khuyenMai ->
+                        khuyenMai.getSachs().stream()
+                                .filter(s -> sachs.contains(s))
+                                .map(s ->
+                                        String.format("Sách '%s' đang ở trong chương trình khuyến mãi '%s' từ %s đến %s.",
+                                                s.getTenSach(), khuyenMai.getTenKhuyenMai(), khuyenMai.getNgayBatDau(), khuyenMai.getNgayKetThuc())))
+                .collect(Collectors.toList());
+    }
 }
