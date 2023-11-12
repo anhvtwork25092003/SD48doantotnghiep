@@ -82,7 +82,6 @@
                         </button>
 
                         <!-- Thymeleaf equivalent -->
-<!--                        <div th:if="${not #strings.isEmpty(blankError)}" class="alert alert-danger" th:text="${blankError}"></div>-->
                         <script th:inline="javascript">
                             /*<![CDATA[*/
                             $(document).ready(function() {
@@ -94,6 +93,7 @@
                             });
                             /*]]>*/
                         </script>
+
                         <!-- button thêm khuyến mại khi ấn vào thì hiện modal -->
                         <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
                              aria-hidden="true">
@@ -165,14 +165,16 @@
                                                 </div>
                                                 <!-- các sản phẩm được áp dungj -->
                                                 <h2>Các sản phẩm được áp dụng</h2>
-                                                <div id="sachContainer">
-                                                    <select class="form-control" name="sachKM" id="sachKM">
-                                                        <option th:each="sach : ${sachs}" th:value="${sach.idSach}"
-                                                                th:text="${sach.maSach}"></option>
-                                                    </select>
-                                                    <button class="xoaSachButton" disabled>Xóa sách</button>
+                                                <div style="height: 200px; overflow-y: scroll;" id="bookList">
+                                                    <div th:each="sach : ${sachs}" class="bookItem">
+                                                        <input type="checkbox"
+                                                               th:id="'sachCheckbox_' + ${sach.idSach}"
+                                                               th:name="'sachKM'"
+                                                               th:value="${sach.idSach}"/>
+                                                        <label th:for="'sachCheckbox_' + ${sach.idSach}"
+                                                               th:text="${sach.maSach} + ' '+${sach.tenSach}  + ' '+${sach.giaBan}"></label><br/>
+                                                    </div>
                                                 </div>
-                                                <button id="themSachButton">Thêm sách</button>
                                             </div>
                                             <!-- các sản phẩm được áp dungj -->
                                         </div>
@@ -281,15 +283,7 @@
                                                 </div>
                                                 <div class="input-field">
                                                     <label>Trạng Thái</label>
-                                                    <select class="form-control" id="trangThai" name="trangThai">
-                                                        <option value="1" th:selected="${khuyenmai.trangThai == 1}">Đang
-                                                            kích hoạt
-                                                        </option>
-                                                        <option value="0" th:selected="${khuyenmai.trangThai == 0}">
-                                                            Không
-                                                            kích hoạt
-                                                        </option>
-                                                    </select>
+                                                    <input class="form-control" th:value="${khuyenmai.trangThai == 1 ? 'Đang kích hoạt': 'Không kích hoạt'}"/>
                                                 </div>
                                                 <div class="input-field">
                                                     <label>Trạng Thái Hiển Thị</label>
