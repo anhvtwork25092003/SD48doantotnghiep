@@ -1,6 +1,7 @@
 package com.example.booksstore.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -54,6 +55,7 @@ public class KhuyenMai {
     private Integer trangThaiHienThi;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "sachkhuyenmai",
             joinColumns = @JoinColumn(name = "idkhuyenmai"),

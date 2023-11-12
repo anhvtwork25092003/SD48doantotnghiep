@@ -1,6 +1,7 @@
 package com.example.booksstore.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -79,7 +80,7 @@ public class Sach {
     )
     private Set<TacGia> tacgia = new HashSet<>();
 
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "sachs")
     private Set<KhuyenMai> khuyenMais = new HashSet<>();
 
