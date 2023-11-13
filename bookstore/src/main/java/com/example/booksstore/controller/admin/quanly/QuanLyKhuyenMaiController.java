@@ -189,7 +189,14 @@ public class QuanLyKhuyenMaiController {
     @Transactional
     @PostMapping("/khuyen-mai/cap-nhat-ngung-hoat-dong")
     public String ngungHoatDongKhuyenMai(@RequestParam("idKhuyenMai") String idKhuyenMai) {
-        System.out.println(idKhuyenMai);
+
+        // laays ra khuyen mai
+        KhuyenMai khuyenMai = this.iKhuyenMaiService.getOne(Integer.parseInt(idKhuyenMai)).get();
+        if (khuyenMai == null) {
+            System.out.println("khong tim thay khuyen mai!");
+        } else {
+            KhuyenMai khuyenMaiupdated = this.iKhuyenMaiService.updateTrangThai(Integer.parseInt(idKhuyenMai), 0);
+        }
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
 }

@@ -19,11 +19,13 @@ public interface IKhuyenMaiService {
     Map<String, Object> checkPromotion(Long idSach);
 
     KhuyenMai updateTrangThai(int IdKhuyenMai, int trạngThaiUpdate);
+
     Optional<KhuyenMai> getOne(int IdKhuyenMai);
 
     List<String> layThongTinSachTrongKhuyenMai(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc);
+
     List<String> layThongTinSachTrongKhuyenMaiChoUpdate(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc, int IdKhuyenMai);
 
-    Page<KhuyenMai> searchKhuyenMai(String tenKhuyenMai,Date ngayBatDau, Date ngayKetThuc, Integer trangThai, Pageable pageable);
+    Page<KhuyenMai> searchKhuyenMai(String tenKhuyenMai, Date ngayBatDau, Date ngayKetThuc, Integer trangThai, Pageable pageable);
 
 }
