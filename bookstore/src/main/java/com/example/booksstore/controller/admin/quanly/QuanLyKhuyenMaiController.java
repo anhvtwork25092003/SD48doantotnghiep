@@ -19,8 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -41,12 +39,12 @@ public class QuanLyKhuyenMaiController {
                                         @RequestParam(required = false) String trangThaiTimKiem,
                                         @RequestParam(required = false) String ngayBatDauTimKiem,
                                         @RequestParam(required = false) String ngayKetThucTimKiem
-                                        ) {
+    ) {
         Page<KhuyenMai> khuyenMaiPages;
         int pageSize = 5; // Đặt kích thước trang mặc định
         int trangThai = 0;
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
-        if (tenKhuyenMaiTimKiem != null  || trangThaiTimKiem != null) {
+        if (tenKhuyenMaiTimKiem != null || trangThaiTimKiem != null) {
             // xử lý trạng thái
             if (trangThaiTimKiem.equals("1")) {
                 trangThai = 1;
@@ -80,9 +78,9 @@ public class QuanLyKhuyenMaiController {
 //            }
 
 
-            khuyenMaiPages = iKhuyenMaiService.searchKhuyenMai(tenKhuyenMaiTimKiem,ngayBatDau,ngayKetThuc,trangThai, pageable);
-        }else{
-            khuyenMaiPages = iKhuyenMaiService.getAllKhuyenMaiTheoTrangThai(pageable , 1);
+            khuyenMaiPages = iKhuyenMaiService.searchKhuyenMai(tenKhuyenMaiTimKiem, ngayBatDau, ngayKetThuc, trangThai, pageable);
+        } else {
+            khuyenMaiPages = iKhuyenMaiService.getAllKhuyenMaiTheoTrangThai(pageable, 1);
         }
 
         model.addAttribute("sachs", repository.findAll());
@@ -102,43 +100,39 @@ public class QuanLyKhuyenMaiController {
             @RequestParam("sachKM") Set<Sach> sachKM,
             @RequestParam("trangThaiHienThi") String trangThaiHienThi,
             Model model
-    ) {
+    ) throws ParseException {
         // xử lý Date
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date dateNgayBatDau = null;
         Date dateNgayKetThuc = null;
-        try {
-            // Thêm cứng giây thành "00"
-            ngayBatDau = ngayBatDau + ":00";
-            ngayKetThuc = ngayKetThuc + ":00";
-            dateNgayBatDau = dateFormat.parse(ngayBatDau);
-            dateNgayKetThuc = dateFormat.parse(ngayKetThuc);
-            List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMai(sachKM, dateNgayBatDau, dateNgayKetThuc);
-            if (result.isEmpty()) {
-                // active for add new books
-                KhuyenMai khuyenMai = KhuyenMai.builder()
-                        .tenKhuyenMai(tenKhuyenMai)
-                        .soPhanTramGiamGia(Integer.parseInt(soPhanTramGiamGia))
-                        .ngayBatDau(dateNgayBatDau)
-                        .ngayKetThuc(dateNgayKetThuc)
-                        .trangThai(Integer.parseInt(trangThai))
-                        .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
-                        .sachs(sachKM)
-                        .build();
-                redirectAttributes.addFlashAttribute("blankError", iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai));
-            } else {
-                // co sach bị trùng khuyến mãi, không thêm, quay lại báo lỗi ra
-                redirectAttributes.addFlashAttribute("blankError", result);
-                System.out.println(result);
-            }
-            if (tenKhuyenMai.trim().length() == 0 || soPhanTramGiamGia.trim().length() == 0) {
-                redirectAttributes.addFlashAttribute("blankError", "Không được để trống thông tin!");
-                return "redirect:/quan-ly/khuyen-mai/hien-thi";
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
+        // Thêm cứng giây thành "00"
+        ngayBatDau = ngayBatDau + ":00";
+        ngayKetThuc = ngayKetThuc + ":00";
+        dateNgayBatDau = dateFormat.parse(ngayBatDau);
+        dateNgayKetThuc = dateFormat.parse(ngayKetThuc);
+        List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMai(sachKM, dateNgayKetThuc, dateNgayBatDau);
+        if (result.isEmpty()) {
+            // active for add new books
+            KhuyenMai khuyenMai = KhuyenMai.builder()
+                    .tenKhuyenMai(tenKhuyenMai)
+                    .soPhanTramGiamGia(Integer.parseInt(soPhanTramGiamGia))
+                    .ngayBatDau(dateNgayBatDau)
+                    .ngayKetThuc(dateNgayKetThuc)
+                    .trangThai(Integer.parseInt(trangThai))
+                    .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
+                    .sachs(sachKM)
+                    .build();
+            redirectAttributes.addFlashAttribute("blankError", iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai));
+        } else {
+            // co sach bị trùng khuyến mãi, không thêm, quay lại báo lỗi ra
+            redirectAttributes.addFlashAttribute("blankError", result);
+            System.out.println(result);
         }
+        if (tenKhuyenMai.trim().length() == 0 || soPhanTramGiamGia.trim().length() == 0) {
+            redirectAttributes.addFlashAttribute("blankError", "Không được để trống thông tin!");
+            return "redirect:/quan-ly/khuyen-mai/hien-thi";
+        }
+
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
 
@@ -166,7 +160,7 @@ public class QuanLyKhuyenMaiController {
             ngayKetThuc = ngayKetThuc + ":00";
             dateNgayBatDau = dateFormat.parse(ngayBatDau);
             dateNgayKetThuc = dateFormat.parse(ngayKetThuc);
-            List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMaiChoUpdate(sachKM2, dateNgayBatDau, dateNgayKetThuc, Integer.parseInt(idKhuyenMai));
+            List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMaiChoUpdate(sachKM2, dateNgayKetThuc, dateNgayBatDau, Integer.parseInt(idKhuyenMai));
             if (result.isEmpty()) {
                 KhuyenMai KMupdate = KhuyenMai.builder()
                         .idKhuyenMai(Integer.parseInt(idKhuyenMai))
@@ -192,5 +186,10 @@ public class QuanLyKhuyenMaiController {
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
 
-
+    @Transactional
+    @PostMapping("/khuyen-mai/cap-nhat-ngung-hoat-dong")
+    public String ngungHoatDongKhuyenMai(@RequestParam("idKhuyenMai") String idKhuyenMai) {
+        System.out.println(idKhuyenMai);
+        return "redirect:/quan-ly/khuyen-mai/hien-thi";
+    }
 }

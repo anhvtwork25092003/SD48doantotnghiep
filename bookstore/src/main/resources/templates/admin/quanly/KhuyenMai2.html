@@ -371,6 +371,16 @@
                                             </form>
                                         </div>
                                         <div class="modal-footer">
+                                            <form th:action="@{/quan-ly/khuyen-mai/cap-nhat-ngung-hoat-dong}" method="post"
+                                                  enctype="multipart/form-data">
+                                                <div class="input-field">
+                                                    <input type="text" id="idKhuyenMai" class="form-control"
+                                                           name="idKhuyenMai" th:value="${khuyenmai.idKhuyenMai}"
+                                                           hidden/>
+                                                </div>
+                                                <button type="submit" onclick="return confirm('thay doi trang thai hoat dong cua khuyen mai')">Đóng
+                                                </button>
+                                            </form>
                                             <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Đóng
                                             </button>

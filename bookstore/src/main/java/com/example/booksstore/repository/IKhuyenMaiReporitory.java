@@ -18,10 +18,10 @@ public interface IKhuyenMaiReporitory extends JpaRepository<KhuyenMai, Integer> 
     Page<KhuyenMai> findAllByTrangThaiOrderByIdKhuyenMai(Pageable pageable, int trangThai);
 
     @Query("SELECT k FROM KhuyenMai k WHERE k.ngayBatDau < :thoigianketthuc AND k.ngayKetThuc > :thoigianbatdau")
-    List<KhuyenMai> findByTimeRange(@Param("thoigianbatdau") Date thoigianbatdau, @Param("thoigianketthuc") Date thoigianketthuc);
+    List<KhuyenMai> findByTimeRange(@Param("thoigianbatdau") Date thoigianketthuc, @Param("thoigianketthuc") Date thoigianbatdau);
 
     @Query("SELECT k FROM KhuyenMai k WHERE k.ngayBatDau < :thoigianketthuc AND k.ngayKetThuc > :thoigianbatdau AND k.idKhuyenMai <> :idKhuyenMai")
-    List<KhuyenMai> findByTimeRangeUpDate(@Param("thoigianbatdau") Date thoigianbatdau, @Param("thoigianketthuc") Date thoigianketthuc, @Param("idKhuyenMai") int idKhuyenMai);
+    List<KhuyenMai> findByTimeRangeUpDate(@Param("thoigianbatdau") Date thoigianketthuc, @Param("thoigianketthuc") Date thoigianbatdau, @Param("idKhuyenMai") int idKhuyenMai);
 
 
     Page<KhuyenMai> findAll(Specification<KhuyenMai> spec, Pageable pageable);

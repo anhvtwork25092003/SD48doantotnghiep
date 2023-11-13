@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -74,30 +75,50 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
 
     @Override
     public List<String> layThongTinSachTrongKhuyenMai(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc) {
+        System.out.println(" da chay den sv impl");
         List<KhuyenMai> khuyenMais = iKhuyenMaiReporitory
                 .findByTimeRange(thoigianketthuc, thoigianbatdau);
-        return khuyenMais.stream()
-                .flatMap(khuyenMai ->
-                        khuyenMai.getSachs().stream()
-                                .filter(s -> sachs.contains(s))
-                                .map(s ->
-                                        String.format("Sách '%s' đang ở trong chương trình khuyến mãi '%s' từ %s đến %s.",
-                                                s.getTenSach(), khuyenMai.getTenKhuyenMai(), khuyenMai.getNgayBatDau(), khuyenMai.getNgayKetThuc())))
-                .collect(Collectors.toList());
+        List<String> ketQua = new ArrayList<String>();
+        String ketquaDon = "";
+        if(khuyenMais.isEmpty()){
+            System.out.println("khong tim duoc khuye mai phu hop voi thoi gian day, lisst ketquar trong");
+        }else{
+            System.out.println("có khuyễn mãi xuất hiện trong thời gian đưa vào, bắt đầu check sách");
+            for (KhuyenMai khuyenMaiss : khuyenMais) {
+                for (Sach s : khuyenMaiss.getSachs()) {
+                    if (sachs.contains(s)) {
+                        ketquaDon = s.getTenSach() + " đã nằm trong khuyến mãi" + khuyenMaiss.getTenKhuyenMai();
+                        ketQua.add(ketquaDon);
+                    }
+                }
+            }
+        }
+        return ketQua;
+
     }
 
     @Override
     public List<String> layThongTinSachTrongKhuyenMaiChoUpdate(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc, int IdKhuyenMai) {
+
+        System.out.println(" da chay den sv impl");
         List<KhuyenMai> khuyenMais = iKhuyenMaiReporitory
                 .findByTimeRangeUpDate(thoigianketthuc, thoigianbatdau, IdKhuyenMai);
-        return khuyenMais.stream()
-                .flatMap(khuyenMai ->
-                        khuyenMai.getSachs().stream()
-                                .filter(s -> sachs.contains(s))
-                                .map(s ->
-                                        String.format("Sách '%s' đang ở trong chương trình khuyến mãi '%s' từ %s đến %s.",
-                                                s.getTenSach(), khuyenMai.getTenKhuyenMai(), khuyenMai.getNgayBatDau(), khuyenMai.getNgayKetThuc())))
-                .collect(Collectors.toList());
+        List<String> ketQua = new ArrayList<String>();
+        String ketquaDon = "";
+        if(khuyenMais.isEmpty()){
+            System.out.println("khong tim duoc khuye mai phu hop voi thoi gian day, lisst ketquar trong");
+        }else{
+            System.out.println("có khuyễn mãi xuất hiện trong thời gian đưa vào, bắt đầu check sách");
+            for (KhuyenMai khuyenMaiss : khuyenMais) {
+                for (Sach s : khuyenMaiss.getSachs()) {
+                    if (sachs.contains(s)) {
+                        ketquaDon = s.getTenSach() + " đã nằm trong khuyến mãi" + khuyenMaiss.getTenKhuyenMai();
+                        ketQua.add(ketquaDon);
+                    }
+                }
+            }
+        }
+        return ketQua;
     }
 
     @Override
@@ -105,6 +126,4 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
         Specification<KhuyenMai> spec = KhuyenMaiSpecification.filterKhuyenMai(tenKhuyenMai, ngayBatDau, ngayKetThuc, trangThai);
         return iKhuyenMaiReporitory.findAll(spec, pageable);
     }
-
-
 }
