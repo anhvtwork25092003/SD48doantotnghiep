@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 public interface IKhuyenMaiService {
@@ -18,6 +19,7 @@ public interface IKhuyenMaiService {
     Map<String, Object> checkPromotion(Long idSach);
 
     KhuyenMai updateTrangThai(int IdKhuyenMai, int trạngThaiUpdate);
+    Optional<KhuyenMai> getOne(int IdKhuyenMai);
 
     List<String> layThongTinSachTrongKhuyenMai(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc);
     List<String> layThongTinSachTrongKhuyenMaiChoUpdate(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc, int IdKhuyenMai);

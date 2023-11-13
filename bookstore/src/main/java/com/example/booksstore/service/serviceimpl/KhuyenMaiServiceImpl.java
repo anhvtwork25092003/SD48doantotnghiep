@@ -1,12 +1,10 @@
 package com.example.booksstore.service.serviceimpl;
 
-import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.repository.IKhuyenMaiReporitory;
 import com.example.booksstore.service.IKhuyenMaiService;
 import com.example.booksstore.service.ISachService;
-import com.example.booksstore.specification.KhachHangSpecification;
 import com.example.booksstore.specification.KhuyenMaiSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -59,6 +57,12 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
             throw new RuntimeException("KhuyenMai not found with id: " + IdKhuyenMai);
         }
     }
+
+    @Override
+    public Optional<KhuyenMai> getOne(int IdKhuyenMai) {
+        return this.iKhuyenMaiReporitory.findById(IdKhuyenMai);
+    }
+
     @Scheduled(fixedRate = 60000) // Lên lịch chạy mỗi phút (60,000 ms)
     public void updateTrangThai() {
         List<KhuyenMai> khuyenMais = iKhuyenMaiReporitory.findAll();

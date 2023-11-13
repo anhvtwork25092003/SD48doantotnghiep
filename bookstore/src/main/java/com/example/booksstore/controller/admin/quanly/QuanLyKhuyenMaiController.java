@@ -150,7 +150,6 @@ public class QuanLyKhuyenMaiController {
             @RequestParam("soPhanTramGiamGia") String soPhanTramGiamGia,
             @RequestParam("ngayBatDau") String ngayBatDau,
             @RequestParam("ngayKetThuc") String ngayKetThuc,
-            @RequestParam("trangThai") String trangThai,
             @RequestParam("sachKM2") Set<Sach> sachKM2,
             @RequestParam("trangThaiHienThi") String trangThaiHienThi,
             Model model
@@ -159,8 +158,9 @@ public class QuanLyKhuyenMaiController {
 
         Date dateNgayBatDau = null;
         Date dateNgayKetThuc = null;
-
         try {
+            // lay khuyen mai dang ton tai
+            KhuyenMai khuyenMaiGetOne = this.iKhuyenMaiService.getOne(Integer.parseInt(idKhuyenMai)).get();
             // Thêm cứng giây thành "00"
             ngayBatDau = ngayBatDau + ":00";
             ngayKetThuc = ngayKetThuc + ":00";
@@ -173,8 +173,8 @@ public class QuanLyKhuyenMaiController {
                         .soPhanTramGiamGia(Integer.parseInt(soPhanTramGiamGia))
                         .tenKhuyenMai(tenKhuyenMai)
                         .ngayBatDau(dateNgayBatDau)
+                        .trangThai(khuyenMaiGetOne.getTrangThai())
                         .ngayKetThuc(dateNgayKetThuc)
-                        .trangThai(Integer.parseInt(trangThai))
                         .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
                         .sachs(sachKM2)
                         .build();
