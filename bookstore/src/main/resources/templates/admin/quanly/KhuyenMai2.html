@@ -91,29 +91,24 @@
                             <i class="fa-solid fa-circle-plus"></i> Chương Trình Khuyến Mại
                         </button>
 
-                        <!-- Thymeleaf equivalent -->
                         <script th:inline="javascript">
                             /*<![CDATA[*/
                             $(document).ready(function() {
                                 var blankError = /*[[${blankError}]]*/ null; // Lấy giá trị từ Thymeleaf
 
-                                if (blankError) {
-                                    alert(blankError); // Hiển thị thông báo nếu có giá trị
+                                if (blankError && !Array.isArray(blankError)) {
+                                    // Display a regular alert for a single error message
+                                    // alert("Error: " + blankError);
+                                } else if (Array.isArray(blankError) && blankError.length > 0) {
+                                    // Display an alert with the list of books that are already in a promotion
+                                    var message = "Sách sau đây đã có trong khuyến mãi:\n";
+                                    for (var i = 0; i < blankError.length; i++) {
+                                        message += (i + 1) + ". " + blankError[i] + "\n";
+                                    }
+                                    alert(message);
                                 }
                             });
                             /*]]>*/
-                        </script>
-
-
-
-                        <script th:if="${not #lists.isEmpty(blankError)}">
-                            // Display an alert with the list of books that are already in a promotion
-                            var books = /*[[${blankError}]]*/ [];
-                            var message = "Sách sau đây đã có trong khuyến mãi:\n";
-                            for (var i = 0; i < books.length; i++) {
-                                message += (i + 1) + ". " + books[i] + "\n";
-                            }
-                            alert(message);
                         </script>
 
                         <!-- button thêm khuyến mại khi ấn vào thì hiện modal -->
@@ -139,7 +134,7 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="soPhanTramGiamGia">Số phần trăm giảm giá</label>
-                                                        <input type="text" id="soPhanTramGiamGia"
+                                                        <input type="number" id="soPhanTramGiamGia"
                                                                name="soPhanTramGiamGia" class="form-control"/>
                                                     </div>
                                                     <div class="form-group col-md-6">
@@ -148,14 +143,14 @@
                                                             <input class="form-check-input" type="radio"
                                                                    name="trangThai" value="1" checked>
                                                             <label class="form-check-label">
-                                                                Tất cả
+                                                                Đang kích hoạt
                                                             </label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="radio"
                                                                    name="trangThai" value="0">
                                                             <label class="form-check-label">
-                                                                Chưa áp dụng
+                                                                Không kích hoạt
                                                             </label>
                                                         </div>
                                                     </div>
@@ -325,11 +320,6 @@
                                                 <div class="input-field">
                                                     <label>Sản phẩm</label>
                                                     <div id="sachContainer1">
-                                                        <!--                                                    <select class="form-control" name="sachKM" id="sachKM">-->
-                                                        <!--                                                        <option th:each="sach : ${sachs}" th:value="${sach.idSach}"-->
-                                                        <!--                                                                th:text="${sach.maSach}"></option>-->
-                                                        <!--                                                    </select>-->
-
                                                         <input type="text" id="searchInput"
                                                                placeholder="Nhập từ khóa tìm kiếm"/>
 
@@ -366,7 +356,7 @@
 
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary" id="saveEditBtn">Lưu
+                                                <button type="submit" class="btn btn-primary" id="saveEditBtn"onclick="return confirm('Bạn có muốn cập nhật khuyến mại')">Lưu
                                                 </button>
                                             </form>
                                         </div>
@@ -378,7 +368,8 @@
                                                            name="idKhuyenMai" th:value="${khuyenmai.idKhuyenMai}"
                                                            hidden/>
                                                 </div>
-                                                <button type="submit" onclick="return confirm('thay doi trang thai hoat dong cua khuyen mai')">Đóng
+                                                <button class="btn btn-danger" type="submit" onclick="return confirm=('Thay đổi trạng thái hoạt động của khuyến mại')">
+                                                    Trạng Thái Ngừng Kích Hoạt
                                                 </button>
                                             </form>
                                             <button type="button" class="btn btn-secondary"

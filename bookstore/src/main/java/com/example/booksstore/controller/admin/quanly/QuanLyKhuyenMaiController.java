@@ -139,6 +139,7 @@ public class QuanLyKhuyenMaiController {
     @Transactional
     @PostMapping("/khuyen-mai/cap-nhat")
     public String suaKhuyenMai(
+            RedirectAttributes redirectAttributes,
             @RequestParam("idKhuyenMai") String idKhuyenMai,
             @RequestParam("tenKhuyenMai") String tenKhuyenMai,
             @RequestParam("soPhanTramGiamGia") String soPhanTramGiamGia,
@@ -172,12 +173,16 @@ public class QuanLyKhuyenMaiController {
                         .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
                         .sachs(sachKM2)
                         .build();
-                iKhuyenMaiService.SaveOrUpdateKhuyenMai(KMupdate);
+                redirectAttributes.addFlashAttribute("blankError", iKhuyenMaiService.SaveOrUpdateKhuyenMai(KMupdate));
                 return "redirect:/quan-ly/khuyen-mai/hien-thi";
             } else {
                 // co sach bị trùng khuyến mãi, không thêm, quay lại báo lỗi ra
-                model.addAttribute("data", result);
+                redirectAttributes.addFlashAttribute("blankError", result);
                 System.out.println(result);
+            }
+            if (tenKhuyenMai.trim().length() == 0 || soPhanTramGiamGia.trim().length() == 0) {
+                redirectAttributes.addFlashAttribute("blankError", "Không được để trống thông tin!");
+                return "redirect:/quan-ly/khuyen-mai/hien-thi";
             }
         } catch (ParseException e) {
             e.printStackTrace();
