@@ -20,4 +20,6 @@ public interface ISachService {
     List<Sach> sachmoi();
 
     List<Sach>getall();
+
+    Sach dateil(Integer idSach);
 }
