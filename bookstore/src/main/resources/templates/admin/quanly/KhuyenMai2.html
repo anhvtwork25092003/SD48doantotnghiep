@@ -104,6 +104,18 @@
                             /*]]>*/
                         </script>
 
+
+
+                        <script th:if="${not #lists.isEmpty(blankError)}">
+                            // Display an alert with the list of books that are already in a promotion
+                            var books = /*[[${blankError}]]*/ [];
+                            var message = "Sách sau đây đã có trong khuyến mãi:\n";
+                            for (var i = 0; i < books.length; i++) {
+                                message += (i + 1) + ". " + books[i] + "\n";
+                            }
+                            alert(message);
+                        </script>
+
                         <!-- button thêm khuyến mại khi ấn vào thì hiện modal -->
                         <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
                              aria-hidden="true">

@@ -128,7 +128,7 @@ public class QuanLyKhuyenMaiController {
                 redirectAttributes.addFlashAttribute("blankError", iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai));
             } else {
                 // co sach bị trùng khuyến mãi, không thêm, quay lại báo lỗi ra
-                model.addAttribute("data", result);
+                redirectAttributes.addFlashAttribute("blankError", result);
                 System.out.println(result);
             }
             if (tenKhuyenMai.trim().length() == 0 || soPhanTramGiamGia.trim().length() == 0) {
