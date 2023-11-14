@@ -176,9 +176,12 @@ public class QuanLyKhuyenMaiController {
 
         // tạo 1 thông báo dựa vào các thông tin của khuyến mãi
         if (Integer.parseInt(trangThaiHienThi) == 1) {
-            String noiDungKhuyenMai = "Thông báo về Khuyến Mãi " +tenKhuyenMai;
+            String noiDungKhuyenMai = "Thông báo về Khuyến Mãi " +tenKhuyenMai +"/n"+
+                    " Ngày bắt đầu: "+  ngayBatDau + "/n"+" Ngày kết thúc: " + ngayKetThuc + "/n"
+                    + "Giảm " + soPhanTramGiamGia +"% cho các mặt hàng áp dụng !";
             Date currentDate = new Date();
             createThongBao(noiDungKhuyenMai, currentDate);
+            System.out.println( noiDungKhuyenMai);
         }
 
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
