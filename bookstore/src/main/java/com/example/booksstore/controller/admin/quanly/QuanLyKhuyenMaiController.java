@@ -5,6 +5,7 @@ import com.example.booksstore.entities.Sach;
 import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.IKhuyenMaiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,6 +38,9 @@ public class QuanLyKhuyenMaiController {
 
     @Autowired
     ISachRepository repository;
+
+    @Value("${upload.anhKhuyenMai}")
+    private String uploadAnhKhuyenMai;
 
     @GetMapping("/khuyen-mai/hien-thi")
     public String hienThiTrangKhuyenMai(Model model, @RequestParam(defaultValue = "1") int page,
@@ -99,42 +108,72 @@ public class QuanLyKhuyenMaiController {
             @RequestParam("trangThai") String trangThai,
             @RequestParam("sachKM") Set<Sach> sachKM,
             @RequestParam("trangThaiHienThi") String trangThaiHienThi,
+            @RequestParam("linkBannerKhuyenMai") MultipartFile linkBannerKhuyenMai,
+            @RequestParam("linkAnhKhuyenMai") MultipartFile linkAnhKhuyenMai,
             Model model
     ) throws ParseException {
-        // xử lý Date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        Date dateNgayBatDau = null;
-        Date dateNgayKetThuc = null;
-        // Thêm cứng giây thành "00"
-        ngayBatDau = ngayBatDau + ":00";
-        ngayKetThuc = ngayKetThuc + ":00";
-        dateNgayBatDau = dateFormat.parse(ngayBatDau);
-        dateNgayKetThuc = dateFormat.parse(ngayKetThuc);
-        List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMai(sachKM, dateNgayKetThuc, dateNgayBatDau);
-        if (result.isEmpty()) {
-            // active for add new books
-            KhuyenMai khuyenMai = KhuyenMai.builder()
-                    .tenKhuyenMai(tenKhuyenMai)
-                    .soPhanTramGiamGia(Integer.parseInt(soPhanTramGiamGia))
-                    .ngayBatDau(dateNgayBatDau)
-                    .ngayKetThuc(dateNgayKetThuc)
-                    .trangThai(Integer.parseInt(trangThai))
-                    .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
-                    .sachs(sachKM)
-                    .build();
-            redirectAttributes.addFlashAttribute("blankError", iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai));
-        } else {
-            // co sach bị trùng khuyến mãi, không thêm, quay lại báo lỗi ra
-            redirectAttributes.addFlashAttribute("blankError", result);
-            System.out.println(result);
+        try{
+            String duongDanCotDinh = "/image/anhKhuyenMai/";
+            String duongDanLuuAnhBannerKhuyenMai = duongDanCotDinh + linkBannerKhuyenMai.getOriginalFilename();
+            String duongDanLuuAnhKhuyenMai = duongDanCotDinh + linkAnhKhuyenMai.getOriginalFilename();
+
+            if (linkBannerKhuyenMai.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnhBannerKhuyenMai = "";
+            } else {
+                byte[] bytes = linkBannerKhuyenMai.getBytes();
+                Path path = Paths.get(uploadAnhKhuyenMai + linkBannerKhuyenMai.getOriginalFilename());
+                Files.write(path, bytes);
+            }
+            if (linkAnhKhuyenMai.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnhKhuyenMai = "";
+            } else {
+                byte[] bytes2 = linkAnhKhuyenMai.getBytes();
+                Path path2 = Paths.get(uploadAnhKhuyenMai + linkAnhKhuyenMai.getOriginalFilename());
+                Files.write(path2, bytes2);
+            }
+            // xử lý Date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            Date dateNgayBatDau = null;
+            Date dateNgayKetThuc = null;
+            // Thêm cứng giây thành "00"
+            ngayBatDau = ngayBatDau + ":00";
+            ngayKetThuc = ngayKetThuc + ":00";
+            dateNgayBatDau = dateFormat.parse(ngayBatDau);
+            dateNgayKetThuc = dateFormat.parse(ngayKetThuc);
+            List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMai(sachKM, dateNgayKetThuc, dateNgayBatDau);
+            if (result.isEmpty()) {
+                // active for add new books
+                KhuyenMai khuyenMai = KhuyenMai.builder()
+                        .tenKhuyenMai(tenKhuyenMai)
+                        .soPhanTramGiamGia(Integer.parseInt(soPhanTramGiamGia))
+                        .ngayBatDau(dateNgayBatDau)
+                        .ngayKetThuc(dateNgayKetThuc)
+                        .trangThai(Integer.parseInt(trangThai))
+                        .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
+                        .sachs(sachKM)
+                        .linkBannerKhuyenMai(duongDanLuuAnhBannerKhuyenMai)
+                        .linkAnhKhuyenMai(duongDanLuuAnhKhuyenMai)
+                        .build();
+                redirectAttributes.addFlashAttribute("blankError", iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai));
+            } else {
+                // co sach bị trùng khuyến mãi, không thêm, quay lại báo lỗi ra
+                redirectAttributes.addFlashAttribute("blankError", result);
+                System.out.println(result);
+            }
+            if (tenKhuyenMai.trim().length() == 0 || soPhanTramGiamGia.trim().length() == 0) {
+                redirectAttributes.addFlashAttribute("blankError", "Không được để trống thông tin!");
+                return "redirect:/quan-ly/khuyen-mai/hien-thi";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        if (tenKhuyenMai.trim().length() == 0 || soPhanTramGiamGia.trim().length() == 0) {
-            redirectAttributes.addFlashAttribute("blankError", "Không được để trống thông tin!");
-            return "redirect:/quan-ly/khuyen-mai/hien-thi";
-        }
+
 
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
+
 
     @Transactional
     @PostMapping("/khuyen-mai/cap-nhat")
@@ -147,10 +186,53 @@ public class QuanLyKhuyenMaiController {
             @RequestParam("ngayKetThuc") String ngayKetThuc,
             @RequestParam("sachKM2") Set<Sach> sachKM2,
             @RequestParam("trangThaiHienThi") String trangThaiHienThi,
+            @RequestParam("editlinkBannerKhuyenMai") MultipartFile linkBannerKhuyenMai,
+            @RequestParam("editlinkAnhKhuyenMai") MultipartFile linkAnhKhuyenMai,
+            @RequestParam("checkthayDoiBannerKhuyenMai") String trangThaiThayDoiBannerKhuyenMai,
+            @RequestParam("checkthayDoiAnhKhuyenMai") String trangThaiThayDoiAnhKhuyenMai,
             Model model
-    ) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    )  throws IOException {
 
+        KhuyenMai khuyenMai = iKhuyenMaiService.getOne1(Integer.parseInt(idKhuyenMai));
+        String duongDanCotDinh = "/image/anhKhuyenMai/";
+        String duongDanLuuAnhBannerKhuyenMai = "";
+        String duongDanLuuAnhKhuyenMai = "";
+
+
+        if (trangThaiThayDoiBannerKhuyenMai.equalsIgnoreCase("DaThayDoi")) {
+            // anh 1 da thay doi, luu lai anh vao  o
+            if (linkBannerKhuyenMai.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnhBannerKhuyenMai = "";
+            } else {
+                byte[] bytes = linkBannerKhuyenMai.getBytes();
+                Path path = Paths.get(uploadAnhKhuyenMai + linkBannerKhuyenMai.getOriginalFilename());
+                Files.write(path, bytes);
+                duongDanLuuAnhBannerKhuyenMai = duongDanCotDinh + linkBannerKhuyenMai.getOriginalFilename();
+            }
+        } else {
+            // anh chua thay doi, lay lai duong dan cu
+            duongDanLuuAnhBannerKhuyenMai = khuyenMai.getLinkBannerKhuyenMai();
+        }
+//        2
+        if (trangThaiThayDoiAnhKhuyenMai.equalsIgnoreCase("DaThayDoi")) {
+            // anh 1 da thay doi, luu lai anh vao  o
+            if (linkAnhKhuyenMai.isEmpty()) {
+                // Xử lý lỗi khi tệp rỗng
+                duongDanLuuAnhKhuyenMai= "";
+            } else {
+                byte[] bytes2 = linkAnhKhuyenMai.getBytes();
+                Path path2 = Paths.get(uploadAnhKhuyenMai + linkAnhKhuyenMai.getOriginalFilename());
+                Files.write(path2, bytes2);
+                duongDanLuuAnhKhuyenMai = duongDanCotDinh + linkAnhKhuyenMai.getOriginalFilename();
+
+            }
+        } else {
+            // anh chua thay doi, lay lai duong dan cu
+            duongDanLuuAnhKhuyenMai = khuyenMai.getLinkAnhKhuyenMai();
+        }
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date dateNgayBatDau = null;
         Date dateNgayKetThuc = null;
         try {
@@ -172,6 +254,8 @@ public class QuanLyKhuyenMaiController {
                         .ngayKetThuc(dateNgayKetThuc)
                         .trangThaiHienThi(Integer.parseInt(trangThaiHienThi))
                         .sachs(sachKM2)
+                        .linkBannerKhuyenMai(duongDanLuuAnhBannerKhuyenMai)
+                        .linkAnhKhuyenMai(duongDanLuuAnhKhuyenMai)
                         .build();
                 redirectAttributes.addFlashAttribute("blankError", iKhuyenMaiService.SaveOrUpdateKhuyenMai(KMupdate));
                 return "redirect:/quan-ly/khuyen-mai/hien-thi";
