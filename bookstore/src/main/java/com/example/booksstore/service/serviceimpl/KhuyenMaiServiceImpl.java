@@ -130,4 +130,9 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
         Specification<KhuyenMai> spec = KhuyenMaiSpecification.filterKhuyenMai(tenKhuyenMai, ngayBatDau, ngayKetThuc, trangThai);
         return iKhuyenMaiReporitory.findAll(spec, pageable);
     }
+
+    @Override
+    public KhuyenMai getOne1(int id) {
+        return iKhuyenMaiReporitory.findByIdKhuyenMai(id);
+    }
 }

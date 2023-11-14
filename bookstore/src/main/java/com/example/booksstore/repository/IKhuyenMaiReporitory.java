@@ -27,5 +27,7 @@ public interface IKhuyenMaiReporitory extends JpaRepository<KhuyenMai, Integer> 
 
     Page<KhuyenMai> findAll(Specification<KhuyenMai> spec, Pageable pageable);
 
+    KhuyenMai findByIdKhuyenMai(int id);
+
 
 }

@@ -29,4 +29,5 @@ public interface IKhuyenMaiService {
 
     Page<KhuyenMai> searchKhuyenMai(String tenKhuyenMai, Date ngayBatDau, Date ngayKetThuc, Integer trangThai, Pageable pageable);
 
+    KhuyenMai getOne1(int id);
 }
