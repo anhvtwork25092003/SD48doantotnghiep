@@ -22,13 +22,14 @@ header img {
     padding: 20px;
     background-color: #E4E3E3;
 }
+
 .columnBaner {
     margin-top: -20px;
 }
 
 .column {
-   display: inline;
-   margin: 23px;
+    display: inline;
+    margin: 23px;
 }
 
 .column img {
@@ -46,20 +47,20 @@ header img {
 
 .nav {
     background-color: #FCDAB0; /* Màu nền đen cho thanh nav */;
-  }
-  
-  .nav-list {
+}
+
+.nav-list {
     list-style: none;
     padding: 0;
     display: flex; /* Sử dụng flexbox để xếp các mục ngang */
     justify-content: center; /* Canh giữa các mục */
-  }
-  
-  .nav-item {
+}
+
+.nav-item {
     margin: 0;
-  }
-  
-  .nav-link {
+}
+
+.nav-link {
     display: block;
     text-decoration: none;
     font-size: 120%;
@@ -68,24 +69,23 @@ header img {
     font-weight: bold; /* Đậm */
     letter-spacing: 2px; /* Khoảng cách giữa các ký tự */
     transition: background-color 0.3s, color 0.3s; /* Hiệu ứng hover màu chữ và nền */
-  }
-  
-  .nav-link:hover {
-    background-color:white; /* Màu nền khi di chuột vào */
-  }
-  
-.product-item {
-  display: inline-block;
+}
 
+.nav-link:hover {
+    background-color: white; /* Màu nền khi di chuột vào */
+}
+
+.product-item {
+    display: inline-block;
     width: 20%;
     padding: 10px;
     text-align: center;
-  position: relative;
-    
+    position: relative;
+
 }
 
 .product-item > .sale {
-    text-decoration-line : line-through
+    text-decoration-line: line-through
 
 }
 
@@ -100,24 +100,28 @@ header img {
 
 .product-item:hover .product-image img {
     border: 1px solid red; /* Màu viền và độ rộng của viền tùy chọn */
-  }
-  .button a:hover {
-    background-color: #e94259; /* Màu nền nút khi di chuột vào */
-  }
-  .button > a {
-      position: absolute;
-      left:calc(50% - 55px);
-      top: calc(50% + 155px);
-      padding: 10px 20px;
-      border-radius: 6px;
-      color: white;
-      display: inline-block;
-      background-color: blue; /* Màu nền của nút */
-      text-decoration: none;
-      border: 1px solid pink; /* Viền nút */
-  }
+}
+
+.button a:hover {
+    background-color: gray; /* Màu nền nút khi di chuột vào */
+}
+
+.button > a {
+    position: absolute;
+    left: calc(50% - 65px);
+    top: calc(50% + 158px);
+    padding: 8px 30px;
+    border-radius: 25px;
+    color: white;
+    display: inline-block;
+    background-color: wheat;
+    text-decoration: none;
+    border: 1px solid red;
+    font-family: cursive;
+}
+
 .row {
-    background: white;    
+    background: white;
 }
 
 .list-category {
@@ -126,6 +130,7 @@ header img {
     border-radius: 3px;
     padding: 16px;
 }
+
 .discount {
     margin-left: 165px;
     position: absolute;
