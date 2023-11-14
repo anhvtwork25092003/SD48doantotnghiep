@@ -126,7 +126,16 @@ header img {
     border-radius: 3px;
     padding: 16px;
 }
-
+.discount {
+    margin-left: 165px;
+    position: absolute;
+    margin-top: -290px;
+    background-color: orange;
+    border-radius: 50%;
+    padding: 5px 5px;
+    color: white;
+    font-weight: bold;
+}
 
 
 

@@ -15,6 +15,7 @@ public interface IKhuyenMaiService {
     Page<KhuyenMai> getAllKhuyenMaiTheoTrangThai(Pageable pageable, int trangThai);
 
     Page<KhuyenMai> getAllKhuyenMaiDangHienThi(Pageable pageable, int trangThaiHienThi);
+    List<KhuyenMai> getAllKhuyenMaiDangApDung(int trangThaiHienThi);
 
     KhuyenMai SaveOrUpdateKhuyenMai(KhuyenMai khuyenMai);
 

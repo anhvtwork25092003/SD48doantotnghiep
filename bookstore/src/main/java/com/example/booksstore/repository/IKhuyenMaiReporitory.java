@@ -17,6 +17,7 @@ public interface IKhuyenMaiReporitory extends JpaRepository<KhuyenMai, Integer> 
     Page<KhuyenMai> findAllByTrangThaiOrderByIdKhuyenMai(Pageable pageable, int trangThai);
 
     Page<KhuyenMai> findAllByTrangThaiHienThiOrderByIdKhuyenMaiDesc(Pageable pageable, int trangThaiHienThi);
+    List<KhuyenMai> findAllByTrangThaiOrderByIdKhuyenMaiDesc( int trangThaiHienThi);
 
     @Query("SELECT k FROM KhuyenMai k WHERE k.ngayBatDau < :thoigianketthuc AND k.ngayKetThuc > :thoigianbatdau")
     List<KhuyenMai> findByTimeRange(@Param("thoigianbatdau") Date thoigianketthuc, @Param("thoigianketthuc") Date thoigianbatdau);

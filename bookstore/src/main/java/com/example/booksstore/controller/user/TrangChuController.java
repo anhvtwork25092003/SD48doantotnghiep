@@ -2,11 +2,16 @@ package com.example.booksstore.controller.user;
 
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.entities.TacGia;
+import com.example.booksstore.repository.IKhuyenMaiReporitory;
 import com.example.booksstore.repository.ISachRepository;
+import com.example.booksstore.service.IKhuyenMaiService;
 import com.example.booksstore.service.ISachService;
 import com.example.booksstore.service.ITheLoaiServiec;
 import com.example.booksstore.service.TacGiaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +29,19 @@ public class TrangChuController {
     @Autowired
     TacGiaService tacGiaService;
 
+    @Autowired
+    IKhuyenMaiService iKhuyenMaiService;
+
     @GetMapping("/trang-chu")
-    public String HienThiTrangChu(Model model) {
+    public String HienThiTrangChu(@RequestParam(defaultValue = "1") int page,Model model) {
         List<Sach> sachList = iSachService.sachmoi();
         List<Sach> saches = sachList.subList(0, 5);
+        int pageSize = 5; // Đặt kích thước trang mặc định
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
         model.addAttribute("sachmoi", saches);
+        model.addAttribute("motkhuyenmaidangapdung",iKhuyenMaiService.getAllKhuyenMaiDangApDung(1).get(0));
         return "user/TrangChu";
+
     }
 
     @GetMapping("/trang-chu/detail")

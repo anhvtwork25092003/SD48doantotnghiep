@@ -39,6 +39,11 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
     }
 
     @Override
+    public List<KhuyenMai> getAllKhuyenMaiDangApDung( int trangThaiHienThi) {
+        return this.iKhuyenMaiReporitory.findAllByTrangThaiOrderByIdKhuyenMaiDesc( trangThaiHienThi);
+    }
+
+    @Override
     public KhuyenMai SaveOrUpdateKhuyenMai(KhuyenMai khuyenMai) {
         return this.iKhuyenMaiReporitory.save(khuyenMai);
     }
