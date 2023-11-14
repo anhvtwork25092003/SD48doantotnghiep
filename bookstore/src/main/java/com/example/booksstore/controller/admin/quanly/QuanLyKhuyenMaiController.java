@@ -2,8 +2,10 @@ package com.example.booksstore.controller.admin.quanly;
 
 import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.Sach;
+import com.example.booksstore.entities.ThongBao;
 import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.IKhuyenMaiService;
+import com.example.booksstore.service.IThongBaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -35,6 +37,8 @@ public class QuanLyKhuyenMaiController {
 
     @Autowired
     IKhuyenMaiService iKhuyenMaiService;
+    @Autowired
+    IThongBaoService iThongBaoService;
 
     @Autowired
     ISachRepository repository;
@@ -112,7 +116,7 @@ public class QuanLyKhuyenMaiController {
             @RequestParam("linkAnhKhuyenMai") MultipartFile linkAnhKhuyenMai,
             Model model
     ) throws ParseException {
-        try{
+        try {
             String duongDanCotDinh = "/image/anhKhuyenMai/";
             String duongDanLuuAnhBannerKhuyenMai = duongDanCotDinh + linkBannerKhuyenMai.getOriginalFilename();
             String duongDanLuuAnhKhuyenMai = duongDanCotDinh + linkAnhKhuyenMai.getOriginalFilename();
@@ -170,6 +174,12 @@ public class QuanLyKhuyenMaiController {
             e.printStackTrace();
         }
 
+        // tạo 1 thông báo dựa vào các thông tin của khuyến mãi
+        if (Integer.parseInt(trangThaiHienThi) == 1) {
+            String noiDungKhuyenMai = "Thông báo về Khuyến Mãi " +tenKhuyenMai;
+            Date currentDate = new Date();
+            createThongBao(noiDungKhuyenMai, currentDate);
+        }
 
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
@@ -191,7 +201,7 @@ public class QuanLyKhuyenMaiController {
             @RequestParam("checkthayDoiBannerKhuyenMai") String trangThaiThayDoiBannerKhuyenMai,
             @RequestParam("checkthayDoiAnhKhuyenMai") String trangThaiThayDoiAnhKhuyenMai,
             Model model
-    )  throws IOException {
+    ) throws IOException {
 
         KhuyenMai khuyenMai = iKhuyenMaiService.getOne1(Integer.parseInt(idKhuyenMai));
         String duongDanCotDinh = "/image/anhKhuyenMai/";
@@ -219,7 +229,7 @@ public class QuanLyKhuyenMaiController {
             // anh 1 da thay doi, luu lai anh vao  o
             if (linkAnhKhuyenMai.isEmpty()) {
                 // Xử lý lỗi khi tệp rỗng
-                duongDanLuuAnhKhuyenMai= "";
+                duongDanLuuAnhKhuyenMai = "";
             } else {
                 byte[] bytes2 = linkAnhKhuyenMai.getBytes();
                 Path path2 = Paths.get(uploadAnhKhuyenMai + linkAnhKhuyenMai.getOriginalFilename());
@@ -287,5 +297,14 @@ public class QuanLyKhuyenMaiController {
             KhuyenMai khuyenMaiupdated = this.iKhuyenMaiService.updateTrangThai(Integer.parseInt(idKhuyenMai), 0);
         }
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
+    }
+
+
+    public ThongBao createThongBao(String noiDungThongBao, Date ngayGuiThongBao) {
+        ThongBao thongBaoforCrateNew = ThongBao.builder().noiDung(noiDungThongBao)
+                .ngayGui(ngayGuiThongBao)
+                .build();
+        ThongBao thongBaoCretated = this.iThongBaoService.createNew(thongBaoforCrateNew);
+        return null;
     }
 }

@@ -1,12 +1,16 @@
 package com.example.booksstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,6 +18,7 @@ import java.sql.Date;
 @Setter
 @Entity
 @Table(name="thongbao")
+@Builder
 public class ThongBao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +30,15 @@ public class ThongBao {
 
     @Column(name = "ngaygui")
     private Date ngayGui;
+
+
+
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "thongbaokhachhang",
+            joinColumns = @JoinColumn(name = "idthongbao"),
+            inverseJoinColumns = @JoinColumn(name = "idkhachhang")
+    )
+    private Set<KhachHang> khachHangsforthongBaoKhuyenMai = new HashSet<>();
 }

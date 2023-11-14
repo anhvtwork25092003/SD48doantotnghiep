@@ -1,10 +1,13 @@
 package com.example.booksstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Generated;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -53,5 +56,9 @@ public class KhachHang {
     @Column(name = "ngaytaotaikhoan")
     private Date ngayTaoTaiKhoan;
 
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "khachHangsforthongBaoKhuyenMai")
+    private Set<ThongBao> thongBaos = new HashSet<>();
 }
 
