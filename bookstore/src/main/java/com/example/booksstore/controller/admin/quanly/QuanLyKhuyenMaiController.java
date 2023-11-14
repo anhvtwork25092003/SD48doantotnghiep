@@ -285,6 +285,15 @@ public class QuanLyKhuyenMaiController {
             e.printStackTrace();
             // Xử lý lỗi nếu cần thiết
         }
+
+        if (Integer.parseInt(trangThaiHienThi) == 1) {
+            String noiDungKhuyenMai = "Thông báo về Khuyến Mãi " +tenKhuyenMai +"/n"+
+                    " Ngày bắt đầu: "+  ngayBatDau + "/n"+" Ngày kết thúc: " + ngayKetThuc + "/n"
+                    + "Giảm " + soPhanTramGiamGia +"% cho các mặt hàng áp dụng !";
+            Date currentDate = new Date();
+            createThongBao(noiDungKhuyenMai, currentDate);
+            System.out.println( noiDungKhuyenMai);
+        }
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
 
