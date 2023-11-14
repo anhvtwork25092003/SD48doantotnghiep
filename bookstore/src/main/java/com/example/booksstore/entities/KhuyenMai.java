@@ -23,7 +23,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Builder
-
+@ToString
 @Table(name = "khuyenmai")
 public class KhuyenMai {
     @Id

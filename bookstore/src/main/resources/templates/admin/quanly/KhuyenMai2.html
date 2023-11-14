@@ -122,7 +122,7 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form th:action="@{/quan-ly/khuyen-mai/them-moi}" method="post">
+                                    <form th:action="@{/quan-ly/khuyen-mai/them-moi}" method="post" enctype="multipart/form-data">
                                         <div class="modal-body ">
                                             <div class="box-address">
                                                 <!-- nội dung khuyến mại -->
@@ -164,8 +164,25 @@
                                                                 Không hiển thị
                                                             </option>
                                                         </select>
-
                                                     </div>
+
+                                                    <div class="col-12">
+                                                        <label>Chọn ảnh :</label> <br>
+                                                        <!--anh 1-->
+                                                        <input type="file" id="linkBannerKhuyenMai" name="linkBannerKhuyenMai" accept="image/*"
+                                                               onchange="displayImage(this, 'selectedImage1')"/>
+                                                        <!-- hien thi anh 1-->
+                                                        <img id="selectedImage1" src="#" alt="Ảnh đã chọn"
+                                                             style="max-width: 88px; height: auto; display: none;"/>
+                                                        <!--anh 2-->
+
+                                                        <input type="file" id="linkAnhKhuyenMai" name="linkAnhKhuyenMai" accept="image/*"
+                                                               onchange="displayImage(this, 'selectedImage2')"/>
+                                                        <!-- hien thi anh 2-->
+                                                        <img id="selectedImage2" src="#" alt="Ảnh đã chọn"
+                                                             style="max-width: 88px; height: auto; display: none;"/>
+                                                    </div>
+
                                                 </div>
                                                 <!-- nội dung khuyến mại -->
                                                 <hr>
@@ -317,6 +334,46 @@
                                                     </select>
                                                 </div>
 
+                                                <div class="image-container">
+                                                    <label th:for="'editlinkBannerKhuyenMai-' + ${khuyenmai.idKhuyenMai}">
+                                                        <img th:src="@{|${khuyenmai.linkBannerKhuyenMai}|}"
+                                                             th:id="'editviewLinkBannerKhuyenMai-' + ${khuyenmai.idKhuyenMai}"
+                                                             alt="linkBannerKhuyenMai" width="88px" height="88px"
+                                                             th:onclick="'editImage(\'' + 'editlinkBannerKhuyenMai-' + ${khuyenmai.idKhuyenMai} + '\', \'checkthayDoiBannerKhuyenMai-' + ${khuyenmai.idKhuyenMai} + '\')'" />
+                                                    </label>
+                                                    <input type="text" name="checkthayDoiBannerKhuyenMai"
+                                                           th:id="'checkthayDoiBannerKhuyenMai-' + ${khuyenmai.idKhuyenMai}" value="chuaThayDoi"
+                                                           hidden>
+                                                    <input type="file" class="custom-file-input"
+                                                           th:id="'editlinkBannerKhuyenMai-' + ${khuyenmai.idKhuyenMai}"
+                                                           name="editlinkBannerKhuyenMai" accept="image/*"
+                                                           th:attr="onchange='displayImage(this, \'editviewLinkBannerKhuyenMai-' + ${khuyenmai.idKhuyenMai} + '\')'" />
+                                                    <button class="delete-button"
+                                                            th:attr="onclick=|deleteImage('editviewLinkBannerKhuyenMai-${khuyenmai.idKhuyenMai}', 'editlinkBannerKhuyenMai-${khuyenmai.idKhuyenMai}', 'checkthayDoiBannerKhuyenMai-${khuyenmai.idKhuyenMai}', event)|">
+                                                        Xóa Ảnh
+                                                    </button>
+                                                </div>
+
+                                                <div class="image-container">
+                                                    <label th:for="'editlinkAnhKhuyenMai-' + ${khuyenmai.idKhuyenMai}">
+                                                        <img th:src="@{|${khuyenmai.linkAnhKhuyenMai}|}"
+                                                             th:id="'editviewLinkAnhKhuyenMai-' + ${khuyenmai.idKhuyenMai}"
+                                                             alt="linkAnhKhuyenMai" width="88px" height="88px"
+                                                             th:onclick="'editImage(\'' + 'editlinkAnhKhuyenMai-' + ${khuyenmai.idKhuyenMai} + '\', \'checkthayDoiAnhKhuyenMai-' + ${khuyenmai.idKhuyenMai} + '\')'" />
+                                                    </label>
+                                                    <input type="text" name="checkthayDoiAnhKhuyenMai"
+                                                           th:id="'checkthayDoiAnhKhuyenMai-' + ${khuyenmai.idKhuyenMai}" value="chuaThayDoi"
+                                                           hidden>
+                                                    <input type="file" class="custom-file-input"
+                                                           th:id="'editlinkAnhKhuyenMai-' + ${khuyenmai.idKhuyenMai}"
+                                                           name="editlinkAnhKhuyenMai" accept="image/*"
+                                                           th:attr="onchange='displayImage(this, \'editviewLinkAnhKhuyenMai-' + ${khuyenmai.idKhuyenMai} + '\')'" />
+                                                    <button class="delete-button"
+                                                            th:attr="onclick=|deleteImage('editviewLinkAnhKhuyenMai-${khuyenmai.idKhuyenMai}', 'editlinkAnhKhuyenMai-${khuyenmai.idKhuyenMai}', 'checkthayDoiAnhKhuyenMai-${khuyenmai.idKhuyenMai}', event)|">
+                                                        Xóa Ảnh
+                                                    </button>
+                                                </div>
+
                                                 <div class="input-field">
                                                     <label>Sản phẩm</label>
                                                     <div id="sachContainer1">
@@ -418,6 +475,13 @@
                                                 <input class="form-control"
                                                        th:value="${khuyenmai.trangThaiHienThi == 1 ? 'Hiển thị': 'Không hiển thị'}"
                                                        disabled/>
+
+                                                <h6 class="product-images">Ảnh:</h6>
+                                                <img th:src="@{|${khuyenmai.linkBannerKhuyenMai}|}" id="viewLinkAnh1" alt="linkBannerKhuyenMai"
+                                                     width="88px" height="88px">
+                                                <img th:src="@{|${khuyenmai.linkAnhKhuyenMai}|}" id="viewLinkAnh2" alt="linkAnhKhuyenMai"
+                                                     width="88px" height="88px">
+
                                             </div>
                                             <hr>
                                             <div class="hangHoa">
