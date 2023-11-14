@@ -1,6 +1,5 @@
 package com.example.booksstore.repository;
 
-import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.KhuyenMai;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +15,8 @@ public interface IKhuyenMaiReporitory extends JpaRepository<KhuyenMai, Integer> 
 
     // lấy chương trình khuyến mãi theo trạng thái
     Page<KhuyenMai> findAllByTrangThaiOrderByIdKhuyenMai(Pageable pageable, int trangThai);
+
+    Page<KhuyenMai> findAllByTrangThaiHienThiOrderByIdKhuyenMaiDesc(Pageable pageable, int trangThaiHienThi);
 
     @Query("SELECT k FROM KhuyenMai k WHERE k.ngayBatDau < :thoigianketthuc AND k.ngayKetThuc > :thoigianbatdau")
     List<KhuyenMai> findByTimeRange(@Param("thoigianbatdau") Date thoigianketthuc, @Param("thoigianketthuc") Date thoigianbatdau);

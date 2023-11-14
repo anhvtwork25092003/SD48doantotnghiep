@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
@@ -32,6 +31,11 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
     @Override
     public Page<KhuyenMai> getAllKhuyenMaiTheoTrangThai(Pageable pageable, int trangThai) {
         return this.iKhuyenMaiReporitory.findAllByTrangThaiOrderByIdKhuyenMai(pageable, trangThai);
+    }
+
+    @Override
+    public Page<KhuyenMai> getAllKhuyenMaiDangHienThi(Pageable pageable, int trangThaiHienThi) {
+        return this.iKhuyenMaiReporitory.findAllByTrangThaiHienThiOrderByIdKhuyenMaiDesc(pageable, trangThaiHienThi);
     }
 
     @Override
@@ -80,9 +84,9 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
                 .findByTimeRange(thoigianketthuc, thoigianbatdau);
         List<String> ketQua = new ArrayList<String>();
         String ketquaDon = "";
-        if(khuyenMais.isEmpty()){
+        if (khuyenMais.isEmpty()) {
             System.out.println("khong tim duoc khuye mai phu hop voi thoi gian day, lisst ketquar trong");
-        }else{
+        } else {
             System.out.println("có khuyễn mãi xuất hiện trong thời gian đưa vào, bắt đầu check sách");
             for (KhuyenMai khuyenMaiss : khuyenMais) {
                 for (Sach s : khuyenMaiss.getSachs()) {
@@ -105,9 +109,9 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
                 .findByTimeRangeUpDate(thoigianketthuc, thoigianbatdau, IdKhuyenMai);
         List<String> ketQua = new ArrayList<String>();
         String ketquaDon = "";
-        if(khuyenMais.isEmpty()){
+        if (khuyenMais.isEmpty()) {
             System.out.println("khong tim duoc khuye mai phu hop voi thoi gian day, lisst ketquar trong");
-        }else{
+        } else {
             System.out.println("có khuyễn mãi xuất hiện trong thời gian đưa vào, bắt đầu check sách");
             for (KhuyenMai khuyenMaiss : khuyenMais) {
                 for (Sach s : khuyenMaiss.getSachs()) {

@@ -13,6 +13,7 @@ import java.util.Set;
 
 public interface IKhuyenMaiService {
     Page<KhuyenMai> getAllKhuyenMaiTheoTrangThai(Pageable pageable, int trangThai);
+    Page<KhuyenMai> getAllKhuyenMaiDangHienThi(Pageable pageable, int trangThaiHienThi);
 
     KhuyenMai SaveOrUpdateKhuyenMai(KhuyenMai khuyenMai);
 
