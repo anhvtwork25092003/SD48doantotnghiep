@@ -56,6 +56,8 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
 
         if (khuyenMai.isPresent()) {
             KhuyenMai khuyenMai2 = khuyenMai.get();
+          Date currentDate = new Date();
+            khuyenMai2.setNgayKetThuc(currentDate);
             khuyenMai2.setTrangThai(trạngThaiUpdate);
             return iKhuyenMaiReporitory.save(khuyenMai2);
         } else {
