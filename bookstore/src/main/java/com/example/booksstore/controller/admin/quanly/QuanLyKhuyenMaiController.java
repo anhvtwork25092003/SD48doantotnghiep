@@ -176,12 +176,12 @@ public class QuanLyKhuyenMaiController {
 
         // tạo 1 thông báo dựa vào các thông tin của khuyến mãi
         if (Integer.parseInt(trangThaiHienThi) == 1) {
-            String noiDungKhuyenMai = "Thông báo về Khuyến Mãi " +tenKhuyenMai +"/n"+
-                    " Ngày bắt đầu: "+  ngayBatDau + "/n"+" Ngày kết thúc: " + ngayKetThuc + "/n"
-                    + "Giảm " + soPhanTramGiamGia +"% cho các mặt hàng áp dụng !";
+            String noiDungKhuyenMai = "Thông báo về Khuyến Mãi " + tenKhuyenMai + "\n" +
+                    " Ngày bắt đầu: " + ngayBatDau + "\n" + " Ngày kết thúc: " + ngayKetThuc + "\n"
+                    + "Giảm " + soPhanTramGiamGia + "% cho các mặt hàng áp dụng !";
             Date currentDate = new Date();
             createThongBao(noiDungKhuyenMai, currentDate);
-            System.out.println( noiDungKhuyenMai);
+            System.out.println(noiDungKhuyenMai);
         }
 
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
@@ -210,6 +210,20 @@ public class QuanLyKhuyenMaiController {
         String duongDanCotDinh = "/image/anhKhuyenMai/";
         String duongDanLuuAnhBannerKhuyenMai = "";
         String duongDanLuuAnhKhuyenMai = "";
+
+
+        // xác định chuyển từ 0 qua 1, xác minh la 0;
+        // tạo 1 thông báo dựa vào các thông tin của khuyến mãi
+        if (khuyenMai.getTrangThaiHienThi() == 0) {
+            if (Integer.parseInt(trangThaiHienThi) == 1) {
+                String noiDungKhuyenMai = "Thông báo về Khuyến Mãi " + tenKhuyenMai + "\n" +
+                        " Ngày bắt đầu: " + ngayBatDau + "\n" + " Ngày kết thúc: " + ngayKetThuc + "\n"
+                        + "Giảm " + soPhanTramGiamGia + "% cho các mặt hàng áp dụng !";
+                Date currentDate = new Date();
+                createThongBao(noiDungKhuyenMai, currentDate);
+                System.out.println(noiDungKhuyenMai);
+            }
+        }
 
 
         if (trangThaiThayDoiBannerKhuyenMai.equalsIgnoreCase("DaThayDoi")) {
@@ -286,14 +300,6 @@ public class QuanLyKhuyenMaiController {
             // Xử lý lỗi nếu cần thiết
         }
 
-        if (Integer.parseInt(trangThaiHienThi) == 1) {
-            String noiDungKhuyenMai = "Thông báo về Khuyến Mãi " +tenKhuyenMai +"/n"+
-                    " Ngày bắt đầu: "+  ngayBatDau + "/n"+" Ngày kết thúc: " + ngayKetThuc + "/n"
-                    + "Giảm " + soPhanTramGiamGia +"% cho các mặt hàng áp dụng !";
-            Date currentDate = new Date();
-            createThongBao(noiDungKhuyenMai, currentDate);
-            System.out.println( noiDungKhuyenMai);
-        }
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
 
