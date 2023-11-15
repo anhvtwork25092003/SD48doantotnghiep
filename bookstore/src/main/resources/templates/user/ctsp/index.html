@@ -6,282 +6,467 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src='https://unpkg.com/swiper/swiper-bundle.min.js'></script>
+    <link rel="stylesheet" href="path-to-your-styles.css">
+    <link rel="stylesheet" href="path-to-font-awesome.css"> <!-- Include Font Awesome CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"/>
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel='stylesheet' href='https://unpkg.com/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css'>
-        <link rel="stylesheet" href="/user/css/thanh_ctsp.css">
+    <link rel="stylesheet" href="../../../static/user/css/thanh_ctsp.css">
 </head>
+
 <body>
 <article layout:fragment="noiDung">
     <div class="container">
-        <div class="type-product">
-            <div class="box-img">
-                <div th:each="sm : ${listSach}" class="product-item">
-                    <img th:src="${sm.linkAnh1}" th:alt="${sm.tenSach}">
+
+
+        <div class="box-content-df">
+            <div class="type-product" id="type1">
+                <div class="product-main">
+                    <div class="box-img">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="product">
+                                    <div class="product-small-img">
+                                        <img src="../../../static/image/anhcuathanh/tham-tu-lung-danh-conan-83.jpg"
+                                             onclick="myFunction(this)">
+                                        <img src="/image/anhcuathanh/conan21.jpg" onclick="myFunction(this)">
+                                        <img src="/image/anhcuathanh/tham-tu-lung-danh-conan-tap-65.jpg"
+                                             onclick="myFunction(this)">
+                                        <img src="/image/anhcuathanh/tham-tu-lung-danh-conan-tap-65.jpg"
+                                             onclick="myFunction(this)">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <img class="img-100" src="/image/anhCuaThanh/conan21.jpg" alt="product"
+                                     style="width:350px; height:413px;" id="imageBox" />
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div class="product-infor">
                         <div class="box-origin">
-
                         </div>
-                        <div class="txt-name" style="text-align: center;">
-                            <h3 th:text="${sm.tenSach}"></h3>
+                        <div class="txt-name" style="text-align: center;margin-left: 20px;">
+                            <h3>Thám tử lừng danh conan tập 21</h3>
                         </div>
                         <div class="btn-right">
-                            <div class="btn-cust btn-love">
-                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            <div class="heart-btn">
+                                <div class="content">
+                                    <span class="heart"></span>
+                                    <span class="text">Like</span>
+                                    <span class="numb"></span>
+                                </div>
                             </div>
-                            <div class="btn-cust btn-share">
-                                <i class="fa fa-share-alt" aria-hidden="true"></i>
+                        </div>
+
+
+
+                        <div class="nxb" style="padding-top: 15px;text-align: left; padding-left: 70px;">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h3>Tác giả : </h3>
+                                </div>
+                                <div class="col-6" style="color: blue;">
+                                    <h3>Gosho Aoyama</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-star"
+                                     viewBox="0 0 16 16" style="padding-top: 15px; padding-left: 70px;">
+                                    <path
+                                            d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-star"
+                                     viewBox="0 0 16 16">
+                                    <path
+                                            d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-star"
+                                     viewBox="0 0 16 16">
+                                    <path
+                                            d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-star"
+                                     viewBox="0 0 16 16">
+                                    <path
+                                            d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-star"
+                                     viewBox="0 0 16 16">
+                                    <path
+                                            d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-star"
+                                     viewBox="0 0 16 16">
+                                    <path
+                                            d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                </svg>
+                            </div>
+                            <div class="col-6" style="padding-top: 1px;text-align: left; padding-left: 50px;">
+                                <h3 style="color:rgb(163, 163, 72);">(0 Đánh Giá)</h3>
                             </div>
                         </div>
 
                         <div class="nxb" style="padding-top: 15px;text-align: left; padding-left: 70px;">
                             <div class="row">
-                                <div class="col-6"><h3>Nhà xuất bản : </h3></div>
-                                <div class="col-6" style="color: blue;"><h3>Kim Đồng</h3></div>
+                                <div class="col-6">
+                                    <h1 style="color: red;"> 66.500Đ </h1><br> <span class="final-price">78.235 VNĐ</span>
+                                </div>
+                                <div class="col-6" style="color: blue;"><button type="button" class="btn btn-danger"
+                                                                                style="margin-top: 10px; margin-left: 0px;">15%</button></div>
                             </div>
                         </div>
 
                         <div class="nxb" style="padding-top: 15px;text-align: left; padding-left: 70px;">
-                            <!--                                    <div class="row">-->
-                            <!--                                        <div class="col-6"><h3>Tác giả : </h3></div>-->
-                            <!--                                        <div>-->
-                            <!--                                            <a th:href="@{/trang-chu/detail(idTacGia=${tacgia.idTacGia})}">View Author</a>-->
-                            <!--                                        </div>-->
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="txt-cate">
+                                    <h3>Số Lượng</h3>
+                                    </p>
+                                    <button class="add-to-cart-button">
+                                        <i class="icon fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+                                    </button>
 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
-                                 fill="currentColor" class="bi bi-star" viewBox="0 0 16 16"
-                                 style="padding-top: 15px; padding-left: 70px;">
-                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
-                                 fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
-                                 fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
-                                 fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
-                                 fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
-                                 fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                                <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                            </svg>
-                        </div>
-                        <div class="col-6" style="padding-top: 1px;text-align: left; padding-left: 50px;">
-                            <h3 style="color:rgb(163, 163, 72);">(0 Đánh Giá)</h3>
-                        </div>
-                    </div>
+                                </div>
 
-                    <div class="nxb" style="padding-top: 15px;text-align: left; padding-left: 70px;">
-                        <div class="row">
-                            <div class="col-6"><h4 th:text="${sm.giaBan} + ' đ'"></h4><br> <span
-                                    class="final-price">Giá Gốc :78.235 VNĐ</span></div>
-                            <div class="col-6" style="color: blue;">
-                                <button type="button" class="btn btn-danger"
-                                        style="margin-top: 10px; margin-left: 0px;">15%
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="nxb" style="padding-top: 15px;text-align: left; padding-left: 70px;">
-                        <div class="row">
-                            <div class="col-6">
-                                <p class="txt-cate">
-                                <h3>Số Lượng</h3></p>
-                            </div>
-                            <div class="col-6">
-                                <div class="box-number" style="margin-top:25px ;">
-                                    <input type="text" name="soLuongTonKho" th:value="${sm.soLuongTonKho}">
+                                <div class="col-6">
+                                    <div class="box-number" style="margin-top:25px ;">
+                                        <span class="txt-sub" onclick="changeNumberProductType('sub')">-</span>
+                                        <input type="tel" value="1" id="nbProductType" />
+                                        <span class="txt-plus" onclick="changeNumberProductType('plus')">+</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="product-bottom">
-                        <div class="extra-img">
-                            <div class="img-item item-1" onclick="changeImgType(1)">
-                                <img th:src="${sm.linkAnh2}" th:alt="${sm.tenSach}"
-                                     style="width:50px; height: 50px;"/>
-                            </div>
-                            <div class="img-item item-2" onclick="changeImgType(2)">
-                                <img th:src="${sm.linkAnh3}" th:alt="${sm.tenSach}"
-                                     style="width:50px; height: 50px;"/>
-                            </div>
-                            <div class="img-item item-3" onclick="changeImgType(3)">
-                                <img th:src="${sm.linkAnh4}" th:alt="${sm.tenSach}"
-                                     alt="item" style="width:50px; height: 50px;"/>
-                            </div>
-                            <div class="img-item item-4" onclick="changeImgType(4)">
-                                <img th:src="${sm.linkAnh1}" th:alt="${sm.tenSach}"
-                                     style="width:50px; height: 50px;"/>
-                            </div>
-                            <div class="img-item item-5" onclick="changeImgType(5)">
-                                <img th:src="${sm.linkAnh2}" th:alt="${sm.tenSach}"
-                                     style="width:50px; height: 50px;"/>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+
+
+                <div class="product-bottom">
                     <div class="box-btn">
-                        <div class="btn-add" style="margin-left: 60px;">
-                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                            Thêm vào giỏ hàng
-                        </div>
-                        <div class="btn-order" style="text-align: center;">
-                            Mua ngay
-                        </div>
-                    </div>
-                    <div class="similar-product">
-                        <p class="tt-main">
-                        <h3>Sản phẩm Liên quan</h3></p>
-                        <div class="row" style="padding-left: 65px;">
-                            <div class="col-2">
-                                <img th:src="${sm.linkAnh2}" th:alt="${sm.tenSach}"
-                                     style="width:250px; height: 270px;">
-                                <h6 th:text="${sm.tenSach}"></h6>
-                                <div class="textmoney">
-                                    <h4 th:text="${sm.giaBan} + ' đ'"></h4>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <img th:src="${sm.linkAnh3}" th:alt="${sm.tenSach}"
-                                     style="width:250px; height: 270px;">
-                                <h6 th:text="${sm.tenSach}"></h6>
-                                <div class="textmoney">
-                                    <h4 th:text="${sm.giaBan} + ' đ'"></h4>
-                                </div>
 
-                            </div>
-                            <div class="col-2">
-                                <img th:src="${sm.linkAnh4}" th:alt="${sm.tenSach}"
-                                     style="width:250px; height: 270px;">
-                                <h6 th:text="${sm.tenSach}"></h6>
-                                <div class="textmoney">
-                                    <h4 th:text="${sm.giaBan} + ' đ'"></h4>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <img th:src="${sm.linkAnh1}" th:alt="${sm.tenSach}"
-                                     style="width:250px; height: 270px;">
-                                <h6 th:text="${sm.tenSach}"></h6>
-                                <div class="textmoney">
-                                    <h4 th:text="${sm.giaBan} + ' đ'"></h4>
-                                </div>
-                                <div class="col-2">
-                                    <img th:src="${sm.linkAnh1}" th:alt="${sm.tenSach}"
-                                         style="width:250px; height: 270px;">
-                                    <h6 th:text="${sm.tenSach}"></h6>
-                                    <div class="textmoney">
-                                        <h4 th:text="${sm.giaBan} + ' đ'"></h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="btdo" style="padding-top: 35px; padding-bottom: 35px; text-align: center;">
-                                <button type="button" class="btn btn-danger">Xem thêm</button>
-                            </div>
-                        </div>
-
-                        <section style="background-color: white; width: auto; height: auto;">
-                            <ul class="nav justify-content-center" style="background-color: red; ">
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="./thongtin.html" style="color: black;"><h5>Thông tin</h5>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link " href="#" style="color: black;"><h5>Đánh giá</h5></a>
-                                </li>
-                            </ul>
-
-
-                            <div class="table-responsive" style="  border: 1px solid black">
-                                <div class="post">
-                                    <div class="text">Thanks for rating us!</div>
-                                    <div class="edit">EDIT</div>
-                                </div>
-                                <div class="star-widget" >
-                                    <h5>Rate:</h5>
-                                    <input type="radio" name="rate" id="rate-5">
-                                    <label for="rate-5" class="fas fa-star"></label>
-                                    <input type="radio" name="rate" id="rate-4">
-                                    <label for="rate-4" class="fas fa-star"></label>
-                                    <input type="radio" name="rate" id="rate-3">
-                                    <label for="rate-3" class="fas fa-star"></label>
-                                    <input type="radio" name="rate" id="rate-2">
-                                    <label for="rate-2" class="fas fa-star"></label>
-                                    <input type="radio" name="rate" id="rate-1">
-                                    <label for="rate-1" class="fas fa-star"></label>
-                                    <form action="#">
-                                        <header></header>
-                                        <div class="textarea">
-                                            <textarea cols="30" placeholder="Describe your experience.."></textarea>
-                                        </div>
-                                        <div class="btn">
-                                            <button type="submit">Post</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-
-                            <div class="row" style="width:auto; height: 350px;">
-                                <div class="col-4" style="padding-top: 14px; text-align: left; padding-left: 50px;">
-                                    <h4 style="padding-left: 40px; padding-top: 30px;">Viết 1 đánh giá</h4>
-
-
-                                </div>
-                                <div class="col-8">
-                                    <div class="comment-box">
-
-                                        <div class="input-group mb-3">
-
-                                            <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-                                        </div>
-                                        <button class="previous-button">Gửi đánh giá</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" style="width:auto; height: 150px; ">
-
-
-
-                            </div>
-                            <div class="row">
-                                <div class="col-10" style="margin-bottom: 200px; margin-left: 300px;">
-                                    <button class="previous-button">|<< Previous</button>
-                                    <button class="one-button">1</button>
-                                    <button class="previous-button"> Next >>|</button>
-                                </div>
-                                <div class="col-2" >
-
-                                </div>
-                            </div>
-                        </section>
 
                     </div>
                 </div>
             </div>
+            <div class="similar-product">
+                <p class="tt-main">
+                <h3>Sản phẩm Liên quan</h3>
+                </p>
+                <div class="row" style="padding-left: 65px;">
+                    <div class="col-2">
+                        <img src="/image/anhCuaThanh/anh1.jpg" class="img-thumbnail" alt="..."
+                             style="width:auto; height: 290px;">
+                        <h6>Thám tử lừng danh Conan tập đặc biệt tap 63</h6>
+                        <div style="padding-left: 0%; color: red;">
+                            66.500 đ
+                        </div>
+
+                    </div>
+                    <div class="col-2">
+                        <img src="/image/anhCuaThanh/conan21.jpg" class="img-thumbnail" alt="..."
+                             style="width:auto; height: 290px; margin-left: 25px;">
+                        <h6 style="margin-left: 30px;">Thám tử lừng danh Conan tập 21</h6>
+                        <div class="textmoney">
+                            66.500 đ
+                        </div>
+
+                    </div>
+                    <div class="col-2">
+                        <img src="/image/anhCuaThanh/tham-tu-lung-danh-conan-83.jpg" class="img-thumbnail"
+                             style="width:auto; height: 290px; margin-left: 35px;">
+                        <h6 style="margin-left: 35px;">Thám tử lừng danh Conan tập 83</h6>
+                        <div class="textmoney">
+                            66.500 đ
+                        </div>
+
+                    </div>
+                    <div class="col-2">
+                        <img src="/image/anhCuaThanh/tham-tu-lung-danh-conan-tap-65.jpg" class="img-thumbnail"
+                             alt="..." style="width:auto; height: 290px; margin-left: 35px;">
+                        <h6 style="margin-left: 35px;">Thám tử lừng danh Conan tập 65</h6>
+                        <div class="textmoney">
+                            66.500 đ
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <img src="/image/anhCuaThanh/anh1.jpg" class="img-thumbnail" alt="..."
+                             style="width:auto; height: 290px; margin-left: 15px; margin-left: 35px;">
+                        <h6 style="margin-left: 35px;">Thám tử lừng danh Conan tập đặc biệt</h6>
+                        <div class="textmoney">
+                            66.500 đ
+                        </div>
+
+                    </div>
+                </div>
+                <div class="btdo" style="padding-top: 35px; padding-bottom: 35px; text-align: center;">
+                    <button type="button" class="btn btn-danger">Xem thêm</button>
+                </div>
+            </div>
+
+            <section style="background-color: white; width: auto; height: auto;">
+                <div id="nav" class="navb">
+                    <ul>
+                        <li>
+                            <button onclick="showContent('page1')"  class="btn btn-danger">Thông tin</button>
+                        </li>
+                        <li>
+                            <button onclick="showContent('page2')"  class="btn btn-danger">Đánh giá</button>
+                        </li>
+
+                    </ul>
+                </div>
+                <div id="content">
+                    <div id="page1" class="danhgia_binhluon">
+
+                        <h4 style="text-align: center;">Thông tin sản phẩm</h4>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">ST</th>
+                                <th scope="col">Tên tác phẩm</th>
+                                <th scope="col">Tác giả</th>
+                                <th scope="col">Giá tiền</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <th scope="row">1</th>
+                                <td >Thám tử lừng danh conan tập 21</td>
+                                <td>Gosho Aoyama</td>
+                                <td>66.500 VNĐ</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="page2" class="danhgia_binhluon">
+                        <h4 style="text-align: center;">Đánh giá</h4>
+                        <div class="table" style="  border: 1px solid black">
+                            <table class="table align-middle">
+                                <tbody>
+                                <tr>
+                                </tr>
+                                <tr class="align-bottom">
+
+                                </tr>
+                                <tr>
+                                    <td>Ninh Viết Thành</td>
+                                    <td></td>
+                                    <td class="align-top"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>14/2/2023</td>
+                                </tr>
+                                <tr>
+                                    <td>Lời Bình Luận thứ 1 <br>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-star" viewBox="0 0 16 16" style="color: yellow;">
+                                            <path
+                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-star" viewBox="0 0 16 16" style="color: yellow;">
+                                            <path
+                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-star" viewBox="0 0 16 16" style="color: yellow;">
+                                            <path
+                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-star" viewBox="0 0 16 16">
+                                            <path
+                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-star" viewBox="0 0 16 16">
+                                            <path
+                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                        </svg>
+
+                                    </td>
+                                    <td></td>
+                                    <td class="align-top"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                </tr>
+
+                                <tr>
+                                    <td>Vũ Tuấn Anh</td>
+                                    <td></td>
+                                    <td class="align-top"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>14/2/2023</td>
+                                </tr>
+                                <tr>
+                                    <td>Lời Bình Luận thứ 2 <br>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-star" viewBox="0 0 16 16" style="color: yellow;">
+                                            <path
+                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-star" viewBox="0 0 16 16" style="color: yellow;">
+                                            <path
+                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-star" viewBox="0 0 16 16" style="color: yellow;">
+                                            <path
+                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-star" viewBox="0 0 16 16">
+                                            <path
+                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-star" viewBox="0 0 16 16">
+                                            <path
+                                                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                                        </svg>
+
+                                    </td>
+                                    <td></td>
+                                    <td class="align-top"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4 style="padding-left: 40px; padding-top: 30px;">Viết 1 đánh giá</h4>
+                        <div class="row" style="width:auto; height: 350px;">
+                            <div class="col-4" style="padding-top: 14px; text-align: left; padding-left: 50px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk"
+                                     viewBox="0 0 16 16" style="color: red;">
+                                    <path
+                                            d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+                                </svg>Viết đánh gía
+                            </div>
+                            <div class="col-8">
+                                <div class="comment-box">
+
+                                    <div class="comment-list">
+                                        <!-- Danh sách bình luận sẽ được thêm ở đây -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="width:auto; height: 150px; ">
+                            <div class="col-4" style="padding-top: 14px; text-align: left; padding-left: 50px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk"
+                                     viewBox="0 0 16 16" style="color: red;">
+                                    <path
+                                            d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+                                </svg>Số sao
+                            </div>
+                            <div class="col-8" style="padding-top: 15px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle"
+                                     viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle"
+                                     viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle"
+                                     viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-record-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-circle"
+                                     viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="previous-button">| Previous</button>
+                            <button class="one-button">1</button>
+                            <button class="one-button">2</button>
+                            <button class="one-button">3</button>
+                            <button class="previous-button"> Next >>| </button>
+                        </div>
+                        <div class="col-6" style="text-align: right;">
+                            <button class="previous-button" onclick="alert('gửi đánh giá thành công')">Gửi đánh giá</button>
+                        </div>
+                    </div>
+                </div>
         </div>
+
     </div>
 
-</article>
 
+
+
+
+    </section>
+
+    </div>
+    </div>
+</article>
 </body>
-<script src="/user/js/ctsp.js"></script>
+<script src="../../../static/user/js/thanh_ctsp.js">
+
+</script>
+
 </html>
