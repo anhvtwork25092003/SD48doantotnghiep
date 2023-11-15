@@ -100,7 +100,7 @@ public class QuanLySachController {
 
         if (categorySearch != null) {
             model.addAttribute("catego", categorySearch);
-        }else{
+        } else {
             List<TheLoai> list = new ArrayList<TheLoai>();
             model.addAttribute("catego", list);
         }
@@ -181,24 +181,52 @@ public class QuanLySachController {
             }
 
             // xu ly lưu sách
-            BigDecimal giaBanOke = new BigDecimal(giaBan);
-            Sach sach = Sach.builder()
-                    .tenSach(tenSach)
-                    .tacgia(tacgia)
-                    .theLoais(theLoais)
-                    .trangThai(Integer.parseInt(trangThai))
-                    .moTa(moTa)
-                    .soLuongTonKho(Integer.parseInt(soLuongTonKho))
-                    .giaBan(giaBanOke)
-                    .maVach(maVach)
-                    .linkAnh1(duongDanLuuAnh1)
-                    .linkAnh2(duongDanLuuAnh2)
-                    .linkAnh3(duongDanLuuAnh3)
-                    .linkAnh4(duongDanLuuAnh4)
-                    .linkAnh5(duongDanLuuAnh5)
-                    .build();
-            this.iSachService.save(sach);
-            System.out.println(duongDanCotDinh + linkAnh1.getOriginalFilename());
+            Sach sachFoundByMaVach = this.iSachService.getOneByMaVach(maVach);
+            if (sachFoundByMaVach != null) {
+                // ma vach da ton tai
+                // update theo id
+                // cap nhat so luong
+                int soLuongUpDate = Integer.parseInt(soLuongTonKho) + sachFoundByMaVach.getSoLuongTonKho();
+                BigDecimal giaBanOke = new BigDecimal(giaBan);
+                Sach sach = Sach.builder()
+                        .idSach(sachFoundByMaVach.getIdSach())
+                        .tenSach(tenSach)
+                        .tacgia(tacgia)
+                        .theLoais(theLoais)
+                        .trangThai(Integer.parseInt(trangThai))
+                        .moTa(moTa)
+                        .soLuongTonKho(soLuongUpDate)
+                        .giaBan(giaBanOke)
+                        .maVach(maVach)
+                        .linkAnh1(duongDanLuuAnh1)
+                        .linkAnh2(duongDanLuuAnh2)
+                        .linkAnh3(duongDanLuuAnh3)
+                        .linkAnh4(duongDanLuuAnh4)
+                        .linkAnh5(duongDanLuuAnh5)
+                        .build();
+                this.iSachService.save(sach);
+            } else {
+                // ma vach chua ton tai
+                BigDecimal giaBanOke = new BigDecimal(giaBan);
+                Sach sach = Sach.builder()
+                        .tenSach(tenSach)
+                        .tacgia(tacgia)
+                        .theLoais(theLoais)
+                        .trangThai(Integer.parseInt(trangThai))
+                        .moTa(moTa)
+                        .soLuongTonKho(Integer.parseInt(soLuongTonKho))
+                        .giaBan(giaBanOke)
+                        .maVach(maVach)
+                        .linkAnh1(duongDanLuuAnh1)
+                        .linkAnh2(duongDanLuuAnh2)
+                        .linkAnh3(duongDanLuuAnh3)
+                        .linkAnh4(duongDanLuuAnh4)
+                        .linkAnh5(duongDanLuuAnh5)
+                        .build();
+                this.iSachService.save(sach);
+
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -331,6 +359,8 @@ public class QuanLySachController {
             duongDanLuuAnh5 = sach.getLinkAnh5();
         }
         // xu ly lưu sách
+        // xu  ly so luong
+        int soLuongUpDate = Integer.parseInt(soLuongTonKho) + this.iSachService.getOne(Integer.parseInt(IdSach)).getSoLuongTonKho();
         BigDecimal giaBanOke = new BigDecimal(giaBan);
         Sach sachUpDate = Sach.builder()
                 .idSach(Integer.parseInt(IdSach))
@@ -339,7 +369,7 @@ public class QuanLySachController {
                 .theLoais(theLoais)
                 .trangThai(Integer.parseInt(trangThai))
                 .moTa(moTa)
-                .soLuongTonKho(Integer.parseInt(soLuongTonKho))
+                .soLuongTonKho(soLuongUpDate)
                 .giaBan(giaBanOke)
                 .maVach(maVach)
                 .linkAnh1(duongDanLuuAnh1)

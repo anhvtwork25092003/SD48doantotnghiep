@@ -42,6 +42,11 @@ public class SachServiceImpl implements ISachService {
     }
 
     @Override
+    public Sach getOneByMaVach(String maVach) {
+        return iSachRepository.findSachByMaVach(maVach);
+    }
+
+    @Override
     public List<Sach> sachmoi() {
         return iSachRepository.findAllByOrderByIdSachDesc();
     }

@@ -17,6 +17,7 @@ public interface ISachService {
     Page<Sach> searchSach(String tenSach, String maSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, Integer trangThai, Pageable pageable);
 
     Sach getOne(int id);
+    Sach getOneByMaVach(String maVach);
     List<Sach> sachmoi();
 
     List<Sach>getall();
