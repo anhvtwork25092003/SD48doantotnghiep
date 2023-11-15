@@ -59,9 +59,11 @@
         <div class="row"><h2>Ưu đãi lớn</h2></div>
         <div class="product">
             <div th:each="sach : ${motkhuyenmaidangapdung.sachs}" th:limit="5" class="product-item">
+
                 <div class="product-image">
                     <img th:src="${sach.linkAnh1}">
                 </div>
+
                 <h3 th:text="${sach.tenSach}"></h3>
                 <div class="price">
                     <h4 th:text="${sach.giaBan - (motkhuyenmaidangapdung.soPhanTramGiamGia)} + 'đ'"></h4>

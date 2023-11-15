@@ -4,6 +4,8 @@ import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.service.IKhuyenMaiService;
 import com.example.booksstore.service.ISachService;
+import com.example.booksstore.service.ITheLoaiServiec;
+import com.example.booksstore.service.TacGiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -20,16 +22,21 @@ public class UuDaiLonController {
     @Autowired
     IKhuyenMaiService iKhuyenMaiService;
 
+    @Autowired
+    ITheLoaiServiec iTheLoaiServiec;
+    @Autowired
+    TacGiaService tacGiaService;
+
     @GetMapping("/uu-dai-lon")
     public String HienThiTrangUuDaiLon(Model model){
         model.addAttribute("khuyenmaidanghienthi", iKhuyenMaiService.getAllKhuyenMaiDangHienThi(1));
         return "user/UuDaiLon";
     }
-
-    @GetMapping("/uu-dai-lon/chi-tiet-khuyen-mai/idKhuyenMai")
-    public String chiTietKhuyenMai(Model model, @PathVariable("idKhuyenMai") Integer idKhuyenMai) {
+    @GetMapping("/uu-dai-lon/uu-dai-chi-tiet")
+    public String chiTietKhuyenMai(Model model, @RequestParam("idKhuyenMai") Integer idKhuyenMai) {
         KhuyenMai khuyenMai = iKhuyenMaiService.chiTietKhuyenMai(idKhuyenMai);
         model.addAttribute("chitietkhuyenmai",khuyenMai);
-        return "user/ChiTietKhuyenMai";
+        return "user/UuDaiChiTiet";
     }
+
 }

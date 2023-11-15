@@ -125,5 +125,21 @@ header img {
     font-weight: bold;
 }
 
+.button a:hover {
+    background-color: gray; /* Màu nền nút khi di chuột vào */
+}
 
+.button > a {
+    position: absolute;
+    left: calc(50% - 65px);
+    top: calc(50% + 158px);
+    padding: 8px 30px;
+    border-radius: 25px;
+    color: white;
+    display: inline-block;
+    background-color: wheat;
+    text-decoration: none;
+    border: 1px solid red;
+    font-family: cursive;
+}
 
