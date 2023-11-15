@@ -1,0 +1,129 @@
+/*!* body {*/
+/*    font-family: Arial, sans-serif;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*} *!*/
+.row {
+    display: block;
+}
+
+header {
+    text-align: center;
+}
+
+header img {
+    width: 1140px;
+    height: 400px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #E4E3E3;
+}
+
+.columnBaner {
+    margin-top: -20px;
+}
+
+.column {
+    display: inline;
+    margin: 23px;
+}
+
+.column img {
+    width: 250px;
+    height: 200px;
+}
+
+.product {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: white;
+    position: relative;
+
+}
+
+.nav {
+    background-color: #FCDAB0; /* Màu nền đen cho thanh nav */;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    display: flex; /* Sử dụng flexbox để xếp các mục ngang */
+    justify-content: center; /* Canh giữa các mục */
+}
+
+.nav-item {
+    margin: 0;
+}
+
+.nav-link {
+    display: block;
+    text-decoration: none;
+    font-size: 120%;
+    color: black; /* Màu chữ trắng cho menu */
+    padding: 10px; /* Khoảng cách giữa các mục menu */
+    font-weight: bold; /* Đậm */
+    letter-spacing: 2px; /* Khoảng cách giữa các ký tự */
+    transition: background-color 0.3s, color 0.3s; /* Hiệu ứng hover màu chữ và nền */
+}
+
+.nav-link:hover {
+    background-color: white; /* Màu nền khi di chuột vào */
+}
+
+.product-item {
+    display: inline-block;
+    width: 20%;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+
+}
+
+.product-item > .sale {
+    text-decoration-line: line-through
+
+}
+
+.product-item > .price {
+    color: red;
+}
+
+.product-item img {
+    width: 150px;
+    height: 150px;
+}
+
+.product-item:hover .product-image img {
+    border: 1px solid red; /* Màu viền và độ rộng của viền tùy chọn */
+}
+
+
+.row {
+    background: white;
+}
+
+.list-category {
+    background-color: white;
+    margin-top: 12px;
+    border-radius: 3px;
+    padding: 16px;
+}
+
+.discount {
+    margin-left: 165px;
+    position: absolute;
+    margin-top: -290px;
+    background-color: orange;
+    border-radius: 50%;
+    padding: 5px 5px;
+    color: white;
+    font-weight: bold;
+}
+
+
+

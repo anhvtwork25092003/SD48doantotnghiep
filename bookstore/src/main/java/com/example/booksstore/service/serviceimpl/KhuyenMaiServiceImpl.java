@@ -39,6 +39,11 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
     }
 
     @Override
+    public List<KhuyenMai> getAllKhuyenMaiDangHienThi(int trangThaiHienThi) {
+        return this.iKhuyenMaiReporitory.findAllByTrangThaiHienThiOrderByIdKhuyenMaiDesc(trangThaiHienThi);
+    }
+
+    @Override
     public List<KhuyenMai> getAllKhuyenMaiDangApDung( int trangThaiHienThi) {
         return this.iKhuyenMaiReporitory.findAllByTrangThaiOrderByIdKhuyenMaiDesc( trangThaiHienThi);
     }
@@ -139,7 +144,14 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
     }
 
     @Override
-    public KhuyenMai getOne1(int id) {
-        return iKhuyenMaiReporitory.findByIdKhuyenMai(id);
+    public KhuyenMai getOne1(int idKhuyenMai) {
+        return iKhuyenMaiReporitory.findByIdKhuyenMai(idKhuyenMai);
     }
+
+    @Override
+    public KhuyenMai chiTietKhuyenMai(int idKhuyenMai) {
+        return iKhuyenMaiReporitory.getById(idKhuyenMai);
+    }
+
+
 }
