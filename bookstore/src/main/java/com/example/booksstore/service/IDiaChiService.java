@@ -6,4 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface IDiaChiService {
     Page<DiaChi> finAll(Pageable pageable);
+
+    DiaChi themdiachi(DiaChi diaChi);
 }

@@ -17,4 +17,9 @@ public class DiaChiServiceImpl implements IDiaChiService {
     public Page<DiaChi> finAll(Pageable pageable) {
         return iDiaChiRepository.findAll(pageable);
     }
+
+    @Override
+    public DiaChi themdiachi(DiaChi diaChi) {
+        return null;
+    }
 }
