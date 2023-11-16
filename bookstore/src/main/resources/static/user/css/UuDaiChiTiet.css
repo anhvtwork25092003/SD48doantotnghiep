@@ -21,13 +21,15 @@ header img {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #E4E3E3;
+    background-color: white;
 }
 
 .product {
     display: flex;
     flex-wrap: nowrap;
     background-color: white;
+    font-family: cursive;
+
 }
 
 .nav {

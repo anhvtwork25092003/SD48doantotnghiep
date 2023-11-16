@@ -1,6 +1,4 @@
-.img-100 {
-    width: 100%;
-}
+
 button:focus {
     outline: none;
 }
@@ -12,8 +10,6 @@ button:focus {
     margin-top: 12px;
     background-color: white;
     border-radius: 3px;
-    position: relative;
-    z-index: -1;
 }
 .type-product .border-active {
     border: 1px solid #037afb;
@@ -208,3 +204,7 @@ button:focus {
     background-color: red;
     margin-left: 12px;
 }
+.soLuong {
+    margin-right: 750px;
+}
+

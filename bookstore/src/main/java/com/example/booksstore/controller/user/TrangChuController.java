@@ -1,5 +1,6 @@
 package com.example.booksstore.controller.user;
 
+import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.repository.IKhuyenMaiReporitory;
@@ -40,16 +41,17 @@ public class TrangChuController {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         model.addAttribute("sachmoi", saches);
         model.addAttribute("motkhuyenmaidangapdung",iKhuyenMaiService.getAllKhuyenMaiDangApDung(1).get(0));
+        List<KhuyenMai> khuyenMaiList= iKhuyenMaiService.getAllKhuyenMaiDangHienThi(1);
+        List<KhuyenMai> khuyenMaiLists = khuyenMaiList.subList(0, 4);
+        model.addAttribute("khuyenmaidanghienthi", khuyenMaiLists);
         return "user/TrangChu";
-
     }
 
     @GetMapping("/trang-chu/detail")
     public String detail(@RequestParam("idSach") Integer idSach, Model model) {
         Sach sach = iSachService.dateil(idSach);
         model.addAttribute("listSach", sach);
-        model.addAttribute("author", iTheLoaiServiec.findAllTheLoai());
-        return "user/ctsp/index";
+        return "user/ChiTietSanPham";
     }
 
 }

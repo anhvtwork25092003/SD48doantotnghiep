@@ -23,17 +23,10 @@
 
         <!-- ảnh banner khuyến mãi -->
         <div class="columnBaner">
-            <div class="column">
-                <img src="/image/anhkhac/sale1.png" alt="Hình ảnh 1">
-            </div>
-            <div class="column">
-                <img src="/image/anhkhac/sale2.jpg" alt="Hình ảnh 2">
-            </div>
-            <div class="column">
-                <img src="/image/anhkhac/sale3.png" alt="Hình ảnh 3">
-            </div>
-            <div class="column">
-                <img src="/image/anhkhac/sale4.png" alt="Hình ảnh 4">
+            <div class="column" th:each="anhKhuyenMai : ${khuyenmaidanghienthi}" >
+            <a th:href="@{'/uu-dai-lon/uu-dai-chi-tiet?idKhuyenMai=' + ${anhKhuyenMai.idKhuyenMai}}">
+                    <img th:src="${anhKhuyenMai.linkAnhKhuyenMai}">
+            </a>
             </div>
         </div>
         <!-- end ảnh banner khuyến mãi -->
@@ -56,14 +49,14 @@
         <!-- end chuyển trang -->
 
         <!-- ưu đãi lớn -->
-        <div class="row"><h2>Ưu đãi lớn</h2></div>
+        <div class="row"><h2>ƯU ĐÃI LỚN</h2></div>
         <div class="product">
             <div th:each="sach : ${motkhuyenmaidangapdung.sachs}" th:limit="5" class="product-item">
-
-                <div class="product-image">
-                    <img th:src="${sach.linkAnh1}">
-                </div>
-
+                <a th:href="@{'/trang-chu/detail?idSach=' + ${sach.idSach}}">
+                    <div class="product-image">
+                        <img th:src="${sach.linkAnh1}">
+                    </div>
+                </a>
                 <h3 th:text="${sach.tenSach}"></h3>
                 <div class="price">
                     <h4 th:text="${sach.giaBan - (motkhuyenmaidangapdung.soPhanTramGiamGia)} + 'đ'"></h4>
@@ -83,7 +76,7 @@
         <br>
 
         <!-- sảm phẩm bán chạy -->
-        <div class="row"><h2>Sản phẩm bán chạy</h2></div>
+        <div class="row"><h2>SẢN PHẨM BÁN CHẠY</h2></div>
         <div class="product">
 
             <div class="product-item">
@@ -134,31 +127,44 @@
 
         <!-- sản phẩm mới nhất -->
         <div class="row">
-            <h2>Sản phẩm mới nhất</h2>
+            <h2>SẢN PHẨM MỚI NHẤT</h2>
         </div>
         <div class="product">
-            <div th:each="sm : ${sachmoi}" class="product-item">
+            <div class="product-item" th:each="sm : ${sachmoi}"  >
                 <a th:href="@{'/trang-chu/detail?idSach=' + ${sm.idSach}}">
                     <div class="product-image">
                         <img th:src="${sm.linkAnh1}" th:alt="${sm.tenSach}">
                     </div>
                 </a>
                 <h3 th:text="${sm.tenSach}"></h3>
-                <div class="price">
-                    <h4 th:text="${sm.giaBan} + ' đ'"></h4>
+
+                <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">
+                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">
+                        <div class="price">
+                            <h4 th:text="${sm.giaBan - (firstPromotion.soPhanTramGiamGia)} + 'đ'"></h4>
+                        </div>
+                        <div class="sale">
+                            <h5 th:text="${sm.giaBan} + 'đ'"></h5>
+                        </div>
+                        <div class="discount" th:text="${firstPromotion.soPhanTramGiamGia} +'%'"></div>
+                    </div>
                 </div>
-<!--                <div class="sale"><h5>  </h5></div>-->
             </div>
             <!-- Các sản phẩm khác -->
             <div class="button"><a href="#">Xem thêm</a></div>
         </div>
         <!-- end sản phẩm mới nhất -->
 
+        <!-- Kiểm tra nếu sách đang trong chương trình khuyến mãi có trạng thái khuyến mãi là 1 -->
+<!--        <div th:if="${sach.khuyenMais.?[trangThai == 1].size() > 0}">-->
+<!--            &lt;!&ndash; Lấy ra chương trình khuyến mãi đầu tiên có trạng thái là 1 (giả sử mỗi sách chỉ tham gia một chương trình khuyến mãi) &ndash;&gt;-->
+<!--            <th:block th:with="khuyenMaiDetail=${sach.khuyenMais.?[trangThai == 1][0]}">-->
+<!--               -->
+<!--            </th:block>-->
+<!--        </div>-->
         <br>
     </div>
-
 </article>
-
 </body>
 <script src="/user/js/TrangChu.js"></script>
 </html>

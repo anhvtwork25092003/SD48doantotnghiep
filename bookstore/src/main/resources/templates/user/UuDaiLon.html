@@ -57,7 +57,7 @@
             <div class="row"><h2 th:text="${sachKhuyenMai.tenKhuyenMai}"></h2></div>
             <div class="product">
                 <div class="product-item" th:each="sachKhuyenMai2 : ${sachKhuyenMai.sachs}"  th:limit="5">
-                    <a th:href="@{'/uu-dai-lon/chi-tiet-khuyen-mai?idKhuyenMai=' + ${sachKhuyenMai.idKhuyenMai}}">
+                    <a th:href="@{'/trang-chu/detail?idSach=' + ${sachKhuyenMai2.idSach}}">
                     <div class="product-image">
                         <img th:src="${sachKhuyenMai2.linkAnh1}" alt="Chưa có ảnh hiển thị">
                     </div>
@@ -70,7 +70,6 @@
                         <h5 th:text="${sachKhuyenMai2.giaBan} + 'đ'"></h5>
                     </div>
                     <div th:if="${sachKhuyenMai.sachs.?[trangThai == 1].size() > 0}">
-                        <div>Đang áp dụng chương trình khuyến mãi</div>
                         <div class="discount" th:text="${sachKhuyenMai.soPhanTramGiamGia} +'%'"></div>
                     </div>
                 </div>

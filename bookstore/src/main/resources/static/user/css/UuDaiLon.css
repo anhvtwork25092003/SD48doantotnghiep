@@ -20,7 +20,7 @@ header img {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #E4E3E3;
+    background-color: white;
 }
 
 .columnBaner {
@@ -42,7 +42,7 @@ header img {
     flex-wrap: nowrap;
     background-color: white;
     position: relative;
-
+    font-family: cursive;
 }
 
 .nav {

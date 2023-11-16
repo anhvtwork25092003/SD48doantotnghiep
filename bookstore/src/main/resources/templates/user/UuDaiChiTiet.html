@@ -37,7 +37,7 @@
         <div class="row">Thời Gian Kết Thúc<h3 th:text="${sachKhuyenMai.ngayKetThuc}"></h3></div>
         <div class="product">
             <div class="product-item" th:each="sachKhuyenMai2 : ${sachKhuyenMai.sachs}"  th:limit="5">
-                <a th:href="@{'/uu-dai-lon/chi-tiet-khuyen-mai?idKhuyenMai=' + ${sachKhuyenMai.idKhuyenMai}}">
+                <a th:href="@{'/trang-chu/detail?idSach=' + ${sachKhuyenMai2.idSach}}">
                     <div class="product-image">
                         <img th:src="${sachKhuyenMai2.linkAnh1}" alt="Chưa có ảnh hiển thị">
                     </div>
