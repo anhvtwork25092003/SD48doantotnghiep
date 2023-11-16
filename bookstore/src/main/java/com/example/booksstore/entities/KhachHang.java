@@ -22,7 +22,6 @@ public class KhachHang {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idkhachhang")
     private Integer idKhachHang;
-
     @Generated
     @Column(name = "makhachhang")
     private String maKhachHang;
@@ -54,6 +53,8 @@ public class KhachHang {
     @Column(name = "ngaytaotaikhoan")
     private Date ngayTaoTaiKhoan;
 
+    @OneToOne(mappedBy = "khachHang", cascade = CascadeType.ALL)
+    private GioHang gioHang;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "khachHangsforthongBaoKhuyenMai")
