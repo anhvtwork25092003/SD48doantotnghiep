@@ -13,5 +13,7 @@ public interface IKhachHangService {
 
     KhachHang save(KhachHang khachHang);
 
-    List<KhachHang>findAll();
+    List<KhachHang> findAll();
+
+    KhachHang login(String sdt, String matkhau);
 }

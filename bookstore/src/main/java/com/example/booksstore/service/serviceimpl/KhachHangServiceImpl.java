@@ -37,4 +37,15 @@ public class KhachHangServiceImpl implements IKhachHangService {
     public List<KhachHang> findAll() {
         return iKhachHangRepository.findAll();
     }
+
+    @Override
+    public KhachHang login(String sdt, String matkhau) {
+        KhachHang khachHang = iKhachHangRepository.findBySdt(sdt);
+        if (khachHang != null && khachHang.getMatKhau().equals(matkhau)) {
+            if (khachHang.getTrangThai().equals(1)) {
+                return khachHang;
+            }
+        }
+        return null;
+    }
 }
