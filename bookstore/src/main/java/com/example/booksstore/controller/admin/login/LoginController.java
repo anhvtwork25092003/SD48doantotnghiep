@@ -23,7 +23,7 @@ public class LoginController {
         return "user/login/sign_in";
     }
     @PostMapping("/logins")
-    public String login(@RequestParam String phone, @RequestParam String password, HttpSession session) {
+    public String login(@RequestParam("sdt") String phone, @RequestParam("matKhau") String password, HttpSession session) {
         NhanVien nhanVien = nhanVienService.login(phone, password);
         if (nhanVien != null) {
             session.setAttribute("loggedInUser",nhanVien);
@@ -39,7 +39,6 @@ public class LoginController {
                 return "redirect:/tong-quan-nhan-vien";
             }
         }
-        // Đăng nhập không thành công, quay lại trang đăng nhập
         return "redirect:/login";
     }
     @GetMapping("/login/khach-hang")
@@ -47,12 +46,11 @@ public class LoginController {
         return "user/login/sign_inkh";
     }
     @PostMapping("/loginskh")
-    public String loginkh(@RequestParam String phone, @RequestParam String password, HttpSession session) {
+    public String loginkh(@RequestParam("sdt") String phone, @RequestParam("matKhau") String password, HttpSession session) {
         KhachHang khachHang = khachHangService.login(phone, password);
         if (khachHang != null) {
             session.setAttribute("loggedInUser",khachHang);
         }
-        // Đăng nhập không thành công, quay lại trang đăng nhập
         return "redirect:/login/khach-hang";
     }
 }
