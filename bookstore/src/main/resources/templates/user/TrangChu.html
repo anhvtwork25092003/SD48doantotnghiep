@@ -66,7 +66,6 @@
                 </div>
                 <div class="discount" th:text="${motkhuyenmaidangapdung.soPhanTramGiamGia} +'%'"></div>
 
-                </a>
             </div>
             <!-- Các sản phẩm khác -->
             <div class="button"><a href="/uu-dai-lon">Xem thêm</a></div>
@@ -138,17 +137,58 @@
                 </a>
                 <h3 th:text="${sm.tenSach}"></h3>
 
+<!--                <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
+<!--                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">-->
+<!--                        <div class="price">-->
+<!--                            <h4 th:text="${sm.giaBan - (firstPromotion.soPhanTramGiamGia)} + 'đ'"></h4>-->
+<!--                        </div>-->
+<!--                        <div class="sale">-->
+<!--                            <h5 th:text="${sm.giaBan} + 'đ'"></h5>-->
+<!--                        </div>-->
+<!--                        <div class="discount" th:text="${firstPromotion.soPhanTramGiamGia} +'%'"></div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
+<!--                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">-->
+<!--                        <div th:if="${firstPromotion.trangThai == 1}">-->
+<!--                            <div class="price">-->
+<!--                                <h4 th:text="${sm.giaBan - (firstPromotion.soPhanTramGiamGia)} + 'đ'"></h4>-->
+<!--                            </div>-->
+<!--                            <div class="sale">-->
+<!--                                <h5 th:text="${sm.giaBan} + 'đ'"></h5>-->
+<!--                            </div>-->
+<!--                            <div class="discount" th:text="${firstPromotion.soPhanTramGiamGia} +'%'"></div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
+<!--                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">-->
+<!--                        <div class="price">-->
+<!--                            <h4 th:if="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan - (firstPromotion.soPhanTramGiamGia)} + 'đ'"></h4>-->
+<!--                            <h4 th:unless="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan + 'đ'}"></h4>-->
+<!--                        </div>-->
+<!--                        <div class="sale">-->
+<!--                            <h5 th:text="${sm.giaBan} + 'đ'"></h5>-->
+<!--                        </div>-->
+<!--                        <div class="discount" th:if="${firstPromotion.trangThai == 1}" th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">
                     <div th:with="firstPromotion=${sm.khuyenMais[0]}">
                         <div class="price">
-                            <h4 th:text="${sm.giaBan - (firstPromotion.soPhanTramGiamGia)} + 'đ'"></h4>
+                            <h4 th:if="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan - (firstPromotion.soPhanTramGiamGia)} + 'đ'"></h4>
+                            <h4 th:unless="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan + 'đ'}"></h4>
                         </div>
-                        <div class="sale">
+                        <div class="sale" th:unless="${firstPromotion.trangThai == 1}">
                             <h5 th:text="${sm.giaBan} + 'đ'"></h5>
                         </div>
-                        <div class="discount" th:text="${firstPromotion.soPhanTramGiamGia} +'%'"></div>
+                        <div class="discount" th:if="${firstPromotion.trangThai == 1}" th:text="${firstPromotion.soPhanTramGiamGia} +'%'"></div>
                     </div>
                 </div>
+
+
+
+
             </div>
             <!-- Các sản phẩm khác -->
             <div class="button"><a href="#">Xem thêm</a></div>

@@ -63,15 +63,22 @@
                     </div>
                     </a>
                     <h3 th:text="${sachKhuyenMai2.tenSach}"></h3>
+<!--                    <div class="price">-->
+<!--                        <h4 th:text="${sachKhuyenMai2.giaBan - (sachKhuyenMai.soPhanTramGiamGia)} + 'đ'"></h4>-->
+<!--                    </div>-->
+<!--                    <div class="sale">-->
+<!--                        <h5 th:text="${sachKhuyenMai2.giaBan} + 'đ'"></h5>-->
+<!--                    </div>-->
+<!--                    <div class="discount" th:text="${sachKhuyenMai.soPhanTramGiamGia} +'%'"></div>-->
                     <div class="price">
-                        <h4 th:text="${sachKhuyenMai2.giaBan - (sachKhuyenMai.soPhanTramGiamGia)} + 'đ'"></h4>
+                        <h4 th:if="${sachKhuyenMai.trangThai == 1}" th:text="${sachKhuyenMai2.giaBan - (sachKhuyenMai.soPhanTramGiamGia)} + 'đ'"></h4>
+                        <h4 th:unless="${sachKhuyenMai.trangThai == 1}" th:text="${sachKhuyenMai2.giaBan + 'đ'}"></h4>
                     </div>
-                    <div class="sale">
+                    <div class="sale" th:unless="${sachKhuyenMai.trangThai == 1}">
                         <h5 th:text="${sachKhuyenMai2.giaBan} + 'đ'"></h5>
                     </div>
-                    <div th:if="${sachKhuyenMai.sachs.?[trangThai == 1].size() > 0}">
-                        <div class="discount" th:text="${sachKhuyenMai.soPhanTramGiamGia} +'%'"></div>
-                    </div>
+                    <div class="discount" th:if="${sachKhuyenMai.trangThai == 1}" th:text="${sachKhuyenMai.soPhanTramGiamGia} +'%'"></div>
+
                 </div>
                 <div class="button">
                     <a th:href="@{'/uu-dai-lon/uu-dai-chi-tiet?idKhuyenMai=' + ${sachKhuyenMai.idKhuyenMai}}">

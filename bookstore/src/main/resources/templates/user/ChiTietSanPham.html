@@ -36,13 +36,22 @@
                     </div>
 
                 </div>
+<!--                <div class="box-price" th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
+<!--                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">-->
+<!--                        <span class="price-sale" th:text="${sm.giaBan - firstPromotion.soPhanTramGiamGia} + 'đ'"></span>-->
+<!--                        <span class="price-origin" th:text="${sm.giaBan} + 'đ'"></span>-->
+<!--                        <span class="per-sale btn btn-warning" th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></span>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="box-price" th:if="${not #lists.isEmpty(sm.khuyenMais)}">
                     <div th:with="firstPromotion=${sm.khuyenMais[0]}">
-                        <span class="price-sale" th:text="${sm.giaBan - firstPromotion.soPhanTramGiamGia} + 'đ'"></span>
+                        <span class="price-sale" th:if="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan - firstPromotion.soPhanTramGiamGia} + 'đ'"></span>
+                        <span class="price-sale" th:unless="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan + 'đ'}"></span>
                         <span class="price-origin" th:text="${sm.giaBan} + 'đ'"></span>
-                        <span class="per-sale btn btn-warning" th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></span>
+                        <span class="per-sale btn btn-warning" th:if="${firstPromotion.trangThai == 1}" th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></span>
                     </div>
                 </div>
+
                 <p class="txt-cate">Số lượng tồn kho:
                     <span th:text="${sm.soLuongTonKho}"></span>
                 </p>
