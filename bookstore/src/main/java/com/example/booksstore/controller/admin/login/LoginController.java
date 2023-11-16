@@ -50,6 +50,7 @@ public class LoginController {
         KhachHang khachHang = khachHangService.login(phone, password);
         if (khachHang != null) {
             session.setAttribute("loggedInUser",khachHang);
+            return "redirect:/trang-chu";
         }
         return "redirect:/login/khach-hang";
     }
