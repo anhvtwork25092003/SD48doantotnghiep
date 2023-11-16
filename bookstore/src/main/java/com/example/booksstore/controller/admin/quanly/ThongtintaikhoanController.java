@@ -36,7 +36,6 @@ public class ThongtintaikhoanController {
                 @RequestParam("ngaySinh") Date ngaySinh,
                 @RequestParam("gioiTinh") String gioiTinh,
                 @RequestParam("email") String email,
-                @RequestParam("idGioHang") String idGioHang,
                 @RequestParam("trangThai") String trangThai,
                 @RequestParam("matKhau") String matKhau,
                 @RequestParam("loaiKhachHang") String loaiKhachHang,
@@ -45,7 +44,6 @@ public class ThongtintaikhoanController {
     ){
         KhachHang khachupdate= KhachHang.builder()
                 .idKhachHang(Integer.parseInt(idKhachHang))
-                .idGioHang(Integer.parseInt(idGioHang))
                 .trangThai(Integer.parseInt(trangThai))
                 .ngayTaoTaiKhoan(ngayTaoTaiKhoan)
                 .matKhau(matKhau)

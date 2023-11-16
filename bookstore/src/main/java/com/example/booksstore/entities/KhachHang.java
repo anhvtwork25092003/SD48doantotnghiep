@@ -23,8 +23,6 @@ public class KhachHang {
     @Column(name = "idkhachhang")
     private Integer idKhachHang;
 
-    @Column(name = "idgiohang")
-    private Integer idGioHang;
     @Generated
     @Column(name = "makhachhang")
     private String maKhachHang;
