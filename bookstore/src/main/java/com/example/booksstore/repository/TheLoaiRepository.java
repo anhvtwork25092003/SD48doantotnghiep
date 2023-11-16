@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TheLoaiRepository extends JpaRepository<TheLoai,Integer> {
-    Page<TheLoai> findAll(Pageable pageable);
+    Page<TheLoai> findAllByTrangThaiOrderByIdTheLoai(Pageable pageable,int trangThai);
     @Query("select a from TheLoai a where a.idTheLoai = ?1")
-   TheLoai findTheLoaiByID(Integer idtheloai);
+   TheLoai findTheLoaiByID(Integer IdTheLoai);
     Page<TheLoai> findAll(Specification<TheLoai> spec, Pageable pageable);
 }

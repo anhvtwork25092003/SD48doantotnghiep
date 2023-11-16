@@ -1,5 +1,6 @@
 package com.example.booksstore.controller.admin.quanly;
 
+import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.repository.TheLoaiRepository;
 import com.example.booksstore.service.ITheLoaiServiec;
@@ -32,7 +33,7 @@ public class TheLoaiController {
     ) {
         Page<TheLoai> pageOfTheloai;
         int trangThai = 0;
-        int pagesize=3;
+        int pagesize=5;
         PageRequest pageable = PageRequest.of(page-1,pagesize);
         if (productNameSearch != null || productStatusSearch != null) {
             if (productStatusSearch.equals("99")) {
@@ -45,7 +46,7 @@ public class TheLoaiController {
             model.addAttribute("trangThai", productStatusSearch);
             pageOfTheloai = theLoaiServiec.searchTheLoai(productNameSearch,trangThai, pageable);
         } else {
-            pageOfTheloai = theLoaiServiec.pageOfTheLoai(pageable);
+            pageOfTheloai = theLoaiServiec.pageOfTheLoaiTheotrangthai(pageable,1);
         }
         model.addAttribute("data",pageOfTheloai);
         return "/user/theloai/theloai";
@@ -91,6 +92,17 @@ public class TheLoaiController {
         this.theLoaiServiec.creatTheLoai(theLoaiUpdate);
         return "redirect:/the-loai/hien-thi";
     }
+    @Transactional
+    @PostMapping("/cap-nhat-ngung-hoat-dong")
+    public String ngungHoatDongTheLoai(@RequestParam("idTheLoai") String idTheLoai) {
 
 
+        TheLoai theLoai = this.theLoaiServiec.getOne(Integer.parseInt(idTheLoai)).get();
+        if (theLoai == null) {
+            System.out.println("khong tim thay The Loai !");
+        } else {
+            TheLoai theLoaiupdated = this.theLoaiServiec.updateTrangThai(Integer.parseInt(idTheLoai), 0);
+        }
+        return "redirect:/the-loai/hien-thi";
+    }
 }

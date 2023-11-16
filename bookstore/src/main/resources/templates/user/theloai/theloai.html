@@ -22,10 +22,11 @@
                 <div class="col-4">
                     <div class="boxsearchforname">
                         <form th:action="@{/the-loai/hien-thi}" method="get" enctype="multipart/form-data">
-                            <h4 for="productName"  style="text-align: center;margin-bottom: 10px;"  >Tên Thể Loại:</h4>
-                            <input type="text" id="productName" name="productNameSearch" class="form-control" th:value="${param.productNameSearch}"/><br>
-                            <h4 for="productName"  style="text-align: center;margin-bottom: 10px;"  >Trạng Thái:</h4>
-                            <select id="productStatus" name="productStatusSearch" class="form-control" >
+                            <h4 for="productName" style="text-align: center;margin-bottom: 10px;">Tên Thể Loại:</h4>
+                            <input type="text" id="productName" name="productNameSearch" class="form-control"
+                                   th:value="${param.productNameSearch}"/><br>
+                            <h4 for="productName" style="text-align: center;margin-bottom: 10px;">Trạng Thái:</h4>
+                            <select id="productStatus" name="productStatusSearch" class="form-control">
                                 <option value="99" th:selected="${trangThai == '99'}">Tất cả</option>
                                 <option value="1" th:selected="${trangThai == '1'}">Hoạt động</option>
                                 <option value="0" th:selected="${trangThai == '0'}">Ngừng hoạt động</option>
@@ -39,11 +40,10 @@
                     </form>
                 </div>
                 <div class="col-8">
-                    <div class="box">
                         <table class="table" style=" border: 0px solid blue;">
                             <thead class="table-dark">
+                            <div class="box">
                             <h4 style="text-align: left;">Danh Sách Thể Loại</h4>
-                            <div class="buttont-heloai">
                                 <button type="button" for="modalTrang1" class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#staticBackdrop">
                                     Thêm mới
@@ -88,7 +88,8 @@
                                                             <option value="1">Hoạt động</option>
                                                             <option value="0">Ngừng hoạt động</option>
                                                         </select>
-                                                    </div><br>
+                                                    </div>
+                                                    <br>
                                                     <button type="submit" class="btn btn-primary" id="saveBtn">Thêm
                                                     </button>
                                                 </form>
@@ -100,175 +101,187 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        </di>
                                     </div>
                                 </div>
-                                <tr>
-                                    <th scope="col">Id Thể Loại</th>
-                                    <th scope="col">Tên Thể Loại</th>
-                                    <th scope="col">Mô Tả</th>
-                                    <th scope="col">Trạng Thái</th>
-                                    <th colspan="3">Hành Động</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <th:block th:each="theloai, iterStat :${data.content}">
-                                <tr>
-                                    <th>[[${theloai.idTheLoai}]]</th>
-                                    <td>[[${theloai.tenTheLoai}]]</td>
-                                    <td>[[${theloai.moTa}]]</td>
-                                    <td>[[${theloai.trangThai == 1? 'Hoạt Động' : 'Ngưng Hoạt Động'}]]</td>
-                                    <td>
-                                        <button type="button" class="btn btn-outline-info"
-                                                data-toggle="modal" th:attr="data-target='#editModal' + ${theloai.idTheLoai}"
-                                                style="width: auto;height: auto;">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <div class="modal fade" th:id="'editModal'+${theloai.idTheLoai}" tabindex="-1" role="dialog"
-                                             aria-labelledby="editModalLabel"
-                                             aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="editModalLabel">Sửa Thể Loại</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
+                            </div>
+                    <tr>
+                        <th scope="col">Id Thể Loại</th>
+                        <th scope="col">Tên Thể Loại</th>
+                        <th scope="col">Mô Tả</th>
+                        <th scope="col">Trạng Thái</th>
+                        <th colspan="3">Hành Động</th>
+                    </tr>
+                    </thead>
+                    <th:block th:each="theloai, iterStat :${data.content}">
+                        <tr>
+                            <th>[[${theloai.idTheLoai}]]</th>
+                            <td>[[${theloai.tenTheLoai}]]</td>
+                            <td>[[${theloai.moTa}]]</td>
+                            <td>[[${theloai.trangThai == 1? 'Hoạt Động' : 'Ngưng Hoạt Động'}]]</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info"
+                                        data-toggle="modal" th:attr="data-target='#editModal' + ${theloai.idTheLoai}"
+                                        style="width: auto;height: auto;">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <div class="modal fade" th:id="'editModal'+${theloai.idTheLoai}" tabindex="-1"
+                                     role="dialog"
+                                     aria-labelledby="editModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel">Sửa Thể Loại</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Form for Editing Product Details -->
+                                                <form th:action="@{/the-loai/cap-nhat}" method="post"
+                                                      th:object="${theloai}"
+                                                      id="editProductForm" enctype="multipart/form-data">
+                                                    <div class="input-field">
+                                                        <label for="IdTheLoai">ID Thể Loại:</label>
+                                                        <input type="text" th:value="${theloai.IdTheLoai}"
+                                                               name="IdTheLoai" class="form-control" readonly>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <!-- Form for Editing Product Details -->
-                                                        <form th:action="@{/the-loai/cap-nhat}" method="post" th:object="${theloai}"
-                                                              id="editProductForm" enctype="multipart/form-data">
-                                                        <div class="input-field">
-                                                            <label for="IdTheLoai">ID Thể Loại:</label>
-                                                            <input type="text" th:value="${theloai.IdTheLoai}" name="IdTheLoai" class="form-control" readonly>
-                                                        </div>
-                                                        <div class="input-field">
-                                                            <label for="tenTheLoai">Tên Thể Loại:</label>
-                                                            <input type="text" id="tenTheLoai"  th:value="${theloai.tenTheLoai}" class="form-control" name="tenTheLoai">
-                                                        </div>
-                                                        <div class="input-field">
-                                                            <label for="moTa">Mô Tả:</label>
-                                                            <input type="text" class="form-control" th:value="${theloai.moTa}" name="moTa" id="moTa">
-                                                        </div>
-                                                        <div class="input-field">
-                                                            <label for="trangThai">Trạng Thái:</label>
-                                                            <select  id="trangThai" name="trangThai" class="form-control" th:value="${theloai.trangThai}">
-                                                                <option value="1">Hoạt động</option>
-                                                                <option value="0">Ngừng hoạt động</option>
-                                                            </select>
-                                                        </div><br>
-                                                            <button type="submit" class="btn btn-primary">
-                                                                Lưu
-                                                            </button>
-                                                        </form>
+                                                    <div class="input-field">
+                                                        <label for="tenTheLoai">Tên Thể Loại:</label>
+                                                        <input type="text" id="tenTheLoai"
+                                                               th:value="${theloai.tenTheLoai}" class="form-control"
+                                                               name="tenTheLoai">
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Đóng
-                                                        </button>
+                                                    <div class="input-field">
+                                                        <label for="moTa">Mô Tả:</label>
+                                                        <input type="text" class="form-control"
+                                                               th:value="${theloai.moTa}" name="moTa" id="moTa">
                                                     </div>
-                                                </div>
+                                                    <div class="input-field">
+                                                        <label for="trangThai">Trạng Thái:</label>
+                                                        <select id="trangThai" name="trangThai" class="form-control"
+                                                                th:value="${theloai.trangThai}">
+                                                            <option value="1">Hoạt động</option>
+                                                        </select>
+                                                    </div>
+                                                    <br>
+                                                    <button type="submit" class="btn btn-primary" id="saveEditBtn"onclick="return confirm('Bạn có muốn cập nhật Thể Loại')">
+                                                        Lưu
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form th:action="@{/the-loai/cap-nhat-ngung-hoat-dong}" method="post"
+                                                      th:object="${theloai}" enctype="multipart/form-data">
+                                                    <div class="input-field">
+                                                        <input type="text" id="idTheLoai" class="form-control"
+                                                               name="idTheLoai" th:value="${theloai.idTheLoai}"
+                                                               hidden/>
+                                                    </div>
+                                                    <button class="btn btn-danger" type="submit" onclick="return confirm=('Thay đổi trạng thái hoạt động của Thể Loại')">
+                                                        Trạng Thái Ngừng Hoạt Động
+                                                    </button>
+                                                </form>
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Đóng
+                                                </button>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-outline-info" id="ditModalBtn"
-                                                data-toggle="modal"
-                                                th:attr="data-target='#ditModal'+${theloai.idTheLoai}"
-                                                style="width: auto;height: auto;">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                        <div class="modal fade" th:id="'ditModal'+${theloai.idTheLoai}" tabindex="-1"
-                                             role="dialog"
-                                             aria-labelledby="ditModalLabel"
-                                             aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="ditModalLabel">Chi Tiết Thể
-                                                            Loại</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <!-- Form for Editing Product Details -->
-                                                        <div class="input-field">
-                                                            <label for="idTheLoai">ID Thể Loại:</label>
-                                                            <input type="text" class="form-control"
-                                                                   th:value="${theloai.idTheLoai}" disabled>
-                                                        </div>
-                                                        <div class="input-field">
-                                                            <label for="tenTheLoai">Tên Thể Loại:</label>
-                                                            <input type="text" class="form-control"
-                                                                   th:value="${theloai.tenTheLoai}" disabled>
-                                                        </div>
-                                                        <div class="input-field">
-                                                            <label for="moTa">Mô Tả:</label>
-                                                            <input type="text" class="form-control"
-                                                                   th:value="${theloai.moTa}" disabled>
-                                                        </div>
-                                                        <div class="input-field">
-                                                            <label for="trangThai">Trạng Thái:</label>
-                                                            <input type="text" class="form-control"
-                                                                   th:value="${theloai.trangThai==0?'Hoạt Động':'Không Hoạt Đông'}"
-                                                                   disabled>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Đóng
-                                                        </button>
-                                                    </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info" id="ditModalBtn"
+                                        data-toggle="modal"
+                                        th:attr="data-target='#ditModal'+${theloai.idTheLoai}"
+                                        style="width: auto;height: auto;">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <div class="modal fade" th:id="'ditModal'+${theloai.idTheLoai}" tabindex="-1"
+                                     role="dialog"
+                                     aria-labelledby="ditModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="ditModalLabel">Chi Tiết Thể
+                                                    Loại</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Form for Editing Product Details -->
+                                                <div class="input-field">
+                                                    <label for="idTheLoai">ID Thể Loại:</label>
+                                                    <input type="text" class="form-control"
+                                                           th:value="${theloai.idTheLoai}" disabled>
                                                 </div>
+                                                <div class="input-field">
+                                                    <label for="tenTheLoai">Tên Thể Loại:</label>
+                                                    <input type="text" class="form-control"
+                                                           th:value="${theloai.tenTheLoai}" disabled>
+                                                </div>
+                                                <div class="input-field">
+                                                    <label for="moTa">Mô Tả:</label>
+                                                    <input type="text" class="form-control"
+                                                           th:value="${theloai.moTa}" disabled>
+                                                </div>
+                                                <div class="input-field">
+                                                    <label for="trangThai">Trạng Thái:</label>
+                                                    <input type="text" class="form-control"
+                                                           th:value="${theloai.trangThai == 1 ? 'Hoạt Động': 'Ngừng Hoạt Động'}"
+                                                           disabled>
+                                                </div>
+
                                             </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Đóng
+                                                </button>
                                             </div>
-                                    </td>
-                                </tr>
-                            </th:block>
-                            </tbody>
-                        </table>
-                        <div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </table>
+                    <div>
                         <span th:if="${data.number +1> 1}">
                             <a th:href="@{'/the-loai/hien-thi?page=' + ${data.number}}">Previous</a>
                         </span>
-                            <span th:text="${data.number + 1} + ' / ' + ${data.totalPages}"></span>
+                        <span th:text="${data.number + 1} + ' / ' + ${data.totalPages}"></span>
 
-                            <span th:if="${data.number + 1 < data.totalPages}">
+                        <span th:if="${data.number + 1 < data.totalPages}">
                             <a th:href="@{'/the-loai/hien-thi?page=' + ${data.number + 2}}">Next</a>
                         </span>
-
-                        </div>
 
                     </div>
 
                 </div>
+
+
             </div>
-
-        </div>
-
-
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-            crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    <script src="/user/js/theloai.js"></script>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <link rel='stylesheet' href='https://unpkg.com/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css'>
-    <link rel="stylesheet" href="/user/css/theloai.css">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+                    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+                    crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                    crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                    crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                    crossorigin="anonymous"></script>
+            <script src="/user/js/theloai.js"></script>
+            <link rel='stylesheet'
+                  href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+            <link rel='stylesheet' href='https://unpkg.com/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css'>
+            <link rel="stylesheet" href="/user/css/theloai.css">
 </article>
 </body>
 </html>

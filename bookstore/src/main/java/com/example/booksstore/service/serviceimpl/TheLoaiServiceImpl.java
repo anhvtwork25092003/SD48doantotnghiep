@@ -1,5 +1,6 @@
 package com.example.booksstore.service.serviceimpl;
 
+import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.entities.SachTheLoai;
 import com.example.booksstore.entities.TheLoai;
@@ -13,7 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TheLoaiServiceImpl implements ITheLoaiServiec {
@@ -21,10 +24,9 @@ public class TheLoaiServiceImpl implements ITheLoaiServiec {
     private TheLoaiRepository theLoaiRepository;
 
 
-
     @Override
-    public Page<TheLoai> pageOfTheLoai(Pageable pageable) {
-        return theLoaiRepository.findAll(pageable);
+    public Page<TheLoai> pageOfTheLoaiTheotrangthai(Pageable pageable, int trangThai) {
+        return theLoaiRepository.findAllByTrangThaiOrderByIdTheLoai(pageable,trangThai);
     }
 
     @Override
@@ -47,6 +49,24 @@ public class TheLoaiServiceImpl implements ITheLoaiServiec {
     @Override
     public List<TheLoai> findAllTheLoai() {
         return theLoaiRepository.findAll();
+    }
+
+    @Override
+    public TheLoai updateTrangThai(Integer IdTheLoai, Integer trangThaiUpdate) {
+        Optional<TheLoai> theLoai = this.theLoaiRepository.findById(IdTheLoai);
+
+        if (theLoai.isPresent()) {
+            TheLoai theLoai1 = theLoai.get();
+            theLoai1.setTrangThai(trangThaiUpdate);
+            return theLoaiRepository.save(theLoai1);
+        } else {
+            throw new RuntimeException("theLoai not found with id: " + IdTheLoai);
+        }
+    }
+
+    @Override
+    public Optional<TheLoai> getOne(Integer IdTheLoai) {
+        return this.theLoaiRepository.findById(IdTheLoai);
     }
 
 
