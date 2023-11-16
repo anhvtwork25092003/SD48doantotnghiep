@@ -20,18 +20,19 @@ public class GioHangChiTiet {
     @Column(name = "idgiohangchitiet")
     private Integer idGioHangChiTiet;
 
-    @Column(name = "idgiohang")
-    private Integer idGioHang;
+    @ManyToOne
+    @JoinColumn(name = "idgiohang")
+    private GioHang gioHang;
 
-    @Column(name = "idsach")
-    private Integer idSach;
+    @ManyToOne
+    @JoinColumn(name = "idsach")
+    private Sach sach;
 
     @Column(name = "soluong")
     private Integer soLuong;
 
     @Column(name = "ngaychinhsua")
     private Date ngayChinhSua;
-
 
 }
 

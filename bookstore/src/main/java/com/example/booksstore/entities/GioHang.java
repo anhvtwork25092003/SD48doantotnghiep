@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +22,12 @@ public class GioHang {
     @Column(name = "idgiohang")
     private Integer idGioHang;
 
+    @OneToOne
+    @JoinColumn(name = "idkhachhang")
+    private KhachHang khachHang;
+
+    @OneToMany(mappedBy = "gioHang", cascade = CascadeType.ALL)
+    private List<GioHangChiTiet> chiTietGioHang;
 
 }
 
