@@ -1,8 +1,8 @@
-/* body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}*/
+/*!* body {*/
+/*    font-family: Arial, sans-serif;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*} *!*/
 .row {
     display: block;
 }
@@ -12,8 +12,8 @@ header {
 }
 
 header img {
-    width: 1190px;
-    height: 250px;
+    width: 1140px;
+    height: 400px;
 }
 
 .container {
@@ -23,13 +23,26 @@ header img {
     background-color: white;
 }
 
+.columnBaner {
+    margin-top: -20px;
+}
+
+.column {
+    display: inline;
+    margin: 23px;
+}
+
+.column img {
+    width: 250px;
+    height: 200px;
+}
 
 .product {
     display: flex;
     flex-wrap: nowrap;
     background-color: white;
+    position: relative;
     font-family: cursive;
-
 }
 
 .nav {
@@ -63,9 +76,11 @@ header img {
 }
 
 .product-item {
+    display: inline-block;
     width: 20%;
     padding: 10px;
     text-align: center;
+    position: relative;
 
 }
 
@@ -85,24 +100,6 @@ header img {
 
 .product-item:hover .product-image img {
     border: 1px solid red; /* Màu viền và độ rộng của viền tùy chọn */
-}
-
-.button a:hover {
-    background-color: gray; /* Màu nền nút khi di chuột vào */
-}
-
-.button > a {
-    position: absolute;
-    left: calc(50% - 65px);
-    top: calc(50% + 158px);
-    padding: 8px 30px;
-    border-radius: 25px;
-    color: white;
-    display: inline-block;
-    background-color: wheat;
-    text-decoration: none;
-    border: 1px solid red;
-    font-family: cursive;
 }
 
 
@@ -128,6 +125,21 @@ header img {
     font-weight: bold;
 }
 
-.troLaiTruongHoc {
-    position: relative;
+.button a:hover {
+    background-color: gray; /* Màu nền nút khi di chuột vào */
 }
+
+.button > a {
+    position: absolute;
+    left: calc(50% - 65px);
+    top: calc(50% + 158px);
+    padding: 8px 30px;
+    border-radius: 25px;
+    color: white;
+    display: inline-block;
+    background-color: wheat;
+    text-decoration: none;
+    border: 1px solid red;
+    font-family: cursive;
+}
+
