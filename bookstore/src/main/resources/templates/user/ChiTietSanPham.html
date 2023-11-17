@@ -19,84 +19,93 @@
 </head>
 <body>
 <article layout:fragment="noiDung">
-    <div class="type-product" th:each="sm : ${listSach}">
-        <div class="product-main">
-            <div class="box-img">
-                <img th:src="${sm.linkAnh1}" width="460px" height="460px" alt="product"/>
-                <img th:src="${sm.linkAnh2}" width="88px" height="88px" alt="item"/>
-                <img th:src="${sm.linkAnh3}" width="88px" height="88px" alt="item"/>
-                <img th:src="${sm.linkAnh4}" width="88px" height="88px" alt="item"/>
-                <img th:src="${sm.linkAnh5}" width="88px" height="88px" alt="item"/>
-            </div>
-            <div class="product-infor">
-                <div class="txt-name" th:text="${sm.tenSach}"></div>
-                <div class="btn-right">
-                    <div class="btn-cust btn-love">
-                        <i class="fa fa-heart" aria-hidden="true"></i>
+    <form th:action="@{/gio-hang/them-san-pham-vao-gio}" method="post">
+        <div class="type-product" th:each="sm : ${listSach}">
+
+            <div class="product-main">
+                <input type="hidden" name="idSach" id="idSach" th:value="${sm.idSach}"/>
+                <div class="box-img">
+                    <img th:src="${sm.linkAnh1}" width="460px" height="460px" alt="product"/>
+                    <img th:src="${sm.linkAnh2}" width="88px" height="88px" alt="item"/>
+                    <img th:src="${sm.linkAnh3}" width="88px" height="88px" alt="item"/>
+                    <img th:src="${sm.linkAnh4}" width="88px" height="88px" alt="item"/>
+                    <img th:src="${sm.linkAnh5}" width="88px" height="88px" alt="item"/>
+                </div>
+                <div class="product-infor">
+                    <div class="txt-name" th:text="${sm.tenSach}"></div>
+                    <div class="btn-right">
+                        <div class="btn-cust btn-love">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </div>
+
+                    </div>
+                    <!--                <div class="box-price" th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
+                    <!--                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">-->
+                    <!--                        <span class="price-sale" th:text="${sm.giaBan - firstPromotion.soPhanTramGiamGia} + 'đ'"></span>-->
+                    <!--                        <span class="price-origin" th:text="${sm.giaBan} + 'đ'"></span>-->
+                    <!--                        <span class="per-sale btn btn-warning" th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></span>-->
+                    <!--                    </div>-->
+                    <!--                </div>-->
+                    <div class="box-price" th:if="${not #lists.isEmpty(sm.khuyenMais)}">
+                        <div th:with="firstPromotion=${sm.khuyenMais[0]}">
+                            <span class="price-sale" th:if="${firstPromotion.trangThai == 1}"
+                                  th:text="${sm.giaBan - firstPromotion.soPhanTramGiamGia} + 'đ'"></span>
+                            <span class="price-sale" th:unless="${firstPromotion.trangThai == 1}"
+                                  th:text="${sm.giaBan + 'đ'}"></span>
+                            <span class="price-origin" th:text="${sm.giaBan} + 'đ'"></span>
+                            <span class="per-sale btn btn-warning" th:if="${firstPromotion.trangThai == 1}"
+                                  th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></span>
+                        </div>
                     </div>
 
-                </div>
-<!--                <div class="box-price" th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
-<!--                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">-->
-<!--                        <span class="price-sale" th:text="${sm.giaBan - firstPromotion.soPhanTramGiamGia} + 'đ'"></span>-->
-<!--                        <span class="price-origin" th:text="${sm.giaBan} + 'đ'"></span>-->
-<!--                        <span class="per-sale btn btn-warning" th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></span>-->
-<!--                    </div>-->
-<!--                </div>-->
-                <div class="box-price" th:if="${not #lists.isEmpty(sm.khuyenMais)}">
-                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">
-                        <span class="price-sale" th:if="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan - firstPromotion.soPhanTramGiamGia} + 'đ'"></span>
-                        <span class="price-sale" th:unless="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan + 'đ'}"></span>
-                        <span class="price-origin" th:text="${sm.giaBan} + 'đ'"></span>
-                        <span class="per-sale btn btn-warning" th:if="${firstPromotion.trangThai == 1}" th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></span>
-                    </div>
-                </div>
-
-                <p class="txt-cate">Số lượng tồn kho:
-                    <span th:text="${sm.soLuongTonKho}"></span>
-                </p>
-                <div th:if="${not #lists.isEmpty(sm.theLoais)}">
-                    <p class="txt-color">
-                        <span class="txt1">Thể Loại:</span>
-                        <span class="txt2" th:text="${sm.theLoais[0].tenTheLoai}"></span>
-                        <span th:each="otherGenre, iterStat : ${sm.theLoais}" th:if="${iterStat.index > 0}">
+                    <p class="txt-cate">Số lượng tồn kho:
+                        <span th:text="${sm.soLuongTonKho}"></span>
+                    </p>
+                    <div th:if="${not #lists.isEmpty(sm.theLoais)}">
+                        <p class="txt-color">
+                            <span class="txt1">Thể Loại:</span>
+                            <span class="txt2" th:text="${sm.theLoais[0].tenTheLoai}"></span>
+                            <span th:each="otherGenre, iterStat : ${sm.theLoais}" th:if="${iterStat.index > 0}">
                             <span th:text="${', ' + otherGenre.tenTheLoai}"></span>
                         </span>
-                    </p>
-                </div>
-                <div th:if="${not #lists.isEmpty(sm.tacgia)}">
-                    <p class="txt-color">
-                        <span class="txt1">Tác Giả:</span>
-                        <span class="txt2" th:text="${sm.tacgia[0].hoVaTen}"></span>
-                        <span th:each="otherAuthor, iterStat : ${sm.tacgia}" th:if="${iterStat.index > 0}">
+                        </p>
+                    </div>
+                    <div th:if="${not #lists.isEmpty(sm.tacgia)}">
+                        <p class="txt-color">
+                            <span class="txt1">Tác Giả:</span>
+                            <span class="txt2" th:text="${sm.tacgia[0].hoVaTen}"></span>
+                            <span th:each="otherAuthor, iterStat : ${sm.tacgia}" th:if="${iterStat.index > 0}">
                             <span th:text="${', ' + otherAuthor.hoVaTen}"></span>
                         </span>
-                    </p>
-                </div>
-                <p class="txt-cate">Số lượng mua hàng:</p>
-                <div class="soLuong">
-                    <input class="form-control" value="1" name="soLuongCanMua" type="number"/>
-                </div>
-            </div>
-        </div>
-        <div class="product-bottom">
-            <div class="extra-img">
-            </div>
-            <div class="box-btn">
-                <a href="">
-                    <div class="btn-add">
-                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                        Thêm vào giỏ hàng
+                        </p>
                     </div>
-                </a>
-                <div class="btn-order">
-                    <a href="">Mua ngay</a>
+                    <p class="txt-cate">Số lượng mua hàng:</p>
+                    <div class="soLuong">
+                        <input class="form-control" value="1" id="soLuongCanMua" name="soLuongCanMua" type="number"/>
+                    </div>
+
+                    <div class="product-bottom">
+                        <div class="extra-img">
+                            <div class="btn-order">
+                                <a href="">Mua ngay</a>
+                            </div>
+                        </div>
+                        <div class="box-btn">
+                            <button type="submit" class="btn-add">
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                Thêm vào giỏ hàng
+                            </button>
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
+
+
         </div>
-    </div>
-
-
+    </form>
     <!--    <div class="type-product" id="type1" th:each="sachKhuyenMai : ${chitietkhuyenmai}">-->
     <!--        <div class="product-main" th:each="sachKhuyenMai2 : ${sachKhuyenMai.sachs}" >-->
     <!--            <div class="box-img">-->

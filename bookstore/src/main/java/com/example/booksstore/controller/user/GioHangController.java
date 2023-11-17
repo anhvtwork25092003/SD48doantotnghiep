@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,19 +80,20 @@ public class GioHangController {
             }
             // lấy giỏ hàng chi tiết
             List<GioHangChiTiet> gioHangChiTiet = this.gioHangChiTietReposutory.findAllByGioHang(gioHang);
+            for(GioHangChiTiet gioHangChiTiet1:gioHangChiTiet){
+                System.out.println(gioHangChiTiet1.getIdGioHangChiTiet());
+            }
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTiet);
         }
         session.setAttribute("message", "test session");
         String message = (String) session.getAttribute("message");
-        model.addAttribute("message", "test session");
-
         return "user/cart";
     }
 
     @PostMapping("/them-san-pham-vao-gio")
     public String themSanPhamVaoGioHang(Model model,
-                                        String idSachDeThemVaoGio,
-                                        String soLuongThem,
+                                        @RequestParam("idSach") String idSachDeThemVaoGio,
+                                        @RequestParam("soLuongCanMua") String soLuongThem,
                                         HttpSession session) {
         // xác minh đăng nhập
         // chưa đăng nhập thì thực hiện trên list lấy từ sesion
@@ -103,8 +105,13 @@ public class GioHangController {
             // lấy list được lưu ở sesion ra
             List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
                     .getAttribute("listSanPhamTrongGioHangTamThoi");
+
             //  thực hiện các thao tác với list
             // kiểm tra trong list đã có sách thêm vào chưa
+            if(listSanPhamTrongGioHangTamThoi==null){
+             listSanPhamTrongGioHangTamThoi = new ArrayList<>();
+                session.setAttribute("listSanPhamTrongGioHangTamThoi",listSanPhamTrongGioHangTamThoi);
+            }
             boolean daCoTrongGioHang = false;
             for (GioHangChiTiet gioHangChiTiet : listSanPhamTrongGioHangTamThoi) {
                 if (gioHangChiTiet.getSach().getIdSach() == Integer.parseInt(idSachDeThemVaoGio)) {
@@ -129,7 +136,21 @@ public class GioHangController {
             // da dang nhap
             boolean daCoTrongGioHang = false;
             GioHang gioHang = this.gioHangRepository.findByKhachHang(khachHang);
+            if(gioHang==null){
+                GioHang gioHangmoi = GioHang.builder().khachHang(khachHang).build();
+                gioHang = this.gioHangRepository.save(gioHangmoi);
+            }
             List<GioHangChiTiet> danhSachSanPhamTrongGioHangCuaKhachDaDangnhap = this.gioHangChiTietReposutory.findAllByGioHang(gioHang);
+            if(danhSachSanPhamTrongGioHangCuaKhachDaDangnhap==null){
+                Date currentDate = new Date();
+                GioHangChiTiet chiTietMoi = new GioHangChiTiet();
+                chiTietMoi.setSach(this.iSachService.getOne(Integer.parseInt(idSachDeThemVaoGio)));
+                chiTietMoi.setSoLuong(Integer.parseInt(soLuongThem));
+                chiTietMoi.setNgayChinhSua(currentDate);
+                chiTietMoi.setGioHang(gioHang);
+                this.gioHangChiTietReposutory.save(chiTietMoi);
+
+            }
             for (GioHangChiTiet gioHangChiTiet : danhSachSanPhamTrongGioHangCuaKhachDaDangnhap) {
                 if (gioHangChiTiet.getSach().getIdSach() == Integer.parseInt(idSachDeThemVaoGio)) {
                     int soLuongCapNhat = gioHangChiTiet.getSoLuong() + Integer.parseInt(soLuongThem);
@@ -144,9 +165,10 @@ public class GioHangController {
                 chiTietMoi.setSach(this.iSachService.getOne(Integer.parseInt(idSachDeThemVaoGio)));
                 chiTietMoi.setSoLuong(Integer.parseInt(soLuongThem));
                 chiTietMoi.setNgayChinhSua(currentDate);
+                chiTietMoi.setGioHang(gioHang);
                 this.gioHangChiTietReposutory.save(chiTietMoi);
             }
         }
-        return null;
+        return "redirect:/gio-hang/danh-sach-san-pham";
     }
 }
