@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:each="sp : ${danhSachSanPhamTrongGioHang}">
+    <p th:text="${sp.sach.tenSach}"></p>
+    <div th:if="${sp.sach.khuyenMais != null}">
+        <div th:each="ctkm : ${sp.sach.khuyenMais}">
+            <div th:if="${ctkm.trangThai == 1}">
+                <p>Đang áp dụng chương trình khuyến mãi</p>
+                <p th:text="${ctkm.soPhanTramGiamGia}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
