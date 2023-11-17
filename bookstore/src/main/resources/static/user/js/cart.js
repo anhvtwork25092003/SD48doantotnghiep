@@ -1,8 +1,8 @@
-$('a.remove').click(function () {
-    event.preventDefault();
-    $(this).closest('.items').hide(400);
-    calculateTotal();
-});
+// $('a.remove').click(function () {
+//     event.preventDefault();
+//     $(this).closest('.items').hide(400);
+//     calculateTotal();
+// });
 
 $('a.btn.continue').click(function () {
     $('li.items').show(400);
@@ -42,10 +42,10 @@ for (var i = 0; i < decrementButtons.length; i++) {
 }
 
 function updateSubtotal(item) {
-    var price = parseFloat(item.querySelector('.price').textContent.slice(1));
+    var price = parseFloat(item.querySelector('.price').textContent.slice(0));
     var quantity = parseInt(item.querySelector('.qty').value);
     var subtotal = price * quantity;
-    item.querySelector('.subtotal').textContent = '$' + subtotal.toFixed(2);
+    item.querySelector('.subtotal').textContent = subtotal.toFixed(0)+'VND';
 }
 
 var itemCheckboxes = document.querySelectorAll('.item-checkbox');
@@ -62,11 +62,11 @@ function calculateTotal() {
     for (var i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
             var row = checkboxes[i].parentNode.parentNode;
-            var price = parseFloat(row.querySelector('.price').textContent.slice(1));
+            var price = parseFloat(row.querySelector('.price').textContent.slice(0));
             var quantity = parseInt(row.querySelector('.qty').value);
             var rowSubtotal = price * quantity;
             subtotal += rowSubtotal;
         }
     }
-    document.querySelector('.subtotal .value').textContent = '$' + subtotal.toFixed(2);
+    document.querySelector('.subtotal .value').textContent =  subtotal.toFixed(0)+'VND';
 }

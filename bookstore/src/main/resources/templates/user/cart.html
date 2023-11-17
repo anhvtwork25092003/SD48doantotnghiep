@@ -32,9 +32,16 @@
                             <p class="itemNumber" th:text="${item.sach.idSach}"></p>
                             <h3 th:text="${item.sach.tenSach}"></h3>
                             <p class="qty-control">
+                            <form th:action="@{'/gio-hang/giam-so-luong-san-pham?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
+                                  method="post">
                                 <button class="decrement">-</button>
-                                <input type="text" class="qty" th:value="${item.soLuong}"/>
-                                <button class="increment">+</button>
+                            </form>
+
+                            <input type="text" class="qty" th:value="${item.soLuong}" th:readonly="true"/>
+                            <form th:action="@{'/gio-hang/tang-so-luong-san-pham?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
+                                  method="post">
+                                <button class="decrement">+</button>
+                            </form>
                             </p>
                             <p class="price" th:text="${item.sach.giaBan}"></p>
                         </div>
@@ -42,7 +49,8 @@
                             <p class="subtotal"></p>
                         </div>
                         <div class="cartSection removeWrap">
-                            <a href="#" class="remove">x</a>
+                            <a th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
+                               class="remove">x</a>
                         </div>
                     </div>
                 </li>
