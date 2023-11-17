@@ -41,9 +41,10 @@ public class GioHangController {
     public String xemDanhSachSanPhamTrongGioHang(Model model, HttpSession session) {
         // lấy ra khách hàng và giỏ hàng tương ứng
         // láy ra khach hang
-        KhachHang khachHang = this.iKhachHangRepository.findById(3).get();
+        KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
         if (khachHang == null) {
             // khach hang chua dang nhap
+            System.out.println("khach hang chua dang nhap");
             //  laays gior hangf tuwf session
             // neeus session chuwa cos  giỏ hàng thì tạo 1 giỏ hàng vào sesion
             GioHang gioHangtamThoiSesion = (GioHang) session.getAttribute("gioHang");
@@ -55,15 +56,18 @@ public class GioHangController {
                 gioHangtamThoiSesion = new GioHang();
                 session.setAttribute("gioHang", gioHangtamThoiSesion);
             }
-            if (listSanPhamTrongGioHangTamThoi.isEmpty()) {
+            if (listSanPhamTrongGioHangTamThoi == null) {
                 // nếu list chưa tồn tại thì tạo mới
                 listSanPhamTrongGioHangTamThoi = new ArrayList<>();
+                session.setAttribute("listSanPhamTrongGioHangTamThoi", listSanPhamTrongGioHangTamThoi);
+
             }
             model.addAttribute("danhSachSanPhamTrongGioHang", listSanPhamTrongGioHangTamThoi);
 
         } else {
             // khach hang da dang nhap
             // lấy giỏ hàng  tuong ung
+            System.out.println(khachHang.getHoVaTen());
             GioHang gioHang = this.gioHangRepository.findByKhachHang(khachHang);
             // nếu giỏ hàng chưa tồn tại hoặc đã tồn tại
             if (gioHang == null) {
@@ -93,8 +97,8 @@ public class GioHangController {
         // chưa đăng nhập thì thực hiện trên list lấy từ sesion
         // nếu đã đăng nhập thực hiện trực tiếp với database
         // b1: xác minh đăng nhập
-        KhachHang khachHangLuuOSession = (KhachHang) session.getAttribute("KhachHangLogged");
-        if (khachHangLuuOSession == null) {
+        KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
+        if (khachHang == null) {
             // chua dang nhap
             // lấy list được lưu ở sesion ra
             List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
@@ -119,10 +123,12 @@ public class GioHangController {
                 listSanPhamTrongGioHangTamThoi.add(chiTietMoi);
             }
             // lưu lại session
+            session.setAttribute("listSanPhamTrongGioHangTamThoi", listSanPhamTrongGioHangTamThoi);
+
         } else {
             // da dang nhap
             boolean daCoTrongGioHang = false;
-            GioHang gioHang = this.gioHangRepository.findByKhachHang(khachHangLuuOSession);
+            GioHang gioHang = this.gioHangRepository.findByKhachHang(khachHang);
             List<GioHangChiTiet> danhSachSanPhamTrongGioHangCuaKhachDaDangnhap = this.gioHangChiTietReposutory.findAllByGioHang(gioHang);
             for (GioHangChiTiet gioHangChiTiet : danhSachSanPhamTrongGioHangCuaKhachDaDangnhap) {
                 if (gioHangChiTiet.getSach().getIdSach() == Integer.parseInt(idSachDeThemVaoGio)) {
