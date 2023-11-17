@@ -6,6 +6,8 @@
 */
 .row {
     display: block;
+    text-align: left;
+    background: #FCDDEF;
 }
 
 header {
@@ -29,7 +31,7 @@ header img {
     flex-wrap: nowrap;
     background-color: white;
     font-family: cursive;
-
+    border: 1px solid darkgray;
 }
 
 .nav {
@@ -105,10 +107,7 @@ header img {
     font-family: cursive;
 }
 
-.row {
-    background: white;
-    text-align: left;
-}
+
 
 .list-category {
     background-color: white;

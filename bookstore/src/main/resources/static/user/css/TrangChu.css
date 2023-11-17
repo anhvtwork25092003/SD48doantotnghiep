@@ -5,6 +5,7 @@
 } */
 .row {
     display: block;
+    background: #FCDDEF;
 }
 
 header {
@@ -20,7 +21,6 @@ header img {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: white;
 }
 
 .columnBaner {
@@ -40,9 +40,9 @@ header img {
 .product {
     display: flex;
     flex-wrap: nowrap;
-    background-color: white;
     position: relative;
     font-family: cursive;
+    border: 1px solid darkgray;
 }
 
 .nav {
@@ -120,9 +120,6 @@ header img {
     font-family: cursive;
 }
 
-.row {
-    background: white;
-}
 
 .list-category {
     background-color: white;

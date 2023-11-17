@@ -5,6 +5,7 @@
 /*} *!*/
 .row {
     display: block;
+    background: #FCDDEF;
 }
 
 header {
@@ -43,6 +44,7 @@ header img {
     background-color: white;
     position: relative;
     font-family: cursive;
+    border: 1px solid darkgray;
 }
 
 .nav {
@@ -103,9 +105,6 @@ header img {
 }
 
 
-.row {
-    background: white;
-}
 
 .list-category {
     background-color: white;
