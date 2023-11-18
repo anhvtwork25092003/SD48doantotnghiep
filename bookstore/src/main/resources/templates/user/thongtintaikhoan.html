@@ -29,24 +29,27 @@
   <body>
   <article layout:fragment="noiDung">
       <h2>Thông tin tài khoản</h2>
-        <tbody th:each="thongtintaikhoan, iterStat : ${pageOfKhachHang}">
+    <div th:each="thongtintaikhoan, iterStat : ${session.loggedInUser}">
       <form th:action="@{/quan-ly/thong-tin/cap-nhat}" method="post">
         <div class="group">
-          <input class="text-input" id="idKhachHang" type="text" name="idKhachHang" th:value="${thongtintaikhoan.idKhachHang}" hidden/>
-        </div>
+          <input class="text-input" id="idKhachHang" type="text" name="idKhachHang" th:value="${thongtintaikhoan.idKhachHang}" hidden />
+        </div><br>
+        <div class="group">
+          <input class="text-input" id="maKhachHang" type="text" name="maKhachHang" th:value="${thongtintaikhoan.maKhachHang}" hidden />
+        </div><br>
+        <div class="group">
+          <input class="text-input" id="trangThai" type="text" name="trangThai" th:value="${thongtintaikhoan.trangThai}" hidden />
+        </div><br>
         <div class="group">
           <input class="text-input" id="matKhau" type="text" name="matKhau" th:value="${thongtintaikhoan.matKhau}" hidden/>
         </div>
         <div class="group">
-          <input class="text-input" id="trangThai" type="text" name="trangThai" th:value="${thongtintaikhoan.trangThai}" hidden/>
+          <input class="text-input" id="ngayTaoTaiKhoan" type="text" name="ngayTaoTaiKhoan" th:value="${thongtintaikhoan.ngayTaoTaiKhoan}" hidden/>
         </div>
         <div class="group">
           <input class="text-input" id="loaiKhachHang" type="text" name="loaiKhachHang" th:value="${thongtintaikhoan.loaiKhachHang}" hidden/>
         </div>
-        <input class="text-input" id="ngayTaoTaiKhoan" type="text" name="ngayTaoTaiKhoan" th:value="${thongtintaikhoan.ngayTaoTaiKhoan}" hidden/>
-        </div>
-        <br>
-        <div class="group">
+          <div class="group">
           <label for="hoVaTen">Họ Và Tên<span style="color: #ff0000">*</span></label>
           <input class="text-input" id="hoVaTen" type="text" name="hoVaTen" th:value="${thongtintaikhoan.hoVaTen}" />
         </div><br>
@@ -62,12 +65,12 @@
         <br>
         <div class="group gender">
           <label for="gioiTinh">Giới tính</label>
-          <input id="gioiTinh" name="gioiTinh"  checked type="radio" value="1" th:checked="${thongtintaikhoan.gioiTinh == 1}"/>
+          <input id="gioiTinh" name="gioiTinh" type="radio" value="1" th:checked="${thongtintaikhoan.gioiTinh == 1}"/>
           <span>Nam</span>
           <input id="gioiTinh" name="gioiTinh" type="radio" value="0" th:checked="${thongtintaikhoan.gioiTinh == 0}" />
           <span>Nữ</span>
         </div>
-         <br>
+        <br>
         <div class="group">
           <label for="ngaySinh">Ngày sinh</label>
           <input class="text-input" id="ngaySinh" type="date" name="ngaySinh" th:value="${thongtintaikhoan.ngaySinh}"/>
@@ -76,7 +79,9 @@
           <button class="btn-warning" type="submit">Lưu thay đổi</button>
         </div>
       </form>
-        </tbody>
+    </div>
+
+
 
   </article>
   </body>

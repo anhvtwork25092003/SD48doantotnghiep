@@ -35,7 +35,7 @@ public class TrangChuController {
 
     @GetMapping("/trang-chu")
     public String HienThiTrangChu(@RequestParam(defaultValue = "1") int page,Model model) {
-        List<Sach> sachList = iSachService.sachmoi();
+        List<Sach> sachList = iSachService.getall();
         List<Sach> saches = sachList.subList(0, 5);
         int pageSize = 5; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize);

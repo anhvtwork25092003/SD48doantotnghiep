@@ -61,7 +61,7 @@
                     <!-- Kiểm tra xem người dùng đã đăng nhập hay chưa -->
                     <th:block th:if="${session.loggedInUser != null}">
                         <!-- Hiển thị thông tin tài khoản -->
-                        <a href="/quan-ly/thong-tin/hien-thi" class="thongtin">Thông tin tài khoản</a>
+                        <a th:href="@{'/quan-ly/thong-tin/hien-thi/' + ${session.loggedInUser.idKhachHang}}" class="thongtin">Thông tin tài khoản</a>
                         <a href="/logout" class="dangxuat">Đăng xuất</a>
                     </th:block>
                     <th:block th:unless="${session.loggedInUser != null}">
