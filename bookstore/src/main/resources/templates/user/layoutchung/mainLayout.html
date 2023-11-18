@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title></title>
@@ -54,14 +54,25 @@
                     Nội dung của tab "Ưu đãi" ở đây.
                 </div>
             </div>
+            <!-- Phần HTML của trang header -->
             <div class="account-icon">
                 <i class="fa-regular fa-user fa-xl"></i>
                 <div class="account-dropdown">
-                    <a href="#" class="thongtin">Thông tin chi tiết</a>
-                    <a href="#" class="dangxuat">Đăng xuất</a>
-
+                    <!-- Kiểm tra xem người dùng đã đăng nhập hay chưa -->
+                    <th:block th:if="${session.loggedInUser != null}">
+                        <!-- Hiển thị thông tin tài khoản -->
+                        <a href="/quan-ly/thong-tin/hien-thi" class="thongtin">Thông tin tài khoản</a>
+                        <a href="/logout" class="dangxuat">Đăng xuất</a>
+                    </th:block>
+                    <th:block th:unless="${session.loggedInUser != null}">
+                        <!-- Hiển thị các lựa chọn đăng nhập, đăng ký khi chưa đăng nhập -->
+                        <a href="#" class="thongtin">Đăng Ký</a>
+                        <a href="/login/khach-hang" class="thongtin">Đăng Nhập</a>
+                        <a href="#" class="dangxuat">Quên mật khẩu</a>
+                    </th:block>
                 </div>
             </div>
+
             <div class="cart-icon">
                 <i class="fa-solid fa-cart-shopping fa-flip-horizontal fa-xl"></i>
             </div>
