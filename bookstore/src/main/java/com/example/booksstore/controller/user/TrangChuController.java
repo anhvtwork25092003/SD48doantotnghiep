@@ -34,16 +34,15 @@ public class TrangChuController {
     IKhuyenMaiService iKhuyenMaiService;
 
     @GetMapping("/trang-chu")
-    public String HienThiTrangChu(@RequestParam(defaultValue = "1") int page,Model model) {
-        List<Sach> sachList = iSachService.getall();
-        List<Sach> saches = sachList.subList(0, 5);
-        int pageSize = 5; // Đặt kích thước trang mặc định
-        Pageable pageable = PageRequest.of(page - 1, pageSize);
-        model.addAttribute("sachmoi", saches);
+    public String HienThiTrangChu(Model model) {
+//        List<Sach> sachList = iSachService.getall();
+//        List<Sach> saches = sachList.subList(0, 5);
+//        model.addAttribute("sachmoi", saches);
         model.addAttribute("motkhuyenmaidangapdung",iKhuyenMaiService.getAllKhuyenMaiDangApDung(1).get(0));
         List<KhuyenMai> khuyenMaiList= iKhuyenMaiService.getAllKhuyenMaiDangHienThi(1);
         List<KhuyenMai> khuyenMaiLists = khuyenMaiList.subList(0, 4);
-        model.addAttribute("khuyenmaidanghienthi", khuyenMaiLists);
+        model.addAttribute("khuyenmaihienthisale", khuyenMaiLists);
+        model.addAttribute("khuyenmaihienthisach", iKhuyenMaiService.getAllKhuyenMaiDangHienThi(1));
         return "user/TrangChu";
     }
 

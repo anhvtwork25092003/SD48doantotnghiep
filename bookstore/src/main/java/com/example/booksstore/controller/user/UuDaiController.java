@@ -28,11 +28,6 @@ public class UuDaiController {
         model.addAttribute("khuyenmaidanghienthi", iKhuyenMaiService.getAllKhuyenMaiDangHienThi(1));
         return "user/UuDai";
     }
-    @GetMapping("/uu-dai/uu-dai-chi-tiet")
-    public String chiTietKhuyenMai(Model model, @RequestParam("idKhuyenMai") Integer idKhuyenMai) {
-        KhuyenMai khuyenMai = iKhuyenMaiService.chiTietKhuyenMai(idKhuyenMai);
-        model.addAttribute("chitietkhuyenmai",khuyenMai);
-        return "user/UuDaiChiTiet";
-    }
+
 
 }

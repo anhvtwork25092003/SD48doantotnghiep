@@ -35,31 +35,57 @@
         <!-- end chuyển trang -->
 
         <!-- ưu đãi lớn -->
-        <div th:each="sachKhuyenMai : ${khuyenmaidanghienthi}" >
-            <div class="row"><h2 th:text="${sachKhuyenMai.tenKhuyenMai}"></h2></div>
+
+        <div th:each="sachKhuyenMai : ${khuyenmaidanghienthi}">
+            <div class="row">
+                <h2 th:text="${sachKhuyenMai.tenKhuyenMai}"></h2>
+            </div>
             <div class="product">
-                <div class="product-item" th:each="sachKhuyenMai2 : ${sachKhuyenMai.sachs}"  th:limit="5">
+                <div class="product-item" th:each="sachKhuyenMai2 : ${sachKhuyenMai.sachs}" th:limit="5">
                     <a th:href="@{'/trang-chu/detail?idSach=' + ${sachKhuyenMai2.idSach}}">
                         <div class="product-image">
                             <img th:src="${sachKhuyenMai2.linkAnh1}" alt="Chưa có ảnh hiển thị">
                         </div>
                     </a>
                     <h3 th:text="${sachKhuyenMai2.tenSach}"></h3>
-                    <!--                    <div class="price">-->
-                    <!--                        <h4 th:text="${sachKhuyenMai2.giaBan - (sachKhuyenMai.soPhanTramGiamGia)} + 'đ'"></h4>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="sale">-->
-                    <!--                        <h5 th:text="${sachKhuyenMai2.giaBan} + 'đ'"></h5>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="discount" th:text="${sachKhuyenMai.soPhanTramGiamGia} +'%'"></div>-->
-                    <div class="price">
-                        <h4 th:if="${sachKhuyenMai.trangThai == 1}" th:text="${sachKhuyenMai2.giaBan - (sachKhuyenMai.soPhanTramGiamGia)} + 'đ'"></h4>
-                        <h4 th:unless="${sachKhuyenMai.trangThai == 1}" th:text="${sachKhuyenMai2.giaBan + 'đ'}"></h4>
+<!--                    <div th:if="${sachKhuyenMai2.khuyenMais != null}">-->
+<!--                        <div th:each="ctkm : ${sachKhuyenMai2.khuyenMais}">-->
+<!--                            <div th:if="${ctkm.trangThai == 1}">-->
+<!--                                <div class="price">-->
+<!--                                    <h4 th:text="${sachKhuyenMai2.giaBan - (ctkm.soPhanTramGiamGia)} + 'đ'"></h4>-->
+<!--                                </div>-->
+<!--                                <div class="sale">-->
+<!--                                    <h5 th:text="${sachKhuyenMai2.giaBan} + 'đ'"></h5>-->
+<!--                                </div>-->
+<!--                                <div class="discount" th:text="${ctkm.soPhanTramGiamGia} +'%'"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div th:if="${sachKhuyenMai2.khuyenMais.?[trangThai == 1].size() > 0}">
+                        <th:block th:with="khuyenMaiDetail=${sachKhuyenMai2.khuyenMais.?[trangThai == 1][0]}">
+                            <div class="price">
+                                <h4 th:text="${sachKhuyenMai2.giaBan - (khuyenMaiDetail.soPhanTramGiamGia)} + 'đ'"></h4>
+                            </div>
+                            <div class="sale">
+                                <h5 th:text="${sachKhuyenMai2.giaBan} + 'đ'"></h5>
+                            </div>
+                            <div class="discount" th:text="${khuyenMaiDetail.soPhanTramGiamGia} +'%'"></div>
+                        </th:block>
                     </div>
-                    <div class="sale" th:unless="${sachKhuyenMai.trangThai == 1}">
-                        <h5 th:text="${sachKhuyenMai2.giaBan} + 'đ'"></h5>
-                    </div>
-                    <div class="discount" th:if="${sachKhuyenMai.trangThai == 1}" th:text="${sachKhuyenMai.soPhanTramGiamGia} +'%'"></div>
+
+<!--                    <div th:if="${sachKhuyenMai2.khuyenMais.?[trangThai == 1].size() > 0}">-->
+<!--                        <th:block th:with="khuyenMaiDetail=${sachKhuyenMai2.khuyenMais.?[trangThai == 1][0]}">-->
+
+<!--                    <div class="price">-->
+<!--                        <h4 th:text="${sachKhuyenMai2.giaBan - (sachKhuyenMai.soPhanTramGiamGia)} + 'đ'"></h4>-->
+<!--                    </div>-->
+<!--                    <div class="sale">-->
+<!--                        <h5 th:text="${sachKhuyenMai2.giaBan} + 'đ'"></h5>-->
+<!--                    </div>-->
+<!--                    <div class="discount" th:text="${khuyenMaiDetail.soPhanTramGiamGia} +'%'"></div>-->
+<!--                        </th:block>-->
+<!--                    </div>-->
+
 
                 </div>
                 <div class="button">
@@ -70,6 +96,7 @@
             </div>
             <br>
         </div>
+
 
 
         <!-- end ưu đãi lớn -->

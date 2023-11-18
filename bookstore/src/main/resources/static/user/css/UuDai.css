@@ -86,12 +86,12 @@ header img {
 
 }
 
-.product-item > .sale {
+.sale {
     text-decoration-line: line-through
 
 }
 
-.product-item > .price {
+.price {
     color: red;
 }
 
