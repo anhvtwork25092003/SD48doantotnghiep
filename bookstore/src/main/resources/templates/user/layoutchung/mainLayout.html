@@ -66,9 +66,9 @@
                     </th:block>
                     <th:block th:unless="${session.loggedInUser != null}">
                         <!-- Hiển thị các lựa chọn đăng nhập, đăng ký khi chưa đăng nhập -->
-                        <a href="#" class="thongtin">Đăng Ký</a>
+                        <a href="/sign_up" class="thongtin">Đăng Ký</a>
                         <a href="/login/khach-hang" class="thongtin">Đăng Nhập</a>
-                        <a href="/sign_up" class="dangxuat">Quên mật khẩu</a>
+                        <a href="#" class="dangxuat">Quên mật khẩu</a>
                         <!-- Trong một template Thymeleaf hoặc HTML -->
 
                     </th:block>
