@@ -35,9 +35,9 @@ public class TrangChuController {
 
     @GetMapping("/trang-chu")
     public String HienThiTrangChu(Model model) {
-//        List<Sach> sachList = iSachService.getall();
-//        List<Sach> saches = sachList.subList(0, 5);
-//        model.addAttribute("sachmoi", saches);
+        List<Sach> sachList = iSachService.getall();
+        List<Sach> saches = sachList.subList(0, 5);
+        model.addAttribute("sachmoi", saches);
         model.addAttribute("motkhuyenmaidangapdung",iKhuyenMaiService.getAllKhuyenMaiDangApDung(1).get(0));
         List<KhuyenMai> khuyenMaiList= iKhuyenMaiService.getAllKhuyenMaiDangHienThi(1);
         List<KhuyenMai> khuyenMaiLists = khuyenMaiList.subList(0, 4);

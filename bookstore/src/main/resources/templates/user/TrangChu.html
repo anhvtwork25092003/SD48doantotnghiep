@@ -136,22 +136,45 @@
             <h2>SẢN PHẨM MỚI NHẤT</h2>
         </div>
         <div class="product">
-            <div class="product-item" th:each="sm : ${khuyenmaihienthisach}">
-                <div th:each="sm2 : ${sm.sachs}">
-                <a th:href="@{'/trang-chu/detail?idSach=' + ${sm2.idSach}}">
-                    <div class="product-image">
-                        <img th:src="${sm2.linkAnh1}" >
+                <div class="product-item" th:each="sm : ${sachmoi}">
+                    <a th:href="@{'/trang-chu/detail?idSach=' + ${sm.idSach}}">
+                        <div class="product-image">
+                            <img th:src="${sm.linkAnh1}" >
+                        </div>
+                    </a>
+                    <h3 th:text="${sm.tenSach}"></h3>
+
+                    <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">
+                        <div th:with="firstPromotion=${sm.khuyenMais[0]}">
+                            <div class="price">
+                                <h4 th:if="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan - (firstPromotion.soPhanTramGiamGia)} + 'đ'"></h4>
+                                <h4 th:unless="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan + 'đ'}"></h4>
+                            </div>
+                            <div class="sale">
+                                <h5 th:text="${sm.giaBan} + 'đ'"></h5>
+                            </div>
+                            <div class="discount" th:if="${firstPromotion.trangThai == 1}" th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></div>
+                        </div>
                     </div>
-                </a>
-                <h3 th:text="${sm2.tenSach}"></h3>
-                <div class="price">
-                    <h4 th:text="${sm2.giaBan - (sm.soPhanTramGiamGia)} + 'đ'"></h4>
                 </div>
-                <div class="sale">
-                    <h5 th:text="${sm2.giaBan} + 'đ'"></h5>
-                </div>
-                <div class="discount" th:text="${sm.soPhanTramGiamGia} +'%'"></div>
-                </div>
+
+            <!-- Các sản phẩm khác -->
+            <div class="button"><a href="#">Xem thêm</a></div>
+        </div>
+        <br>
+    </div>
+</article>
+</body>
+<script src="/user/js/TrangChu.js"></script>
+</html>
+<!--                    <div class="price">-->
+<!--                        <h4 th:text="${sm2.giaBan - (sm.soPhanTramGiamGia)} + 'đ'"></h4>-->
+<!--                    </div>-->
+<!--                    <div class="sale">-->
+<!--                        <h5 th:text="${sm2.giaBan} + 'đ'"></h5>-->
+<!--                    </div>-->
+<!--                    <div class="discount" th:text="${sm.soPhanTramGiamGia} +'%'"></div>-->
+<!--                    </div>-->
 <!--                <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
 <!--                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">-->
 <!--                        <div class="price">-->
@@ -176,18 +199,7 @@
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
-<!--                <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
-<!--                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">-->
-<!--                        <div class="price">-->
-<!--                            <h4 th:if="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan - (firstPromotion.soPhanTramGiamGia)} + 'đ'"></h4>-->
-<!--                            <h4 th:unless="${firstPromotion.trangThai == 1}" th:text="${sm.giaBan + 'đ'}"></h4>-->
-<!--                        </div>-->
-<!--                        <div class="sale">-->
-<!--                            <h5 th:text="${sm.giaBan} + 'đ'"></h5>-->
-<!--                        </div>-->
-<!--                        <div class="discount" th:if="${firstPromotion.trangThai == 1}" th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></div>-->
-<!--                    </div>-->
-<!--                </div>-->
+
 <!--                <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
 <!--                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">-->
 <!--                        <div class="price">-->
@@ -203,11 +215,6 @@
 
 
 
-
-            </div>
-            <!-- Các sản phẩm khác -->
-            <div class="button"><a href="#">Xem thêm</a></div>
-        </div>
         <!-- end sản phẩm mới nhất -->
 
         <!-- Kiểm tra nếu sách đang trong chương trình khuyến mãi có trạng thái khuyến mãi là 1 -->
@@ -217,12 +224,7 @@
 <!--               -->
 <!--            </th:block>-->
 <!--        </div>-->
-        <br>
-    </div>
-</article>
-</body>
-<script src="/user/js/TrangChu.js"></script>
-</html>
+
 
 
 
