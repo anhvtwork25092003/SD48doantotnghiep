@@ -207,9 +207,11 @@ public class GioHangController {
         return "redirect:/gio-hang/danh-sach-san-pham";
     }
 
-    @PostMapping("/tang-so-luong-san-pham")
+    @PostMapping("/cap-nhat-luong-san-pham")
     public String tangSoLuongSanPham(Model model,
                                      @RequestParam("idGioHangChiTiet") String idGioHangChiTiet,
+                                     @RequestParam("soLuongSach") String soLuongSach,
+                                     @RequestParam("idSachgh") String idSachgh,
                                      HttpSession session) {
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
 
@@ -221,9 +223,9 @@ public class GioHangController {
             if (listSanPhamTrongGioHangTamThoi != null && !listSanPhamTrongGioHangTamThoi.isEmpty()) {
                 // Tìm sản phẩm trong danh sách và tăng số lượng
                 for (GioHangChiTiet gioHangChiTiet : listSanPhamTrongGioHangTamThoi) {
-                    if (gioHangChiTiet.getIdGioHangChiTiet() == Integer.parseInt(idGioHangChiTiet)) {
-                        int soLuongMoi = gioHangChiTiet.getSoLuong() + 1;
-                        gioHangChiTiet.setSoLuong(soLuongMoi);
+                    if (gioHangChiTiet.getSach().getIdSach() == Integer.parseInt(idSachgh)) {
+
+                        gioHangChiTiet.setSoLuong(Integer.parseInt(soLuongSach));
                         break;
                     }
                 }
@@ -239,8 +241,7 @@ public class GioHangController {
                 GioHangChiTiet gioHangChiTiet = gioHangChiTietReposutory.findById(Integer.parseInt(idGioHangChiTiet)).orElse(null);
 
                 if (gioHangChiTiet != null && gioHangChiTiet.getGioHang().getIdGioHang() == gioHang.getIdGioHang()) {
-                    int soLuongMoi = gioHangChiTiet.getSoLuong() + 1;
-                    gioHangChiTiet.setSoLuong(soLuongMoi);
+                    gioHangChiTiet.setSoLuong(Integer.parseInt(soLuongSach));
                     gioHangChiTietReposutory.save(gioHangChiTiet);
                 }
             }
@@ -249,57 +250,6 @@ public class GioHangController {
         return "redirect:/gio-hang/danh-sach-san-pham";
     }
 
-    @PostMapping("/giam-so-luong-san-pham")
-    public String giamSoLuongSanPham(Model model,
-                                     @RequestParam("idGioHangChiTiet") String idGioHangChiTiet,
-                                     HttpSession session) {
-        KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
-
-        if (khachHang == null) {
-            // Đối với người dùng chưa đăng nhập, thực hiện trên danh sách trong session
-            List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
-                    .getAttribute("listSanPhamTrongGioHangTamThoi");
-
-            if (listSanPhamTrongGioHangTamThoi != null && !listSanPhamTrongGioHangTamThoi.isEmpty()) {
-                // Tìm sản phẩm trong danh sách và giảm số lượng
-                for (GioHangChiTiet gioHangChiTiet : listSanPhamTrongGioHangTamThoi) {
-                    if (gioHangChiTiet.getIdGioHangChiTiet() == Integer.parseInt(idGioHangChiTiet)) {
-                        int soLuongMoi = gioHangChiTiet.getSoLuong() - 1;
-                        if (soLuongMoi > 0) {
-                            gioHangChiTiet.setSoLuong(soLuongMoi);
-                        } else {
-                            // Nếu số lượng giảm xuống 0, bạn có thể xóa sản phẩm hoặc xử lý theo mong muốn của bạn.
-                            listSanPhamTrongGioHangTamThoi.remove(gioHangChiTiet);
-                        }
-                        break;
-                    }
-                }
-                session.setAttribute("listSanPhamTrongGioHangTamThoi", listSanPhamTrongGioHangTamThoi);
-            }
-
-        } else {
-            // Đối với người dùng đã đăng nhập, thực hiện trực tiếp trên cơ sở dữ liệu
-            GioHang gioHang = this.gioHangRepository.findByKhachHang(khachHang);
-
-            if (gioHang != null) {
-                // Tìm sản phẩm trong giỏ hàng chi tiết trong cơ sở dữ liệu và giảm số lượng
-                GioHangChiTiet gioHangChiTiet = gioHangChiTietReposutory.findById(Integer.parseInt(idGioHangChiTiet)).orElse(null);
-
-                if (gioHangChiTiet != null && gioHangChiTiet.getGioHang().getIdGioHang() == gioHang.getIdGioHang()) {
-                    int soLuongMoi = gioHangChiTiet.getSoLuong() - 1;
-                    if (soLuongMoi > 0) {
-                        gioHangChiTiet.setSoLuong(soLuongMoi);
-                        gioHangChiTietReposutory.save(gioHangChiTiet);
-                    } else {
-                        // Nếu số lượng giảm xuống 0, bạn có thể xóa sản phẩm hoặc xử lý theo mong muốn của bạn.
-                        gioHangChiTietReposutory.delete(gioHangChiTiet);
-                    }
-                }
-            }
-        }
-
-        return "redirect:/gio-hang/danh-sach-san-pham";
-    }
 
 
 }
