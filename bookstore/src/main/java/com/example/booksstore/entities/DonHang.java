@@ -23,9 +23,6 @@ public class DonHang {
     @Column(name = "iddonhang")
     private Integer idDonHang;
 
-    @Column(name = "idkhachhang")
-    private Integer idKhachHang;
-
     @Column(name = "madonhang")
     private String maDonHang;
 
@@ -34,9 +31,6 @@ public class DonHang {
 
     @Column(name = "ngaythanhtoan")
     private Date ngayThanhToan;
-
-    @Column(name = "idphuongthucthanhtoan")
-    private Integer idPhuongThucThanhToan;
 
     @Column(name = "tongtienhanggoc")
     private BigDecimal tongTienHangGoc;
@@ -53,16 +47,22 @@ public class DonHang {
     @Column(name = "trangthai")
     private Integer trangThai;
 
-    @Column(name = "idnhanvien")
-    private Integer idNhanVien;
-
-    @Column(name = "iddonvivanchuyen")
-    private Integer idDonViVanChuyen;
-
     @Column(name = "ghichukhachhanggui")
     private String ghiChuKhachHangui;
 
     @Column(name = "ghichulydodonhang")
     private String ghiChuLyDoDonHang;
+
+    @ManyToOne
+    @JoinColumn(name = "idkhachhang")
+    private KhachHang khachHang;
+
+    @ManyToOne
+    @JoinColumn(name = "idphuongthucthanhtoan")
+    private PhuongThucThanhToan phuongThucThanhToan;
+
+    @ManyToOne
+    @JoinColumn(name = "idnhanvien")
+    private NhanVien nhanVien;
 }
 

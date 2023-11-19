@@ -39,8 +39,8 @@ public class KhachHangServiceImpl implements IKhachHangService {
     }
 
     @Override
-    public KhachHang login(String sdt, String matkhau) {
-        KhachHang khachHang = iKhachHangRepository.findBySdt(sdt);
+    public KhachHang login(String email, String matkhau) {
+        KhachHang khachHang = iKhachHangRepository.findByEmail(email);
         if (khachHang != null && khachHang.getMatKhau().equals(matkhau)) {
             if (khachHang.getTrangThai().equals(1)) {
                 return khachHang;

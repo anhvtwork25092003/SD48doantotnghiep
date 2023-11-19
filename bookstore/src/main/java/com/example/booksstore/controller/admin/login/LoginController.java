@@ -23,8 +23,8 @@ public class LoginController {
         return "user/login/sign_in";
     }
     @PostMapping("/logins")
-    public String login(@RequestParam("sdt") String phone, @RequestParam("matKhau") String password, HttpSession session) {
-        NhanVien nhanVien = nhanVienService.login(phone, password);
+    public String login(@RequestParam("email") String email, @RequestParam("matKhau") String password, HttpSession session) {
+        NhanVien nhanVien = nhanVienService.login(email, password);
         if (nhanVien != null) {
             session.setAttribute("loggedInUser",nhanVien);
             String role = nhanVienService.getNhanVienRole(nhanVien);
@@ -46,8 +46,8 @@ public class LoginController {
         return "user/login/sign_inkh";
     }
     @PostMapping("/loginskh")
-    public String loginkh(@RequestParam("sdt") String phone, @RequestParam("matKhau") String password, HttpSession session) {
-        KhachHang khachHang = khachHangService.login(phone, password);
+    public String loginkh(@RequestParam("email") String email, @RequestParam("matKhau") String password, HttpSession session) {
+        KhachHang khachHang = khachHangService.login(email, password);
         if (khachHang != null) {
             session.setAttribute("loggedInUser",khachHang);
             return "redirect:/trang-chu";

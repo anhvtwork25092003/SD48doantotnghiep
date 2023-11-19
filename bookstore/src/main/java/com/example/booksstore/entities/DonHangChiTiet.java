@@ -21,17 +21,8 @@ public class DonHangChiTiet {
     @Column(name = "iddonhangchitiet")
     private Integer idDonHangChiTiet;
 
-    @Column(name = "idsach")
-    private Integer idSach;
-
-    @Column(name = "iddonhang")
-    private Integer idDonHang;
-
     @Column(name = "soluong")
     private Integer soLuong;
-
-    @Column(name = "idkhuyenmai")
-    private Integer idKhuyenMai;
 
     @Column(name = "giagoc")
     private BigDecimal giaGoc;
@@ -44,5 +35,10 @@ public class DonHangChiTiet {
 
     @Column(name = "thanhtien")
     private BigDecimal thanhTien;
+
+    @ManyToOne
+    @JoinColumn(name = "idsach")
+    private Sach sach;
+
 }
 

@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface IKhachHangRepository extends JpaRepository<KhachHang, Integer> {
     Page<KhachHang> findAll(Pageable pageable);
     Page<KhachHang> findAll(Specification<KhachHang> spec, Pageable pageable);
-    KhachHang findBySdt(String sdt);
+    KhachHang findByEmail(String email);
 }
