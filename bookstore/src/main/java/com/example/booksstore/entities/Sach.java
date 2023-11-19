@@ -64,6 +64,13 @@ public class Sach {
 
     @Column(name = "mavach")
     private String  maVach;
+
+
+    public BigDecimal getGiaSauGiamGia(double phanTramGiamGia) {
+        BigDecimal phanTram = BigDecimal.valueOf(phanTramGiamGia);
+        BigDecimal heSoGiamGia = BigDecimal.ONE.subtract(phanTram.divide(BigDecimal.valueOf(100)));
+        return giaBan.multiply(heSoGiamGia);
+    }
     @ManyToMany
     @JoinTable(
             name = "sachtheloai",

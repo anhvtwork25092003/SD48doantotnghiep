@@ -148,8 +148,11 @@
                     <div th:if="${ctkm.trangThai == 1}">
                         <p>Đang áp dụng chương trình khuyến mãi</p>
                         <div class="price">
-                            <h4 th:text="${sm.giaBan - (ctkm.soPhanTramGiamGia)} + 'đ'"></h4>
+                            <div>Giá bán: <span th:text="${sm.giaBan}"></span></div>
+                            <div>Phần trăm giảm giá: <span th:text="${ctkm.soPhanTramGiamGia}"></span></div>
+                            <h4 th:text="${sm.giaBan.subtract(sm.giaBan.multiply(new java.math.BigDecimal(ctkm.soPhanTramGiamGia).divide(new java.math.BigDecimal(100)))) + 'đ'}"></h4>
                         </div>
+
                         <div class="discount"
                              th:text="${ctkm.soPhanTramGiamGia + '%'}"></div>
                     </div>
