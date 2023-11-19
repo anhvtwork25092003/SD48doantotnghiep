@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layoutchung/mainLayout}"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Thanh Toán Đã Đăng Nhập</title>
     <!-- Required meta tags -->
@@ -12,6 +14,7 @@
     <link rel="stylesheet" href="/user/css/ThanhToanDaDangNhap.css">
 </head>
 <body>
+<article layout:fragment="noiDung">
 <div class="container">
 
     <div class="all">
@@ -202,6 +205,7 @@
         <!-- end kiểm tra lại đơn hàng -->
     </div>
 </div>
+</article>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
