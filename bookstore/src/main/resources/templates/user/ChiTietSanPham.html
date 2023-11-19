@@ -49,7 +49,8 @@
                     <div class="box-price" th:if="${not #lists.isEmpty(sm.khuyenMais)}">
                         <div th:with="firstPromotion=${sm.khuyenMais[0]}">
                             <span class="price-sale" th:if="${firstPromotion.trangThai == 1}"
-                                  th:text="${sm.giaBan - firstPromotion.soPhanTramGiamGia} + 'đ'"></span>
+                             th:text="${sm.giaBan.subtract(sm.giaBan.multiply(new java.math.BigDecimal(firstPromotion.soPhanTramGiamGia).divide(new java.math.BigDecimal(100)))) + 'đ'}">
+                            </span>
                             <span class="price-sale" th:unless="${firstPromotion.trangThai == 1}"
                                   th:text="${sm.giaBan + 'đ'}"></span>
                             <span class="price-origin" th:text="${sm.giaBan} + 'đ'"></span>
