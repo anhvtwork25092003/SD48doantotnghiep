@@ -32,7 +32,7 @@
                         <div class="cartSection">
                             <!-- Sử dụng biểu thức Thymeleaf để đổ dữ liệu động -->
                             <img th:src="${item.sach.linkAnh1}" alt="" class="itemImg"/>
-                            <p class="itemNumber" th:text="${item.sach.idSach}"></p>
+                            <p class="itemNumber" th:text="${item.sach.idSach}" name="idSachgh"></p>
                             <h3 th:text="${item.sach.tenSach}"></h3>
                             <form th:action="@{'/gio-hang/cap-nhat-luong-san-pham?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
                                   method="post">
@@ -61,9 +61,14 @@
                             <p class="price discounted-price" th:text="${item.sach.giaBan}"></p>
                         </div>
                         <div class="cartSection removeWrap">
-                            <a th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
+                            <a th:if="${loggedInUser != null}" th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idGioHangChiTiet=' + ${item.idGioHangChiTiet} +'&idSachgh='}"
                                class="remove">x</a>
+                            <a th:if="${loggedInUser == null}" th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idSachgh=' + ${item.sach.idSach} + '&idGioHangChiTiet='}"
+                               class="remove">x</a>
+
                         </div>
+
+
                     </div>
                 </li>
             </ul>

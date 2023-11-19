@@ -43,6 +43,7 @@ public class GioHangController {
         // lấy ra khách hàng và giỏ hàng tương ứng
         // láy ra khach hang
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
+        model.addAttribute("loggedInUser",khachHang);
         if (khachHang == null) {
             // khach hang chua dang nhap
             System.out.println("khach hang chua dang nhap");
@@ -175,8 +176,10 @@ public class GioHangController {
     @GetMapping("/xoa-san-pham-khoi-gio")
     public String xoaSanPhamKhoiGioHang(Model model,
                                         @RequestParam("idGioHangChiTiet") String idGioHangChiTiet,
+                                        @RequestParam("idSachgh") String idSachgh,
                                         HttpSession session) {
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
+        model.addAttribute("loggedInUser",khachHang);
 
         if (khachHang == null) {
             // Đối với người dùng chưa đăng nhập, thực hiện trên danh sách trong session
@@ -186,7 +189,7 @@ public class GioHangController {
             if (listSanPhamTrongGioHangTamThoi != null && !listSanPhamTrongGioHangTamThoi.isEmpty()) {
                 // Tìm và xóa sản phẩm từ danh sách
                 listSanPhamTrongGioHangTamThoi.removeIf(gioHangChiTiet ->
-                        gioHangChiTiet.getIdGioHangChiTiet() == Integer.parseInt(idGioHangChiTiet));
+                        gioHangChiTiet.getSach().getIdSach() == Integer.parseInt(idSachgh));
                 session.setAttribute("listSanPhamTrongGioHangTamThoi", listSanPhamTrongGioHangTamThoi);
             }
 
