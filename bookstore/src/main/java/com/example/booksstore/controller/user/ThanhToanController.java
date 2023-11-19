@@ -1,6 +1,5 @@
 package com.example.booksstore.controller.user;
 
-import com.example.booksstore.entities.GioHang;
 import com.example.booksstore.entities.GioHangChiTiet;
 import com.example.booksstore.entities.KhachHang;
 import jakarta.servlet.http.HttpSession;
@@ -9,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -38,7 +38,10 @@ public class ThanhToanController {
     }
 
     @PostMapping("/thanh-toan/xac-nhan-len-don")
-    public String xacNhanLenDon(){
+    public String xacNhanLenDon(
+            @RequestParam(value = "danhSachChonMua", required = false) List<GioHangChiTiet> gioHangChiTietListForPay
+
+    ) {
 
         return "/user/pay";
     }

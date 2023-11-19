@@ -2,6 +2,7 @@ package com.example.booksstore.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name="donhang")
 public class DonHang {
     @Id
