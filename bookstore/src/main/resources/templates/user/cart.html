@@ -9,14 +9,16 @@
             type="text/javascript"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="/user/css/cart.css">
+
 </head>
 <body>
 <article layout:fragment="noiDung">
     <div class="wrap cf">
         <div class="heading cf">
             <h1>Giỏ hàng của tôi</h1>
-            <a href="#" class="continue">Tiếp tục mua </a>
+            <a href="/trang-chu" class="continue">Tiếp tục mua </a>
         </div>
         <div class="cart">
             <ul class="cartWrap">
@@ -41,16 +43,24 @@
                                 </p>
                                 <!-- Thêm phần tử cho biểu tượng loading -->
                                 <!-- Thêm phần tử cho biểu tượng loading -->
-                                <button type="submit" class="load-button">
-                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                    Load
+
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa-solid fa-rotate-right fa-xl" style="color: #f96515;"></i>
                                 </button>
 
                             </form>
-                            <p class="pricesale" th:text=""></p>
-                            <p class="price" th:text="${item.sach.giaBan}"></p>
 
+                            <div th:each="ctkm : ${item.sach.khuyenMais}">
+                                <div th:if="${ctkm.trangThai == 1}">
+                                    <div class="price">
+<!--                                        <div th:text="${ctkm.soPhanTramGiamGia}"></div>-->
+                                        <h4 th:text="${item.sach.giaBan.subtract(item.sach.giaBan.multiply(new java.math.BigDecimal(ctkm.soPhanTramGiamGia).divide(new java.math.BigDecimal(100)))) + 'đ'}"></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="price" th:text="${item.sach.giaBan}"></p>
                         </div>
+
                         <div class="prodTotal cartSection">
                             <p class="subtotal"></p>
                         </div>
