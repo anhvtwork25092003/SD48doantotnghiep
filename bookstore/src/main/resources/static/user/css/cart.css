@@ -404,3 +404,11 @@ a.remove:hover {
     text-align: center;
   }
 }
+.price {
+  text-decoration: line-through;
+  color: #777; /* Màu sắc cho giá tiền gạch ngang */
+}
+
+.discounted-price {
+  color: #f00; /* Màu sắc cho giá tiền giảm giá */
+}
