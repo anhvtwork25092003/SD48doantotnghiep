@@ -72,8 +72,8 @@
                 </a>
                 <h3 th:text="${sachKhuyenMai2.tenSach}"></h3>
                 <div class="price" th:if="${sachKhuyenMai.trangThai == 1}">
-                    <h4 th:text="${sachKhuyenMai2.giaBan - (sachKhuyenMai.soPhanTramGiamGia)} + 'đ'"></h4>
-                </div>
+                    <h4 th:text="${sachKhuyenMai2.giaBan.subtract(sachKhuyenMai2.giaBan.multiply(new java.math.BigDecimal(sachKhuyenMai.soPhanTramGiamGia).divide(new java.math.BigDecimal(100)))) + 'đ'}"></h4>
+                    </div>
                 <div class="sale" th:if="${sachKhuyenMai.trangThai == 1}">
                     <h5 th:text="${sachKhuyenMai2.giaBan} + 'đ'"></h5>
                 </div>
