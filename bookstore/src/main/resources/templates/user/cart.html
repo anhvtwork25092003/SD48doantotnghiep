@@ -27,7 +27,7 @@
                 </li>
                 <!-- Lặp qua danh sách sản phẩm từ controller -->
                 <li class="items odd" th:each="item : ${danhSachSanPhamTrongGioHang}">
-                    <input type="checkbox" class="item-checkbox">
+                    <input type="checkbox" class="item-checkbox" name="SachDaChonDeMua" th:value="${item.idGioHangChiTiet}">
                     <div class="infoWrap">
                         <div class="cartSection">
                             <!-- Sử dụng biểu thức Thymeleaf để đổ dữ liệu động -->
@@ -37,7 +37,7 @@
                             <form th:action="@{'/gio-hang/cap-nhat-luong-san-pham?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
                                   method="post">
                                 <p class="qty-control">
-                                    <input type="hidden" th:value="${item.sach.idSach}" name="idSachgh">
+                                    <input type="hidden" th:value="${item.sach.idSach}" name="idSachgh" >
                                     <input type="text" class="qty" th:value="${item.soLuong}" name="soLuongSach"
                                            id="soLuongSach"/>
                                 </p>
@@ -65,7 +65,6 @@
                                class="remove">x</a>
                             <a th:if="${loggedInUser == null}" th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idSachgh=' + ${item.sach.idSach} + '&idGioHangChiTiet='}"
                                class="remove">x</a>
-
                         </div>
 
 
