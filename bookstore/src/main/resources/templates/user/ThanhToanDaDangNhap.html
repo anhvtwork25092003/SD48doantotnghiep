@@ -100,28 +100,17 @@
         <!-- end phương thức vận chuyển -->
         <br>
         <!-- phương thức thanh toán -->
+        <!-- phương thức thanh toán -->
         <div class="phuongthucthanhtoan">
-            <div>
-                <h4>Phương Thức Thanh Toán</h4>
-            </div>
-            <div class="form-check">
+            <div><h4>Phương Thức Thanh Toán</h4></div>
+            <div class="form-check" th:each="pttt : ${phuongthucThanhToans}">
                 <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                       value="option1"
+                       value=" ${phuongthucThanhToans.idPhuongThucThanhToan}"
                        checked>
-                <label class="form-check-label" for="exampleRadios1">
-                    <img class="thanhtoan" src="/image/logoicon/vnpay.png"/>
-                    Thanh toán online bằng VNPAY
+                <label class="form-check-label" for="exampleRadios1" th:name="phuongThucthanhToan">
+                    <p th:text="${pttt.tenPhuongThucThanhToan}"></p>
                 </label>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                       value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                    <img class="thanhtoan" src="/image/logoicon/thanhtoantienmat.png"/>
-                    Thanh toán online bằng tiền mặt khi nhận hàng
-                </label>
-            </div>
-        </div>
         <!--end phương thức thanh toán -->
         <br>
         <!-- kiểm tra lại đơn hàng -->

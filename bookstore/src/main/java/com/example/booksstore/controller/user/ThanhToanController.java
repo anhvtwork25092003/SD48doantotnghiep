@@ -44,21 +44,22 @@ public class ThanhToanController {
 
     }
 
-    @PostMapping("/xac-nhan-len-don")
+    @GetMapping ("/xac-nhan-len-don")
     public String xacNhanLenDon(HttpSession session,
                                 @RequestParam(value = "danhSachChonMua", required = false) List<GioHangChiTiet> gioHangChiTietListForPay,
-                                @RequestParam("phuongThucThanhToanMaKhachHangChon") String phuongThucThanhToan,
-                                @RequestParam("tenNguoiNhan") String tenNguoiNhan,
-                                @RequestParam("soDienThoaiNhanHang") String soDienThoaiNhanHang,
-                                @RequestParam("thanhPho") String thanhPho,
-                                @RequestParam("quanHuyen") String quanHuyen,
-                                @RequestParam("phuongXa") String phuongXa,
-                                @RequestParam("diaChiCuThe") String diaChiCuThe
+                                @RequestParam(value = "phuongThucThanhToanMaKhachHangChon", required = false) String phuongThucThanhToan,
+                                @RequestParam(value = "tenNguoiNhan", required = false) String tenNguoiNhan,
+                                @RequestParam(value = "soDienThoaiNhanHang", required = false) String soDienThoaiNhanHang,
+                                @RequestParam(value = "tinhThanhPho", required = false) String tinhThanhPho,
+                                @RequestParam(value = "huyenQuan", required = false) String huyenQuan,
+                                @RequestParam(value = "xaPhuong", required = false) String xaPhuong,
+                                @RequestParam(value = "diaChiCuThe", required = false) String diaChiCuThe
 
 
     ) {
 // xác minh đăng nhậpS
         KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+        System.out.println(tinhThanhPho + " " +  xaPhuong + " " + huyenQuan);
         if (khachHangDangNhap == null) {
             // chưa đăng nhạp
             // giảm trừ list trong sesion  va tạo đơn hàng với nhân viên trống, trạng thá

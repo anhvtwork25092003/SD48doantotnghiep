@@ -30,5 +30,5 @@ REFERENCES KhachHang(idKhachhang);
 -- sửa db ngày 19/11/2023
 alter table donhangchitiet
 ADD CONSTRAINT FK_DonHangChiTiet_Sach
-FOREIGN KEY (idKhachhang)
-REFERENCES KhachHang(idKhachhang);
+FOREIGN KEY (IdSach)
+REFERENCES Sach(idSach);

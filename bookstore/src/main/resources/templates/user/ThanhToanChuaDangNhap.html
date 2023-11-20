@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
-    integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"/>
+          integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@500&display=swap" rel="stylesheet">
@@ -20,162 +20,166 @@
 <body>
 <article layout:fragment="noiDung">
     <div class="container">
+
         <div class="all">
-            <!-- chưa đăng nhập -->
-            <div class="chuadangnhap">
+            <form th:action="@{'/thanh-toan/xac-nhan-len-don'}" enctype="multipart/form-data" method="get">
+                <!-- chưa đăng nhập -->
+                <div class="chuadangnhap">
+                    <div>
+                        <h4>Quý khách chưa đăng nhập ! -> <a href="/login/khach-hang" style="color: pink;">
+                            Đăng nhập ngay để nhận ưu đãi</a>
+                        </h4>
+                    </div>
+                </div>
+                <!-- end chưa đăng nhập -->
+
+                <br>
+                <!-- chọn địa chỉ giao -->
                 <div>
-                    <h4>Quý khách chưa đăng nhập ! -> <a href="/login/khach-hang" style="color: pink;">
-                        Đăng nhập ngay để nhận ưu đãi</a>
-                    </h4>
+                    <h4>Quý khách vui lòng chọn địa chỉ giao hàng</h4>
                 </div>
-            </div>
-            <!-- end chưa đăng nhập -->
+                <div class="box-address">
+                    <div class="col-md-6">
+                        <label>Họ tên</label>
+                        <input class="form-control" type="text" name="full_name" placeholder="Nhập họ tên"
+                               maxlength="50">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Điện thoại di động</label>
+                        <input class="form-control" type="text" name="phone" placeholder="Nhập số điện thoại">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Email</label>
+                        <input class="form-control" type="email" name="email" placeholder="Nhập email">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="tinhThanhPho">Tỉnh/Thành phố</label>
+                        <select name="tinhThanhPho" id="tinhThanhPho" class="form-control">
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="huyenQuan">Quận/Huyện</label>
+                        <select name="huyenQuan" id="huyenQuan" class="form-control">
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="xaPhuong">Phường/Xã</label>
+                        <select name="xaPhuong" id="xaPhuong" class="form-control">
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Địa chỉ</label>
+                        <textarea class="form-control" type="textarea" name="street"
+                                  placeholder="Ví dụ: 52, đường Trần Hưng Đạo"></textarea>
+                    </div>
+                </div>
+                <!-- end chọn địa chỉ giao -->
 
-            <br>
-            <!-- chọn địa chỉ giao -->
-            <div>
-                <h4>Quý khách vui lòng chọn địa chỉ giao hàng</h4>
-            </div>
-            <div class="box-address">
-                <div class="col-md-6">
-                    <label>Họ tên</label>
-                    <input class="form-control" type="text" name="full_name" placeholder="Nhập họ tên" maxlength="50">
+                <br>
+                <!-- phươg thức vận chuyển -->
+                <div class="phuongthucvanchuyen">
+                    <div><h4>Đơn Vị Vận Chuyển</h4></div>
+                    <div class="">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="option1">
+                            <label class="form-check-label">
+                                Giao hàng nhanh: 50.000vnđ
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label>Điện thoại di động</label>
-                    <input class="form-control" type="text" name="phone" placeholder="Nhập số điện thoại">
-                </div>
-                <div class="col-md-6">
-                    <label>Email</label>
-                    <input class="form-control" type="email" name="email" placeholder="Nhập email">
-                </div>
-                <div class="col-md-6">
-                    <label for="tinhThanhPho">Tỉnh/Thành phố</label>
-                    <select name="tinhThanhPho" id="tinhThanhPho" class="form-control">
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="huyenQuan">Quận/Huyện</label>
-                    <select name="huyenQuan" id="huyenQuan" class="form-control">
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="xaPhuong">Phường/Xã</label>
-                    <select name="xaPhuong" id="xaPhuong" class="form-control">
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label>Địa chỉ</label>
-                    <textarea class="form-control" type="textarea" name="street"
-                              placeholder="Ví dụ: 52, đường Trần Hưng Đạo"></textarea>
-                </div>
-            </div>
-            <!-- end chọn địa chỉ giao -->
+                <!-- end phươg thức vận chuyển -->
 
-            <br>
-            <!-- phươg thức vận chuyển -->
-            <div class="phuongthucvanchuyen">
-                <div><h4>Đơn Vị Vận Chuyển</h4></div>
-                <div class="">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" value="option1">
-                        <label class="form-check-label">
-                            Giao hàng nhanh: 50.000vnđ
+                <br>
+                <!-- phương thức thanh toán -->
+                <div class="phuongthucthanhtoan">
+                    <div><h4>Phương Thức Thanh Toán</h4></div>
+                    <div class="form-check" th:each="pttt : ${phuongthucThanhToans}">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                               value=" ${phuongthucThanhToans.idPhuongThucThanhToan}"
+                               checked>
+                        <label class="form-check-label" for="exampleRadios1" th:name="phuongThucthanhToan">
+                            <p th:text="${pttt.tenPhuongThucThanhToan}"></p>
                         </label>
                     </div>
+                    <!--            <div class="form-check">-->
+                    <!--                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">-->
+                    <!--                <label class="form-check-label" for="exampleRadios2">-->
+                    <!--                    <img class="thanhtoan" src="/image/logoicon/thanhtoantienmat.png"/>-->
+                    <!--                    Thanh toán online bằng tiền mặt khi nhận hàng-->
+                    <!--                </label>-->
+                    <!--            </div>-->
                 </div>
-            </div>
-            <!-- end phươg thức vận chuyển -->
+                <!-- end phương thức thanh toán -->
 
-            <br>
-            <!-- phương thức thanh toán -->
-            <div class="phuongthucthanhtoan">
-                <div><h4>Phương Thức Thanh Toán</h4></div>
-                <div class="form-check" th:each="pttt : ${phuongthucThanhToans}">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                           value=" ${phuongthucThanhToans.idPhuongThucThanhToan}"
-                           checked>
-                    <label class="form-check-label" for="exampleRadios1" th:name="phuongThucthanhToan">
-                        <p th:text="${pttt.tenPhuongThucThanhToan}"></p>
-                    </label>
-                </div>
-                <!--            <div class="form-check">-->
-                <!--                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">-->
-                <!--                <label class="form-check-label" for="exampleRadios2">-->
-                <!--                    <img class="thanhtoan" src="/image/logoicon/thanhtoantienmat.png"/>-->
-                <!--                    Thanh toán online bằng tiền mặt khi nhận hàng-->
-                <!--                </label>-->
-                <!--            </div>-->
-            </div>
-            <!-- end phương thức thanh toán -->
-
-            <br>
-            <!-- kiểm tra lại đơn hàng -->
-            <div class="kiemtralaidonhang">
-                <div><h4>Kiểm Tra Lại Đơn Hàng</h4></div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Ảnh sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Giá</th>
-                        <th>Số lượng</th>
-                        <th>Thành Tiền</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="ghct: ${gioHangChiTietListDaChon}">
-                        <td class="anhSanPham"><img src="/image/anhsanpham/sanpham1.jpg"></td>
-                        <td>Doraemon Plus 1</td>
-                        <td>20.000vnđ <p style="text-decoration: line-through;">30.000</p></td>
-
-                        <td class="quantity-col"><label>1</label></td>
-                        <td class="subtotal-col">20.000vnđ</td>
-                    </tr>
-                    <tr>
-                        <td class="anhSanPham"><img src="/image/anhsanpham/sanpham1.jpg"></td>
-                        <td>Doraemon Plus 2</td>
-                        <td>20.000vnđ <p style="text-decoration: line-through;">30.000</p></td>
-                        <td class="quantity-col"><label>1</label></td>
-                        <td class="subtotal-col">20.000vnđ</td>
-                    </tr>
-
-                    </tbody>
-                </table>
                 <br>
-                <!-- thành tiền -->
-                <div class="thanhTien">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3><a href=""> Quay về giỏ hàng</a></h3>
-                        </div>
-                        <div class="col-md-6">
-                            <table class="table table-bordered">
-                                <tbody>
-                                <tr>
-                                    <td>Thành tiền:</td>
-                                    <td class="total">40.000vnđ</td>
-                                </tr>
-                                <tr>
-                                    <td>Phí vận chuyển:</td>
-                                    <td class="total">50.000vnđ</td>
-                                </tr>
-                                <tr>
-                                    <td>Tổng số tiền:</td>
-                                    <td class="total">90.000vnđ</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <button class="btn btn-danger btn-lg btn-block"
-                                    onclick="return confirm('Bạn có muốn xác nhận thanh toán không ?')">Thanh toán
-                            </button>
+                <!-- kiểm tra lại đơn hàng -->
+                <div class="kiemtralaidonhang">
+                    <div><h4>Kiểm Tra Lại Đơn Hàng</h4></div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Ảnh sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành Tiền</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="ghct: ${gioHangChiTietListDaChon}">
+                            <td class="anhSanPham"><img src="/image/anhsanpham/sanpham1.jpg"></td>
+                            <td>Doraemon Plus 1</td>
+                            <td>20.000vnđ <p style="text-decoration: line-through;">30.000</p></td>
+
+                            <td class="quantity-col"><label>1</label></td>
+                            <td class="subtotal-col">20.000vnđ</td>
+                        </tr>
+                        <tr>
+                            <td class="anhSanPham"><img src="/image/anhsanpham/sanpham1.jpg"></td>
+                            <td>Doraemon Plus 2</td>
+                            <td>20.000vnđ <p style="text-decoration: line-through;">30.000</p></td>
+                            <td class="quantity-col"><label>1</label></td>
+                            <td class="subtotal-col">20.000vnđ</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <br>
+                    <!-- thành tiền -->
+                    <div class="thanhTien">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3><a href=""> Quay về giỏ hàng</a></h3>
+                            </div>
+                            <div class="col-md-6">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td>Thành tiền:</td>
+                                        <td class="total">40.000vnđ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phí vận chuyển:</td>
+                                        <td class="total">50.000vnđ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tổng số tiền:</td>
+                                        <td class="total">90.000vnđ</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-danger btn-lg btn-block" type="submit"
+                                        onclick="return confirm('Bạn có muốn xác nhận thanh toán không ?')">Thanh toán
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- end thành tiền -->
+                    <!-- end thành tiền -->
 
-            </div>
-            <!--end  kiểm tra lại đơn hàng -->
+                </div>
+                <!--end  kiểm tra lại đơn hàng -->
+            </form>
         </div>
     </div>
 </article>

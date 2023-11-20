@@ -89,10 +89,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.9</version> <!-- Bạn có thể kiểm tra phiên bản mới nhất trên trang chính thức của Gson -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version> <!-- Bạn có thể kiểm tra phiên bản mới nhất trên trang chính thức của Apache HttpClient -->
+        </dependency>
 
     </dependencies>
-
 
 
     <build>
