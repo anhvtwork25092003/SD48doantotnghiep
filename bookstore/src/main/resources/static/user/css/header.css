@@ -20,7 +20,7 @@
   white-space: nowrap;
 }
 .header-icons {
-  margin-left: 60px;
+  margin-left: 640px;
   display: flex;
   align-items: center;
 }
@@ -93,8 +93,8 @@
 
 
 .search{
-  margin-left: 60px;
-  width: 60%;
+  margin-left: 35px;
+  width: 320%;
 }
 .search-container {
   display: flex;
@@ -106,6 +106,7 @@
   width: 100%;
   background-color: white;
   flex-grow: 1;
+  position: relative;
 }
 
 #search-input {
@@ -151,7 +152,16 @@
 .notification-tabs a {
   text-decoration: none;
 }
-
+.timkiem {
+  position: absolute;
+  left: 745px;
+  width: 72px;
+  height: 30px;
+  font-size: 21px;
+  border: 2px solid #C92127;
+  border-radius: 10px;
+  background: #C92127;
+}
 
 
 

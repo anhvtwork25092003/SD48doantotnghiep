@@ -34,9 +34,9 @@ a img {
   border: none;
 }
 
-* {
-  box-sizing: border-box;
-}
+/** {*/
+/*  box-sizing: border-box;*/
+/*}*/
 
 body {
   color: #333;
