@@ -38,6 +38,8 @@ public class ThanhToanController {
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
             return "/user/ThanhToanChuaDangNhap";
         } else {
+            model.addAttribute("khachHangDangNhap", khachHangDangNhap);
+
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
             return "/user/ThanhToanDaDangNhap";
         }

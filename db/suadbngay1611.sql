@@ -32,3 +32,5 @@ alter table donhangchitiet
 ADD CONSTRAINT FK_DonHangChiTiet_Sach
 FOREIGN KEY (IdSach)
 REFERENCES Sach(idSach);
+
+

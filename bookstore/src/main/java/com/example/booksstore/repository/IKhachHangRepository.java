@@ -10,4 +10,6 @@ public interface IKhachHangRepository extends JpaRepository<KhachHang, Integer> 
     Page<KhachHang> findAll(Pageable pageable);
     Page<KhachHang> findAll(Specification<KhachHang> spec, Pageable pageable);
     KhachHang findByEmail(String email);
+
+
 }

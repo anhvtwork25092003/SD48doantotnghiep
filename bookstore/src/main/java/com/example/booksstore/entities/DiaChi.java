@@ -33,5 +33,5 @@ public class DiaChi {
 
     @ManyToOne
     @JoinColumn(name = "idkhachhang")
-    private KhachHang khachHang;
+    private KhachHang khachHangDiaChi;
 }

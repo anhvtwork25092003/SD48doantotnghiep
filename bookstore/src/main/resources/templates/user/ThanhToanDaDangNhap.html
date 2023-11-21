@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{user/layoutchung/mainLayout}"
->
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Thanh Toán Đã Đăng Nhập</title>
     <!-- Required meta tags -->
@@ -27,13 +27,19 @@
             </div>
             <div class="diaChi">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" value="option1" checked>
-                    <label class="form-check-label">
-                     <span>Vương Văn Phước | Nguyên xá - Phường Cầu Diễn - Quận Nam Từ Liêm - Hà Nội
-                     </span>
-                        <a href="">Sửa</a>
-                        <a href="">Xóa</a>
-                    </label>
+                    <!-- Trong template Thymeleaf -->
+                    <div th:each="diaChi, diaChiIter : ${khachHangDangNhap.diaChiList}">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" th:id="'diaChiRadio_' + ${diaChiIter.index}"
+                                   th:name="'diaChiRadio'" th:value="${diaChi}">
+                            <label class="form-check-label">
+                                <span th:text="${diaChi.tinhThanhPho} + ' | ' + ${diaChi.huyenQuan} + ' | ' + ${diaChi.xaPhuong} + ' | ' + ${diaChi.diaChiCuThe}"></span>
+                                <a th:href="'#'" th:text="'Sửa'"></a>
+                                <a th:href="'#'" th:text="'Xóa'"></a>
+                            </label>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <!-- end đây là địa chỉ giao -->
@@ -45,7 +51,8 @@
                 </button>
                 <!-- Modal -->
                 <!-- nội dung thêm -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -111,80 +118,80 @@
                     <p th:text="${pttt.tenPhuongThucThanhToan}"></p>
                 </label>
             </div>
-        <!--end phương thức thanh toán -->
-        <br>
-        <!-- kiểm tra lại đơn hàng -->
-        <div class="kiemtralaidonhang">
-            <div>
-                <h4>Kiểm Tra Lại Đơn Hàng</h4>
-            </div>
-            <table>
-                <thead>
-                <tr>
-                    <th>Ảnh sản phẩm</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Giá</th>
-                    <th>Số lượng</th>
-                    <th>Thành Tiền</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="anhSanPham"><img src="/image/anhsanpham/sanpham1.jpg"></td>
-                    <td>Doraemon Plus 1</td>
-                    <td>
-                        20.000vnđ
-                        <p style="text-decoration: line-through;">30.000</p>
-                    </td>
-                    <td class="quantity-col"><label>1</label></td>
-                    <td class="subtotal-col">20.000vnđ</td>
-                </tr>
-                <tr>
-                    <td class="anhSanPham"><img src="/image/anhsanpham/sanpham1.jpg"></td>
-                    <td>Doraemon Plus 2</td>
-                    <td>
-                        20.000vnđ
-                        <p style="text-decoration: line-through;">30.000</p>
-                    </td>
-                    <td class="quantity-col"><label>1</label></td>
-                    <td class="subtotal-col">20.000vnđ</td>
-                </tr>
-                </tbody>
-            </table>
+            <!--end phương thức thanh toán -->
             <br>
-            <!-- thành tiền -->
-            <div class="thanhTien">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3><a href=""> Quay về giỏ hàng</a></h3>
-                    </div>
-                    <div class="col-md-6">
-                        <table class="table table-bordered">
-                            <tbody>
-                            <tr>
-                                <td>Thành tiền:</td>
-                                <td class="total">40.000vnđ</td>
-                            </tr>
-                            <tr>
-                                <td>Phí vận chuyển:</td>
-                                <td class="total">50.000vnđ</td>
-                            </tr>
-                            <tr>
-                                <td>Tổng số tiền:</td>
-                                <td class="total">90.000vnđ</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <button class="btn btn-danger btn-lg btn-block"
-                                onclick="return confirm('Bạn có muốn xác nhận thanh toán không ?')">Thanh toán
-                        </button>
+            <!-- kiểm tra lại đơn hàng -->
+            <div class="kiemtralaidonhang">
+                <div>
+                    <h4>Kiểm Tra Lại Đơn Hàng</h4>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Ảnh sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành Tiền</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="anhSanPham"><img src="/image/anhsanpham/sanpham1.jpg"></td>
+                        <td>Doraemon Plus 1</td>
+                        <td>
+                            20.000vnđ
+                            <p style="text-decoration: line-through;">30.000</p>
+                        </td>
+                        <td class="quantity-col"><label>1</label></td>
+                        <td class="subtotal-col">20.000vnđ</td>
+                    </tr>
+                    <tr>
+                        <td class="anhSanPham"><img src="/image/anhsanpham/sanpham1.jpg"></td>
+                        <td>Doraemon Plus 2</td>
+                        <td>
+                            20.000vnđ
+                            <p style="text-decoration: line-through;">30.000</p>
+                        </td>
+                        <td class="quantity-col"><label>1</label></td>
+                        <td class="subtotal-col">20.000vnđ</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <!-- thành tiền -->
+                <div class="thanhTien">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3><a href=""> Quay về giỏ hàng</a></h3>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td>Thành tiền:</td>
+                                    <td class="total">40.000vnđ</td>
+                                </tr>
+                                <tr>
+                                    <td>Phí vận chuyển:</td>
+                                    <td class="total">50.000vnđ</td>
+                                </tr>
+                                <tr>
+                                    <td>Tổng số tiền:</td>
+                                    <td class="total">90.000vnđ</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-danger btn-lg btn-block"
+                                    onclick="return confirm('Bạn có muốn xác nhận thanh toán không ?')">Thanh toán
+                            </button>
+                        </div>
                     </div>
                 </div>
+                <!-- thành tiền -->
             </div>
-            <!-- thành tiền -->
+            <!-- end kiểm tra lại đơn hàng -->
         </div>
-        <!-- end kiểm tra lại đơn hàng -->
-    </div>
 </article>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
