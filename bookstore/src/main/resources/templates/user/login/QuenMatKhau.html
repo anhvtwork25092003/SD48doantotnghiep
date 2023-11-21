@@ -10,29 +10,25 @@
 <body>
 <div class="login-box">
     <h2>Sign Up</h2>
-    <form th:action="@{/signup}" method="post" th:object="${user}">
+    <form th:action="@{/forgotpass/matkhau}" method="post" >
         <div class="user-box">
-            <input type="text" name="hoVaTen" th:field="*{hoVaTen}" required>
-            <label>Họ Và Tên</label>
+            <input type="password" name="otp" required>
+            <label>OTP</label>
         </div>
         <div class="user-box">
-            <input type="email" name="email" th:field="*{email}" required>
-            <label>Email</label>
-        </div>
-        <div class="user-box">
-            <input type="email" name="email" th:field="*{sdt}" required>
-            <label>SĐT</label>
-        </div>
-        <div class="user-box">
-            <input type="password" name="matKhau" th:field="*{matKhau}" required>
+            <input type="password" name="matKhau" required>
             <label>Password</label>
+        </div>
+        <div class="user-box">
+            <input type="password" name="passwordcomfin" required>
+            <label>ComfinPassword</label>
         </div>
         <button class="submit">
             <span></span>
             <span></span>
             <span></span>
             <span></span>
-            Sign Up
+            UpdatePass
         </button>
     </form>
 </div>
