@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}"
+      layout:decorate="~{admin/quanly/DonHangCho}"
 >
 
 <html lang="en">
@@ -77,6 +77,21 @@
                 <div class="box">
                     <table class="table" style=" border: 0px solid blue;">
                         <thead class="table-dark">
+                        <select class="col-2 form-control" onchange="changePage(this)">
+                                <option value="">Chọn</option>
+                                <option value="/quan-ly/don-hang/cho-van-chuyen">Đơn Hàng Đã Duyệt</option>
+                                <option value="/quan-ly/don-hang/dang-giao-hang">Đã Hoàn Thành</option>
+                                <option value="/quan-ly/don-hang/giao-thanh-cong">Đã Hủy</option>
+                            </select>
+                        </select>
+
+                        <script>
+                            function changePage(select) {
+                                var selectedOption = select.options[select.selectedIndex];
+                                var url = selectedOption.value;
+                                window.location.href = url;
+                            }
+                        </script>
                         <h4 style="text-align: left;">Danh Sách Đơn Hàng Đã Bị Hủy</h4>
                         <tr>
                             <th class="col-1">Mã Đơn Hàng</th>
@@ -91,90 +106,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th>2313</th>
-                            <td>Vương Phước</td>
-                            <td>23/10/2023</td>
-                            <td>30/10/2023</td>
-                            <td>012345678</td>
-                            <td>16.000</td>
-                            <td>Đơn...</td>
-                            <td>Bom Hàng...</td>
-                            <td>
-                                <a href="" onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
-                                    <i class="fa-solid fa-repeat"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>2313</th>
-                            <td>Vương Phước</td>
-                            <td>23/10/2023</td>
-                            <td>30/10/2023</td>
-                            <td>012345678</td>
-                            <td>16.000</td>
-                            <td>Đơn...</td>
-                            <td>Bom Hàng...</td>
-                            <td>
-                                <a href="" onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
-                                    <i class="fa-solid fa-repeat"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>2313</th>
-                            <td>Vương Phước</td>
-                            <td>23/10/2023</td>
-                            <td>30/10/2023</td>
-                            <td>012345678</td>
-                            <td>16.000</td>
-                            <td>Đơn...</td>
-                            <td>Bom Hàng...</td>
-                            <td>
-                                <a href="" onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
-                                    <i class="fa-solid fa-repeat"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>2313</th>
-                            <td>Vương Phước</td>
-                            <td>23/10/2023</td>
-                            <td>30/10/2023</td>
-                            <td>012345678</td>
-                            <td>16.000</td>
-                            <td>Đơn...</td>
-                            <td>Bom Hàng...</td>
-                            <td>
-                                <a href="" onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
-                                    <i class="fa-solid fa-repeat"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-                                </a>
-                            </td>
-                        </tr>
                         <tr>
                             <th>2313</th>
                             <td>Vương Phước</td>

@@ -16,4 +16,26 @@ public class DonHangControllerTuanAnh {
     public String quanLyChoVanChuyen() {
         return "/admin/quanly/DonHangDaDuyet";
     }
+
+    @GetMapping("/don-hang/dang-giao-hang")
+    public String quanLyDangGiaoHang() {
+        return "/admin/quanly/DonHangDaHoanThanh";
+    }
+
+    @GetMapping("/don-hang/giao-thanh-cong")
+    public String quanLyGiaoThanhCong() {
+        return "/admin/quanly/DonHangDaHuy";
+    }
+
+//
+//    @GetMapping("/don-hang/da-huy")
+//    public String quanLyDaHuy() {
+//        return "/admin/quanly/DonHangDaHuy";
+//    }
+
+
+//    @GetMapping("/don-hang/doi-tra")
+//    public String quanLyDoiTra() {
+//        return "/admin/quanly/DonHangCho";
+//    }
 }
