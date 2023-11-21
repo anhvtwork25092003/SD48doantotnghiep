@@ -38,7 +38,9 @@
                                 >
                                 </span>
                                 <a th:href="'#'" th:text="'Sửa'"></a>
-                                <a th:href="'#'" th:text="'Xóa'"></a>
+                                <!-- Thẻ a để xóa, thay thế "{yourControllerMapping}" và "{id}" bằng giá trị thực tế -->
+                                <a th:href="@{'/menu-nguoi-dung/xoa-dia-chi/' + ${diaChi.idDiaChi}}" onclick="return confirm('Are you sure?')">Delete</a>
+
                             </label>
                         </div>
                     </div>

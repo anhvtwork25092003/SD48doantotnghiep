@@ -27,7 +27,9 @@ public class DiaChiController {
                              @RequestParam("tinhThanhPhoThemMoi") String idTinhThanhPho,
                              @RequestParam("huyenQuanThemMoi") String huyenQuanThemMoi,
                              @RequestParam("xaPhuongThemMoi") String xaPhuongThemMoi,
-                             @RequestParam("diaChiCuTheThemMoi") String diaChiCuTheThemMoi
+                             @RequestParam("diaChiCuTheThemMoi") String diaChiCuTheThemMoi,
+                             @RequestParam("TenNguoiNhanThemMoi") String TenNguoiNhanThemMoi,
+                             @RequestParam("sdtnhanHangThemMoi") String sdtnhanHangThemMoi
     ) {
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
         DiaChi diaChi = DiaChi.builder()
@@ -36,6 +38,8 @@ public class DiaChiController {
                 .xaPhuong(xaPhuongThemMoi)
                 .diaChiCuThe(diaChiCuTheThemMoi)
                 .khachHangDiaChi(khachHang)
+                .tenNguoiNhan(TenNguoiNhanThemMoi)
+                .sdtNguoiNhanHang(sdtnhanHangThemMoi)
                 .build();
         DiaChi diaChiMoiThem = this.iDiaChiRepository.save(diaChi);
         KhachHang khachHangCapNhat = this.iKhachHangRepository.findById(khachHang.getIdKhachHang()).get();

@@ -2,13 +2,13 @@ package com.example.booksstore.controller.user;
 
 import com.example.booksstore.entities.GioHangChiTiet;
 import com.example.booksstore.entities.KhachHang;
+import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.PhuongThucThanhToanRepo;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,6 +20,9 @@ public class ThanhToanController {
 
     @Autowired
     PhuongThucThanhToanRepo phuongThucThanhToanRepo;
+
+    @Autowired
+    IKhachHangRepository iKhachHangRepository;
 
     // chuyển hướng trang thanh toán
     @GetMapping("/xac-nhan-thanh-toan")
@@ -38,15 +41,15 @@ public class ThanhToanController {
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
             return "/user/ThanhToanChuaDangNhap";
         } else {
-            model.addAttribute("khachHangDangNhap", khachHangDangNhap);
-
+            KhachHang khachHangHienThi = this.iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
+            model.addAttribute("khachHangDangNhap", khachHangHienThi);
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
             return "/user/ThanhToanDaDangNhap";
         }
 
     }
 
-    @GetMapping ("/xac-nhan-len-don")
+    @GetMapping("/xac-nhan-len-don")
     public String xacNhanLenDon(HttpSession session,
                                 @RequestParam(value = "danhSachChonMua", required = false) List<GioHangChiTiet> gioHangChiTietListForPay,
                                 @RequestParam(value = "phuongThucThanhToanMaKhachHangChon", required = false) String phuongThucThanhToan,
@@ -61,7 +64,7 @@ public class ThanhToanController {
     ) {
 // xác minh đăng nhậpS
         KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
-        System.out.println(tinhThanhPho + " " +  xaPhuong + " " + huyenQuan);
+        System.out.println(tinhThanhPho + " " + xaPhuong + " " + huyenQuan);
         if (khachHangDangNhap == null) {
             // chưa đăng nhạp
             // giảm trừ list trong sesion  va tạo đơn hàng với nhân viên trống, trạng thá

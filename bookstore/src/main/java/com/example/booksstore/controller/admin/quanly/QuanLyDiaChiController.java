@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +40,9 @@ public class QuanLyDiaChiController {
                              @RequestParam("tinhThanhPhoThemMoi") String idTinhThanhPho,
                              @RequestParam("huyenQuanThemMoi") String huyenQuanThemMoi,
                              @RequestParam("xaPhuongThemMoi") String xaPhuongThemMoi,
-                             @RequestParam("diaChiCuTheThemMoi") String diaChiCuTheThemMoi
+                             @RequestParam("diaChiCuTheThemMoi") String diaChiCuTheThemMoi,
+                             @RequestParam("TenNguoiNhanThemMoi") String TenNguoiNhanThemMoi,
+                             @RequestParam("sdtnhanHangThemMoi") String sdtnhanHangThemMoi
     ) {
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
         DiaChi diaChi = DiaChi.builder()
@@ -48,6 +51,8 @@ public class QuanLyDiaChiController {
                 .xaPhuong(xaPhuongThemMoi)
                 .diaChiCuThe(diaChiCuTheThemMoi)
                 .khachHangDiaChi(khachHang)
+                .tenNguoiNhan(TenNguoiNhanThemMoi)
+                .sdtNguoiNhanHang(sdtnhanHangThemMoi)
                 .build();
         DiaChi diaChiMoiThem = this.iDiaChiRepository.save(diaChi);
         return "redirect:/menu-nguoi-dung/dia-chi/hien-thi";
@@ -55,11 +60,13 @@ public class QuanLyDiaChiController {
 
     @PostMapping("/dia-chi/sua-dia-chi")
     public String suaDiaChi(HttpSession session,
-                             @RequestParam("idDiaChi") String idDiaChi,
-                             @RequestParam("tinhThanhPhoThemMoi") String idTinhThanhPho,
-                             @RequestParam("huyenQuanThemMoi") String huyenQuanThemMoi,
-                             @RequestParam("xaPhuongThemMoi") String xaPhuongThemMoi,
-                             @RequestParam("diaChiCuTheThemMoi") String diaChiCuTheThemMoi
+                            @RequestParam("idDiaChi") String idDiaChi,
+                            @RequestParam("tinhThanhPhoThemMoi") String idTinhThanhPho,
+                            @RequestParam("huyenQuanThemMoi") String huyenQuanThemMoi,
+                            @RequestParam("xaPhuongThemMoi") String xaPhuongThemMoi,
+                            @RequestParam("diaChiCuTheThemMoi") String diaChiCuTheThemMoi,
+                            @RequestParam("TenNguoiNhanThemMoi") String TenNguoiNhanThemMoi,
+                            @RequestParam("sdtnhanHangThemMoi") String sdtnhanHangThemMoi
     ) {
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
         DiaChi diaChi = DiaChi.builder()
@@ -69,8 +76,19 @@ public class QuanLyDiaChiController {
                 .xaPhuong(xaPhuongThemMoi)
                 .diaChiCuThe(diaChiCuTheThemMoi)
                 .khachHangDiaChi(khachHang)
+                .tenNguoiNhan(TenNguoiNhanThemMoi)
+                .sdtNguoiNhanHang(sdtnhanHangThemMoi)
                 .build();
         DiaChi diaChiMoiThem = this.iDiaChiRepository.save(diaChi);
+        return "redirect:/menu-nguoi-dung/dia-chi/hien-thi";
+    }
+
+    @GetMapping ("/xoa-dia-chi/{idDiaChiDelete}")
+    public String xoaDiaChi(HttpSession session,
+                            @PathVariable int idDiaChiDelete
+    ) {
+        DiaChi diaChiforDelete = this.iDiaChiRepository.findById(idDiaChiDelete).get();
+        this.iDiaChiRepository.delete(diaChiforDelete);
         return "redirect:/menu-nguoi-dung/dia-chi/hien-thi";
     }
 }
