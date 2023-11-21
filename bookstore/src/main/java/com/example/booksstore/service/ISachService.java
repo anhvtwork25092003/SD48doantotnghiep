@@ -15,13 +15,16 @@ public interface ISachService {
     Sach save(Sach sach);
 
     Page<Sach> searchSach(String tenSach, String maSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, Integer trangThai, Pageable pageable);
-    Page<Sach> TimKiemSach(String tenSach,BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai,  Pageable pageable);
+
+    Page<Sach> TimKiemSach(String tenSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, String sapXepGia, Pageable pageable);
 
     Sach getOne(int id);
+
     Sach getOneByMaVach(String maVach);
+
     List<Sach> sachmoi();
 
-    List<Sach>getall();
+    List<Sach> getall();
 
     Sach dateil(Integer idSach);
 }

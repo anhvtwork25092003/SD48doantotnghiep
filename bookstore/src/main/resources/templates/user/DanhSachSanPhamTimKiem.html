@@ -60,13 +60,23 @@
             <!-- Đâ y là phần bên phải (content) -->
             <h1>Kêt quả tìm kiếm:</h1>
             <!-- sắp xếp theo giá -->
-            <div class="sapxep">
-                <h3>Sắp xếp theo:</h3>
-                <select class=" form-control" id="selectItem">
-                    <option value="item1">Theo giá tăng dần</option>
-                    <option value="item2">Theo giá giảm dần</option>
-                </select>
-            </div>
+            <!--            <div class="sapxep">-->
+            <!--                <h3>Sắp xếp theo:</h3>-->
+            <!--                <select class=" form-control" id="selectItem">-->
+            <!--                    <option value="item1">Theo giá tăng dần</option>-->
+            <!--                    <option value="item2">Theo giá giảm dần</option>-->
+            <!--                </select>-->
+            <!--            </div>-->
+            <form th:action="@{/danh-sach-tim-kiem/loc}" method="get" enctype="multipart/form-data">
+                <div class="sapxep">
+                    <h3>Sắp xếp theo:</h3>
+                    <select class="col-3 form-control" id="selectItem" name="sapXepGia">
+                        <option value="asc">Theo giá tăng dần</option>
+                        <option value="desc">Theo giá giảm dần</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Áp dụng</button>
+                </div>
+            </form>
             <!-- end sắp xếp theo giá -->
 
             <h4>Danh sách sản phẩm</h4>

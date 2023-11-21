@@ -21,13 +21,14 @@ public class SachServiceImpl implements ISachService {
 
     @Autowired
     ISachRepository iSachRepository;
+
     @Override
     public Page<Sach> pageOfSach(Pageable pageable) {
         return iSachRepository.findAll(pageable);
     }
 
     @Override
-    public Sach save(Sach sach){
+    public Sach save(Sach sach) {
         return iSachRepository.save(sach);
     }
 
@@ -38,8 +39,8 @@ public class SachServiceImpl implements ISachService {
     }
 
     @Override
-    public Page<Sach> TimKiemSach(String tenSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, Pageable pageable) {
-        Specification<Sach> spec = TimKiemSachSpecification.filterTimKiemSach(tenSach, giaMin, giaMax, theLoai);
+    public Page<Sach> TimKiemSach(String tenSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, String sapXepGia, Pageable pageable) {
+        Specification<Sach> spec = TimKiemSachSpecification.filterTimKiemSach(tenSach, giaMin, giaMax, theLoai, sapXepGia);
         return iSachRepository.findAll(spec, pageable);
 
     }
@@ -61,7 +62,7 @@ public class SachServiceImpl implements ISachService {
 
     @Override
     public List<Sach> getall() {
-        List<Sach> s=iSachRepository.findAll();
+        List<Sach> s = iSachRepository.findAll();
         return s;
     }
 

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,9 +44,10 @@ public class TimKiemController {
 
     @GetMapping("/loc")
     public String hienThiTrangTimKiem(Model model, @RequestParam(defaultValue = "1") int page,
-                                             @RequestParam(required = false) String productNameSearch,
-                                             @RequestParam(required = false) String priceRangeSearch,
-                                             @RequestParam(required = false) Set<TheLoai> categorySearch
+                                      @RequestParam(required = false) String productNameSearch,
+                                      @RequestParam(required = false) String priceRangeSearch,
+                                      @RequestParam(required = false) Set<TheLoai> categorySearch,
+                                      @RequestParam(required = false) String sapXepGia
     ) {
         Page<Sach> pageOfSach;
         BigDecimal giaMin = null;
@@ -53,7 +55,7 @@ public class TimKiemController {
         int pageSize = 5; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
 //  moi khoi tao trang
-        if (productNameSearch != null ||  priceRangeSearch != null || categorySearch != null) {
+        if (productNameSearch != null || priceRangeSearch != null || categorySearch != null) {
             // xu ly khoang gia
             if (priceRangeSearch != null) {
                 if (priceRangeSearch.equals("all")) {
@@ -74,10 +76,16 @@ public class TimKiemController {
                 }
                 model.addAttribute("price", priceRangeSearch);
             }
-
+            if ("asc".equalsIgnoreCase(sapXepGia)) {
+                pageable = PageRequest.of(page - 1, pageSize, Sort.by("giaBan").ascending());
+            } else if ("desc".equalsIgnoreCase(sapXepGia)) {
+                pageable = PageRequest.of(page - 1, pageSize, Sort.by("giaBan").descending());
+            } else {
+                pageable = PageRequest.of(page - 1, pageSize);
+            }
             // xuu ly trang thai
 
-            pageOfSach = iSachService.TimKiemSach(productNameSearch, giaMin, giaMax, categorySearch, pageable);
+            pageOfSach = iSachService.TimKiemSach(productNameSearch, giaMin, giaMax, categorySearch, sapXepGia, pageable);
         } else {
             pageOfSach = iSachService.pageOfSach(pageable);
         }

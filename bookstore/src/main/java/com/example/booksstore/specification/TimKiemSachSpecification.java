@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class TimKiemSachSpecification {
     public static Specification<Sach> filterTimKiemSach(String tenSach, BigDecimal giaMin, BigDecimal giaMax,
-                                                 Set<TheLoai> theLoai) {
+                                                        Set<TheLoai> theLoai, String sapXepGia) {
         return (root, query, criteriaBuilder) -> {
             // Tạo một danh sách các điều kiện tìm kiếm
             List<Predicate> predicates = new ArrayList<>();
@@ -22,7 +22,6 @@ public class TimKiemSachSpecification {
             if (tenSach != null && !tenSach.isEmpty()) {
                 predicates.add(criteriaBuilder.like(root.get("tenSach"), "%" + tenSach + "%"));
             }
-
 
             // Giá sách trong khoảng từ giaMin đến giaMax
             if (giaMin != null && giaMax != null) {
@@ -41,7 +40,15 @@ public class TimKiemSachSpecification {
                 predicates.add(finalOrPredicate);
             }
 
+            // Sắp xếp theo giá
+            if ("asc".equalsIgnoreCase(sapXepGia)) {
+                query.orderBy(criteriaBuilder.asc(root.get("giaBan")));
+            } else if ("desc".equalsIgnoreCase(sapXepGia)) {
+                query.orderBy(criteriaBuilder.desc(root.get("giaBan")));
+            }
+
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }
 }
+
