@@ -3,105 +3,124 @@
       layout:decorate="~{user/layoutchung/mainLayout}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Danh Sách Tìm kiếm</title>
     <link rel="stylesheet" href="/user/css/DanhSachSanPhamTimKiem.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <article layout:fragment="noiDung">
-<div class="wrapper">
-    <aside class="sidebar">
-        <h2 style="text-align: center;">Lọc Theo</h2>
-<!--         lọc theo thể loại -->
-        <form th:action="@{/danh-sach-tim-kiem/loc}" method="get" enctype="multipart/form-data">
-        <div class="locTheLoai">
-            <h3>Thể Loại</h3>
-            <ul>
-                <th:block th:each="category : ${listTheLoai}">
-                    <input type="checkbox"
-                           th:id="'category_' + ${category.idTheLoai}"
-                           th:name="categorySearch"
-                           th:value="${category.idTheLoai}"
-                           th:checked="${catego.contains(category)}" />
-                    <label th:for="'category_' + ${category.idTheLoai}"
-                           th:text="${category.tenTheLoai}">
-                    </label>
-                    <br>
-                </th:block>
-            </ul>
-        </div>
+    <div class="wrapper">
+        <aside class="sidebar">
+            <h2 style="text-align: center;">Lọc Theo</h2>
+            <!--         lọc theo thể loại -->
+            <form th:action="@{/danh-sach-tim-kiem/loc}" method="get" enctype="multipart/form-data">
+                <div class="locTheLoai">
+                    <h3>Thể Loại</h3>
+                    <ul>
+                        <th:block th:each="category : ${listTheLoai}">
+                            <input type="checkbox"
+                                   th:id="'category_' + ${category.idTheLoai}"
+                                   th:name="categorySearch"
+                                   th:value="${category.idTheLoai}"
+                                   th:checked="${catego.contains(category)}"/>
+                            <label th:for="'category_' + ${category.idTheLoai}"
+                                   th:text="${category.tenTheLoai}">
+                            </label>
+                            <br>
+                        </th:block>
+                    </ul>
+                </div>
 
-        <!-- end lọc theo thể loại -->
-        <hr>
-        <!-- lọc theo giá -->
-        <div class="locGia">
-            <h3>Giá</h3>
-            <ul>
-                <input type="radio" name="priceRangeSearch" value="all"
-                       th:checked="${price=='all'}"> Tất cả<br>
-                <input type="radio" name="priceRangeSearch" value="1"
-                       th:checked="${price=='1'}"> Dưới 100.000 vnd<br>
-                <input type="radio" name="priceRangeSearch" value="2"
-                       th:checked="${price=='2'}">Từ 100.000 đến 500.000<br>
-                <input type="radio" name="priceRangeSearch" value="3"
-                       th:checked="${price=='3'}"> Trên 500.000<br>
-            </ul>
-        </div>
-            <button class="btn btn-success" type="submit">Lọc</button>
-        </form>
-        <!-- end lọc theo giá -->
-        <hr>
-    </aside>
+                <!-- end lọc theo thể loại -->
+                <hr>
+                <!-- lọc theo giá -->
+                <div class="locGia">
+                    <h3>Giá</h3>
+                    <ul>
+                        <input type="radio" name="priceRangeSearch" value="all"
+                               th:checked="${price=='all'}"> Tất cả<br>
+                        <input type="radio" name="priceRangeSearch" value="1"
+                               th:checked="${price=='1'}"> Dưới 100.000 vnd<br>
+                        <input type="radio" name="priceRangeSearch" value="2"
+                               th:checked="${price=='2'}">Từ 100.000 đến 500.000<br>
+                        <input type="radio" name="priceRangeSearch" value="3"
+                               th:checked="${price=='3'}"> Trên 500.000<br>
+                    </ul>
+                </div>
+                <button type="submit" class="btn btn-primary">Lọc</button>
+            </form>
+            <!-- end lọc theo giá -->
+            <hr>
+        </aside>
 
-    <main class="content">
-        <!-- Đâ y là phần bên phải (content) -->
-        <h1>Kêt quả tìm kiếm:</h1>
-        <!-- sắp xếp theo giá -->
-        <div class="sapxep">
-            <h3>Sắp xếp theo:</h3>
-            <select class=" form-control" id="selectItem">
-                <option value="item1">Theo giá tăng dần</option>
-                <option value="item2">Theo giá giảm dần</option>
-            </select>
-        </div>
-        <!-- end sắp xếp theo giá -->
+        <main class="content">
+            <!-- Đâ y là phần bên phải (content) -->
+            <h1>Kêt quả tìm kiếm:</h1>
+            <!-- sắp xếp theo giá -->
+            <div class="sapxep">
+                <h3>Sắp xếp theo:</h3>
+                <select class=" form-control" id="selectItem">
+                    <option value="item1">Theo giá tăng dần</option>
+                    <option value="item2">Theo giá giảm dần</option>
+                </select>
+            </div>
+            <!-- end sắp xếp theo giá -->
 
-        <h4>Danh sách sản phẩm</h4>
-        <div class="product">
-            <div class="product-item" th:each="sm, iterStat : ${pageOfSach.content}">
-                <a th:href="@{'/trang-chu/detail?idSach=' + ${sm.idSach}}">
-                    <div class="product-image">
-                        <img th:src="${sm.linkAnh1}">
-                    </div>
-                </a>
-                <h3 th:text="${sm.tenSach}"></h3>
-                <div th:each="ctkm : ${sm.khuyenMais}">
-                    <div th:if="${ctkm.trangThai == 1}">
-                        <div class="price">
-                            <h4 th:text="${sm.giaBan.subtract(sm.giaBan.multiply(new java.math.BigDecimal(ctkm.soPhanTramGiamGia).divide(new java.math.BigDecimal(100)))) + 'đ'}"></h4>
+            <h4>Danh sách sản phẩm</h4>
+            <div class="product">
+                <div class="product-item" th:each="sm, iterStat : ${pageOfSach.content}">
+                    <a th:href="@{'/trang-chu/detail?idSach=' + ${sm.idSach}}">
+                        <div class="product-image">
+                            <img th:src="${sm.linkAnh1}">
                         </div>
-                        <div class="sale">
-                            <h5 th:text="${sm.giaBan}"></h5>
-                        </div>
-                        <div class="discount"
-                             th:text="${ctkm.soPhanTramGiamGia + '%'}">
+                    </a>
+                    <h3 th:text="${sm.tenSach}"></h3>
+                    <div th:each="ctkm : ${sm.khuyenMais}">
+                        <div th:if="${ctkm.trangThai == 1}">
+                            <div class="price">
+                                <h4 th:text="${sm.giaBan.subtract(sm.giaBan.multiply(new java.math.BigDecimal(ctkm.soPhanTramGiamGia).divide(new java.math.BigDecimal(100)))) + 'đ'}"></h4>
+                            </div>
+                            <div class="sale">
+                                <h5 th:text="${sm.giaBan}"></h5>
+                            </div>
+                            <div class="discount"
+                                 th:text="${ctkm.soPhanTramGiamGia + '%'}">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <br>
-
-<!--        <div class="pagination">-->
-<!--            <button class="prev-btn">Previous</button>-->
-<!--            <ul class="page-numbers">-->
-<!--            </ul>-->
-<!--            <button class="next-btn">Next</button>-->
-<!--        </div>-->
-    </main>
-</div>
+            <br>
+            <div>
+                <span th:if="${pageOfSach.number + 1 > 1}">
+                    <a class="btn btn-primary" th:href="@{'/danh-sach-tim-kiem/loc?page=' + ${pageOfSach.number}}">Previous</a>
+                </span>
+                <span class="btn btn-danger" th:text="${pageOfSach.number + 1} + '/' + ${pageOfSach.totalPages}"></span>
+                <span th:if="${pageOfSach.number + 1 < pageOfSach.totalPages}">
+                    <a class="btn btn-primary" th:href="@{'/danh-sach-tim-kiem/loc?page=' + ${pageOfSach.number + 2}}">Next</a>
+                </span>
+            </div>
+            <!--                    <div class="pagination" th:if="${pageOfSach.number + 1 > 1}">-->
+            <!--                        <button class="prev-btn" th:href="@{'/danh-sach-tim-kiem/loc?page=' + ${pageOfSach.number}}">Previous</button>-->
+            <!--                        <ul class="page-numbers" th:text="${pageOfSach.number + 1} + '/' + ${pageOfSach.totalPages}">-->
+            <!--                        </ul>-->
+            <!--                        <button class="next-btn" th:href="@{'/danh-sach-tim-kiem/loc?page=' + ${pageOfSach.number + 2}}">Next</button>-->
+            <!--                    </div>-->
+        </main>
+    </div>
 </article>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>
