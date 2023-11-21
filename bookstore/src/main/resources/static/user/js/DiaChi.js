@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((data) => {
                 array.length = 0;
                 data.data.forEach((ward) => {
-                    array.push({ value: ward.WardID, text: ward.WardName });
+                    array.push({ value: ward.WardCode, text: ward.WardName });
                 });
                 populateSelect(selectId, array);
             })
