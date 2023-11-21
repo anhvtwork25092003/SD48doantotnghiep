@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
     const apiKey = 'c3e9d4a4-6352-11ee-a59f-a260851ba65c';
-
     const provinceApiUrl = 'https://online-gateway.ghn.vn/shiip/public-api/master-data/province';
     const districtApiUrl = 'https://online-gateway.ghn.vn/shiip/public-api/master-data/district';
     const wardApiUrl = 'https://online-gateway.ghn.vn/shiip/public-api/master-data/ward';
@@ -9,59 +8,43 @@ document.addEventListener('DOMContentLoaded', function () {
     const districtSelect = document.getElementById('huyenQuan');
     const wardSelect = document.getElementById('xaPhuong');
 
-// Thêm tùy chọn mặc định cho Tỉnh/Thành phố
-    const defaultProvinceOption = document.createElement('option');
-    defaultProvinceOption.value = '';
-    defaultProvinceOption.textContent = 'Chọn Tỉnh/Thành phố...';
-    provinceSelect.appendChild(defaultProvinceOption);
 
-// Lấy danh sách Tỉnh/Thành phố từ API
-    fetch(provinceApiUrl, {
-        method: 'GET',
-        headers: {
-            'token': apiKey,
-            'Content-Type': 'application/json',
-        },
-    })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Yêu cầu API Tỉnh/Thành phố thất bại. Mã lỗi: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then((data) => {
-            data.data.forEach((province) => {
-                const option = document.createElement('option');
-                option.value = province.ProvinceID;
-                option.textContent = province.ProvinceName;
-                provinceSelect.appendChild(option);
-            });
-        })
-        .catch((error) => {
-            console.error('Lỗi khi lấy danh sách Tỉnh/Thành phố:', error);
-        });
 
-// Sự kiện khi chọn Tỉnh/Thành phố
-    provinceSelect.addEventListener('change', function () {
-        const selectedProvinceId = provinceSelect.value;
-
-        // Xóa tất cả các tùy chọn hiện tại của Quận/Huyện và Phường/Xã
-        districtSelect.innerHTML = '';
-        wardSelect.innerHTML = '';
-
-        // Thêm tùy chọn mặc định cho Quận/Huyện
-        const defaultDistrictOption = document.createElement('option');
-        defaultDistrictOption.value = '';
-        defaultDistrictOption.textContent = 'Chọn Quận/Huyện...';
-        districtSelect.appendChild(defaultDistrictOption);
-
-        // Lấy danh sách Quận/Huyện từ API dựa trên Tỉnh/Thành phố được chọn
-        fetch(`${districtApiUrl}?province_id=${selectedProvinceId}`, {
+    // Hàm fetch danh sách Tỉnh/Thành phố
+    function fetchProvinces(apiUrl, array, selectId) {
+        fetch(apiUrl, {
             method: 'GET',
             headers: {
                 'token': apiKey,
                 'Content-Type': 'application/json',
-            }
+            },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`Yêu cầu API Tỉnh/Thành phố thất bại. Mã lỗi: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                array.length = 0;
+                data.data.forEach((province) => {
+                    array.push({ value: province.ProvinceID, text: province.ProvinceName });
+                });
+                populateSelect(selectId, array);
+            })
+            .catch((error) => {
+                console.error('Lỗi khi lấy danh sách Tỉnh/Thành phố:', error);
+            });
+    }
+
+// Hàm fetch danh sách Quận/Huyện
+    function fetchDistricts(apiUrl, array, selectId, provinceId) {
+        fetch(`${apiUrl}?province_id=${provinceId}`, {
+            method: 'GET',
+            headers: {
+                'token': apiKey,
+                'Content-Type': 'application/json',
+            },
         })
             .then((response) => {
                 if (!response.ok) {
@@ -70,33 +53,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then((data) => {
+                array.length = 0;
                 data.data.forEach((district) => {
-                    const option = document.createElement('option');
-                    option.value = district.DistrictID;
-                    option.textContent = district.DistrictName;
-                    districtSelect.appendChild(option);
+                    array.push({ value: district.DistrictID, text: district.DistrictName });
                 });
+                populateSelect(selectId, array);
             })
             .catch((error) => {
                 console.error('Lỗi khi lấy danh sách Quận/Huyện:', error);
             });
-    });
+    }
 
-// Sự kiện khi chọn Quận/Huyện
-    districtSelect.addEventListener('change', function () {
-        const selectedDistrictId = districtSelect.value;
-
-        // Xóa tất cả các tùy chọn hiện tại của Phường/Xã
-        wardSelect.innerHTML = '';
-
-        // Thêm tùy chọn mặc định cho Phường/Xã
-        const defaultWardOption = document.createElement('option');
-        defaultWardOption.value = '';
-        defaultWardOption.textContent = 'Chọn Phường/Xã...';
-        wardSelect.appendChild(defaultWardOption);
-
-        // Lấy danh sách Phường/Xã từ API dựa trên Quận/Huyện được chọn
-        fetch(`${wardApiUrl}?district_id=${selectedDistrictId}`, {
+// Hàm fetch danh sách Phường/Xã
+    function fetchWards(apiUrl, array, selectId, districtId) {
+        fetch(`${apiUrl}?district_id=${districtId}`, {
             method: 'GET',
             headers: {
                 'token': apiKey,
@@ -110,17 +80,43 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then((data) => {
+                array.length = 0;
                 data.data.forEach((ward) => {
-                    const option = document.createElement('option');
-                    option.value = ward.WardID;
-                    option.textContent = ward.WardName;
-                    wardSelect.appendChild(option);
+                    array.push({ value: ward.WardCode, text: ward.WardName });
                 });
+                populateSelect(selectId, array);
             })
             .catch((error) => {
                 console.error('Lỗi khi lấy danh sách Phường/Xã:', error);
             });
+    }
+
+
+    function populateSelect(selectId, data) {
+        const selectElement = document.getElementById(selectId);
+        selectElement.innerHTML = '';
+        data.forEach((item) => {
+            const option = document.createElement('option');
+            option.value = item.value;
+            option.textContent = item.text;
+            selectElement.appendChild(option);
+        });
+    }
+
+    const provinces = [];
+    const districts = [];
+    const wards = [];
+
+    fetchProvinces(provinceApiUrl, provinces, 'tinhThanhPho');
+    provinceSelect.addEventListener('change', function () {
+        const selectedProvinceId = provinceSelect.value;
+        console.log(selectedProvinceId);
+        fetchDistricts(districtApiUrl, districts, 'huyenQuan',selectedProvinceId);
     });
 
+    districtSelect.addEventListener('change', function () {
+        const selectedDistrictId = districtSelect.value;
+        console.log(selectedDistrictId);
+        fetchWards(wardApiUrl, wards, 'xaPhuong',selectedDistrictId);
+    });
 });
-
