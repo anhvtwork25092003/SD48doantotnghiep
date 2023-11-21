@@ -25,10 +25,10 @@
         <a href="/trang-chu">
             <img class="logo" src="/image/logoicon/fahasa-logo.png"/>
         </a>
-        <form th:action="@{/danh-sach-tim-kiem/search}" method="get" enctype="multipart/form-data">
+        <form th:action="@{/danh-sach-tim-kiem/loc}" method="get" enctype="multipart/form-data">
             <div class="search">
                 <div class="search-container">
-                    <input type="text" id="productName" name="tenSach" th:value="${param.tenSach}"
+                    <input type="text" id="productName" name="productNameSearch" th:value="${param.productNameSearch}"
                            placeholder="Tìm kiếm..."/>
                     <button type="submit" class="timkiem">
                         <span class="fa-solid fa-magnifying-glass fa-l" style="color: #ffffff;"></span>

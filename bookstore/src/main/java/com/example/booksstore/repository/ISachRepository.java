@@ -18,6 +18,4 @@ public interface ISachRepository extends JpaRepository<Sach ,Integer> {
 
     Sach findSachByMaVach(String maVach);
 
-    List<Sach> findByTenSachContaining(String tenSach);
-
 }

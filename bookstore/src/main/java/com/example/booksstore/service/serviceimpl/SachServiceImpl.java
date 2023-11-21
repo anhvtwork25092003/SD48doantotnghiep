@@ -5,6 +5,7 @@ import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.ISachService;
 import com.example.booksstore.specification.SachSpecification;
+import com.example.booksstore.specification.TimKiemSachSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +35,13 @@ public class SachServiceImpl implements ISachService {
     public Page<Sach> searchSach(String tenSach, String maSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, Integer trangThai, Pageable pageable) {
         Specification<Sach> spec = SachSpecification.filterSach(tenSach, maSach, giaMin, giaMax, theLoai, trangThai);
         return iSachRepository.findAll(spec, pageable);
+    }
+
+    @Override
+    public Page<Sach> TimKiemSach(String tenSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, Pageable pageable) {
+        Specification<Sach> spec = TimKiemSachSpecification.filterTimKiemSach(tenSach, giaMin, giaMax, theLoai);
+        return iSachRepository.findAll(spec, pageable);
+
     }
 
     @Override

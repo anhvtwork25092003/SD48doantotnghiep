@@ -15,6 +15,7 @@ public interface ISachService {
     Sach save(Sach sach);
 
     Page<Sach> searchSach(String tenSach, String maSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, Integer trangThai, Pageable pageable);
+    Page<Sach> TimKiemSach(String tenSach,BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai,  Pageable pageable);
 
     Sach getOne(int id);
     Sach getOneByMaVach(String maVach);
