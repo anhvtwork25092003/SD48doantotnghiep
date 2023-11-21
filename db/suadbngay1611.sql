@@ -32,5 +32,8 @@ alter table donhangchitiet
 ADD CONSTRAINT FK_DonHangChiTiet_Sach
 FOREIGN KEY (IdSach)
 REFERENCES Sach(idSach);
-
-
+-- sửa db ngày 21-11
+ALTER TABLE DiaChi
+add  tenNguoiNhan nvarchar(100)
+ALTER TABLE DiaChi
+add  sdtNguoiNhanHang nvarchar(100)

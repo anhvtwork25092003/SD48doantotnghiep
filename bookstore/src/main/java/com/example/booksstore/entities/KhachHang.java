@@ -75,7 +75,7 @@ public class KhachHang {
     @ManyToMany(mappedBy = "khachHangsforthongBaoKhuyenMai")
     private Set<ThongBao> thongBaos = new HashSet<>();
 
-    @OneToMany(mappedBy = "khachHangDiaChi", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "khachHangDiaChi")
     private List<DiaChi> diaChiList;
 }
 
