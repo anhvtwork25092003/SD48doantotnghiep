@@ -5,7 +5,7 @@ ul li :not(h2) {
 
 ul li a {
     width: 60%;
-    text-align: left;
+    text-align: center;
     margin: auto;
     padding: 10px;
     box-shadow: 1px 2px 0px -1px rgb(199, 199, 199);
@@ -22,15 +22,15 @@ ul li h2 {
 }
 
 li {
-    font-size: 110%;
+    font-size: 98%;
     margin-left: -100px;
 }
 
 
 nav {
     float: left;
-    width: 20%;
-    height: 650px;
+    width: 24%;
+    height: 348px;
     background: #ccc;
     padding: 0px;
 }
@@ -41,21 +41,27 @@ nav ul {
     padding-left: 80px;
 }
 
-article {
+.menuDiaChi {
+    width: 15%;
     float: left;
-    padding: 20px;
-    width: 80%;
-    height: 450px;
+    background: #ccc;
 }
+
+/*article {*/
+/*    float: left;*/
+/*    padding: 20px;*/
+/*    width: 80%;*/
+/*    height: 450px;*/
+/*}*/
 
 /*section:after {*/
 /*    content: "";*/
 /*    display: table;*/
 /*    clear: both;*/
 /*}*/
-@media ( max-width: 700px) {
-    nav, article {
-        width: 100%;
-        height: auto;
-    }
-}
+/*@media ( max-width: 700px) {*/
+/*    nav, article {*/
+/*        width: 100%;*/
+/*        height: auto;*/
+/*    }*/
+/*}*/

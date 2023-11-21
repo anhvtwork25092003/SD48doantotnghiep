@@ -1,139 +1,107 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{user/menu}"
-
+      layout:decorate="~{user/layoutchung/mainLayout}"
       xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="/user/css/son_thongtintaikhoan.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
-      integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@500&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-
-  <body>
-  <article layout:fragment="noiDung">
-      <h2>Thông tin tài khoản</h2>
-      <form th:action="@{/quan-ly/thong-tin/cap-nhat}" method="post">
-    <div th:each="thongtintaikhoan, iterStat : ${session.loggedInUser}">
-
-        <div class="group">
-          <input class="text-input" id="idKhachHang" type="text" name="idKhachHang" th:value="${thongtintaikhoan.idKhachHang}" hidden />
-        </div><br>
-        <div class="group">
-          <input class="text-input" id="maKhachHang" type="text" name="maKhachHang" th:value="${thongtintaikhoan.maKhachHang}" hidden />
-        </div><br>
-        <div class="group">
-          <input class="text-input" id="trangThai" type="text" name="trangThai" th:value="${thongtintaikhoan.trangThai}" hidden />
-        </div><br>
-        <div class="group">
-          <input class="text-input" id="matKhau" type="text" name="matKhau" th:value="${thongtintaikhoan.matKhau}" hidden/>
-        </div>
-        <div class="group">
-          <input class="text-input" id="ngayTaoTaiKhoan" type="text" name="ngayTaoTaiKhoan" th:value="${thongtintaikhoan.ngayTaoTaiKhoan}" hidden/>
-        </div>
-        <div class="group">
-          <input class="text-input" id="loaiKhachHang" type="text" name="loaiKhachHang" th:value="${thongtintaikhoan.loaiKhachHang}" hidden/>
-        </div>
-          <div class="group">
-          <label for="hoVaTen">Họ Và Tên<span style="color: #ff0000">*</span></label>
-          <input class="text-input" id="hoVaTen" type="text" name="hoVaTen" th:value="${thongtintaikhoan.hoVaTen}" />
-        </div><br>
-        <div class="group">
-          <label for="sdt">Số điện thoại</label>
-          <input class="text-input" id="sdt" type="tel"  name="sdt" th:value="${thongtintaikhoan.sdt}" />
-        </div>
-        <br>
-        <div class="group">
-          <label for="email">Email</label>
-          <input class="text-input" id="email" type="email" name="email" th:value="${thongtintaikhoan.email}"  />
-        </div>
-        <br>
-        <div class="group gender">
-          <label for="gioiTinh">Giới tính</label>
-          <input id="gioiTinh" name="gioiTinh" type="radio" value="1" th:checked="${thongtintaikhoan.gioiTinh == 1}"/>
-          <span>Nam</span>
-          <input id="gioiTinh" name="gioiTinh" type="radio" value="0" th:checked="${thongtintaikhoan.gioiTinh == 0}" />
-          <span>Nữ</span>
-        </div>
-        <br>
-        <div class="group">
-          <label for="ngaySinh">Ngày sinh</label>
-          <input class="text-input" id="ngaySinh" type="date" name="ngaySinh" th:value="${thongtintaikhoan.ngaySinh}"/>
-        </div>
-        <div class="group btn">
-          <button class="btn-warning" type="submit">Lưu thay đổi</button>
-        </div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Thông tin tài khoản</title>
+    <link rel="stylesheet" href="/user/css/son_thongtintaikhoan.css"/>
+    <link rel="stylesheet" href="/user/css/son_menu.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"/>
+</head>
+<body>
+<article layout:fragment="noiDung">
+    <div class="container">
+        <section>
+            <nav>
+                <h2>Tài Khoản</h2>
+                <ul>
+                    <li><a href="/quan-ly/thong-tin/hien-thi">Thông tin tài khoản</a></li>
+                    <li><a href="#">Sản phẩm yêu thích</a></li>
+                    <li><a href="/menu-nguoi-dung/dia-chi/hien-thi">Địa chỉ nhận hàng</a></li>
+                    <li><a href="#">Phương thức thanh toán</a></li>
+                </ul>
+            </nav>
+        </section>
+        <form th:action="@{/quan-ly/thong-tin/cap-nhat}" method="post">
+            <h2>Thông tin tài khoản</h2>
+            <div th:each="thongtintaikhoan, iterStat : ${session.loggedInUser}">
+                <div class="group">
+                    <input class="text-input" id="idKhachHang" type="text" name="idKhachHang"
+                           th:value="${thongtintaikhoan.idKhachHang}" hidden/>
+                </div>
+                <br>
+                <div class="group">
+                    <input class="text-input" id="maKhachHang" type="text" name="maKhachHang"
+                           th:value="${thongtintaikhoan.maKhachHang}" hidden/>
+                </div>
+                <br>
+                <div class="group">
+                    <input class="text-input" id="trangThai" type="text" name="trangThai"
+                           th:value="${thongtintaikhoan.trangThai}" hidden/>
+                </div>
+                <br>
+                <div class="group">
+                    <input class="text-input" id="matKhau" type="text" name="matKhau"
+                           th:value="${thongtintaikhoan.matKhau}" hidden/>
+                </div>
+                <div class="group">
+                    <input class="text-input" id="ngayTaoTaiKhoan" type="text" name="ngayTaoTaiKhoan"
+                           th:value="${thongtintaikhoan.ngayTaoTaiKhoan}" hidden/>
+                </div>
+                <div class="group">
+                    <input class="text-input" id="loaiKhachHang" type="text" name="loaiKhachHang"
+                           th:value="${thongtintaikhoan.loaiKhachHang}" hidden/>
+                </div>
+                <div class="group">
+                    <label for="hoVaTen">Họ Và Tên<span style="color: #ff0000">*</span></label>
+                    <input class="text-input" id="hoVaTen" type="text" name="hoVaTen"
+                           th:value="${thongtintaikhoan.hoVaTen}"/>
+                </div>
+                <br>
+                <div class="group">
+                    <label for="sdt">Số điện thoại</label>
+                    <input class="text-input" id="sdt" type="tel" name="sdt" th:value="${thongtintaikhoan.sdt}"/>
+                </div>
+                <br>
+                <div class="group">
+                    <label for="email">Email</label>
+                    <input class="text-input" id="email" type="email" name="email"
+                           th:value="${thongtintaikhoan.email}"/>
+                </div>
+                <br>
+                <div class="group gender">
+                    <label for="gioiTinh">Giới tính</label>
+                    <input id="gioiTinh" name="gioiTinh" type="radio" value="1"
+                           th:checked="${thongtintaikhoan.gioiTinh == 1}"/>
+                    <span>Nam</span>
+                    <input id="gioiTinh" name="gioiTinh" type="radio" value="0"
+                           th:checked="${thongtintaikhoan.gioiTinh == 0}"/>
+                    <span>Nữ</span>
+                </div>
+                <br>
+                <div class="group">
+                    <label for="ngaySinh">Ngày sinh</label>
+                    <input class="text-input" id="ngaySinh" type="date" name="ngaySinh"
+                           th:value="${thongtintaikhoan.ngaySinh}"/>
+                </div>
+                <div class="group btn">
+                    <button class="btn-warning" type="submit">Lưu thay đổi</button>
+                </div>
+            </div>
+        </form>
     </div>
-      </form>
-<!-- <div th:each="thongtintaikhoan, iterStat : ${session.loggedInUser}"> -->
-     <!--  <form th:action="@{/quan-ly/thong-tin/cap-nhat}" method="post">
-        <div class="group">
-          <input class="text-input" id="idKhachHang" type="text" name="idKhachHang" th:value="${loggedInUser.idKhachHang}" hidden />
-        </div><br>
-        <div class="group">
-          <input class="text-input" id="maKhachHang" type="text" name="maKhachHang" th:value="${loggedInUser.maKhachHang}" hidden />
-        </div><br>
-        <div class="group">
-          <input class="text-input" id="trangThai" type="text" name="trangThai" th:value="${loggedInUser.trangThai}" hidden />
-        </div><br>
-        <div class="group">
-          <input class="text-input" id="matKhau" type="text" name="matKhau" th:value="${loggedInUser.matKhau}" hidden/>
-        </div>
-        <div class="group">
-          <input class="text-input" id="ngayTaoTaiKhoan" type="text" name="ngayTaoTaiKhoan" th:value="${loggedInUser.ngayTaoTaiKhoan}" hidden/>
-        </div>
-        <div class="group">
-          <input class="text-input" id="loaiKhachHang" type="text" name="loaiKhachHang" th:value="${loggedInUser.loaiKhachHang}" hidden/>
-        </div>
-          <div class="group">
-          <label for="hoVaTen">Họ Và Tên<span style="color: #ff0000">*</span></label>
-          <input class="text-input" id="hoVaTen" type="text" name="hoVaTen" th:value="${loggedInUser.hoVaTen}" />
-        </div><br>
-        <div class="group">
-          <label for="sdt">Số điện thoại</label>
-          <input class="text-input" id="sdt" type="tel"  name="sdt" th:value="${loggedInUser.sdt}" />
-        </div>
-        <br>
-        <div class="group">
-          <label for="email">Email</label>
-          <input class="text-input" id="email" type="email" name="email" th:value="${loggedInUser.email}"  />
-        </div>
-        <br>
-        <div class="group gender">
-          <label for="gioiTinh">Giới tính</label>
-          <input id="gioiTinh" name="gioiTinh" type="radio" value="1" th:checked="${loggedInUser.gioiTinh == 1}"/>
-          <span>Nam</span>
-          <input id="gioiTinh" name="gioiTinh" type="radio" value="0" th:checked="${loggedInUser.gioiTinh == 0}" />
-          <span>Nữ</span>
-        </div>
-        <br>
-        <div class="group">
-          <label for="ngaySinh">Ngày sinh</label>
-          <input class="text-input" id="ngaySinh" type="date" name="ngaySinh" th:value="${loggedInUser.ngaySinh}"/>
-        </div>
-        <div class="group btn">
-          <button class="btn-warning" type="submit">Lưu thay đổi</button>
-        </div>
-      </form> -->
-    <!-- </div> -->
+</article>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-
-  </article>
-  </body>
+</body>
 </html>

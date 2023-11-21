@@ -12,9 +12,12 @@ import java.util.List;
 public interface ISachRepository extends JpaRepository<Sach ,Integer> {
     Page<Sach> findAll(Pageable pageable);
     Page<Sach> findAll(Specification<Sach> spec, Pageable pageable);
+
     Sach findByIdSach(int id);
     List<Sach> findAllByOrderByIdSachDesc();
 
     Sach findSachByMaVach(String maVach);
+
+    List<Sach> findByTenSachContaining(String tenSach);
 
 }

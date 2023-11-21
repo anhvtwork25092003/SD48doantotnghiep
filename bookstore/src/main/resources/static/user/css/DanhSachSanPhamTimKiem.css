@@ -40,13 +40,6 @@ header {
     text-align: center;
     
 }
-.product-item > .sale {
-    text-decoration-line : line-through
-
-}
-.product-item > .price {
-    color: red;
-}
 
 .product-item img {
     width: 150px;
@@ -55,10 +48,37 @@ header {
 .product {
     display: flex;
     flex-wrap: nowrap;
-    background-color: white;
+    position: relative;
+    font-family: cursive;
+    border: 1px solid darkgray;
 }
 
 /* CSS */
+
+.sale {
+    text-decoration-line: line-through
+
+}
+
+.price {
+    color: red;
+}
+.discount {
+    margin-left: 110px;
+    position: absolute;
+    margin-top: -290px;
+    background-color: orange;
+    border-radius: 50%;
+    padding: 5px 5px;
+    color: white;
+    font-weight: bold;
+}
+.product-item:hover .product-image img {
+    border: 1px solid red; /* Màu viền và độ rộng của viền tùy chọn */
+}
+
+
+
 .pagination {
     display: flex;
     justify-content: flex-end;
@@ -93,7 +113,6 @@ header {
     border-radius: 5px;
     cursor: pointer;
 }
-
 .prev-btn:hover,
 .next-btn:hover {
     background-color: #555;
