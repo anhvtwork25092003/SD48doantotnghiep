@@ -33,7 +33,10 @@
                             <input class="form-check-input" type="radio" th:id="'diaChiRadio_' + ${diaChiIter.index}"
                                    th:name="'diaChiRadio'" th:value="${diaChi}">
                             <label class="form-check-label">
-                                <span th:text="${diaChi.tinhThanhPho} + ' | ' + ${diaChi.huyenQuan} + ' | ' + ${diaChi.xaPhuong} + ' | ' + ${diaChi.diaChiCuThe}"></span>
+                                <span th:text=" ${diaChi.tenNguoiNhan}+ ' | '+${diaChi.tinhThanhPho} + ' | ' + ${diaChi.huyenQuan} + ' | '
+                                 + ${diaChi.xaPhuong} + ' | ' + ${diaChi.diaChiCuThe} + ' | ' + ${diaChi.sdtNguoiNhanHang}"
+                                >
+                                </span>
                                 <a th:href="'#'" th:text="'Sửa'"></a>
                                 <a th:href="'#'" th:text="'Xóa'"></a>
                             </label>

@@ -21,6 +21,8 @@
     <table class="table table-bordered table-hover">
         <tbody th:each="diaChi, iterStat : ${pageOfDiaChi}">
         <tr>
+            <td th:text="${diaChi.tenNguoiNhan}"></td>
+            <td th:text="${diaChi.sdtNguoiNhanHang}"></td>
             <td th:text="${diaChi.tinhThanhPho}"></td>
             <td th:text="${diaChi.huyenQuan}"></td>
             <td th:text="${diaChi.xaPhuong}"></td>
@@ -52,6 +54,12 @@
                                         <label>Id Địa chỉ</label>
                                         <input type="text" class="form-control" th:value="${diaChi.idDiaChi}" disabled>
                                     </div>
+                                    <label for="tenNguoiNhan">Tên người nhận</label>
+                                    <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan" class="form-control"
+                                           type="text">
+
+                                    <label for="sdtnhanhang">Số Điện Thoại nhận hàng</label>
+                                    <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control" type="text">
                                     <div class="form-group">
                                         <label>Tỉnh Thành Phố</label>
                                         <select name="province" id="modalTinhThanhPho" class="form-control"></select>
@@ -103,6 +111,10 @@
                         <form th:action="@{/menu-nguoi-dung/dia-chi/them-dia-chi}" method="post"
                               enctype="multipart/form-data">
                             <div class="form-group">
+                                <label for="tenNguoiNhan">Tên người nhận</label>
+                                <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan" class="form-control" type="text">
+                                <label for="sdtnhanhang">Số Điện Thoại nhận hàng</label>
+                                <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control" type="text">
                                 <label for="tinhThanhPho">Tỉnh Thành Phố</label>
                                 <select name="tinhThanhPhoThemMoi" id="tinhThanhPho" class="form-control"></select>
                                 <label for="huyenQuan">Quận Huyện</label>
