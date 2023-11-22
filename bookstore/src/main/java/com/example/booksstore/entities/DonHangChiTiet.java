@@ -50,5 +50,8 @@ public class DonHangChiTiet {
     @JoinColumn(name = "idsach")
     private Sach sach;
 
+    @ManyToOne
+    @JoinColumn(name = "idkhuyenmai")
+    private KhuyenMai khuyenMai;
 }
 
