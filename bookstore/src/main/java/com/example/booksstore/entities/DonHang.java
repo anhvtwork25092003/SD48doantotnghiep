@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -48,6 +49,9 @@ public class DonHang {
     @Column(name = "trangthai")
     private Integer trangThai;
 
+    @Column(name = "trangthaithanhtoan")
+    private Integer trangThaithanhtoan;
+
     @Column(name = "ghichukhachhanggui")
     private String ghiChuKhachHangui;
 
@@ -65,5 +69,9 @@ public class DonHang {
     @ManyToOne
     @JoinColumn(name = "idnhanvien")
     private NhanVien nhanVien;
+
+
+    @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)
+    private List<DonHangChiTiet> chiTietDonHang;
 }
 

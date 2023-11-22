@@ -39,7 +39,8 @@
                                 </span>
                                 <a th:href="'#'" th:text="'Sửa'"></a>
                                 <!-- Thẻ a để xóa, thay thế "{yourControllerMapping}" và "{id}" bằng giá trị thực tế -->
-                                <a th:href="@{'/menu-nguoi-dung/xoa-dia-chi/' + ${diaChi.idDiaChi}}" onclick="return confirm('Are you sure?')">Delete</a>
+                                <a th:href="@{'/menu-nguoi-dung/xoa-dia-chi/' + ${diaChi.idDiaChi}}"
+                                   onclick="return confirm('Are you sure?')">Delete</a>
 
                             </label>
                         </div>
@@ -143,25 +144,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="anhSanPham"><img src="/image/anhsanpham/sanpham1.jpg"></td>
-                        <td>Doraemon Plus 1</td>
-                        <td>
-                            20.000vnđ
-                            <p style="text-decoration: line-through;">30.000</p>
-                        </td>
-                        <td class="quantity-col"><label>1</label></td>
-                        <td class="subtotal-col">20.000vnđ</td>
-                    </tr>
-                    <tr>
-                        <td class="anhSanPham"><img src="/image/anhsanpham/sanpham1.jpg"></td>
-                        <td>Doraemon Plus 2</td>
-                        <td>
-                            20.000vnđ
-                            <p style="text-decoration: line-through;">30.000</p>
-                        </td>
-                        <td class="quantity-col"><label>1</label></td>
-                        <td class="subtotal-col">20.000vnđ</td>
+                    <tr th:each=" dssp: ${danhSachSanPhamTrongGioHang}">
+                        <td class="anhSanPham"><img th:src="@{|${dssp.sach.linkAnh1}|}" id="viewLinkAnh2" alt="anh 2"
+                                                    width="88px" height="88px"></td>
+                        <td th:text="${dssp.sach.tenSach}"></td>
+                        <td th:text="${dssp.sach.giaBan}"></td>
+                        <td th:text="${dssp.soLuong}"></td>
                     </tr>
                     </tbody>
                 </table>

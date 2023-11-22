@@ -27,7 +27,8 @@
                 </li>
                 <!-- Lặp qua danh sách sản phẩm từ controller -->
                 <li class="items odd" th:each="item : ${danhSachSanPhamTrongGioHang}">
-                    <input type="checkbox" class="item-checkbox" name="SachDaChonDeMua" th:value="${item.idGioHangChiTiet}">
+                    <input type="checkbox" class="item-checkbox" name="SachDaChonDeMua"
+                           th:value="${item.idGioHangChiTiet}">
                     <div class="infoWrap">
                         <div class="cartSection">
                             <!-- Sử dụng biểu thức Thymeleaf để đổ dữ liệu động -->
@@ -37,14 +38,14 @@
                             <form th:action="@{'/gio-hang/cap-nhat-luong-san-pham?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
                                   method="post">
                                 <p class="qty-control">
-                                    <input type="hidden" th:value="${item.sach.idSach}" name="idSachgh" >
+                                    <input type="hidden" th:value="${item.sach.idSach}" name="idSachgh">
                                     <input type="text" class="qty" th:value="${item.soLuong}" name="soLuongSach"
                                            id="soLuongSach"/>
                                 </p>
                                 <!-- Thêm phần tử cho biểu tượng loading -->
                                 <!-- Thêm phần tử cho biểu tượng loading -->
 
-                                <button type="submit" >
+                                <button type="submit">
                                     <i class="fa-solid fa-rotate-right fa-l" style="color: #f96515;"></i>
                                 </button>
 
@@ -61,9 +62,11 @@
                             <p class="price discounted-price" th:text="${item.sach.giaBan}"></p>
                         </div>
                         <div class="cartSection removeWrap">
-                            <a th:if="${loggedInUser != null}" th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idGioHangChiTiet=' + ${item.idGioHangChiTiet} +'&idSachgh='}"
+                            <a th:if="${loggedInUser != null}"
+                               th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idGioHangChiTiet=' + ${item.idGioHangChiTiet} +'&idSachgh='}"
                                class="remove">x</a>
-                            <a th:if="${loggedInUser == null}" th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idSachgh=' + ${item.sach.idSach} + '&idGioHangChiTiet='}"
+                            <a th:if="${loggedInUser == null}"
+                               th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idSachgh=' + ${item.sach.idSach} + '&idGioHangChiTiet='}"
                                class="remove">x</a>
                         </div>
 
@@ -80,7 +83,25 @@
                     <!-- Bạn có thể tính tổng giá động trong controller và truyền vào đây -->
                     <span class="value"></span>
                 </li>
-                <li class="totalRow"><a href="#" class="btn continue">Checkout</a></li>
+                <li class="totalRow"><a href="#" class="btn continue" id="checkoutButton">Checkout</a></li>
+                <script th:inline="javascript">
+                    /* Thêm mã JavaScript Thymeleaf để xử lý khi nhấp vào nút thanh toán */
+                    document.getElementById('checkoutButton').addEventListener('click', function () {
+                        // Lấy danh sách giá trị của checkbox được chọn
+                        var selectedCheckboxValues = [];
+                        var checkboxes = document.querySelectorAll('.item-checkbox:checked');
+                        checkboxes.forEach(function (checkbox) {
+                            selectedCheckboxValues.push(checkbox.value);
+                        });
+
+                        // Chuyển đổi mảng thành chuỗi
+                        var selectedValuesString = selectedCheckboxValues.join(',');
+
+                        // Tạo URL với giá trị được chọn và chuyển hướng
+                        var url = '/thanh-toan/xac-nhan-thanh-toan?selectedValues=' + encodeURIComponent(selectedValuesString);
+                        window.location.href = url;
+                    });
+                </script>
             </ul>
         </div>
 

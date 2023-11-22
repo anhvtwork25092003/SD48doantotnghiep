@@ -41,3 +41,9 @@ select* from PhuongThucThanhToan
 -- sửa db ngày 22
 alter table donhang
 add trangThaiThanhToan int
+
+--sửa db tiếp
+alter table DonHangChiTiet
+ADD CONSTRAINT FK_DonHangChiTiet_KhuyenMai
+FOREIGN KEY (idKhuyenMai)
+REFERENCES KhuyenMai(idKhuyenMai);

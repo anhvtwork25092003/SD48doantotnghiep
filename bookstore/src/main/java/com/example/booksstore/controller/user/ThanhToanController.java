@@ -1,10 +1,12 @@
 package com.example.booksstore.controller.user;
 
 import com.example.booksstore.entities.DonHang;
+import com.example.booksstore.entities.DonHangChiTiet;
 import com.example.booksstore.entities.GioHangChiTiet;
 import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.PhuongThucThanhToan;
+import com.example.booksstore.repository.GioHangChiTietReposutory;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.PhuongThucThanhToanRepo;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +32,8 @@ public class ThanhToanController {
 
     @Autowired
     IKhachHangRepository iKhachHangRepository;
+    @Autowired
+    GioHangChiTietReposutory gioHangChiTietReposutory;
 
     @Autowired
     IDonHangRepo iDonHangRepo;
@@ -36,13 +41,17 @@ public class ThanhToanController {
     // chuyển hướng trang thanh toán
     @GetMapping("/xac-nhan-thanh-toan")
     public String xacNhanThanhToan(HttpSession session,
-                                   @RequestParam(value = "SachDaChonDeMua", required = false) List<GioHangChiTiet> gioHangChiTietListDaChon,
-                                   String idGioHang,
+                                   @RequestParam(value = "selectedValues", required = false) List<String> IdgioHangChiTietListDaChon,
+
                                    Model model) {
         // xác minh đăng nhập
 
         model.addAttribute("phuongthucThanhToans", this.phuongThucThanhToanRepo.findAll());
-
+        List<GioHangChiTiet> gioHangChiTietListDaChon = new ArrayList<>();
+        for (String gioHangChiTietId : IdgioHangChiTietListDaChon) {
+            GioHangChiTiet gioHangChiTietforAddList = gioHangChiTietReposutory.findById(Integer.parseInt(gioHangChiTietId)).get();
+            gioHangChiTietListDaChon.add(gioHangChiTietforAddList);
+        }
         KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
         // chưa đăng nhập: chuyển đến trang chwua đăng nhập
         if (khachHangDangNhap == null) {
@@ -50,6 +59,7 @@ public class ThanhToanController {
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
             return "/user/ThanhToanChuaDangNhap";
         } else {
+
             KhachHang khachHangHienThi = this.iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
             model.addAttribute("khachHangDangNhap", khachHangHienThi);
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
@@ -91,6 +101,7 @@ public class ThanhToanController {
 
             } else {
                 // thanh toán tienf mặt khi nhận  hàng
+                int trangThaiThanhToan = 0; // chua thanh toan
                 // => tạo đơn nào
                 // đầu tiên lấy ra ngày tạo đơn
                 Date currentDate = new Date();
@@ -141,7 +152,7 @@ public class ThanhToanController {
 
                 // khách hàng  = > lấy từ  sesion cho nhanh
                 KhachHang khachHangMoiDeLuu = this.iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
-                DonHang donHang = DonHang.builder()
+                DonHang donHangTruocKhiThem = DonHang.builder()
                         .khachHang(khachHangMoiDeLuu)
                         .ghiChuLyDoDonHang("")
                         .tongTienHangGoc(tongTienHangGoc)
@@ -152,7 +163,18 @@ public class ThanhToanController {
                         .tongTienKhuyenMai(tongTienHangKhuyenMai)
                         .tongTienCanThanhToan(tongTienCanThanhToan)
                         .trangThai(trangThai)
+                        .trangThaithanhtoan(trangThaiThanhToan)
                         .build();
+                DonHang donHangSauKhiThem = this.iDonHangRepo.save(donHangTruocKhiThem);
+                //xử lý list giỏ hàng chi tiết chứa cách sách và chuyển nó thành đơn ahngf chi tiết
+                List<DonHangChiTiet> donHangChiTietList = new ArrayList<>();
+                for (GioHangChiTiet gioHangChiTiet : gioHangChiTietListForPay) {
+                    //chuyển đổi giohang chi tiết = > đơn hàng chi tiết
+                    DonHangChiTiet donHangChiTietDeThemVaoList = new DonHangChiTiet();
+                    donHangChiTietDeThemVaoList.setDonHang(donHangSauKhiThem);
+
+
+                }
 
                 // cuối cùng tiến hành lưu nè
 
@@ -161,4 +183,6 @@ public class ThanhToanController {
         }
         return "/user/pay";
     }
+
+
 }
