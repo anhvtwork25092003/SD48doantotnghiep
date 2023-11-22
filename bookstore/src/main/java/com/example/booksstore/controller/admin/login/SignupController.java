@@ -32,7 +32,7 @@ public class SignupController {
         // Check if email already exists
         KhachHang existingUser = iKhachHangRepository.findByEmail(khachHang.getEmail());
         if (existingUser != null) {
-            model.addAttribute("error", "Email already exists");
+            model.addAttribute("error", "Email đã tồn tại");
             return "user/login/sign_up";
         }
         // Encode password (you should use a proper password encoder)
@@ -51,6 +51,7 @@ public class SignupController {
         senderService.sendSimpleEmail(khachHang.getEmail(), "Thông Tin Tài Khoản Của Bạn",
                 "Họ Và Tên: " + khachHang.getHoVaTen() + "\n" +
                         "Email Đăng Ký: " + khachHang.getEmail() + "\n" +
+                        "Số Điện Thoại: " + khachHang.getSdt() + "\n" +
                         "Mật Khẩu: " + khachHang.getMatKhau());
         return "redirect:/login/khach-hang";
     }

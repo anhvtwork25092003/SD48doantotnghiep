@@ -10,7 +10,7 @@
 <body>
 <div class="login-box">
     <h2>Sign Up</h2>
-    <form th:action="@{/signup}" method="post" th:object="${user}">
+    <form th:action="@{/sign-up}" method="post" th:object="${user}">
         <div class="user-box">
             <input type="text" name="hoVaTen" th:field="*{hoVaTen}" required>
             <label>Họ Và Tên</label>
@@ -20,7 +20,7 @@
             <label>Email</label>
         </div>
         <div class="user-box">
-            <input type="email" name="email" th:field="*{sdt}" required>
+            <input type="tel" name="sdt" th:field="*{sdt}" required>
             <label>SĐT</label>
         </div>
         <div class="user-box">
