@@ -37,3 +37,7 @@ ALTER TABLE DiaChi
 add  tenNguoiNhan nvarchar(100)
 ALTER TABLE DiaChi
 add  sdtNguoiNhanHang nvarchar(100)
+select* from PhuongThucThanhToan
+-- sửa db ngày 22
+alter table donhang
+add trangThaiThanhToan int
