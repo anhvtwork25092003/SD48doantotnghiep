@@ -1,8 +1,11 @@
 package com.example.booksstore.controller.user;
 
+import com.example.booksstore.entities.DonHang;
 import com.example.booksstore.entities.GioHangChiTiet;
 import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.KhuyenMai;
+import com.example.booksstore.entities.PhuongThucThanhToan;
+import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.PhuongThucThanhToanRepo;
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +29,9 @@ public class ThanhToanController {
 
     @Autowired
     IKhachHangRepository iKhachHangRepository;
+
+    @Autowired
+    IDonHangRepo iDonHangRepo;
 
     // chuyển hướng trang thanh toán
     @GetMapping("/xac-nhan-thanh-toan")
@@ -55,7 +61,7 @@ public class ThanhToanController {
     @GetMapping("/xac-nhan-len-don")
     public String xacNhanLenDon(HttpSession session,
                                 @RequestParam(value = "danhSachChonMua", required = false) List<GioHangChiTiet> gioHangChiTietListForPay,
-                                @RequestParam(value = "phuongThucThanhToanMaKhachHangChon", required = false) String phuongThucThanhToan,
+                                @RequestParam(value = "phuongThucThanhToanMaKhachHangChon", required = false) PhuongThucThanhToan phuongThucThanhToan,
                                 @RequestParam(value = "tenNguoiNhan", required = false) String tenNguoiNhan,
                                 @RequestParam(value = "soDienThoaiNhanHang", required = false) String soDienThoaiNhanHang,
                                 @RequestParam(value = "tinhThanhPho", required = false) String tinhThanhPho,
@@ -79,7 +85,7 @@ public class ThanhToanController {
         } else {
             // đã đăng nhập rồi nè
             // kiểm tra phương thức  thanh taons nè
-            if (Integer.parseInt(phuongThucThanhToan) == 1) {
+            if (phuongThucThanhToan.getIdPhuongThucThanhToan() == 1) {
                 // thanh toán với vnpay
                 // xử lý sau
 
@@ -130,10 +136,25 @@ public class ThanhToanController {
                 // trạng thái sẽ là 0 = > chờ xác nhận lên đơn nè
                 int trangThai = 0;// chua xác nhạna
                 // ghi chú đơn hàng của khách hàng viết vào !
-// ghi chú trống hihih
+                // ghi chú trống hihih
                 // ghi chú lý do hủy đơn hàng
 
                 // khách hàng  = > lấy từ  sesion cho nhanh
+                KhachHang khachHangMoiDeLuu = this.iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
+                DonHang donHang = DonHang.builder()
+                        .khachHang(khachHangMoiDeLuu)
+                        .ghiChuLyDoDonHang("")
+                        .tongTienHangGoc(tongTienHangGoc)
+                        .ghiChuKhachHangui("")
+                        .ngayTao(currentDate)
+                        .phiVanChuyen(phiVanChuyen)
+                        .phuongThucThanhToan(phuongThucThanhToan)
+                        .tongTienKhuyenMai(tongTienHangKhuyenMai)
+                        .tongTienCanThanhToan(tongTienCanThanhToan)
+                        .trangThai(trangThai)
+                        .build();
+
+                // cuối cùng tiến hành lưu nè
 
 
             }

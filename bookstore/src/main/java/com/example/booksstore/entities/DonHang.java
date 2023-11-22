@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +28,7 @@ public class DonHang {
     private String maDonHang;
 
     @Column(name = "ngaytao")
-    private Date ngayTao;
+    private java.util.Date ngayTao;
 
     @Column(name = "ngaythanhtoan")
     private Date ngayThanhToan;
