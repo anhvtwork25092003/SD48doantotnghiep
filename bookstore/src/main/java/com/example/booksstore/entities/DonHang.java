@@ -1,6 +1,15 @@
 package com.example.booksstore.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +27,7 @@ import java.util.List;
 @Setter
 @Entity
 @Builder
-@Table(name="donhang")
+@Table(name = "donhang")
 public class DonHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,17 +43,10 @@ public class DonHang {
     @Column(name = "ngaythanhtoan")
     private Date ngayThanhToan;
 
-    @Column(name = "tongtienhanggoc")
-    private BigDecimal tongTienHangGoc;
-
-    @Column(name = "tongtienkhuyenmai")
-    private BigDecimal tongTienKhuyenMai;
 
     @Column(name = "phivanchuyen")
     private BigDecimal phiVanChuyen;
 
-    @Column(name = "tongtiencanthanhtoan")
-    private BigDecimal tongTienCanThanhToan;
 
     @Column(name = "trangthai")
     private Integer trangThai;

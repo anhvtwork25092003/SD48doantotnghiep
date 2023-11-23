@@ -6,6 +6,7 @@ import com.example.booksstore.entities.GioHangChiTiet;
 import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.PhuongThucThanhToan;
+import com.example.booksstore.entities.ThongTinGiaoHang;
 import com.example.booksstore.repository.GioHangChiTietReposutory;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
@@ -70,20 +71,27 @@ public class ThanhToanController {
 
     @GetMapping("/xac-nhan-len-don")
     public String xacNhanLenDon(HttpSession session,
-                                @RequestParam(value = "danhSachChonMua", required = false) List<GioHangChiTiet> gioHangChiTietListForPay,
-                                @RequestParam(value = "phuongThucThanhToanMaKhachHangChon", required = false) PhuongThucThanhToan phuongThucThanhToan,
-                                @RequestParam(value = "tenNguoiNhan", required = false) String tenNguoiNhan,
-                                @RequestParam(value = "soDienThoaiNhanHang", required = false) String soDienThoaiNhanHang,
-                                @RequestParam(value = "tinhThanhPho", required = false) String tinhThanhPho,
-                                @RequestParam(value = "huyenQuan", required = false) String huyenQuan,
-                                @RequestParam(value = "xaPhuong", required = false) String xaPhuong,
-                                @RequestParam(value = "diaChiCuThe", required = false) String diaChiCuThe
+                                @RequestParam(value = "danhSachChonMua", required = false)
+                                        List<GioHangChiTiet> gioHangChiTietListForPay,
+                                @RequestParam(value = "phuongThucThanhToanMaKhachHangChon", required = false)
+                                        PhuongThucThanhToan phuongThucThanhToan,
+                                @RequestParam(value = "tenNguoiNhan", required = false)
+                                        String tenNguoiNhan,
+                                @RequestParam(value = "soDienThoaiNhanHang", required = false)
+                                        String soDienThoaiNhanHang,
+                                @RequestParam(value = "tinhThanhPho", required = false)
+                                        String tinhThanhPho,
+                                @RequestParam(value = "huyenQuan", required = false)
+                                        String huyenQuan,
+                                @RequestParam(value = "xaPhuong", required = false)
+                                        String xaPhuong,
+                                @RequestParam(value = "diaChiCuThe", required = false)
+                                        String diaChiCuThe
 
 
     ) {
 // xác minh đăng nhậpS
         KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
-        System.out.println(tinhThanhPho + " " + xaPhuong + " " + huyenQuan);
         if (khachHangDangNhap == null) {
             // chưa đăng nhạp
             // giảm trừ list trong sesion  va tạo đơn hàng với nhân viên trống, trạng thá
@@ -101,98 +109,6 @@ public class ThanhToanController {
 
             } else {
                 // thanh toán tienf mặt khi nhận  hàng
-                int trangThaiThanhToan = 0; // chua thanh toan
-                // => tạo đơn nào
-                // đầu tiên lấy ra ngày tạo đơn
-                Date currentDate = new Date();
-                // lấy ra tổng tiền hàng nè
-                // duyệt list gioHangChiTietListForPay( giohangchitiet) => lấy sách => lấy tiền khuyến mãi
-
-                // b1: lấy tổng tiền hàng gốc
-                BigDecimal tongTienHangGoc = BigDecimal.ZERO;
-                for (GioHangChiTiet gioHangChiTiet : gioHangChiTietListForPay) {
-                    BigDecimal giaBan = gioHangChiTiet.getSach().getGiaBan();
-                    int soLuong = gioHangChiTiet.getSoLuong();
-                    BigDecimal thanhTien = giaBan.multiply(BigDecimal.valueOf(soLuong));
-                    tongTienHangGoc = tongTienHangGoc.add(thanhTien);
-                }
-                BigDecimal tongTienHangKhuyenMai = BigDecimal.ZERO;
-
-                // b2: lấy tổng tiền khuyến mãi
-                for (GioHangChiTiet gioHangChiTiet : gioHangChiTietListForPay) {
-                    //mỗi giỏ hàng chi tiết đi cùng  1 sách => đi cùng nhiều khuyến mãi => duyệt list lấy ra số phần
-                    // trăm giảm được áp dụng => sau đó tiến hành giảm trừ
-                    for (KhuyenMai khuyenMai : gioHangChiTiet.getSach().getKhuyenMais()) {
-                        if (khuyenMai.getTrangThai() == 1) {
-                            // khuyến mãi đang được áp dụng!
-                            // lây sra số phần trăm giảm giá
-                            double sophangiam = (khuyenMai.getSoPhanTramGiamGia()) / 100;
-                            BigDecimal thanhTienKhuyenMai = gioHangChiTiet.getSach().getGiaBan().multiply(BigDecimal.valueOf(sophangiam));
-                            BigDecimal.ZERO.add(thanhTienKhuyenMai);
-                            break;
-                        } else {
-                            tongTienHangKhuyenMai = BigDecimal.ZERO;
-                        }
-                    }
-                }
-
-
-                // phí vận chuyển fixx cứng 50 000
-                BigDecimal phiVanChuyen = new BigDecimal(50000);
-
-
-                // tổng tiền cần thanh toán: tiền hàng gốc - trừ tiền khuyến amix + tiền vận chuyển 50 000
-                BigDecimal tongTienCanThanhToan = tongTienHangGoc.subtract(tongTienHangKhuyenMai).add(phiVanChuyen);
-
-                // trạng thái sẽ là 0 = > chờ xác nhận lên đơn nè
-                int trangThai = 0;// chua xác nhạna
-                // ghi chú đơn hàng của khách hàng viết vào !
-                // ghi chú trống hihih
-                // ghi chú lý do hủy đơn hàng
-
-                // khách hàng  = > lấy từ  sesion cho nhanh
-                KhachHang khachHangMoiDeLuu = this.iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
-                DonHang donHangTruocKhiThem = DonHang.builder()
-                        .khachHang(khachHangMoiDeLuu)
-                        .ghiChuLyDoDonHang("")
-                        .tongTienHangGoc(tongTienHangGoc)
-                        .ghiChuKhachHangui("")
-                        .ngayTao(currentDate)
-                        .phiVanChuyen(phiVanChuyen)
-                        .phuongThucThanhToan(phuongThucThanhToan)
-                        .tongTienKhuyenMai(tongTienHangKhuyenMai)
-                        .tongTienCanThanhToan(tongTienCanThanhToan)
-                        .trangThai(trangThai)
-                        .trangThaithanhtoan(trangThaiThanhToan)
-                        .build();
-                DonHang donHangSauKhiThem = this.iDonHangRepo.save(donHangTruocKhiThem);
-                //xử lý list giỏ hàng chi tiết chứa cách sách và chuyển nó thành đơn ahngf chi tiết
-                List<DonHangChiTiet> donHangChiTietList = new ArrayList<>();
-                for (GioHangChiTiet gioHangChiTiet : gioHangChiTietListForPay) {
-                    //chuyển đổi giohang chi tiết = > đơn hàng chi tiết
-                    BigDecimal donGIathoiDiemMua = BigDecimal.ZERO;
-
-                    DonHangChiTiet donHangChiTietDeThemVaoList = new DonHangChiTiet();
-                    donHangChiTietDeThemVaoList.setDonHang(donHangSauKhiThem);
-                    donHangChiTietDeThemVaoList.setSoLuong(gioHangChiTiet.getSoLuong());
-                    donHangChiTietDeThemVaoList.setGiaGoc(gioHangChiTiet.getSach().getGiaBan());
-                    for (KhuyenMai khuyenMai : gioHangChiTiet.getSach().getKhuyenMais()) {
-                        if (khuyenMai.getTrangThai() == 1) {
-                            // khuyến mãi đang được áp dụng!
-                            // lây sra số phần trăm giảm giá
-                            double sophangiam = (khuyenMai.getSoPhanTramGiamGia()) / 100;
-                            BigDecimal thanhTienKhuyenMai = gioHangChiTiet.getSach().getGiaBan().multiply(BigDecimal.valueOf(sophangiam));
-                            donGIathoiDiemMua = gioHangChiTiet.getSach().getGiaBan().subtract(thanhTienKhuyenMai);
-                            break;
-                        } else {
-                            tongTienHangKhuyenMai = BigDecimal.ZERO;
-                        }
-                    }
-
-
-                }
-
-                // cuối cùng tiến hành lưu nè
 
 
             }
@@ -200,7 +116,120 @@ public class ThanhToanController {
         return "/user/pay";
     }
 
-    public DonHang luuDonHang() {
+    public DonHang luuDonHang(
+            PhuongThucThanhToan phuongThucThanhToan,
+            KhachHang khachHang,
+            String tenNguoiNhan,
+            String sdt,
+            String thanhPho,
+            String quanHuyehn,
+            String phuongXa,
+            String diaChiCuThe,
+            List<GioHangChiTiet> gioHangChiTietListForPay
 
+
+    ) {
+        // DON HANG
+        // bước 1: tạo 1 đơn hàng trống trong cơ sở dữ liệu
+        DonHang donhangForstep1 = DonHang.builder().build();
+        DonHang donHangVuaKhoiTao = this.iDonHangRepo.save(donhangForstep1); // đơn hàng này đã có id và mã
+        // thêm các thuoocjt ính cho đơn hàng
+
+        // ngày tạo
+        Date currentDateForCreateDonHang = new Date();
+        donHangVuaKhoiTao.setNgayTao(currentDateForCreateDonHang);
+
+        // ngày thanh toán + phuongthucthanhtoan + trangj thais thanh toan
+        // nếu idphungthucthanhtoan là 0, không khởi chạy ngày thanh toán, nếu idphungthucthanhtoan là 0,
+        // kh là 1 khởi tạo ngày thanh toán
+        donHangVuaKhoiTao.setPhuongThucThanhToan(phuongThucThanhToan);
+        if (phuongThucThanhToan.getIdPhuongThucThanhToan() == 1) {
+            Date ngayThanhToanForCreateDonHang = new Date(); // thanh toan qua vnpay
+            donHangVuaKhoiTao.setNgayThanhToan(ngayThanhToanForCreateDonHang);
+            int trangThaiThanhToanForCreateDonHang = 1;
+            donHangVuaKhoiTao.setTrangThaithanhtoan(trangThaiThanhToanForCreateDonHang);
+        } else {
+            // thanh toan tienf mat =>  trạng thái thanh toán là 0, ngày thanh toán trống
+            int trangThaiThanhToanForCreateDonHang = 0;
+            donHangVuaKhoiTao.setTrangThaithanhtoan(trangThaiThanhToanForCreateDonHang);
+        }
+
+        // phí vận chuyển- mặc định 50 k
+        donHangVuaKhoiTao.setPhiVanChuyen(BigDecimal.valueOf(50000.00));
+
+        // trạng thái => mặc định là 0
+        donHangVuaKhoiTao.setTrangThai(0);
+
+        // ghi chú khách hàng gửi => tạm thời bỏ qua
+
+        // ghi chú lý do don hang => phục vụ cho việc trả ... => bỏ qua
+
+        // khách hàng
+        donHangVuaKhoiTao.setKhachHang(khachHang);
+
+        //nhân viên => sẽ thêm ở giao diện admin => bỏ qua
+
+        //THONG TIN GIAO HANG
+        ThongTinGiaoHang thongTinGiaoHangForCreateDonHang =
+                ThongTinGiaoHang.builder()
+                        .tenNguoiNhan(tenNguoiNhan)
+                        .sdt(sdt)
+                        .thanhPho(thanhPho)
+                        .quanHuyen(quanHuyehn)
+                        .phuongXa(phuongXa)
+                        .diaChiCuThe(diaChiCuThe)
+                        .build();
+
+        donHangVuaKhoiTao.setThongTinGiaoHang(thongTinGiaoHangForCreateDonHang);
+
+        //CHI TIET DON HANG
+        List<DonHangChiTiet> donHangChiTietList = new ArrayList<>();
+        for (GioHangChiTiet gioHangChiTiet : gioHangChiTietListForPay) {
+            //chuyển đổi giohang chi tiết = > đơn hàng chi tiết
+            DonHangChiTiet donHangChiTietDeThemVaoList = new DonHangChiTiet();
+
+            // Số lượng
+            donHangChiTietDeThemVaoList.setSoLuong(gioHangChiTiet.getSoLuong());
+
+            // giá gốc
+            donHangChiTietDeThemVaoList.setGiaGoc(gioHangChiTiet.getSach().getGiaBan());
+
+            //phần trăm giả giá , lấy từ khuyens mãi
+            double soPhanTramGiamGia = 0;
+            for (KhuyenMai khuyenMai : gioHangChiTiet.getSach().getKhuyenMais()) {
+                if (khuyenMai.getTrangThai() == 1) {
+                    // khuyến mãi đang được áp dụng!
+                    // lây sra số phần trăm giảm giá
+                    soPhanTramGiamGia = (khuyenMai.getSoPhanTramGiamGia()) / 100;
+                    // khuyến mãi
+                    donHangChiTietDeThemVaoList.setKhuyenMai(khuyenMai);
+                    break;
+                }
+            }
+
+            donHangChiTietDeThemVaoList.setPhanTramGiam(soPhanTramGiamGia * 100);
+            //đơn giá thời điểm mua- sau khi giảm trừ
+            BigDecimal donGiathoiDiemMua = gioHangChiTiet.getSach().getGiaBan();
+            if (soPhanTramGiamGia != 0) {
+                BigDecimal thanhTienKhuyenMai = gioHangChiTiet.getSach().getGiaBan().multiply(BigDecimal.valueOf(soPhanTramGiamGia));
+                donGiathoiDiemMua = gioHangChiTiet.getSach().getGiaBan().subtract(thanhTienKhuyenMai);
+            }
+            donHangChiTietDeThemVaoList.setDonGiaThoiDiemMua(donGiathoiDiemMua);
+
+            // thanh tien
+            BigDecimal thanhTien = donGiathoiDiemMua.multiply(BigDecimal.valueOf(Double.valueOf(gioHangChiTiet.getSoLuong())));
+            donHangChiTietDeThemVaoList.setThanhTien(thanhTien);
+
+            // sachs
+            donHangChiTietDeThemVaoList.setSach(gioHangChiTiet.getSach());
+
+            donHangChiTietList.add(donHangChiTietDeThemVaoList);
+
+
+        }
+
+// tiến hành lưu lại đơn hàng
+        DonHang donHangSauKhiLuu = this.iDonHangRepo.save(donHangVuaKhoiTao);
+        return donHangSauKhiLuu;
     }
 }
