@@ -14,7 +14,7 @@ public interface NhanVienRepository extends JpaRepository<NhanVien, Integer> {
 
     Page<NhanVien> findAll(Specification<NhanVien> spec, Pageable pageable);
 
-    NhanVien findBySdt(String sdt);
+    NhanVien findByEmail(String email);
 
     NhanVien findByIdNhanVien(int id);
 }

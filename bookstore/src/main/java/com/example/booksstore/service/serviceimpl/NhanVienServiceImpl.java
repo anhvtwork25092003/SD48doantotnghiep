@@ -18,8 +18,8 @@ public class NhanVienServiceImpl implements INhanVienService {
     NhanVienRepository nhanVienRepository;
 
     @Override
-    public NhanVien login(String sdt, String matkhau) {
-        NhanVien nhanVien = nhanVienRepository.findBySdt(sdt);
+    public NhanVien login(String email, String matkhau) {
+        NhanVien nhanVien = nhanVienRepository.findByEmail(email);
         if (nhanVien != null && nhanVien.getMatKhau().equals(matkhau)) {
             if (nhanVien.getTrangThai().equals(1)) {
                 return nhanVien;
