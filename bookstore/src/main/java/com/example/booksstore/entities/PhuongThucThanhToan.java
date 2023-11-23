@@ -25,5 +25,7 @@ public class PhuongThucThanhToan {
 
     @Column(name = "trangthai")
     private Integer trangThai;
+
+
 }
 

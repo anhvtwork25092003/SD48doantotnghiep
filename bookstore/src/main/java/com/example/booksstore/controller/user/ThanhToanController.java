@@ -170,8 +170,24 @@ public class ThanhToanController {
                 List<DonHangChiTiet> donHangChiTietList = new ArrayList<>();
                 for (GioHangChiTiet gioHangChiTiet : gioHangChiTietListForPay) {
                     //chuyển đổi giohang chi tiết = > đơn hàng chi tiết
+                    BigDecimal donGIathoiDiemMua = BigDecimal.ZERO;
+
                     DonHangChiTiet donHangChiTietDeThemVaoList = new DonHangChiTiet();
                     donHangChiTietDeThemVaoList.setDonHang(donHangSauKhiThem);
+                    donHangChiTietDeThemVaoList.setSoLuong(gioHangChiTiet.getSoLuong());
+                    donHangChiTietDeThemVaoList.setGiaGoc(gioHangChiTiet.getSach().getGiaBan());
+                    for (KhuyenMai khuyenMai : gioHangChiTiet.getSach().getKhuyenMais()) {
+                        if (khuyenMai.getTrangThai() == 1) {
+                            // khuyến mãi đang được áp dụng!
+                            // lây sra số phần trăm giảm giá
+                            double sophangiam = (khuyenMai.getSoPhanTramGiamGia()) / 100;
+                            BigDecimal thanhTienKhuyenMai = gioHangChiTiet.getSach().getGiaBan().multiply(BigDecimal.valueOf(sophangiam));
+                            donGIathoiDiemMua = gioHangChiTiet.getSach().getGiaBan().subtract(thanhTienKhuyenMai);
+                            break;
+                        } else {
+                            tongTienHangKhuyenMai = BigDecimal.ZERO;
+                        }
+                    }
 
 
                 }
@@ -184,5 +200,7 @@ public class ThanhToanController {
         return "/user/pay";
     }
 
+    public DonHang luuDonHang() {
 
+    }
 }

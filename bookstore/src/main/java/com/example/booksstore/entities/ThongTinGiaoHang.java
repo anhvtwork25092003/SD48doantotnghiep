@@ -1,20 +1,25 @@
 package com.example.booksstore.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name="thongtingiaohang")
+@Table(name = "thongtingiaohang")
 public class ThongTinGiaoHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,5 +44,7 @@ public class ThongTinGiaoHang {
     @Column(name = "diachicuthe")
     private String diaChiCuThe;
 
+    @OneToMany(mappedBy = "thongTinGiaoHang")
+    private List<DonHang> donHang;
 }
 

@@ -71,6 +71,10 @@ public class DonHang {
     private NhanVien nhanVien;
 
 
+    @ManyToOne
+    @JoinColumn(name = "thongtingiaohang")
+    private ThongTinGiaoHang thongTinGiaoHang;
+
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)
     private List<DonHangChiTiet> chiTietDonHang;
 }
