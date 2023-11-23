@@ -1,24 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layoutchung/mainLayout}"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/user/css/pay.css">
+    <link rel="stylesheet" href="/user/css/pay.css">
 </head>
-
 <body>
+<article layout:fragment="noiDung">
     <div class="top-section">
         <div class="content">
             <h1>Đơn hàng của bạn đã được tiếp nhận</h1>
             <p>Cảm ơn bạn đã mua hàng tại fahasa.com</p>
             <p>Mã đơn hàng của bạn là: #103301458</p>
             <p>Bạn sẽ sớm nhận được email của chúng tôi.</p>
-            <a href="#">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+            <a class="btn btn-light" href="/trang-chu">
                 Tiếp tục mua sắm
             </a>
         </div>
@@ -59,6 +56,6 @@
             </div>
         </div>
     </div>
+</article>
 </body>
-
 </html>
