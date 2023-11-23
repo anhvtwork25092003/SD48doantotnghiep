@@ -74,7 +74,7 @@ public class DonHang {
 
 
     @ManyToOne
-    @JoinColumn(name = "thongtingiaohang")
+    @JoinColumn(name = "idthongtingiaohang")
     private ThongTinGiaoHang thongTinGiaoHang;
 
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)

@@ -1,5 +1,6 @@
 package com.example.booksstore.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class ThongTinGiaoHang {
     @Column(name = "tennguoinhan")
     private String tenNguoiNhan;
 
-    @Column(name = "sdt")
+    @Column(name = "sodienthoai")
     private String sdt;
 
     @Column(name = "thanhpho")
@@ -46,7 +47,7 @@ public class ThongTinGiaoHang {
     @Column(name = "diachicuthe")
     private String diaChiCuThe;
 
-    @OneToMany(mappedBy = "thongTinGiaoHang")
+    @OneToMany(mappedBy = "thongTinGiaoHang", cascade = CascadeType.ALL)
     private List<DonHang> donHang;
 }
 
