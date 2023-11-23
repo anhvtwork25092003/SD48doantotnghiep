@@ -47,3 +47,13 @@ alter table DonHangChiTiet
 ADD CONSTRAINT FK_DonHangChiTiet_KhuyenMai
 FOREIGN KEY (idKhuyenMai)
 REFERENCES KhuyenMai(idKhuyenMai);
+
+-- sua ngay 23
+alter table donhang
+drop column tongtienhanggoc
+
+alter table donhang
+drop column tongtienkhuyenmai
+
+alter table donhang
+drop column tongtiencanthanhtoan
