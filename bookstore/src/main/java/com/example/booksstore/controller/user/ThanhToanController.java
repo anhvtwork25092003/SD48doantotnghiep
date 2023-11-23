@@ -1,5 +1,6 @@
 package com.example.booksstore.controller.user;
 
+import com.example.booksstore.entities.DiaChi;
 import com.example.booksstore.entities.DonHang;
 import com.example.booksstore.entities.DonHangChiTiet;
 import com.example.booksstore.entities.GioHangChiTiet;
@@ -86,9 +87,8 @@ public class ThanhToanController {
                                 @RequestParam(value = "xaPhuong", required = false)
                                         String xaPhuong,
                                 @RequestParam(value = "diaChiCuThe", required = false)
-                                        String diaChiCuThe
-
-
+                                        String diaChiCuThe,
+                                @RequestParam(value = "diaChiRadio", required = false) DiaChi diaChiKhachHang
     ) {
 // xác minh đăng nhậpS
         KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
@@ -108,9 +108,21 @@ public class ThanhToanController {
                 // xử lý sau
 
             } else {
+                KhachHang khachHang = iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
+
                 // thanh toán tienf mặt khi nhận  hàng
-
-
+                DonHang donHang =
+                        luuDonHang(phuongThucThanhToan,
+                                khachHang,
+                                diaChiKhachHang.getTenNguoiNhan(),
+                                diaChiKhachHang.getSdtNguoiNhanHang(),
+                                diaChiKhachHang.getTinhThanhPho(),
+                                diaChiKhachHang.getHuyenQuan(),
+                                diaChiKhachHang.getXaPhuong(),
+                                diaChiKhachHang.getDiaChiCuThe(),
+                                gioHangChiTietListForPay
+                        );
+                System.out.println("tạo thành công đơn hàng có mã hóa đơn là: " + donHang.getMaDonHang());
             }
         }
         return "/user/pay";
