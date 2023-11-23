@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -59,18 +60,20 @@ public class ThanhToanController {
         if (khachHangDangNhap == null) {
             // lấy giỏ hàng và list giỏ hàng chi tiết từ sesion
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
+            session.setAttribute("danhSachSanPhamDeThanhToan", gioHangChiTietListDaChon);
             return "/user/ThanhToanChuaDangNhap";
         } else {
 
             KhachHang khachHangHienThi = this.iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
             model.addAttribute("khachHangDangNhap", khachHangHienThi);
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
+            session.setAttribute("danhSachSanPhamDeThanhToan", gioHangChiTietListDaChon);
             return "/user/ThanhToanDaDangNhap";
         }
 
     }
 
-    @GetMapping("/xac-nhan-len-don")
+    @PostMapping("/xac-nhan-len-don")
     public String xacNhanLenDon(HttpSession session,
                                 @RequestParam(value = "danhSachChonMua", required = false)
                                         List<GioHangChiTiet> gioHangChiTietListForPay,
@@ -109,6 +112,7 @@ public class ThanhToanController {
 
             } else {
                 KhachHang khachHang = iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
+                List<GioHangChiTiet> gioHangChiTietList = (List<GioHangChiTiet>) session.getAttribute("danhSachSanPhamDeThanhToan");
 
                 // thanh toán tienf mặt khi nhận  hàng
                 DonHang donHang =
@@ -120,7 +124,7 @@ public class ThanhToanController {
                                 diaChiKhachHang.getHuyenQuan(),
                                 diaChiKhachHang.getXaPhuong(),
                                 diaChiKhachHang.getDiaChiCuThe(),
-                                gioHangChiTietListForPay
+                                gioHangChiTietList
                         );
                 System.out.println("tạo thành công đơn hàng có mã hóa đơn là: " + donHang.getMaDonHang());
             }
