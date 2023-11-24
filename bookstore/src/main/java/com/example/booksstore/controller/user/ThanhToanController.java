@@ -8,9 +8,11 @@ import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.PhuongThucThanhToan;
 import com.example.booksstore.entities.ThongTinGiaoHang;
+import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.GioHangChiTietReposutory;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
+import com.example.booksstore.repository.IThongTinGiaoHangRepo;
 import com.example.booksstore.repository.PhuongThucThanhToanRepo;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +31,19 @@ import java.util.List;
 @RequestMapping("/thanh-toan")
 @Controller
 public class ThanhToanController {
+    @Autowired
+    DonHangChiTietRepo donHangChiTietRepo;
+
+    @Autowired
+    IThongTinGiaoHangRepo iThongTinGiaoHangRepo;
 
     @Autowired
     PhuongThucThanhToanRepo phuongThucThanhToanRepo;
 
     @Autowired
     IKhachHangRepository iKhachHangRepository;
+
+
     @Autowired
     GioHangChiTietReposutory gioHangChiTietReposutory;
 
@@ -195,15 +204,16 @@ public class ThanhToanController {
                         .phuongXa(phuongXa)
                         .diaChiCuThe(diaChiCuThe)
                         .build();
+        ThongTinGiaoHang thongTinGiaoHangMoiLuu = this.iThongTinGiaoHangRepo.save(thongTinGiaoHangForCreateDonHang);
 
-        donHangVuaKhoiTao.setThongTinGiaoHang(thongTinGiaoHangForCreateDonHang);
+        donHangVuaKhoiTao.setThongTinGiaoHang(thongTinGiaoHangMoiLuu);
 
         //CHI TIET DON HANG
         List<DonHangChiTiet> donHangChiTietList = new ArrayList<>();
         for (GioHangChiTiet gioHangChiTiet : gioHangChiTietListForPay) {
             //chuyển đổi giohang chi tiết = > đơn hàng chi tiết
             DonHangChiTiet donHangChiTietDeThemVaoList = new DonHangChiTiet();
-
+            donHangChiTietDeThemVaoList.setDonHang(donHangVuaKhoiTao);
             // Số lượng
             donHangChiTietDeThemVaoList.setSoLuong(gioHangChiTiet.getSoLuong());
 
@@ -211,12 +221,15 @@ public class ThanhToanController {
             donHangChiTietDeThemVaoList.setGiaGoc(gioHangChiTiet.getSach().getGiaBan());
 
             //phần trăm giả giá , lấy từ khuyens mãi
-            double soPhanTramGiamGia = 0;
+            double soPhanTramGiamGia = 0.00;
             for (KhuyenMai khuyenMai : gioHangChiTiet.getSach().getKhuyenMais()) {
                 if (khuyenMai.getTrangThai() == 1) {
                     // khuyến mãi đang được áp dụng!
+                    System.out.println(khuyenMai.getSoPhanTramGiamGia());
+
                     // lây sra số phần trăm giảm giá
-                    soPhanTramGiamGia = (khuyenMai.getSoPhanTramGiamGia()) / 100;
+                    soPhanTramGiamGia =  (double) ((khuyenMai.getSoPhanTramGiamGia()) / 100.0);
+                    System.out.println(soPhanTramGiamGia);
                     // khuyến mãi
                     donHangChiTietDeThemVaoList.setKhuyenMai(khuyenMai);
                     break;
@@ -226,7 +239,7 @@ public class ThanhToanController {
             donHangChiTietDeThemVaoList.setPhanTramGiam(soPhanTramGiamGia * 100);
             //đơn giá thời điểm mua- sau khi giảm trừ
             BigDecimal donGiathoiDiemMua = gioHangChiTiet.getSach().getGiaBan();
-            if (soPhanTramGiamGia != 0) {
+            if (soPhanTramGiamGia != 0.00) {
                 BigDecimal thanhTienKhuyenMai = gioHangChiTiet.getSach().getGiaBan().multiply(BigDecimal.valueOf(soPhanTramGiamGia));
                 donGiathoiDiemMua = gioHangChiTiet.getSach().getGiaBan().subtract(thanhTienKhuyenMai);
             }
@@ -239,9 +252,9 @@ public class ThanhToanController {
             // sachs
             donHangChiTietDeThemVaoList.setSach(gioHangChiTiet.getSach());
 
+
+            DonHangChiTiet donHangChiTietMoiLuuVaoDB = this.donHangChiTietRepo.save(donHangChiTietDeThemVaoList);
             donHangChiTietList.add(donHangChiTietDeThemVaoList);
-
-
         }
 
 // tiến hành lưu lại đơn hàng

@@ -15,6 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class DonHang {
     @Column(name = "iddonhang")
     private Integer idDonHang;
 
+    @Generated
     @Column(name = "madonhang")
     private String maDonHang;
 

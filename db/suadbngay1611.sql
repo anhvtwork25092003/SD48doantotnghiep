@@ -58,5 +58,6 @@ drop column tongtienkhuyenmai
 alter table donhang
 drop column tongtiencanthanhtoan
 
--- suwar ngayf 23 laanf3
---xoas bangr phuong thucs thanh toans
+-- sửa tiếp
+alter table donhangchitiet
+alter column phantramgiam float
