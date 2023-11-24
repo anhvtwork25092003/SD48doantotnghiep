@@ -20,7 +20,7 @@
   white-space: nowrap;
 }
 .header-icons {
-  margin-left: 640px;
+  margin-left: 685px;
   display: flex;
   align-items: center;
 }
@@ -97,23 +97,15 @@
   width: 320%;
 }
 .search-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #ccc;
-  border-radius: 20px;
-  padding: 5px;
-  width: 100%;
-  background-color: white;
   flex-grow: 1;
   position: relative;
 }
 
-#productName {
-  border: none;
-  outline: none;
-  padding: 5px;
-  width: 100%;
+.productName {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 7px;
+  width: 115%;
 }
 
 
@@ -154,14 +146,14 @@
 }
 .timkiem {
   position: absolute;
-  left: 745px;
+  left: 770px;
+  top: 5px;
   width: 72px;
   height: 30px;
-  font-size: 21px;
+  font-size: 16px;
   border: 2px solid #C92127;
   border-radius: 10px;
   background: #C92127;
 }
-
 
 

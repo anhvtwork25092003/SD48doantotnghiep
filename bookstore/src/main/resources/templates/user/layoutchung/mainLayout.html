@@ -28,7 +28,7 @@
         <form th:action="@{/danh-sach-tim-kiem/loc}" method="get" enctype="multipart/form-data">
             <div class="search">
                 <div class="search-container">
-                    <input type="text" id="productName" name="productNameSearch" th:value="${param.productNameSearch}"
+                    <input type="text" class="productName" name="productNameSearch" th:value="${param.productNameSearch}"
                            placeholder="Tìm kiếm..."/>
                     <button type="submit" class="timkiem">
                         <span class="fa-solid fa-magnifying-glass fa-l" style="color: #ffffff;"></span>

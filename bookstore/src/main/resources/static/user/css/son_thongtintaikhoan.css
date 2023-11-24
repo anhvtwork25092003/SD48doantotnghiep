@@ -1,20 +1,7 @@
-/*.content {*/
-/*    display: grid;*/
-/*    grid-template-columns: 10fr ;*/
-/*    text-align: center;*/
 
-/*}*/
-/*article {*/
-/*    background-color: white;*/
-/*   */
-/*}*/
-/*form {*/
-/*    width: 100%;*/
-/*    height: 100px;*/
-/*    margin: auto;*/
-/*    display: grid;*/
-/*    gap: 20px;*/
-/*}*/
+.menutttk {
+    margin-left: -118px;
+}
 
 .group {
     display: grid;
@@ -28,10 +15,12 @@
     height: 20px; /* Adjust the height as needed */
     margin-right: 5px; /* Add some spacing between radio buttons and labels */
 }
+
 .group.gender span {
     display: inline-block;
     margin-right: 5px;
 }
+
 .group.gender {
     grid-template-columns: 2fr 1fr 1fr 1fr 3fr;
     justify-content: center;
@@ -69,14 +58,17 @@
 .btn-warning:hover {
     background-color: rgb(221, 0, 0);
 }
+
 h2 {
     text-align: center;
     color: red;
     font-size: 35px;
 }
-label{
+
+label {
     font-size: 18px;
 }
-span{
+
+span {
     margin-right: auto;
 }
