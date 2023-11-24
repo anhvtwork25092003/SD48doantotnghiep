@@ -6,6 +6,7 @@
 .row {
     display: block;
     background: #FCDDEF;
+    margin-top: 18px;
 }
 
 header {
@@ -23,9 +24,6 @@ header img {
     padding: 20px;
 }
 
-.columnBaner {
-    margin-top: -20px;
-}
 
 .column {
     display: inline;
@@ -33,7 +31,7 @@ header img {
 }
 
 .column img {
-    width: 250px;
+    width: 240px;
     height: 200px;
 }
 
@@ -47,17 +45,17 @@ header img {
 
 .nav {
     background-color: #FCDAB0; /* Màu nền đen cho thanh nav */;
+    margin-top: 20px;
 }
 
 .nav-list {
     list-style: none;
-    padding: 0;
+    padding: 0px 445px;
     display: flex; /* Sử dụng flexbox để xếp các mục ngang */
-    justify-content: center; /* Canh giữa các mục */
 }
 
 .nav-item {
-    margin: 0;
+    margin: -5px;
 }
 
 .nav-link {
@@ -109,7 +107,7 @@ header img {
 .button > a {
     position: absolute;
     left: calc(50% - 65px);
-    top: calc(50% + 158px);
+    top: calc(50% + 130px);
     padding: 8px 30px;
     border-radius: 25px;
     color: white;
@@ -129,15 +127,24 @@ header img {
 }
 
 .discount {
-    margin-left: 165px;
     position: absolute;
-    margin-top: -290px;
+    margin-left: 153px;
+    margin-top: -245px;
     background-color: orange;
     border-radius: 50%;
-    padding: 5px 5px;
+    padding: 5px 2px;
     color: white;
     font-weight: bold;
 }
 
+.product-item h3 {
+    font-size: 110%;
+}
 
+.product-item h4 {
+    font-size: 125%;
+}
 
+.product-item h5 {
+    font-size: 100%;
+}

@@ -78,12 +78,12 @@ header {
 }
 
 .discount {
-    margin-left: 110px;
+    margin-left: 120px;
     position: absolute;
-    margin-top: -246px;
+    margin-top: -245px;
     background-color: orange;
     border-radius: 50%;
-    padding: 5px 5px;
+    padding: 5px 2px;
     color: white;
     font-weight: bold;
 }

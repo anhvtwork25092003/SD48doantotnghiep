@@ -1,10 +1,9 @@
-
 ul li :not(h2) {
     display: flex;
 }
 
 ul li a {
-    width: 60%;
+    width: 65%;
     text-align: center;
     margin: auto;
     padding: 10px;
@@ -30,7 +29,7 @@ li {
 nav {
     float: left;
     width: 24%;
-    height: 348px;
+    height: 445px;
     background: #ccc;
     padding: 0px;
 }
@@ -47,21 +46,3 @@ nav ul {
     background: #ccc;
 }
 
-/*article {*/
-/*    float: left;*/
-/*    padding: 20px;*/
-/*    width: 80%;*/
-/*    height: 450px;*/
-/*}*/
-
-/*section:after {*/
-/*    content: "";*/
-/*    display: table;*/
-/*    clear: both;*/
-/*}*/
-/*@media ( max-width: 700px) {*/
-/*    nav, article {*/
-/*        width: 100%;*/
-/*        height: auto;*/
-/*    }*/
-/*}*/
