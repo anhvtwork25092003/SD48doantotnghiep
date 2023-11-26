@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
+
 @Controller
 @RequestMapping("/sign-up")
 public class SignupController {
@@ -35,11 +39,15 @@ public class SignupController {
             model.addAttribute("error", "Email đã tồn tại");
             return "user/login/sign_up";
         }
+        Date ngayGioHienTai = new Date();
         // Encode password (you should use a proper password encoder)
         khachHang.setEmail(khachHang.getEmail());
         khachHang.setMatKhau(khachHang.getMatKhau());
         khachHang.setHoVaTen(khachHang.getHoVaTen());
         khachHang.setSdt(khachHang.getSdt());
+        khachHang.setGioiTinh(khachHang.getGioiTinh());
+        khachHang.setNgaySinh(khachHang.getNgaySinh());
+        khachHang.setNgayTaoTaiKhoan(ngayGioHienTai);
         khachHang.setTrangThai(1);
         KhachHang khachHang1 = iKhachHangRepository.findBySdt(khachHang.getSdt());
         if (khachHang1 != null) {
@@ -48,8 +56,12 @@ public class SignupController {
         }
 
         iKhachHangRepository.save(khachHang);
-        senderService.sendSimpleEmail(khachHang.getEmail(), "Thông Tin Tài Khoản Của Bạn",
+        String gioiTinhText = khachHang.getGioiTinh().equals("1") ? "Anh" : "Chị";
+
+        String subject = "Thông Tin Tài Khoản Của " + gioiTinhText;
+        senderService.sendSimpleEmail(khachHang.getEmail(), subject,
                 "Họ Và Tên: " + khachHang.getHoVaTen() + "\n" +
+                        "Ngày Sinh: " + khachHang.getNgaySinh() + "\n" +
                         "Email Đăng Ký: " + khachHang.getEmail() + "\n" +
                         "Số Điện Thoại: " + khachHang.getSdt() + "\n" +
                         "Mật Khẩu: " + khachHang.getMatKhau());
