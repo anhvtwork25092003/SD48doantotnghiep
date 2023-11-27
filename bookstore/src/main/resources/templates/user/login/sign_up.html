@@ -16,6 +16,18 @@
             <label>Họ Và Tên</label>
         </div>
         <div class="user-box">
+            <label>Ngày Sinh</label><br><br>
+            <input type="date" name="ngaySinh" th:field="*{ngaySinh}" required>
+
+        </div>
+        <div class="user-box">
+            <label>Giới Tính</label><br><br>
+            <input type="radio" name="gioiTinh" th:field="*{gioiTinh}" th:value="'1'" checked>Nam
+            <input type="radio" name="gioiTinh" th:field="*{gioiTinh}" th:value="'0'" >Nữ
+
+        </div><br>
+
+        <div class="user-box">
             <input type="email" name="email" th:field="*{email}" required>
             <label>Email</label>
         </div>
@@ -27,6 +39,7 @@
             <input type="password" name="matKhau" th:field="*{matKhau}" required>
             <label>Password</label>
         </div>
+
         <button class="submit">
             <span></span>
             <span></span>
