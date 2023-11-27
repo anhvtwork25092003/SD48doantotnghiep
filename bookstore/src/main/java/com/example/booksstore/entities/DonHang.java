@@ -57,7 +57,7 @@ public class DonHang {
     private Integer trangThaithanhtoan;
 
     @Column(name = "ghichukhachhanggui")
-    private String ghiChuKhachHangui;
+    private String ghiChuKhachHangGui;
 
     @Column(name = "ghichulydodonhang")
     private String ghiChuLyDoDonHang;
