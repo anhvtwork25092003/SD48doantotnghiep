@@ -110,6 +110,12 @@ public class ThanhToanController {
             // phân biệt phương thức thanh toán
             // nếu chọn thanh toán trực tuyến thì sẽ chuyển đến vn pay
             // nếu chọn thanh toán bằng tiền mặt => đặt hàng thành công, chuyển thông tin đơn lên admin
+            List<GioHangChiTiet> gioHangChiTietList = (List<GioHangChiTiet>) session.getAttribute("danhSachSanPhamDeThanhToan");
+
+
+            for (GioHangChiTiet gioHangChiTiet : gioHangChiTietList) {
+
+            }
 
 
         } else {
@@ -118,7 +124,49 @@ public class ThanhToanController {
             if (phuongThucThanhToan.getIdPhuongThucThanhToan() == 1) {
                 // thanh toán với vnpay
                 // xử lý sau
+                // đưa toltal đi thanh toán, nếu total thanh toán thành công thì khởi chạy sau
+                // lấy thông tin total => chuyển vnpay=> lấy trạng thái
+                List<GioHangChiTiet> gioHangChiTietList = (List<GioHangChiTiet>) session.getAttribute("danhSachSanPhamDeThanhToan");
+                BigDecimal tongTienhang = BigDecimal.ZERO;
+                for (GioHangChiTiet gioHangChiTiet : gioHangChiTietList) {
+                    //chuyển đổi giohang chi tiết = > đơn hàng chi tiết
+                    DonHangChiTiet donHangChiTietDeThemVaoList = new DonHangChiTiet();
+                    // Số lượng
+                    donHangChiTietDeThemVaoList.setSoLuong(gioHangChiTiet.getSoLuong());
+                    // giá gốc
+                    donHangChiTietDeThemVaoList.setGiaGoc(gioHangChiTiet.getSach().getGiaBan());
 
+                    //phần trăm giả giá , lấy từ khuyens mãi
+                    double soPhanTramGiamGia = 0.00;
+                    for (KhuyenMai khuyenMai : gioHangChiTiet.getSach().getKhuyenMais()) {
+                        if (khuyenMai.getTrangThai() == 1) {
+                            // khuyến mãi đang được áp dụng!
+                            System.out.println(khuyenMai.getSoPhanTramGiamGia());
+                            // lây sra số phần trăm giảm giá
+                            soPhanTramGiamGia = (double) ((khuyenMai.getSoPhanTramGiamGia()) / 100.0);
+                            // khuyến mãi
+                            donHangChiTietDeThemVaoList.setKhuyenMai(khuyenMai);
+                            break;
+                        }
+                    }
+                    System.out.println(soPhanTramGiamGia);
+                    //đơn giá thời điểm mua- sau khi giảm trừ
+                    BigDecimal donGiathoiDiemMua = gioHangChiTiet.getSach().getGiaBan();
+                    System.out.println("don gia thoi diem mua: " + donGiathoiDiemMua);
+                    if (soPhanTramGiamGia > 0.00) {
+                        BigDecimal thanhTienKhuyenMai = gioHangChiTiet.getSach().getGiaBan().multiply(BigDecimal.valueOf(soPhanTramGiamGia));
+                        donGiathoiDiemMua = gioHangChiTiet.getSach().getGiaBan().subtract(thanhTienKhuyenMai);
+                    }
+                    // thanh tien
+                    BigDecimal thanhTien = donGiathoiDiemMua.multiply(BigDecimal.valueOf(Double.valueOf(gioHangChiTiet.getSoLuong())));
+                    donHangChiTietDeThemVaoList.setThanhTien(thanhTien);
+                    tongTienhang = tongTienhang.add(thanhTien);
+                    System.out.println("thanh tien la: " + thanhTien);
+                }
+                BigDecimal tienVanChuyen = new BigDecimal(50000);
+                tongTienhang = tongTienhang.add(tienVanChuyen);
+                System.out.println(tongTienhang);
+                return "redirect:/vnpay/pay?total=" + tongTienhang;
             } else {
                 KhachHang khachHang = iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
                 List<GioHangChiTiet> gioHangChiTietList = (List<GioHangChiTiet>) session.getAttribute("danhSachSanPhamDeThanhToan");
@@ -228,7 +276,7 @@ public class ThanhToanController {
                     System.out.println(khuyenMai.getSoPhanTramGiamGia());
 
                     // lây sra số phần trăm giảm giá
-                    soPhanTramGiamGia =  (double) ((khuyenMai.getSoPhanTramGiamGia()) / 100.0);
+                    soPhanTramGiamGia = (double) ((khuyenMai.getSoPhanTramGiamGia()) / 100.0);
                     System.out.println(soPhanTramGiamGia);
                     // khuyến mãi
                     donHangChiTietDeThemVaoList.setKhuyenMai(khuyenMai);
