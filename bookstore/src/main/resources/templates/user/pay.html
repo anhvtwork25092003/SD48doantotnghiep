@@ -11,9 +11,10 @@
 <article layout:fragment="noiDung">
     <div class="top-section">
         <div class="content">
-            <h1>Đơn hàng của bạn đã được tiếp nhận</h1>
+            <h1 th:text="${thongBao}"></h1>
             <p>Cảm ơn bạn đã mua hàng tại fahasa.com</p>
-            <p>Mã đơn hàng của bạn là: #103301458</p>
+            <p>Mã đơn hàng của bạn là: </p>
+            <p th:text="${donHang.maDonHang}"></p>
             <p>Bạn sẽ sớm nhận được email của chúng tôi.</p>
             <a class="btn btn-light" href="/trang-chu">
                 Tiếp tục mua sắm
