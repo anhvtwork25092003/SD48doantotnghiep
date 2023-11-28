@@ -98,6 +98,8 @@ public class ThanhToanController {
                                         String huyenQuan,
                                 @RequestParam(value = "xaPhuong", required = false)
                                         String xaPhuong,
+                                @RequestParam(value = "email", required = false)
+                                        String email,
                                 @RequestParam(value = "diaChiCuThe", required = false)
                                         String diaChiCuThe,
                                 @RequestParam(value = "diaChiRadio", required = false) DiaChi diaChiKhachHang
@@ -177,12 +179,13 @@ public class ThanhToanController {
                                 diaChiKhachHang.getHuyenQuan(),
                                 diaChiKhachHang.getXaPhuong(),
                                 diaChiKhachHang.getDiaChiCuThe(),
+                                email,
                                 gioHangChiTietList
                         );
                 System.out.println("tạo thành công đơn hàng có mã hóa đơn là: " + donHang.getMaDonHang());
             }
 
-
+        // thanh toán đã đăng nhập
         } else {
             // đã đăng nhập rồi nè
             // kiểm tra phương thức  thanh taons nè
@@ -250,7 +253,7 @@ public class ThanhToanController {
 
                 return "redirect:/vnpay/pay?total=" + tongTienhang;
             } else {
-                // thanh toán với vnpay
+                // không  thanh toán với vnpay
                 KhachHang khachHang = iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
                 List<GioHangChiTiet> gioHangChiTietList = (List<GioHangChiTiet>) session.getAttribute("danhSachSanPhamDeThanhToan");
 
@@ -264,6 +267,7 @@ public class ThanhToanController {
                                 diaChiKhachHang.getHuyenQuan(),
                                 diaChiKhachHang.getXaPhuong(),
                                 diaChiKhachHang.getDiaChiCuThe(),
+                                khachHang.getEmail(),
                                 gioHangChiTietList
                         );
                 System.out.println("tạo thành công đơn hàng có mã hóa đơn là: " + donHang.getMaDonHang());
@@ -281,6 +285,7 @@ public class ThanhToanController {
             String quanHuyehn,
             String phuongXa,
             String diaChiCuThe,
+            String emailGiaoHang,
             List<GioHangChiTiet> gioHangChiTietListForPay
 
 
@@ -333,6 +338,7 @@ public class ThanhToanController {
                         .thanhPho(thanhPho)
                         .quanHuyen(quanHuyehn)
                         .phuongXa(phuongXa)
+                        .emailGiaoHang(emailGiaoHang)
                         .diaChiCuThe(diaChiCuThe)
                         .build();
         ThongTinGiaoHang thongTinGiaoHangMoiLuu = this.iThongTinGiaoHangRepo.save(thongTinGiaoHangForCreateDonHang);
@@ -388,9 +394,22 @@ public class ThanhToanController {
             donHangChiTietList.add(donHangChiTietDeThemVaoList);
         }
 
-// tiến hành lưu lại đơn hàng
+        // tiến hành lưu lại đơn hàng
         DonHang donHangSauKhiLuu = this.iDonHangRepo.save(donHangVuaKhoiTao);
         return donHangSauKhiLuu;
+    }
+
+
+    public void guiEmail(String email,
+                         String maHoaDon,
+                         String soTien,
+                         String tenNguoiNhan,
+                         String phuongThucThanhToan,
+                         String phuongThucvanChuyen,
+                         String ngayThanhToan,
+                         List<DonHangChiTiet> donHangChiTietListForEmail
+    ) {
+
     }
 
 

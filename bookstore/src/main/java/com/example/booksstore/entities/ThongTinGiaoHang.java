@@ -46,6 +46,8 @@ public class ThongTinGiaoHang {
 
     @Column(name = "diachicuthe")
     private String diaChiCuThe;
+    @Column(name = "emailgiaohang")
+    private String emailGiaoHang;
 
     @OneToMany(mappedBy = "thongTinGiaoHang", cascade = CascadeType.ALL)
     private List<DonHang> donHang;
