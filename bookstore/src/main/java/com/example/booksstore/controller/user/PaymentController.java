@@ -72,6 +72,7 @@ public class PaymentController {
                 khachHang = iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
 
             } else {
+                Date currentDate = new Date();
                 // chưa đăng nhập, lấy thông tin được truyền qua
                 String tenNguoiNhanHang = (String) session.getAttribute("tenNguoiNhanHangVnpay");
                 String soDienThoaiNhanHangVnpay = (String) session.getAttribute("soDienThoaiNhanHangVnpay");
@@ -80,26 +81,26 @@ public class PaymentController {
                 String xaPhuongVnpay = (String) session.getAttribute("xaPhuongVnpay");
                 String diaChiCuTheVnpay = (String) session.getAttribute("diaChiCuTheVnpay");
 
-                KhachHang khachHang1 = KhachHang.builder()
-                        .loaiKhachHang("Khách Vãng Lai")
+                KhachHang khachHangTruocKhiLuu = KhachHang.builder()
+                        .loaiKhachHang("0")
                         .hoVaTen(tenNguoiNhanHang)
-                        .sdt(soDienThoaiNhanHangVnpay)
-                        .
-
+                        .ngayTaoTaiKhoan(currentDate)
+                        .build();
+                khachHang = this.iKhachHangRepository.save(khachHangTruocKhiLuu);
+                DonHang donHang =
+                        luuDonHang(phuongThucThanhToan,
+                                khachHang,
+                                tenNguoiNhanHang,
+                                soDienThoaiNhanHangVnpay,
+                                tinhThanhPhoVnpay,
+                                huyenQuanVnpay,
+                                xaPhuongVnpay,
+                                diaChiCuTheVnpay,
+                                DonHangChiTietDaDuocVnPayThanhToan
+                        );
+                model.addAttribute("thongBao", "Thanh toan thanh cong !");
+                model.addAttribute("donHang", donHang);
             }
-            DonHang donHang =
-                    luuDonHang(phuongThucThanhToan,
-                            khachHang,
-                            diaChiKhachHang.getTenNguoiNhan(),
-                            diaChiKhachHang.getSdtNguoiNhanHang(),
-                            diaChiKhachHang.getTinhThanhPho(),
-                            diaChiKhachHang.getHuyenQuan(),
-                            diaChiKhachHang.getXaPhuong(),
-                            diaChiKhachHang.getDiaChiCuThe(),
-                            DonHangChiTietDaDuocVnPayThanhToan
-                    );
-            model.addAttribute("thongBao", "Thanh toan thanh cong !");
-            model.addAttribute("donHang", donHang);
 
 
         } else {

@@ -61,3 +61,7 @@ drop column tongtiencanthanhtoan
 -- sửa tiếp
 alter table donhangchitiet
 alter column phantramgiam float
+-- sửa ngày 28
+-- thêm cột email cho thông tin giao hàng
+alter table thongtingiaohang
+add emailGiaoHang nvarchar(50)
