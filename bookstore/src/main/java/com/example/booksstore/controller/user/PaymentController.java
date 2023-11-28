@@ -52,12 +52,12 @@ public class PaymentController {
     IKhachHangRepository iKhachHangRepository;
 
     @GetMapping("/vnpayreturn")
-    public String vnpayReturn(@RequestParam("vnp_ResponseCode") String responseCode,
-                              @RequestParam("vnp_TransactionNo") String transactionNo,
-                              @RequestParam("vnp_TransactionStatus") String vnp_TransactionStatus,
-                              @RequestParam("vnp_Amount") String amount,
+    public String vnpayReturn(@RequestParam(value = "vnp_ResponseCode", required = false) String responseCode,
+                              @RequestParam(value = "vnp_TransactionNo", required = false) String transactionNo,
+                              @RequestParam(value = "vnp_TransactionStatus", required = true) String vnp_TransactionStatus,
+                              @RequestParam(value = "vnp_Amount", required = true) String amount,
                               // Thêm các tham số cần thiết khác từ callback URL
-                              @RequestParam("vnp_SecureHash") String secureHash,
+                              @RequestParam(value = "vnp_SecureHash", required = true) String secureHash,
                               HttpSession session, Model model) {
         System.out.println(vnp_TransactionStatus);
         if (Integer.parseInt(vnp_TransactionStatus) == 00) {
@@ -96,6 +96,7 @@ public class PaymentController {
                                 huyenQuanVnpay,
                                 xaPhuongVnpay,
                                 diaChiCuTheVnpay,
+                                khachHang.getEmail(),
                                 DonHangChiTietDaDuocVnPayThanhToan
                         );
                 model.addAttribute("thongBao", "Thanh toan thanh cong !");
@@ -120,6 +121,7 @@ public class PaymentController {
             String quanHuyehn,
             String phuongXa,
             String diaChiCuThe,
+            String emailGiaoHang,
             List<DonHangChiTiet> DonHangChiTietDaDuocVnPayThanhToan
     ) {
         // DON HANG
@@ -171,6 +173,7 @@ public class PaymentController {
                         .quanHuyen(quanHuyehn)
                         .phuongXa(phuongXa)
                         .diaChiCuThe(diaChiCuThe)
+                        .emailGiaoHang(emailGiaoHang)
                         .build();
         ThongTinGiaoHang thongTinGiaoHangMoiLuu = this.iThongTinGiaoHangRepo.save(thongTinGiaoHangForCreateDonHang);
 

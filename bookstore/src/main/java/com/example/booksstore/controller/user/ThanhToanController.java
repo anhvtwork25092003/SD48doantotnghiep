@@ -165,27 +165,34 @@ public class ThanhToanController {
 
                 return "redirect:/vnpay/pay?total=" + tongTienhang;
             } else {
-                // thanh toán với vnpay
-                KhachHang khachHang = iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
+                // không thanh toán với vnpay
+                // tao khách hàng mới
+                Date currentDate = new Date();
+                KhachHang khachHangVangLaimoi = KhachHang.builder()
+                        .hoVaTen(tenNguoiNhan)
+                        .ngayTaoTaiKhoan(currentDate)
+                        .loaiKhachHang("0")
+                        .build();
+                KhachHang khachHang = iKhachHangRepository.save(khachHangVangLaimoi);
                 List<GioHangChiTiet> gioHangChiTietList = (List<GioHangChiTiet>) session.getAttribute("danhSachSanPhamDeThanhToan");
 
                 // thanh toán tienf mặt khi nhận  hàng
                 DonHang donHang =
                         luuDonHang(phuongThucThanhToan,
                                 khachHang,
-                                diaChiKhachHang.getTenNguoiNhan(),
-                                diaChiKhachHang.getSdtNguoiNhanHang(),
-                                diaChiKhachHang.getTinhThanhPho(),
-                                diaChiKhachHang.getHuyenQuan(),
-                                diaChiKhachHang.getXaPhuong(),
-                                diaChiKhachHang.getDiaChiCuThe(),
+                                tenNguoiNhan,
+                                soDienThoaiNhanHang,
+                                tinhThanhPho,
+                                huyenQuan,
+                                xaPhuong,
+                                diaChiCuThe,
                                 email,
                                 gioHangChiTietList
                         );
                 System.out.println("tạo thành công đơn hàng có mã hóa đơn là: " + donHang.getMaDonHang());
             }
 
-        // thanh toán đã đăng nhập
+            // thanh toán đã đăng nhập
         } else {
             // đã đăng nhập rồi nè
             // kiểm tra phương thức  thanh taons nè
