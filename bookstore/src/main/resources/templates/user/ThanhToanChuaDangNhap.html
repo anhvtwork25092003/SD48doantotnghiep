@@ -103,15 +103,6 @@
                         </label>
                     </div>
                 </div>
-                    <!--            <div class="form-check">-->
-                    <!--                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">-->
-                    <!--                <label class="form-check-label" for="exampleRadios2">-->
-                    <!--                    <img class="thanhtoan" src="/image/logoicon/thanhtoantienmat.png"/>-->
-                    <!--                    Thanh toán online bằng tiền mặt khi nhận hàng-->
-                    <!--                </label>-->
-                    <!--            </div>-->
-                </div>
-                <!-- end phương thức thanh toán -->
 
                 <br>
                 <!-- kiểm tra lại đơn hàng -->
@@ -128,7 +119,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="ghct: ${gioHangChiTietListDaChon}">
+                        <tr th:each="ghct: ${danhSachSanPhamTrongGioHang}">
                             <td class="anhSanPham"><img src="/image/anhsanpham/sanpham1.jpg"></td>
                             <td>Doraemon Plus 1</td>
                             <td>20.000vnđ <p style="text-decoration: line-through;">30.000</p></td>

@@ -4,13 +4,16 @@ import com.example.booksstore.config.Config;
 import com.example.booksstore.entities.DiaChi;
 import com.example.booksstore.entities.DonHang;
 import com.example.booksstore.entities.DonHangChiTiet;
+import com.example.booksstore.entities.GioHangChiTiet;
 import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.PhuongThucThanhToan;
 import com.example.booksstore.entities.ThongTinGiaoHang;
 import com.example.booksstore.repository.DonHangChiTietRepo;
+import com.example.booksstore.repository.GioHangChiTietReposutory;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.IThongTinGiaoHangRepo;
+import com.example.booksstore.service.javaMailService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +44,8 @@ import java.util.TimeZone;
 @RequestMapping("/vnpay")
 public class PaymentController {
     @Autowired
+    javaMailService javaMailService;
+    @Autowired
     IDonHangRepo iDonHangRepo;
 
     @Autowired
@@ -51,63 +56,110 @@ public class PaymentController {
     @Autowired
     IKhachHangRepository iKhachHangRepository;
 
+    @Autowired
+    GioHangChiTietReposutory gioHangChiTietReposutory;
+
+
     @GetMapping("/vnpayreturn")
     public String vnpayReturn(@RequestParam(value = "vnp_ResponseCode", required = false) String responseCode,
                               @RequestParam(value = "vnp_TransactionNo", required = false) String transactionNo,
-                              @RequestParam(value = "vnp_TransactionStatus", required = true) String vnp_TransactionStatus,
-                              @RequestParam(value = "vnp_Amount", required = true) String amount,
+                              @RequestParam(value = "vnp_TransactionStatus", required = false) String vnp_TransactionStatus,
+                              @RequestParam(value = "vnp_Amount", required = false) String amount,
+                              @RequestParam(value = "idDonHang", required = false) String idDonHang,
                               // Thêm các tham số cần thiết khác từ callback URL
-                              @RequestParam(value = "vnp_SecureHash", required = true) String secureHash,
+                              @RequestParam(value = "vnp_SecureHash", required = false) String secureHash,
                               HttpSession session, Model model) {
         System.out.println(vnp_TransactionStatus);
-        if (Integer.parseInt(vnp_TransactionStatus) == 00) {
-            System.out.println("thanh toan thành công!");
-            List<DonHangChiTiet> DonHangChiTietDaDuocVnPayThanhToan = (List<DonHangChiTiet>) session.getAttribute("sanphamdathanhtoanboivnpay");
-            PhuongThucThanhToan phuongThucThanhToan = (PhuongThucThanhToan) session.getAttribute("phuongThucThanhToan");
-            DiaChi diaChiKhachHang = (DiaChi) session.getAttribute("diaChiKhachHang");
-            KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
-            KhachHang khachHang = null;
-            if (khachHangDangNhap != null) {
-                // đã đăng nhập, lấy thông tin từ db
-                khachHang = iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
+        // thanh toan bình thường
+        if (idDonHang != null) {
+            KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
+            if (khachHang != null) {
+                // trừ sản phẩm trong giỏ database
+                List<GioHangChiTiet> gioHangChiTietListDathanhToan = (List<GioHangChiTiet>) session.getAttribute("danhSachSanPhamDeThanhToan");
+                gioHangChiTietReposutory.deleteAll(gioHangChiTietListDathanhToan);
 
-            } else {
-                Date currentDate = new Date();
-                // chưa đăng nhập, lấy thông tin được truyền qua
-                String tenNguoiNhanHang = (String) session.getAttribute("tenNguoiNhanHangVnpay");
-                String soDienThoaiNhanHangVnpay = (String) session.getAttribute("soDienThoaiNhanHangVnpay");
-                String tinhThanhPhoVnpay = (String) session.getAttribute("tinhThanhPhoVnpay");
-                String huyenQuanVnpay = (String) session.getAttribute("huyenQuanVnpay");
-                String xaPhuongVnpay = (String) session.getAttribute("xaPhuongVnpay");
-                String diaChiCuTheVnpay = (String) session.getAttribute("diaChiCuTheVnpay");
-
-                KhachHang khachHangTruocKhiLuu = KhachHang.builder()
-                        .loaiKhachHang("0")
-                        .hoVaTen(tenNguoiNhanHang)
-                        .ngayTaoTaiKhoan(currentDate)
-                        .build();
-                khachHang = this.iKhachHangRepository.save(khachHangTruocKhiLuu);
-                DonHang donHang =
-                        luuDonHang(phuongThucThanhToan,
-                                khachHang,
-                                tenNguoiNhanHang,
-                                soDienThoaiNhanHangVnpay,
-                                tinhThanhPhoVnpay,
-                                huyenQuanVnpay,
-                                xaPhuongVnpay,
-                                diaChiCuTheVnpay,
-                                khachHang.getEmail(),
-                                DonHangChiTietDaDuocVnPayThanhToan
-                        );
-                model.addAttribute("thongBao", "Thanh toan thanh cong !");
-                model.addAttribute("donHang", donHang);
+            } else if (khachHang == null) {
+                // trừ sản phẩm trong giỏ tạm thời nếu chưa đăng nhập
+                List<GioHangChiTiet> gioHangChiTietListDathanhToan = (List<GioHangChiTiet>) session.getAttribute("danhSachSanPhamDeThanhToan");
+                List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
+                        .getAttribute("listSanPhamTrongGioHangTamThoi");
+                listSanPhamTrongGioHangTamThoi.removeAll(gioHangChiTietListDathanhToan);
+                session.setAttribute("listSanPhamTrongGioHangTamThoi", listSanPhamTrongGioHangTamThoi);
             }
+            DonHang donHang = this.iDonHangRepo.findById(Integer.parseInt(idDonHang)).get();
+            model.addAttribute("thongBao", " Don hang cua ban sẽ sớm được  xử lý!");
+            model.addAttribute("donHang", donHang);
+            String emailNhanDon = donHang.getThongTinGiaoHang().getEmailGiaoHang();
+            String tieuDe = "Thông Báo Đơn Hàng Mới Từ Fahasa";
+            String body = "Cảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi, đơn hàng của bạn sẽ sớm được xử lý! +\n"
+                    + "Mã đơn hàng của bạn là: " + donHang.getMaDonHang();
+            javaMailService.sendEmail(emailNhanDon, tieuDe, body);
+        }
+        // thanh toán bằng vnpay
+        if (vnp_TransactionStatus != null) {
+            if (Integer.parseInt(vnp_TransactionStatus) == 00) {
+                System.out.println("thanh toan thành công!");
+                // trừ sản phẩm trong giỏ  hàng
+                KhachHang khachHangcheck = (KhachHang) session.getAttribute("loggedInUser");
+                if (khachHangcheck != null) {
+                    // trừ sản phẩm trong giỏ database
+                    List<GioHangChiTiet> gioHangChiTietListDathanhToan = (List<GioHangChiTiet>) session.getAttribute("danhSachSanPhamDeThanhToan");
+                    gioHangChiTietReposutory.deleteAll(gioHangChiTietListDathanhToan);
+                } else if (khachHangcheck == null) {
+                    // trừ sản phẩm trong giỏ tạm thời nếu chưa đăng nhập
+                    List<GioHangChiTiet> gioHangChiTietListDathanhToan = (List<GioHangChiTiet>) session.getAttribute("danhSachSanPhamDeThanhToan");
+                    List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
+                            .getAttribute("listSanPhamTrongGioHangTamThoi");
+                    listSanPhamTrongGioHangTamThoi.removeAll(gioHangChiTietListDathanhToan);
+                    session.setAttribute("listSanPhamTrongGioHangTamThoi", listSanPhamTrongGioHangTamThoi);
+                }
+                List<DonHangChiTiet> DonHangChiTietDaDuocVnPayThanhToan = (List<DonHangChiTiet>) session.getAttribute("sanphamdathanhtoanboivnpay");
+                PhuongThucThanhToan phuongThucThanhToan = (PhuongThucThanhToan) session.getAttribute("phuongThucThanhToan");
+                DiaChi diaChiKhachHang = (DiaChi) session.getAttribute("diaChiKhachHang");
+                KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+                KhachHang khachHang = null;
+                if (khachHangDangNhap != null) {
+                    // đã đăng nhập, lấy thông tin từ db
+                    khachHang = iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
 
+                } else {
+                    Date currentDate = new Date();
+                    // chưa đăng nhập, lấy thông tin được truyền qua
+                    String tenNguoiNhanHang = (String) session.getAttribute("tenNguoiNhanHangVnpay");
+                    String soDienThoaiNhanHangVnpay = (String) session.getAttribute("soDienThoaiNhanHangVnpay");
+                    String tinhThanhPhoVnpay = (String) session.getAttribute("tinhThanhPhoVnpay");
+                    String huyenQuanVnpay = (String) session.getAttribute("huyenQuanVnpay");
+                    String xaPhuongVnpay = (String) session.getAttribute("xaPhuongVnpay");
+                    String diaChiCuTheVnpay = (String) session.getAttribute("diaChiCuTheVnpay");
 
-        } else {
-            model.addAttribute("thongBao", "Thanh toan không thanh cong !");
-
-
+                    KhachHang khachHangTruocKhiLuu = KhachHang.builder()
+                            .loaiKhachHang("0")
+                            .hoVaTen(tenNguoiNhanHang)
+                            .ngayTaoTaiKhoan(currentDate)
+                            .build();
+                    khachHang = this.iKhachHangRepository.save(khachHangTruocKhiLuu);
+                    DonHang donHang =
+                            luuDonHang(phuongThucThanhToan,
+                                    khachHang,
+                                    tenNguoiNhanHang,
+                                    soDienThoaiNhanHangVnpay,
+                                    tinhThanhPhoVnpay,
+                                    huyenQuanVnpay,
+                                    xaPhuongVnpay,
+                                    diaChiCuTheVnpay,
+                                    khachHang.getEmail(),
+                                    DonHangChiTietDaDuocVnPayThanhToan
+                            );
+                    model.addAttribute("thongBao", "Thanh toan thanh cong !");
+                    model.addAttribute("donHang", donHang);
+                    String emailNhanDon = donHang.getThongTinGiaoHang().getEmailGiaoHang();
+                    String tieuDe = "Thông Báo Đơn Hàng Mới Từ Fahasa";
+                    String body = "Cảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi, đơn hàng của bạn sẽ sớm được xử lý!";
+                    javaMailService.sendEmail(emailNhanDon, tieuDe, body);
+                }
+            } else {
+                model.addAttribute("thongBao", "Thanh toan không thanh cong !");
+            }
         }
         return "/user/pay";
     }

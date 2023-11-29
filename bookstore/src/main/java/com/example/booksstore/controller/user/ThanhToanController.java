@@ -190,6 +190,8 @@ public class ThanhToanController {
                                 gioHangChiTietList
                         );
                 System.out.println("tạo thành công đơn hàng có mã hóa đơn là: " + donHang.getMaDonHang());
+                return "redirect:/vnpay/vnpayreturn?idDonHang=" + donHang.getIdDonHang();
+
             }
 
             // thanh toán đã đăng nhập
@@ -278,9 +280,9 @@ public class ThanhToanController {
                                 gioHangChiTietList
                         );
                 System.out.println("tạo thành công đơn hàng có mã hóa đơn là: " + donHang.getMaDonHang());
+                return "redirect:/vnpay/vnpayreturn?idDonHang=" + donHang.getIdDonHang();
             }
         }
-        return "redirect:/vnpay/vnpayreturn";
     }
 
     public DonHang luuDonHang(
