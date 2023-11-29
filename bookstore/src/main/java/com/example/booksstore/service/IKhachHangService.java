@@ -16,4 +16,7 @@ public interface IKhachHangService {
     List<KhachHang> findAll();
 
     KhachHang login(String email, String matkhau);
+
+    KhachHang detail(Integer idKhachHang);
+
 }

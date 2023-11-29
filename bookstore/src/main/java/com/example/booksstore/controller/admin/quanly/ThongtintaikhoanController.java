@@ -11,8 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.booksstore.entities.KhachHang;
-import java.sql.Date;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -28,11 +32,10 @@ public class ThongtintaikhoanController {
     public String hienThiThongTin(Model model, HttpSession session) {
         // Retrieve the logged-in user from the session
         KhachHang loggedInUser = (KhachHang) session.getAttribute("loggedInUser");
-
-        // Check if the user is logged in
         if (loggedInUser != null) {
             // Pass the user information to the Thymeleaf template
             model.addAttribute("loggedInUser", loggedInUser);
+
             return "user/thongtintaikhoan";
         } else {
             // Redirect to the login page if the user is not logged in
@@ -40,52 +43,45 @@ public class ThongtintaikhoanController {
         }
     }
 
-//    @PostMapping("/thong-tin/cap-nhat")
-//        public String thongtinsua(
-//                @RequestParam("idKhachHang") String idKhachHang,
-//                @RequestParam("hoVaTen") String hoVaTen,
-//                @RequestParam("sdt") String sdt,
-//                @RequestParam("ngaySinh") Date ngaySinh,
-//                @RequestParam("gioiTinh") String gioiTinh,
-//                @RequestParam("email") String email,
-//                @RequestParam("trangThai") String trangThai,
-//                @RequestParam("matKhau") String matKhau,
-//                @RequestParam("loaiKhachHang") String loaiKhachHang,
-//                @RequestParam("ngayTaoTaiKhoan") Date ngayTaoTaiKhoan
-//
-//    ){
-//        KhachHang khachupdate= KhachHang.builder()
-//                .idKhachHang(Integer.parseInt(idKhachHang))
-//                .trangThai(Integer.parseInt(trangThai))
-//                .ngayTaoTaiKhoan(ngayTaoTaiKhoan)
-//                .matKhau(matKhau)
-//                .loaiKhachHang(loaiKhachHang)
-//                .hoVaTen(hoVaTen)
-//                .sdt(sdt)
-//                .ngaySinh(ngaySinh)
-//                .gioiTinh(Integer.parseInt(gioiTinh))
-//                .email(email)
-//                .build();
-//        this.khachHangService.save(khachupdate);
-//        return "redirect:/quan-ly/thong-tin/hien-thi";
-//    }
-
     @PostMapping("/thong-tin/cap-nhat")
-    public String capNhatThongTin(@ModelAttribute("loggedInUser") KhachHang updatedUser, HttpSession session) {
-        // Update the user information in the database or service
-        // This is a simplified example; you would typically call a service method here
-        // to update the user information in the database
-         khachHangService.save(updatedUser);
-        // Update the user information in the session
-        session.setAttribute("loggedInUser", updatedUser);
+    public String thongtinsua(
+            @RequestParam("idKhachHang") Integer idKhachHang,
+            @RequestParam("hoVaTen") String hoVaTen,
+            @RequestParam("sdt") String sdt,
+            @RequestParam("ngaySinh") String ngaySinh,
+            @RequestParam("gioiTinh") Integer gioiTinh,
+            @RequestParam("email") String email
+            ) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date getNgaySinhs = dateFormat.parse(ngaySinh);
+            KhachHang khachHang = khachHangService.detail(idKhachHang);
+            khachHang = KhachHang.builder()
+                    .idKhachHang(idKhachHang)
+                    .trangThai(khachHang.getTrangThai())
+                    .ngayTaoTaiKhoan(khachHang.getNgayTaoTaiKhoan())
+                    .matKhau(khachHang.getMatKhau())
+                    .loaiKhachHang(khachHang.getLoaiKhachHang())
+                    .hoVaTen(hoVaTen)
+                    .sdt(sdt)
+                    .ngaySinh(getNgaySinhs)
+                    .gioiTinh(gioiTinh)
+                    .email(email)
+                    .build();
 
-        return "redirect:/quan-ly/thong-tin/hien-thi";
+            khachHangService.save(khachHang);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/quan-ly/thong-tin/hien-thi/" + idKhachHang;
     }
+
 
     @GetMapping("/thong-tin/hien-thi/{idKhachHang}")
     public String hienThiThongTin(@PathVariable Integer idKhachHang, HttpSession session) {
-            KhachHang khachHang = repository.getById(idKhachHang);
-            session.setAttribute("loggedInUser", khachHang);
+        KhachHang khachHang = repository.getById(idKhachHang);
+        session.setAttribute("loggedInUser", khachHang);
         return "user/thongtintaikhoan";
 //        return "redirect:/quan-ly/thong-tin/hien-thi";
     }

@@ -48,4 +48,10 @@ public class KhachHangServiceImpl implements IKhachHangService {
         }
         return null;
     }
+
+    @Override
+    public KhachHang detail(Integer idKhachHang) {
+        return iKhachHangRepository.getById(idKhachHang);
+    }
+
 }
