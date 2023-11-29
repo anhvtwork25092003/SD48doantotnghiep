@@ -4,22 +4,29 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Menu Ngang</title>
+    <title>Menu Nhân Viên</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <link rel="stylesheet" href="/admin/nhanvien/css/menuNhanVien.css"/>
 </head>
 <body>
 <div class="container-fluid">
     <div class="header">
-        <img class="logo" src="/image/banner/fahasa-logo.png"/>
+        <img class="logo" src="/image/logoicon/fahasa-logo.png"/>
         <div class="header-icons">
-            <div class="account-icon">
-                <div>
-                    <i class="fa-solid fa-bell fa-xl"></i>
-                </div>
-            </div>
             <div>
-                <i class="fa-regular fa-user fa-xl"></i>
+                <i class="fa-solid fa-bell fa-xl"></i>
+            </div>
+            <div class="account-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path
+                            d="M437.02 330.98c-27.883-27.882-61.071-48.523-97.281-61.018C378.521 243.251 404 198.548 404 148 404 66.393 337.607 0 256 0S108 66.393 108 148c0 50.548 25.479 95.251 64.262 121.962-36.21 12.495-69.398 33.136-97.281 61.018C26.629 379.333 0 443.62 0 512h40c0-119.103 96.897-216 216-216s216 96.897 216 216h40c0-68.38-26.629-132.667-74.98-181.02zM256 256c-59.551 0-108-48.448-108-108S196.449 40 256 40s108 48.448 108 108-48.449 108-108 108z" />
+                </svg>
+                <div class="account-dropdown">
+<!--                    <h6 class="thongtin" th:text="${loggedInUser.hoVaTen}"></h6>-->
+                    <!--                    <h6 th:text="${loggedInUser.chucVu}"></h6>-->
+                    <a href="#" class="thongtin">Thông tin chi tiết</a>
+                    <a href="#" class="dangxuat">Đăng xuất</a>
+                </div>
             </div>
         </div>
     </div>
@@ -34,15 +41,7 @@
                     <li><a href="/quan-ly/tac-gia/hien-thi">Danh sách tác giả</a></li>
                 </ul>
             </li>
-            <li class="menu-item"><a href="#">Đơn hàng</a>
-                <ul class="submenu">
-                    <li><a href="/quan-ly/don-hang/cho-xac-nhan">Chờ xác nhận</a></li>
-                    <li><a href="/quan-ly/don-hang/cho-van-chuyen">Chờ vận chuyển</a></li>
-                    <li><a href="/quan-ly/don-hang/dang-giao-hang">Đang giao hàng</a></li>
-                    <li><a href="/quan-ly/don-hang/giao-thanh-cong">Giao thành công</a></li>
-                    <li><a href="/quan-ly/don-hang/da-huy">Đã hủy</a></li>
-                    <li><a href="/quan-ly/don-hang/doi-tra">Đổi trả</a></li>
-                </ul>
+            <li class="menu-item"><a href="/quan-ly/don-hang/cho-xac-nhan">Đơn hàng</a>
             </li>
             <li><a href="/quan-ly/khach-hang/hien-thi">Khách hàng</a></li>
         </ul>
