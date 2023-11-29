@@ -123,7 +123,8 @@
                 <div class="phuongthucthanhtoan">
                     <div><h4>Phương Thức Thanh Toán</h4></div>
                     <div class="form-check" th:each="pttt : ${phuongthucThanhToans}">
-                        <input class="form-check-input" type="radio" name="phuongThucThanhToanMaKhachHangChon" id="exampleRadios1"
+                        <input class="form-check-input" type="radio" name="phuongThucThanhToanMaKhachHangChon"
+                               id="exampleRadios1"
                                th:value="${pttt.idPhuongThucThanhToan}"
                                checked>
                         <label class="form-check-label" for="exampleRadios1" th:name="phuongThucthanhToan">
@@ -159,7 +160,7 @@
 
                                     <td>
                                         <!-- Hiển thị giá giảm giá và giá gốc trong một cột -->
-                                        <div th:each="giamgia : ${dssp.sach.khuyenMais}">
+                                        <div th:each="giamgia : ${dssp.sach.khuyenMais[0]}">
                                             <div th:if="${giamgia.trangThai == 1}">
                                                 <!-- Tính giá giảm giá và cộng vào tổng giá giảm giá -->
                                                 <th:block
@@ -172,7 +173,7 @@
                                             </div>
                                         </div>
                                         <!-- Nếu có giảm giá, thì th:unless sẽ không thực hiện, nếu không có giảm giá thì sẽ hiển thị giá gốc -->
-                                        <th:block th:unless="${#lists.isEmpty(dssp.sach.khuyenMais)}">
+                                        <th:block th:unless="${#lists.isEmpty(dssp.sach.khuyenMais [0])}">
                                             <span style="text-decoration: line-through;"
                                                   th:text="${dssp.sach.giaBan}"></span><br/>
                                         </th:block>
@@ -182,8 +183,8 @@
                                     <td th:text="${dssp.soLuong}"></td>
 
                                     <!-- Hiển thị tổng tiền -->
-                                    <td id="tongGiaGiamGiaPhiaTren"
-                                        th:text="${thanhTien + dssp.sach.giaBan * dssp.soLuong}"></td>
+                                    <td id="tongGiaGiamGiaPhiaTren" th:text="${thanhTien + ((dssp.sach.khuyenMais != null && not #lists.isEmpty(dssp.sach.khuyenMais) && dssp.sach.khuyenMais[0].trangThai == 1) ? (dssp.sach.giaBan - (dssp.sach.giaBan * dssp.sach.khuyenMais[0].soPhanTramGiamGia / 100)) : dssp.sach.giaBan) * dssp.soLuong}">
+                                    </td>
 
                                 </th:block>
                             </th:block>
@@ -200,50 +201,43 @@
                             </div>
                             <div class="col-md-6">
                                 <table class="table table-bordered">
-                                    <tbody th:each="dssp: ${danhSachSanPhamTrongGioHang}">
-                                    <tr>
-                                        <th:block th:with="thanhTien=0">
-                                            <!-- Kiểm tra giá trị trước khi sử dụng -->
-                                            <th:block th:if="${dssp.sach.giaBan != null}">
-                                                <td hidden>
-                                                    <!-- Hiển thị giá giảm giá và giá gốc trong một cột -->
-                                                    <div th:each="giamgia : ${dssp.sach.khuyenMais}">
-                                                        <div th:if="${giamgia.trangThai == 1}">
-                                                            <!-- Tính giá giảm giá và cộng vào tổng giá giảm giá -->
-                                                            <th:block
-                                                                    th:with="giaGiamGia=${dssp.sach.giaBan - (dssp.sach.giaBan * giamgia.soPhanTramGiamGia / 100)}">
-                                                                <th:block
-                                                                        th:with="thanhTien=${thanhTien + giaGiamGia}"></th:block>
-                                                                <!-- Hiển thị giá giảm giá -->
-                                                                <span th:text="${giaGiamGia}" hidden></span><br/>
-                                                            </th:block>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Nếu có giảm giá, thì th:unless sẽ không thực hiện, nếu không có giảm giá thì sẽ hiển thị giá gốc -->
-                                                    <th:block th:unless="${#lists.isEmpty(dssp.sach.khuyenMais)}">
-                                                        <span style="text-decoration: line-through;"
-                                                              th:text="${dssp.sach.giaBan}" hidden></span><br/>
-                                                    </th:block>
-                                                </td>
-                                                <!-- Hiển thị tổng tiền -->
-                                                <label>Thành tiền:
-                                                    <p class="total"
-                                                       th:text="${thanhTien + dssp.sach.giaBan * dssp.soLuong}"></p>
-                                                </label>
-                                                <br>
-                                                <label>Phí vận chuyển:
-                                                    <p class="total">50.000</p>
-                                                </label>
-                                                <br>
-                                                <label>Tổng số tiền:
-                                                    <p class="total"
-                                                       th:text="${thanhTien + dssp.sach.giaBan * dssp.soLuong + 50000}"></p>
-                                                </label>
+                                    <tbody>
+                                    <tr th:each="dssp: ${danhSachSanPhamTrongGioHang}">
+                                        <td th:if="${dssp.sach.giaBan != null}">
+                                            <!-- Tính giá chiết khấu -->
+                                            <span th:each="giamgia : ${dssp.sach.khuyenMais}"
+                                                  th:if="${giamgia.trangThai == 1}"
+                                                  th:text="${dssp.sach.giaBan - (dssp.sach.giaBan * giamgia.soPhanTramGiamGia / 100)}" hidden></span>
 
-                                            </th:block>
-                                        </th:block>
+                                            <!-- Hiển thị giá gốc bằng gạch ngang nếu có bất kỳ khoản giảm giá nào -->
+                                            <span th:if="${not #lists.isEmpty(dssp.sach.khuyenMais)}"
+                                                  style="text-decoration: line-through;"
+                                                  th:text="${dssp.sach.giaBan}" hidden></span><br/>
+
+                                            <!-- Tính tổng số tiền cho mỗi cuốn sách -->
+                                            <label>Thành tiền:
+                                                <p class="total"
+                                               th:text="${((dssp.sach.khuyenMais != null && not #lists.isEmpty(dssp.sach.khuyenMais) && dssp.sach.khuyenMais[0].trangThai == 1) ? (dssp.sach.giaBan - (dssp.sach.giaBan * dssp.sach.khuyenMais[0].soPhanTramGiamGia / 100)) : dssp.sach.giaBan) * dssp.soLuong}"></p>
+
+                                            </label>
+                                            <br>
+
+
+                                            <!-- Hiển thị phí vận chuyển từng cuốn -->
+                                            <label>Phí vận chuyển:
+                                                <p class="total">50.000</p>
+                                            </label>
+                                            <br>
+
+                                            <!-- Tính tổng số tiền cho tất cả các sách đã chọn -->
+                                            <label>Tổng số tiền:
+                                                <p class="total"
+                                                   th:text="${((dssp.sach.khuyenMais != null && not #lists.isEmpty(dssp.sach.khuyenMais) && dssp.sach.khuyenMais[0].trangThai == 1) ? (dssp.sach.giaBan - (dssp.sach.giaBan * dssp.sach.khuyenMais[0].soPhanTramGiamGia / 100)) : dssp.sach.giaBan) * dssp.soLuong + 50000}"></p>
+                                            </label>
+                                        </td>
                                     </tr>
                                     </tbody>
+
                                 </table>
 
                                 <button type="submit" class="btn btn-danger btn-lg btn-block"
