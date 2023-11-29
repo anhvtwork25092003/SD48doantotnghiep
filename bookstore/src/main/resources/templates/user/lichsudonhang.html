@@ -82,7 +82,8 @@
           <tr>
             <td th:text="${donHang.maDonHang}"></td>
             <td th:text="${donHang.ngayTao}"></td>
-            <td th:text="${donHang.trangThai}"></td>
+            <td th:text="${donHang.trangThai == 0 ? 'Chờ duyệt' : (donHang.trangThai == 1 ? 'Đang ship' : (donHang.trangThai == 2 ? 'Thành công' : (donHang.trangThai == 3 ? 'Đã hủy' : 'Unknown')))}"></td>
+
             <td th:text="${donHang.phiVanChuyen}"></td>
             <!-- Add more columns as needed -->
           </tr>
