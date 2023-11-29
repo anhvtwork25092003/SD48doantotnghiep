@@ -220,12 +220,14 @@
                                                                 <tr>
                                                                     <th>Mã Sản Phẩm</th>
                                                                     <th>Tên Sản Phẩm</th>
+                                                                    <th>Số Lượng Mua</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                 <tr th:each="ctdh : ${dh.chiTietDonHang}">
                                                                     <td th:text="${ctdh.sach.maSach}"></td>
                                                                     <td th:text="${ctdh.sach.tenSach}"></td>
+                                                                    <td th:text="${ctdh.soLuong}"></td>
                                                                 </tr>
                                                                 </tbody>
                                                             </table>
@@ -266,7 +268,7 @@
                                         </div>
                                     </div>
                                     <!--  modal chi tiết đơn hàng -->
-                                   
+
                                 </td>
                             </tr>
                             </tbody>
