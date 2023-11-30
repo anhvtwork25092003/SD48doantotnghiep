@@ -191,11 +191,12 @@
                                                             <input class="form-control" value="Shipper"
                                                                    disabled>
                                                         </div>
-                                                        <div class="line-item">
+                                                        <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
                                                             <label>Tổng Tiền</label>
                                                             <input class="form-control" type="text"
-                                                                   th:value="${dh.khachHang.sdt}" disabled>
+                                                                   th:value="${ctdh.thanhTien}" disabled>
                                                         </div>
+
                                                         <div class="line-item">
                                                             <label>Ghi Chú:</label>
                                                             <textarea class="form-control" type="text"
