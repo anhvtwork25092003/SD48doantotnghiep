@@ -4,6 +4,7 @@ package com.example.booksstore.controller.user;
 import com.example.booksstore.entities.GioHang;
 import com.example.booksstore.entities.GioHangChiTiet;
 import com.example.booksstore.entities.KhachHang;
+import com.example.booksstore.entities.TemporaryIdGenerator;
 import com.example.booksstore.repository.GioHangChiTietReposutory;
 import com.example.booksstore.repository.GioHangRepository;
 import com.example.booksstore.repository.IKhachHangRepository;
@@ -43,33 +44,30 @@ public class GioHangController {
         // lấy ra khách hàng và giỏ hàng tương ứng
         // láy ra khach hang
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
-        model.addAttribute("loggedInUser",khachHang);
+        model.addAttribute("loggedInUser", khachHang);
         if (khachHang == null) {
             // khach hang chua dang nhap
             System.out.println("khach hang chua dang nhap");
             //  laays gior hangf tuwf session
             // neeus session chuwa cos  giỏ hàng thì tạo 1 giỏ hàng vào sesion
             GioHang gioHangtamThoiSesion = (GioHang) session.getAttribute("gioHang");
-            List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
-                    .getAttribute("listSanPhamTrongGioHangTamThoi");
-
             if (gioHangtamThoiSesion == null) {
                 // Nếu giỏ hàng chưa tồn tại trong session, tạo mới và lưu vào session
                 gioHangtamThoiSesion = new GioHang();
                 session.setAttribute("gioHang", gioHangtamThoiSesion);
             }
+            List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
+                    .getAttribute("listSanPhamTrongGioHangTamThoi");
             if (listSanPhamTrongGioHangTamThoi == null) {
                 // nếu list chưa tồn tại thì tạo mới
                 listSanPhamTrongGioHangTamThoi = new ArrayList<>();
                 session.setAttribute("listSanPhamTrongGioHangTamThoi", listSanPhamTrongGioHangTamThoi);
-
             }
             model.addAttribute("danhSachSanPhamTrongGioHang", listSanPhamTrongGioHangTamThoi);
 
         } else {
             // khach hang da dang nhap
             // lấy giỏ hàng  tuong ung
-            System.out.println(khachHang.getHoVaTen());
             GioHang gioHang = this.gioHangRepository.findByKhachHang(khachHang);
             // nếu giỏ hàng chưa tồn tại hoặc đã tồn tại
             if (gioHang == null) {
@@ -81,13 +79,8 @@ public class GioHangController {
             }
             // lấy giỏ hàng chi tiết
             List<GioHangChiTiet> gioHangChiTiet = this.gioHangChiTietReposutory.findAllByGioHang(gioHang);
-            for (GioHangChiTiet gioHangChiTiet1 : gioHangChiTiet) {
-                System.out.println(gioHangChiTiet1.getIdGioHangChiTiet());
-            }
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTiet);
         }
-        session.setAttribute("message", "test session");
-        String message = (String) session.getAttribute("message");
         return "user/cart";
     }
 
@@ -125,6 +118,7 @@ public class GioHangController {
                 Date currentDate = new Date();
                 // chua có trong gio hang, thêm vào list
                 GioHangChiTiet chiTietMoi = new GioHangChiTiet();
+                chiTietMoi.setIdGioHangChiTiet(TemporaryIdGenerator.generateTemporaryId());
                 chiTietMoi.setSach(this.iSachService.getOne(Integer.parseInt(idSachDeThemVaoGio)));
                 chiTietMoi.setSoLuong(Integer.parseInt(soLuongThem));
                 chiTietMoi.setNgayChinhSua(currentDate);
@@ -179,7 +173,7 @@ public class GioHangController {
                                         @RequestParam("idSachgh") String idSachgh,
                                         HttpSession session) {
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
-        model.addAttribute("loggedInUser",khachHang);
+        model.addAttribute("loggedInUser", khachHang);
 
         if (khachHang == null) {
             // Đối với người dùng chưa đăng nhập, thực hiện trên danh sách trong session
@@ -252,7 +246,6 @@ public class GioHangController {
 
         return "redirect:/gio-hang/danh-sach-san-pham";
     }
-
 
 
 }

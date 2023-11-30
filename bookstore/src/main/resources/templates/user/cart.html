@@ -27,7 +27,7 @@
                 </li>
                 <!-- Lặp qua danh sách sản phẩm từ controller -->
                 <li class="items odd" th:each="item : ${danhSachSanPhamTrongGioHang}">
-                    <input type="checkbox" class="item-checkbox" name="SachDaChonDeMua"
+                    <input type="checkbox" class="item-checkbox" th:name="SachDaChonDeMua"
                            th:value="${item.idGioHangChiTiet}">
                     <div class="infoWrap">
                         <div class="cartSection">

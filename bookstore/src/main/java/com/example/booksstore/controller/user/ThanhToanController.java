@@ -54,25 +54,34 @@ public class ThanhToanController {
     @GetMapping("/xac-nhan-thanh-toan")
     public String xacNhanThanhToan(HttpSession session,
                                    @RequestParam(value = "selectedValues", required = false) List<String> IdgioHangChiTietListDaChon,
-
                                    Model model) {
         // xác minh đăng nhập
-
         model.addAttribute("phuongthucThanhToans", this.phuongThucThanhToanRepo.findAll());
-        List<GioHangChiTiet> gioHangChiTietListDaChon = new ArrayList<>();
-        for (String gioHangChiTietId : IdgioHangChiTietListDaChon) {
-            GioHangChiTiet gioHangChiTietforAddList = gioHangChiTietReposutory.findById(Integer.parseInt(gioHangChiTietId)).get();
-            gioHangChiTietListDaChon.add(gioHangChiTietforAddList);
-        }
+
         KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
         // chưa đăng nhập: chuyển đến trang chwua đăng nhập
         if (khachHangDangNhap == null) {
+            // lấy list giỏ hàng chi tiết chưa chọn -- toàn bộ giỏ hàng lưu ở sesion
+            List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
+                    .getAttribute("listSanPhamTrongGioHangTamThoi");
+            List<GioHangChiTiet> gioHangChiTietListDaChon = new ArrayList<>();
+            for (GioHangChiTiet gioHangChiTiet : listSanPhamTrongGioHangTamThoi) {
+                for (String idgh : IdgioHangChiTietListDaChon) {
+                    if (gioHangChiTiet.getIdGioHangChiTiet() == Integer.parseInt(idgh)) {
+                        gioHangChiTietListDaChon.add(gioHangChiTiet);
+                    }
+                }
+            }
             // lấy giỏ hàng và list giỏ hàng chi tiết từ sesion
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
             session.setAttribute("danhSachSanPhamDeThanhToan", gioHangChiTietListDaChon);
             return "/user/ThanhToanChuaDangNhap";
         } else {
-
+            List<GioHangChiTiet> gioHangChiTietListDaChon = new ArrayList<>();
+            for (String gioHangChiTietId : IdgioHangChiTietListDaChon) {
+                GioHangChiTiet gioHangChiTietforAddList = gioHangChiTietReposutory.findById(Integer.parseInt(gioHangChiTietId)).get();
+                gioHangChiTietListDaChon.add(gioHangChiTietforAddList);
+            }
             KhachHang khachHangHienThi = this.iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
             model.addAttribute("khachHangDangNhap", khachHangHienThi);
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
