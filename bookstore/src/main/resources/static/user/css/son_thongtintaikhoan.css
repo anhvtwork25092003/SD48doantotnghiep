@@ -1,6 +1,8 @@
 
 .menutttk {
     margin-left: -118px;
+    padding: 0 10px;
+
 }
 
 .group {
@@ -59,11 +61,6 @@
     background-color: rgb(221, 0, 0);
 }
 
-h2 {
-    text-align: center;
-    color: red;
-    font-size: 35px;
-}
 
 label {
     font-size: 18px;

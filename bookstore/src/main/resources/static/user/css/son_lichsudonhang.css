@@ -119,7 +119,6 @@ label{
 }
 h2{
     font-size: 34px;
-    text-align: center;
 }
 td{
     font-size: 17px;
@@ -138,4 +137,18 @@ input{
 }
 article {
     background-color: white;
+}
+a.canceled-order-link {
+    opacity: 0.5; /* hoặc giá trị tùy chọn để làm mờ đi */
+    pointer-events: none; /* ngăn chặn sự kiện click khi mờ đi */
+}
+.menutttk > * {
+    margin: 0 5px; /* Adjust the margin between items as needed */
+}
+.boxsearch {
+    margin-left: 400px;
+}
+.timKiemMa {
+    margin-left: 134px ;
+    margin-top: -67px ;
 }
