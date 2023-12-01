@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class NhanVienController {
     @GetMapping("/tong-quan-nhan-vien")
     public String nhanVienTongQuan(Model model, HttpSession session) {
-        NhanVien nhanVien = (NhanVien) session.getAttribute("loggedInUser");
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         if (nhanVien != null) {
             model.addAttribute("loggedInUser", nhanVien);
 //            return "/admin/nhanvien/layoutchungnhanvien/menuNhanVien";

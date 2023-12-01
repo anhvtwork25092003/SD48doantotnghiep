@@ -112,9 +112,9 @@
                             <tbody th:each="dh, iterStat : ${donHang.content}">
                             <tr>
                                 <td th:text="${dh.maDonHang}"></td>
-                                <td th:text="${dh.khachHang.hoVaTen}"></td>
+                                <td th:text="${dh.thongTinGiaoHang.tenNguoiNhan}"></td>
                                 <td th:text="${dh.ngayTao}"></td>
-                                <td th:text="${dh.khachHang.sdt}"></td>
+                                <td th:text="${dh.thongTinGiaoHang.sdt}"></td>
                                 <div th:each="ctdh : ${dh.chiTietDonHang}">
                                     <td th:text="${ctdh.thanhTien}"></td>
                                 </div>
@@ -156,7 +156,7 @@
                                                         <div class="line-item">
                                                             <label>Tên Người Đặt</label>
                                                             <input class="form-control" type="text"
-                                                                   th:value="${dh.khachHang.hoVaTen}" disabled/>
+                                                                   th:value="${dh.thongTinGiaoHang.tenNguoiNhan}" disabled/>
                                                         </div>
                                                         <div class="line-item">
                                                             <label>Ngày Đặt</label>
@@ -167,7 +167,7 @@
                                                         <div class="line-item">
                                                             <label>Số Điện Thoại</label>
                                                             <input class="form-control" type="tel"
-                                                                   th:value="${dh.khachHang.sdt}" disabled>
+                                                                   th:value="${dh.thongTinGiaoHang.sdt}" disabled>
                                                         </div>
                                                         <div class="line-item">
                                                             <label>Phương thức thanh toán</label>
