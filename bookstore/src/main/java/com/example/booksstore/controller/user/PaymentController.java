@@ -154,6 +154,7 @@ public class PaymentController {
                     String huyenQuanVnpay = (String) session.getAttribute("huyenQuanVnpay");
                     String xaPhuongVnpay = (String) session.getAttribute("xaPhuongVnpay");
                     String diaChiCuTheVnpay = (String) session.getAttribute("diaChiCuTheVnpay");
+                    String emailThanhToanChuaDangNhap = (String) session.getAttribute("emailThanhToanChuaDangNhap");
                     // tạo khách vãng lai
                     KhachHang khachHangTruocKhiLuu = KhachHang.builder()
                             .loaiKhachHang("0")
@@ -171,7 +172,7 @@ public class PaymentController {
                                     huyenQuanVnpay,
                                     xaPhuongVnpay,
                                     diaChiCuTheVnpay,
-                                    khachHang.getEmail(),
+                                    emailThanhToanChuaDangNhap,
                                     DonHangChiTietDaDuocVnPayThanhToan
                             );
                     // tạo thông báo + gửi đơn hàng vừa được tạo sang thymleaf

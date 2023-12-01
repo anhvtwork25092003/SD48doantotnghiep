@@ -18,15 +18,17 @@ public class LoginController {
 
     @Autowired
     KhachHangServiceImpl khachHangService;
+
     @GetMapping("/login")
     public String showLoginForm() {
         return "user/login/sign_in";
     }
+
     @PostMapping("/logins")
     public String login(@RequestParam("email") String email, @RequestParam("matKhau") String password, HttpSession session) {
         NhanVien nhanVien = nhanVienService.login(email, password);
         if (nhanVien != null) {
-            session.setAttribute("dangnhapnhanvien",nhanVien);
+            session.setAttribute("dangnhapnhanvien", nhanVien);
             String role = nhanVienService.getNhanVienRole(nhanVien);
             if (role.equals("Quan tri")) {
                 // Điều hướng đến trang quản trị
@@ -41,15 +43,17 @@ public class LoginController {
         }
         return "redirect:/login";
     }
+
     @GetMapping("/login/khach-hang")
     public String showLoginFormkh() {
         return "user/login/sign_inkh";
     }
+
     @PostMapping("/loginskh")
     public String loginkh(@RequestParam("email") String email, @RequestParam("matKhau") String password, HttpSession session) {
         KhachHang khachHang = khachHangService.login(email, password);
         if (khachHang != null) {
-            session.setAttribute("loggedInUser",khachHang);
+            session.setAttribute("loggedInUser", khachHang);
             return "redirect:/trang-chu";
         }
         return "redirect:/login/khach-hang";

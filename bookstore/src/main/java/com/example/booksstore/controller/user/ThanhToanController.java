@@ -179,6 +179,7 @@ public class ThanhToanController {
                 session.setAttribute("huyenQuanVnpay", huyenQuan);
                 session.setAttribute("xaPhuongVnpay", xaPhuong);
                 session.setAttribute("diaChiCuTheVnpay", diaChiCuThe);
+                session.setAttribute("emailThanhToanChuaDangNhap", email);
                 return "redirect:/vnpay/pay?total=" + tongTienhang;
             }
             // thanh toan tien mat
