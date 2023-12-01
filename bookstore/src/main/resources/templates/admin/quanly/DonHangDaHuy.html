@@ -119,10 +119,12 @@
                                 <td th:text="${dh.ghiChuKhachHangGui}"></td>
                                 <td th:text="${dh.ghiChuLyDoDonHang}"></td>
                                 <td>
-                                    <a href=""
+                                    <!--start đây là nút xác nhận  nhận đơn hàng-->
+                                    <a th:href="@{/quan-ly/xac-nhan-giao-lai(idDonHang=${dh.idDonHang})}"
                                        onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
                                         <i class="fa-solid fa-repeat"></i>
                                     </a>
+                                    <!--end đây là nút xác  nhận đơn hàng-->
 
                                     <!--start đây là nút xem  nhận đơn hàng-->
                                     <a data-toggle="modal" th:attr="data-target='#modalDonHang-' + ${dh.idDonHang}">
@@ -155,7 +157,8 @@
                                                         <div class="line-item">
                                                             <label>Tên Người Đặt</label>
                                                             <input class="form-control" type="text"
-                                                                   th:value="${dh.thongTinGiaoHang.tenNguoiNhan}" disabled/>
+                                                                   th:value="${dh.thongTinGiaoHang.tenNguoiNhan}"
+                                                                   disabled/>
                                                         </div>
                                                         <div class="line-item">
                                                             <label>Ngày Đặt</label>
