@@ -14,7 +14,7 @@
             <h1 th:text="${thongBao}"></h1>
             <p>Cảm ơn bạn đã mua hàng tại fahasa.com</p>
             <p>Mã đơn hàng của bạn là: </p>
-            <p th:text="${donHang.maDonHang}"></p>
+            <p th:if="${donHang} != null" th:text="${donHang.maDonHang}"></p>
             <p>Bạn sẽ sớm nhận được email của chúng tôi.</p>
             <a class="btn btn-light" href="/trang-chu">
                 Tiếp tục mua sắm
@@ -25,25 +25,25 @@
         <div class="content">
             <table class="table">
                 <thead>
-                    <tr>
-                        <th></th>
-                        <th>Tên sản phẩm</th>
-                        <th>Giá</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền</th>
-                    </tr>
+                <tr>
+                    <th></th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td scope="row">
-                            <img src="https://img.cand.com.vn/resize/800x800/NewFiles/Images/2023/05/13/bac_ho-1683976113500.jpg"
-                                style="width: 60px;" />
-                        </td>
-                        <td>Family And Friends Special Edition 5 - Workbook</td>
-                        <td>65.500đ</td>
-                        <td>1</td>
-                        <td>65.500đ</td>
-                    </tr>
+                <tr>
+                    <td scope="row">
+                        <img src="https://img.cand.com.vn/resize/800x800/NewFiles/Images/2023/05/13/bac_ho-1683976113500.jpg"
+                             style="width: 60px;"/>
+                    </td>
+                    <td>Family And Friends Special Edition 5 - Workbook</td>
+                    <td>65.500đ</td>
+                    <td>1</td>
+                    <td>65.500đ</td>
+                </tr>
                 </tbody>
             </table>
             <div class="subtotal cf">
