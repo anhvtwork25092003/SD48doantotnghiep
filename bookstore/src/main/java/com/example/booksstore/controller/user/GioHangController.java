@@ -97,8 +97,8 @@ public class GioHangController {
         if (khachHang == null) {
             // chua dang nhap
             // lấy list được lưu ở sesion ra
-            List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
-                    .getAttribute("listSanPhamTrongGioHangTamThoi");
+                List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
+                        .getAttribute("listSanPhamTrongGioHangTamThoi");
 
             //  thực hiện các thao tác với list
             // kiểm tra trong list đã có sách thêm vào chưa
