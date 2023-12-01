@@ -115,8 +115,9 @@ public class ThanhToanController {
     ) {
 // xác minh đăng nhậpS
         KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+        // chưa đăng nhạp
         if (khachHangDangNhap == null) {
-            // chưa đăng nhạp
+            // thanh toán vnpay
             if (phuongThucThanhToan.getIdPhuongThucThanhToan() == 1) {
                 // thanh toán với vnpay
                 // đưa toltal đi thanh toán, nếu total thanh toán thành công thì khởi chạy sau
@@ -170,10 +171,18 @@ public class ThanhToanController {
                 // lưu các thông tin cần thiết vào sesion
                 // 1 phuong thức thanh toán
                 session.setAttribute("phuongThucThanhToan", phuongThucThanhToan);
-                session.setAttribute("diaChiKhachHang", diaChiKhachHang);
-
+                // gửi thêm thông tin để tạo đơn hàng, gửi các thông tin giao hàng được lưu ở
+                session.setAttribute("phuongThucThanhToan", phuongThucThanhToan);
+                session.setAttribute("tenNguoiNhanHangVnpay", tenNguoiNhan);
+                session.setAttribute("soDienThoaiNhanHangVnpay", soDienThoaiNhanHang);
+                session.setAttribute("tinhThanhPhoVnpay", tinhThanhPho);
+                session.setAttribute("huyenQuanVnpay", huyenQuan);
+                session.setAttribute("xaPhuongVnpay", xaPhuong);
+                session.setAttribute("diaChiCuTheVnpay", diaChiCuThe);
                 return "redirect:/vnpay/pay?total=" + tongTienhang;
-            } else {
+            }
+            // thanh toan tien mat
+            else {
                 // không thanh toán với vnpay
                 // tao khách hàng mới
                 Date currentDate = new Date();
@@ -262,11 +271,6 @@ public class ThanhToanController {
                 // 1 phuong thức thanh toán
                 session.setAttribute("phuongThucThanhToan", phuongThucThanhToan);
                 session.setAttribute("diaChiKhachHang", diaChiKhachHang);
-                session.setAttribute("tenNguoiNhanHangVnpay", tenNguoiNhan);
-                session.setAttribute("soDienThoaiNhanHangVnpay", soDienThoaiNhanHang);
-                session.setAttribute("tinhThanhPhoVnpay", tinhThanhPho);
-                session.setAttribute("huyenQuanVnpay", huyenQuan);
-                session.setAttribute("xaPhuongVnpay", xaPhuong);
                 session.setAttribute("diaChiCuTheVnpay", diaChiCuThe);
 
                 return "redirect:/vnpay/pay?total=" + tongTienhang;

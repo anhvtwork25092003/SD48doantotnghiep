@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class QuanLyController {
     @GetMapping("/tong-quan-quan-ly")
     public String quanLyTongQuan(HttpSession session, Model model) {
-        NhanVien nhanVien = (NhanVien) session.getAttribute("loggedInUser");
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         if (nhanVien != null) {
             model.addAttribute("loggedInUser", nhanVien);
             return "/admin/quanly/TongQuanQuanLy";

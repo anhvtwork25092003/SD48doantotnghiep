@@ -113,6 +113,7 @@ public class PaymentController {
                     listSanPhamTrongGioHangTamThoi.removeAll(gioHangChiTietListDathanhToan);
                     session.setAttribute("listSanPhamTrongGioHangTamThoi", listSanPhamTrongGioHangTamThoi);
                 }
+                // lấy dữ liệu dược luwuu tạm ở sesion => thông tin giao hàng, pttt
                 List<DonHangChiTiet> DonHangChiTietDaDuocVnPayThanhToan = (List<DonHangChiTiet>) session.getAttribute("sanphamdathanhtoanboivnpay");
                 PhuongThucThanhToan phuongThucThanhToan = (PhuongThucThanhToan) session.getAttribute("phuongThucThanhToan");
                 DiaChi diaChiKhachHang = (DiaChi) session.getAttribute("diaChiKhachHang");
@@ -121,8 +122,30 @@ public class PaymentController {
                 if (khachHangDangNhap != null) {
                     // đã đăng nhập, lấy thông tin từ db
                     khachHang = iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
-
-                } else {
+                    // LƯU ĐƠN HÀNG
+                    DonHang donHang =
+                            luuDonHang(phuongThucThanhToan,
+                                    khachHang,
+                                    diaChiKhachHang.getTenNguoiNhan(),
+                                    diaChiKhachHang.getSdtNguoiNhanHang(),
+                                    diaChiKhachHang.getTinhThanhPho(),
+                                    diaChiKhachHang.getHuyenQuan(),
+                                    diaChiKhachHang.getXaPhuong(),
+                                    diaChiKhachHang.getDiaChiCuThe(),
+                                    khachHang.getEmail(),
+                                    DonHangChiTietDaDuocVnPayThanhToan
+                            );
+                    model.addAttribute("thongBao", "Thanh toan thanh cong !");
+                    model.addAttribute("donHang", donHang);
+                    // gửi mail
+                    // lấy mail từ tài khoản  chính
+                    String emailNhanDon = donHang.getThongTinGiaoHang().getEmailGiaoHang();
+                    String tieuDe = "Thông Báo Đơn Hàng Mới Từ Fahasa";
+                    String body = "Cảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi, đơn hàng của bạn sẽ sớm được xử lý!";
+                    javaMailService.sendEmail(emailNhanDon, tieuDe, body);
+                }
+                // chưa đăng nhập, lấy thông tin từ sesion để tạo khách hàáng
+                else {
                     Date currentDate = new Date();
                     // chưa đăng nhập, lấy thông tin được truyền qua
                     String tenNguoiNhanHang = (String) session.getAttribute("tenNguoiNhanHangVnpay");
@@ -131,13 +154,14 @@ public class PaymentController {
                     String huyenQuanVnpay = (String) session.getAttribute("huyenQuanVnpay");
                     String xaPhuongVnpay = (String) session.getAttribute("xaPhuongVnpay");
                     String diaChiCuTheVnpay = (String) session.getAttribute("diaChiCuTheVnpay");
-
+                    // tạo khách vãng lai
                     KhachHang khachHangTruocKhiLuu = KhachHang.builder()
                             .loaiKhachHang("0")
                             .hoVaTen(tenNguoiNhanHang)
                             .ngayTaoTaiKhoan(currentDate)
                             .build();
                     khachHang = this.iKhachHangRepository.save(khachHangTruocKhiLuu);
+                    // luu dơn hàng
                     DonHang donHang =
                             luuDonHang(phuongThucThanhToan,
                                     khachHang,
@@ -150,6 +174,7 @@ public class PaymentController {
                                     khachHang.getEmail(),
                                     DonHangChiTietDaDuocVnPayThanhToan
                             );
+                    // tạo thông báo + gửi đơn hàng vừa được tạo sang thymleaf
                     model.addAttribute("thongBao", "Thanh toan thanh cong !");
                     model.addAttribute("donHang", donHang);
                     String emailNhanDon = donHang.getThongTinGiaoHang().getEmailGiaoHang();
