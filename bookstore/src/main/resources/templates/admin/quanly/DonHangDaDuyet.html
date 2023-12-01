@@ -269,7 +269,8 @@
                                         </div>
                                     </div>
                                     <!--  modal chi tiết đơn hàng -->
-                                    <a href="" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
+                                   <a th:href="@{/quan-ly/xac-nhan-huy-don(idDonHang=${dh.idDonHang})}"
+                                       onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
                                         <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
                                     </a>
                                 </td>
