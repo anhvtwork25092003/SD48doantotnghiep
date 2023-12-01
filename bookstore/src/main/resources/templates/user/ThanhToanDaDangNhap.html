@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/user/css/ThanhToanDaDangNhap.css">
+    <script src="/user/js/ThanhToanDaDangNhap.js"></script>
 </head>
 <body>
 <article layout:fragment="noiDung">
@@ -74,10 +75,11 @@
                                        th:id="'diaChiRadio_' + ${diaChiIter.index}"
                                        th:name="'diaChiRadio'" th:value="${diaChi.idDiaChi}">
                                 <label class="form-check-label">
-                                <span th:text=" ${diaChi.tenNguoiNhan}+ ' | '+${diaChi.tinhThanhPho} + ' | ' + ${diaChi.huyenQuan} + ' | '
+                                <span id="spann" th:text=" ${diaChi.tenNguoiNhan}+ ' | '+${diaChi.tinhThanhPho} + ' | ' + ${diaChi.huyenQuan} + ' | '
                                  + ${diaChi.xaPhuong} + ' | ' + ${diaChi.diaChiCuThe} + ' | ' + ${diaChi.sdtNguoiNhanHang}"
-                                >
+                                 style="display: none">
                                 </span>
+                                    <h6 id="thongtinnhan"></h6>
                                     <a th:href="'#'" th:text="'Sửa'"></a>
                                     <!-- Thẻ a để xóa, thay thế "{yourControllerMapping}" và "{id}" bằng giá trị thực tế -->
                                     <a th:href="@{'/menu-nguoi-dung/xoa-dia-chi/' + ${diaChi.idDiaChi}}"
@@ -271,6 +273,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
         integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="/user/js/ThanhToanDaDangNhap.js"></script>
+
 </body>
 </html>
