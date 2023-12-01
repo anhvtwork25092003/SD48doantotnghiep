@@ -6,6 +6,7 @@
     text-align: center;
 
 }
+
 .list-filter h3 {
     text-align: left;
     padding-left: 20px;
@@ -105,6 +106,7 @@ td {
     margin-top: 20px;
     margin-right: 20px;
 }
+
 input[type="text"] {
     width: 70%;
     padding: 6px 20px;
@@ -113,16 +115,20 @@ input[type="text"] {
     border: 1px solid black;
     border-radius: 2px;
 }
-label{
+
+label {
     margin-right: 80px;
     color: gray;
 }
-h2{
+
+h2 {
     font-size: 34px;
 }
-td{
+
+td {
     font-size: 17px;
 }
+
 .btn-warning {
     padding: 10px 40px;
     margin: auto;
@@ -132,23 +138,30 @@ td{
     border: none;
     font-size: 16px;
 }
-input{
+
+input {
     font-size: 20px;
 }
+
 article {
     background-color: white;
 }
+
 a.canceled-order-link {
     opacity: 0.5; /* hoặc giá trị tùy chọn để làm mờ đi */
     pointer-events: none; /* ngăn chặn sự kiện click khi mờ đi */
 }
+
 .menutttk > * {
     margin: 0 5px; /* Adjust the margin between items as needed */
 }
-.boxsearch {
-    margin-left: 400px;
+
+.boxsearchlsdh {
+    margin-left: 510px;
+    margin-top: 72px;
 }
+
 .timKiemMa {
-    margin-left: 134px ;
-    margin-top: -67px ;
+    margin-left: 134px;
+    margin-top: -67px;
 }

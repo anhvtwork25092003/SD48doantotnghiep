@@ -156,7 +156,8 @@
                                                         <div class="line-item">
                                                             <label>Tên Người Đặt</label>
                                                             <input class="form-control" type="text"
-                                                                   th:value="${dh.thongTinGiaoHang.tenNguoiNhan}" disabled/>
+                                                                   th:value="${dh.thongTinGiaoHang.tenNguoiNhan}"
+                                                                   disabled/>
                                                         </div>
                                                         <div class="line-item">
                                                             <label>Ngày Đặt</label>
@@ -269,10 +270,6 @@
                                         </div>
                                     </div>
                                     <!--  modal chi tiết đơn hàng -->
-                                   <a th:href="@{/quan-ly/xac-nhan-huy-don(idDonHang=${dh.idDonHang})}"
-                                       onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
-                                        <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-                                    </a>
                                 </td>
                                 <div th:each="nv : ${loggedInUser}">
                                     <td>
