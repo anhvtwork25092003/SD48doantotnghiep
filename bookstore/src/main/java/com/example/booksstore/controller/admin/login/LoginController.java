@@ -26,7 +26,7 @@ public class LoginController {
     public String login(@RequestParam("email") String email, @RequestParam("matKhau") String password, HttpSession session) {
         NhanVien nhanVien = nhanVienService.login(email, password);
         if (nhanVien != null) {
-            session.setAttribute("loggedInUser",nhanVien);
+            session.setAttribute("dangnhapnhanvien",nhanVien);
             String role = nhanVienService.getNhanVienRole(nhanVien);
             if (role.equals("Quan tri")) {
                 // Điều hướng đến trang quản trị
