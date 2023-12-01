@@ -46,7 +46,8 @@
                     </div>
                     <div class="col-md-6">
                         <label>Điện thoại di động</label>
-                        <input class="form-control" type="text" name="soDienThoaiNhanHang" placeholder="Nhập số điện thoại">
+                        <input class="form-control" type="text" name="soDienThoaiNhanHang"
+                               placeholder="Nhập số điện thoại">
                     </div>
                     <div class="col-md-6">
                         <label>Email</label>
@@ -95,13 +96,21 @@
                 <div class="phuongthucthanhtoan">
                     <div><h4>Phương Thức Thanh Toán</h4></div>
                     <div class="form-check" th:each="pttt : ${phuongthucThanhToans}">
-                        <input class="form-check-input" type="radio" name="phuongThucThanhToanMaKhachHangChon" id="exampleRadios1"
+                        <input class="form-check-input" type="radio" name="phuongThucThanhToanMaKhachHangChon"
+                               id="exampleRadios1"
                                th:value="${pttt.idPhuongThucThanhToan}"
                                checked>
                         <label class="form-check-label" for="exampleRadios1" th:name="phuongThucthanhToan">
                             <p th:text="${pttt.tenPhuongThucThanhToan}"></p>
                         </label>
                     </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>Ghi chú đơn hàng</h4>
+                    <textarea class="form-control" type="textarea" name="ghiChuKhachHangGui"
+                              style="height: 100px;"></textarea>
+
                 </div>
 
                 <br>
@@ -152,7 +161,8 @@
                                     <td th:text="${ghtc.soLuong}"></td>
 
                                     <!-- Hiển thị tổng tiền -->
-                                    <td id="tongGiaGiamGiaPhiaTren" th:text="${thanhTien + ((ghtc.sach.khuyenMais != null && not #lists.isEmpty(ghtc.sach.khuyenMais) && ghtc.sach.khuyenMais[0].trangThai == 1) ? (ghtc.sach.giaBan - (ghtc.sach.giaBan * ghtc.sach.khuyenMais[0].soPhanTramGiamGia / 100)) : ghtc.sach.giaBan) * ghtc.soLuong}">
+                                    <td id="tongGiaGiamGiaPhiaTren"
+                                        th:text="${thanhTien + ((ghtc.sach.khuyenMais != null && not #lists.isEmpty(ghtc.sach.khuyenMais) && ghtc.sach.khuyenMais[0].trangThai == 1) ? (ghtc.sach.giaBan - (ghtc.sach.giaBan * ghtc.sach.khuyenMais[0].soPhanTramGiamGia / 100)) : ghtc.sach.giaBan) * ghtc.soLuong}">
                                     </td>
 
                                 </th:block>
@@ -168,15 +178,16 @@
                             <div class="col-md-6">
                                 <h3><a href=""> Quay về giỏ hàng</a></h3>
                             </div>
-                                <div class="col-md-6">
-                                    <table class="table table-bordered">
-                                        <tbody>
+                            <div class="col-md-6">
+                                <table class="table table-bordered">
+                                    <tbody>
                                     <tr th:each="ghtc: ${danhSachSanPhamTrongGioHang}">
                                         <td th:if="${ghtc.sach.giaBan != null}">
                                             <!-- Tính giá chiết khấu -->
                                             <span th:each="giamgia : ${ghtc.sach.khuyenMais}"
                                                   th:if="${giamgia.trangThai == 1}"
-                                                  th:text="${ghtc.sach.giaBan - (ghtc.sach.giaBan * giamgia.soPhanTramGiamGia / 100)}" hidden></span>
+                                                  th:text="${ghtc.sach.giaBan - (ghtc.sach.giaBan * giamgia.soPhanTramGiamGia / 100)}"
+                                                  hidden></span>
 
                                             <!-- Hiển thị giá gốc bằng gạch ngang nếu có bất kỳ khoản giảm giá nào -->
                                             <span th:if="${not #lists.isEmpty(ghtc.sach.khuyenMais)}"
@@ -186,7 +197,7 @@
                                             <!-- Tính tổng số tiền cho mỗi cuốn sách -->
                                             <label>Thành tiền:
                                                 <p class="total"
-                                               th:text="${((ghtc.sach.khuyenMais != null && not #lists.isEmpty(ghtc.sach.khuyenMais) && ghtc.sach.khuyenMais[0].trangThai == 1) ? (ghtc.sach.giaBan - (ghtc.sach.giaBan * ghtc.sach.khuyenMais[0].soPhanTramGiamGia / 100)) : ghtc.sach.giaBan) * ghtc.soLuong}"></p>
+                                                   th:text="${((ghtc.sach.khuyenMais != null && not #lists.isEmpty(ghtc.sach.khuyenMais) && ghtc.sach.khuyenMais[0].trangThai == 1) ? (ghtc.sach.giaBan - (ghtc.sach.giaBan * ghtc.sach.khuyenMais[0].soPhanTramGiamGia / 100)) : ghtc.sach.giaBan) * ghtc.soLuong}"></p>
 
                                             </label>
                                             <br>
