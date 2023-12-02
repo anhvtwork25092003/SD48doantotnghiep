@@ -65,3 +65,6 @@ alter column phantramgiam float
 -- thêm cột email cho thông tin giao hàng
 alter table thongtingiaohang
 add emailGiaoHang nvarchar(50)
+-- sửa ngày 2/12
+alter table donhang
+add ngayhuy datetime
