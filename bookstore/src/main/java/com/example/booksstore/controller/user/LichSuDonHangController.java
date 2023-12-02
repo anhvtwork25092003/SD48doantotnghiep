@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -45,7 +46,8 @@ public class LichSuDonHangController {
 
     @GetMapping("/xac-nhan-huy-don")
     public String xacNhanDonHangHuy(Model model,HttpSession session,
-                                    @RequestParam("idDonHang") String idDonHang) {
+                                    @RequestParam("idDonHang") String idDonHang,
+                                    @RequestParam("ghiChuLyDoDonHang") String ghiChuLyDoDonHang) {
         // Lấy đơn hàng từ idDonHang
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
@@ -53,8 +55,14 @@ public class LichSuDonHangController {
         if (donHang.getTrangThai() != 3) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
             donHang.setTrangThai(3); // Đặt trạng thái thành 1 (đã duyệt)
-            iDonHangRepo.save(donHang);
+            //lý do đơn hàng hủy
+            donHang.setGhiChuLyDoDonHang(ghiChuLyDoDonHang);
 
+            // Lưu thời gian hủy
+            Date thoiGianHuy = new Date();
+            donHang.setNgayHuy(thoiGianHuy);
+
+            iDonHangRepo.save(donHang);
             // In thông tin để kiểm tra
             System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
         }

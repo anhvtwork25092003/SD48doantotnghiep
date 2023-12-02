@@ -50,7 +50,8 @@
                         <thead>
                         <tr>
                             <th>Mã đơn hàng</th>
-                            <th>Ngày đặt</th>
+                            <th>Ngày tạo</th>
+                            <th>Ngày hủy</th>
                             <th>Trạng thái</th>
                             <th>Tổng tiền</th>
                             <th>Hành động</th>
@@ -60,6 +61,7 @@
                         <tr>
                             <td th:text="${dh.maDonHang}"></td>
                             <td th:text="${dh.ngayTao}"></td>
+                            <td th:text="${dh.ngayHuy}"></td>
                             <td th:text="${dh.trangThai == 0 ? 'Chờ duyệt' : (dh.trangThai == 1 ? 'Đang ship' : (dh.trangThai == 2 ? 'Thành công' : (dh.trangThai == 3 ? 'Đã hủy' : 'Unknown')))}"></td>
                             <td th:text="${dh.phiVanChuyen}"></td>
                             <!-- Add more columns as needed -->
@@ -99,6 +101,12 @@
                                                         <label>Ngày Đặt</label>
                                                         <input class="form-control" type="text"
                                                                th:value="${dh.ngayTao}"
+                                                               disabled>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Ngày Đặt</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dh.ngayHuy}"
                                                                disabled>
                                                     </div>
                                                     <div class="line-item">
@@ -208,12 +216,43 @@
                                 </div>
 
 
-                                <a th:href="@{/xac-nhan-huy-don(idDonHang=${dh.idDonHang})}" data-toggle="tooltip"
-                                   title="Hủy đơn" class="btn btn-danger"
+<!--                                <a th:href="@{/xac-nhan-huy-don(idDonHang=${dh.idDonHang})}" data-toggle="tooltip"-->
+<!--                                   title="Hủy đơn" class="btn btn-danger"-->
+<!--                                   th:classappend="${(dh.trangThai == 3) || (dh.trangThai == 2) || (dh.trangThai == 1)?'disabled':''}"-->
+<!--                                   onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">-->
+<!--                                    <i class="fa-regular fa-trash-can"></i>-->
+<!--                                </a>-->
+                                <!-- Trang Thymeleaf -->
+                                <!-- ... -->
+                                <a th:href="@{/xac-nhan-huy-don(idDonHang=${dh.idDonHang}, ghiChuLyDoDonHang=${ghiChuLyDoDonHang})}"
+                                   data-toggle="tooltip" title="Hủy đơn" class="btn btn-danger"
                                    th:classappend="${(dh.trangThai == 3) || (dh.trangThai == 2) || (dh.trangThai == 1)?'disabled':''}"
-                                   onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
+                                   onclick="hienThiHopThoaiHuy('${dh.idDonHang}', '${dh.trangThai}')">
                                     <i class="fa-regular fa-trash-can"></i>
                                 </a>
+
+
+                                <script th:inline="javascript">
+                                    function hienThiHopThoaiHuy(idDonHang, trangThai) {
+                                        if (trangThai == 3 || trangThai == 2 || trangThai == 1) {
+                                            return false;
+                                        }
+
+                                        var ghiChuLyDoDonHang  = prompt('Nhập lý do hủy đơn hàng:');
+                                        console.log('giá trị của ghiChuLyDoDonHang:', ghiChuLyDoDonHang);
+
+
+                                        if (ghiChuLyDoDonHang  !== null) {
+                                            var lyDoHuyName = 'ghiChuLyDoDonHang'; // Tên trường lý do hủy
+                                            window.location.href = '/xac-nhan-huy-don?idDonHang=' + idDonHang + '&' + lyDoHuyName + '=' + encodeURIComponent(ghiChuLyDoDonHang );
+                                        }
+                                    }
+                                </script>
+
+
+                                <!-- ... -->
+
+
 
                                 <!--  modal chi tiết đơn hàng -->
                             </td>
