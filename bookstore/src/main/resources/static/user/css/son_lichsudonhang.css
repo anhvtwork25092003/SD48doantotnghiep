@@ -107,14 +107,6 @@ td {
     margin-right: 20px;
 }
 
-input[type="text"] {
-    width: 70%;
-    padding: 6px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 1px solid black;
-    border-radius: 2px;
-}
 
 label {
     margin-right: 80px;
@@ -137,10 +129,6 @@ td {
     border-radius: 10px;
     border: none;
     font-size: 16px;
-}
-
-input {
-    font-size: 20px;
 }
 
 article {

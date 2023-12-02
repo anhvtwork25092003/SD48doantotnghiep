@@ -65,7 +65,7 @@
                             <td th:text="${dh.phiVanChuyen}"></td>
                             <!-- Add more columns as needed -->
                             <td>
-                                <a data-toggle="modal" th:attr="data-target='#modalDonHang-' + ${dh.idDonHang}">
+                                <a type="button"  class="btn btn-info" data-toggle="modal" th:attr="data-target='#modalDonHang-' + ${dh.idDonHang}">
                                     <i class="fa-regular fa-eye"></i>
                                 </a>
                                 <!--end  đây là nút xem  nhận đơn hàng-->
@@ -263,11 +263,11 @@
                     </table>
                 </div>
                 <div>
-                        <span th:if="${donHanglist.number + 1 > 1}">
+                        <span  class="btn btn-light" th:if="${donHanglist.number + 1 > 1}">
                             <a th:href="@{'/lich-su-don-hang/hien-thi?page=' + ${donHanglist.number}}">Previous</a>
                         </span>
-                    <span th:text="${donHanglist.number + 1} + ' / ' + ${donHanglist.totalPages}"></span>
-                    <span th:if="${donHanglist.number + 1 < donHanglist.totalPages}">
+                    <span class="btn btn-danger" th:text="${donHanglist.number + 1} + ' / ' + ${donHanglist.totalPages}"></span>
+                    <span class="btn btn-light" th:if="${donHanglist.number + 1 < donHanglist.totalPages}">
                             <a th:href="@{'/lich-su-don-hang/hien-thi?page=' + ${donHanglist.number + 2}}">Next</a>
                         </span>
                     </span>
