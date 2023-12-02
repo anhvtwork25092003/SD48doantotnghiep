@@ -5,11 +5,16 @@ import com.example.booksstore.entities.KhachHang;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface IDonHangRepo extends JpaRepository<DonHang, Integer> {
-    List<DonHang> findAllBykhachHang(KhachHang khachHang);
+    @Query("SELECT dh FROM DonHang dh WHERE dh.khachHang = :khachHang ORDER BY dh.ngayTao DESC")
+    Page<DonHang> findAllByKhachHangOrderByNgayTaoDesc(@Param("khachHang") KhachHang khachHang, Pageable pageable);
+
+//    Page<DonHang> findAllBykhachHang(Pageable pageable,KhachHang khachHang);
     Page<DonHang> findAllByTrangThaiOrderByIdDonHang(Pageable pageable, int trangThai);
     Page<DonHang> findByMaDonHangContainingAndKhachHang_SdtContaining(Pageable pageable,String maDonHang, String sdt);
     List<DonHang> findByMaDonHangContaining(String maDonHang);

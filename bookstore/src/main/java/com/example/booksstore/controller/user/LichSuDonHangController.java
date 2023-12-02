@@ -25,9 +25,12 @@ public class LichSuDonHangController {
     IDonHangRepo iDonHangRepo;
 
     @GetMapping("/lich-su-don-hang/hien-thi")
-    public String hienThiTrangDiaChi(Model model ,HttpSession session) {
+    public String hienThiTrangDiaChi(Model model ,HttpSession session,
+                                     @RequestParam(defaultValue = "1") int page) {
+        int pageSize = 5;
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
-        List<DonHang> danhSachdonHang = iDonHangRepo.findAllBykhachHang(khachHang);
+        Page<DonHang> danhSachdonHang = iDonHangRepo.findAllByKhachHangOrderByNgayTaoDesc(khachHang, pageable);
         model.addAttribute("donHanglist", danhSachdonHang);
         return "user/lichsudonhang";
     }
@@ -49,7 +52,7 @@ public class LichSuDonHangController {
                                     @RequestParam("idDonHang") String idDonHang,
                                     @RequestParam("ghiChuLyDoDonHang") String ghiChuLyDoDonHang) {
         // Lấy đơn hàng từ idDonHang
-        DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
+        DonHang donHang = iDonHangRepo.getReferenceById(Integer.parseInt(idDonHang));
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 3) {
