@@ -16,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/quan-ly")
@@ -132,8 +134,12 @@ public class DonHangControllerTuanAnh {
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 3) {
-            // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
-            donHang.setTrangThai(3); // Đặt trạng thái thành 1 (đã duyệt)
+            // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và thời gian hủy
+            donHang.setTrangThai(3); // Đặt trạng thái thành 3 (đã hủy)
+
+            // Lưu thời gian hủy
+            Date thoiGianHuy = new Date();
+            donHang.setNgayHuy(thoiGianHuy);
             iDonHangRepo.save(donHang);
 
             // In thông tin để kiểm tra
