@@ -62,6 +62,7 @@ window.onload = function () {
         }
     });
 };
+
 function displayImage(input, imageId) {
     var fileInput = input;
     var imageElement = document.getElementById(imageId);
@@ -118,5 +119,27 @@ function editImage(inputId, tinhTrangThayDoi) {
         };
 
         reader.readAsDataURL(fileInput.files[0]);
+    }
+}
+
+<!-- Trong trang Thymeleaf -->
+function alertModal(message) {
+    // Tạo cửa sổ modal
+    var modal = document.createElement("div");
+    modal.className = "modal";
+    modal.innerHTML = '<div class="modal-content">' +
+        '<span class="close" onclick="closeModal()">&times;</span>' +
+        '<p>' + message + '</p>' +
+        '</div>';
+
+    // Thêm modal vào body
+    document.body.appendChild(modal);
+}
+
+function closeModal() {
+    // Đóng cửa sổ modal
+    var modal = document.querySelector(".modal");
+    if (modal) {
+        document.body.removeChild(modal);
     }
 }

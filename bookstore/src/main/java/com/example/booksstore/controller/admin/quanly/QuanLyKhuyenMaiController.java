@@ -3,11 +3,13 @@ package com.example.booksstore.controller.admin.quanly;
 import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.entities.ThongBao;
+import com.example.booksstore.repository.IKhuyenMaiReporitory;
 import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.IKhuyenMaiService;
 import com.example.booksstore.service.IThongBaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +40,9 @@ public class QuanLyKhuyenMaiController {
 
     @Autowired
     IKhuyenMaiService iKhuyenMaiService;
+
+    @Autowired
+    IKhuyenMaiReporitory iKhuyenMaiReporitory;
     @Autowired
     IThongBaoService iThongBaoService;
 
@@ -316,6 +322,35 @@ public class QuanLyKhuyenMaiController {
         }
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
+
+    @GetMapping("/delete-khuyen-mai/{idKhuyenMai}")
+    public String delete(@PathVariable String idKhuyenMai, RedirectAttributes redirectAttributes) {
+        try {
+            // Thực hiện xóa khuyến mãi ở đây
+            KhuyenMai khuyenMai = this.iKhuyenMaiService.getOne(Integer.parseInt(idKhuyenMai)).orElse(null);
+            if (khuyenMai != null) {
+                if (khuyenMai.getChiTietDonHang() != null && !khuyenMai.getChiTietDonHang().isEmpty()) {
+                    // Có đơn hàng chi tiết áp dụng cho khuyến mãi, không thực hiện xóa
+                    redirectAttributes.addAttribute("thongBaoXoaKhuyenMai",
+                            "Khuyến mãi đã được áp dụng cho đơn hàng, không thể xóa.");
+                } else {
+                    // Không có đơn hàng chi tiết áp dụng, tiến hành xóa
+                    this.iKhuyenMaiReporitory.delete(khuyenMai);
+                    redirectAttributes.addAttribute("thongBaoXoaKhuyenMai",
+                            "Khuyến mãi đã được xóa thành công.");
+                }
+            } else {
+                redirectAttributes.addAttribute("thongBaoXoaKhuyenMai",
+                        "Không tồn tại chương trình khuyến mại có id là: " + idKhuyenMai);
+            }
+        } catch (DataIntegrityViolationException e) {
+            // Xử lý exception khi không thể xóa do khóa ngoại
+            redirectAttributes.addAttribute("thongBaoXoaKhuyenMai",
+                    "Đã có đơn hàng áp dụng chương trình khuyến mãi này, không thể xóa.");
+        }
+        return "redirect:/quan-ly/khuyen-mai/hien-thi";
+    }
+
 
 
     public ThongBao createThongBao(String noiDungThongBao, Date ngayGuiThongBao) {
