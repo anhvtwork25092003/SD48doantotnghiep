@@ -123,9 +123,10 @@ function editImage(inputId, tinhTrangThayDoi) {
 }
 
 <!-- Trong trang Thymeleaf -->
-function alertModal(message) {
+function alertModal() {
     // Tạo cửa sổ modal
     var modal = document.createElement("div");
+    var message = document.getElementById("thongBaoXoaID").innerText;
     modal.className = "modal";
     modal.innerHTML = '<div class="modal-content">' +
         '<span class="close" onclick="closeModal()">&times;</span>' +

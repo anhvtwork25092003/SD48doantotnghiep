@@ -135,7 +135,7 @@
                                             </div>
                                             <div class="input-field">
                                                 <label for="giaBan">Giá Bán:</label>
-                                                <input type="number" id="giaBan" class="form-control" name="giaBan">
+                                                <input type="text" id="giaBan" class="form-control" name="giaBan">
                                             </div>
                                             <div class="form-group">
                                                 <label for="linkAnh1">Chọn ảnh :</label> <br>
@@ -365,7 +365,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="giaBan">Giá Bán:</label>
-                                                    <input type="number" id="giaBan" class="form-control" name="giaBan"
+                                                    <input type="text" id="giaBan" class="form-control" name="giaBan"
                                                            th:value="${sach.giaBan}">
                                                 </div>
 
@@ -535,7 +535,7 @@
                             <span th:if="${pageOfSach.number + 1 < pageOfSach.totalPages}">
                             <a th:href="@{'/quan-ly/sach/hien-thi?page=' + ${pageOfSach.number + 2}}">Next</a>
                         </span>
-                        </span>
+                            </span>
                         </div>
                         <!--end phân trang-->
                     </th:block>
