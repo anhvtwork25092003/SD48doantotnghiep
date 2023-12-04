@@ -137,7 +137,7 @@
 }
 
 .notification-tabs li {
-  display: inline-block;
+  /*display: inline-block;*/
   margin-right: 10px;
 }
 
@@ -155,5 +155,33 @@
   border-radius: 10px;
   background: #C92127;
 }
+#thong-bao {
+  max-height: 300px; /* Đặt chiều cao tối đa của phần hiển thị */
+  overflow-y: auto; /* Thêm thanh trượt dọc khi nội dung vượt quá chiều cao tối đa */
+}
+
+#thong-bao-list {
+  list-style-type: none; /* Ẩn các dấu đầu dòng của danh sách */
+  padding: 0; /* Loại bỏ padding mặc định của danh sách */
+  margin: 0; /* Loại bỏ margin mặc định của danh sách */
+}
+
+#thong-bao-list li {
+  padding: 10px; /* Thêm padding cho mỗi mục trong danh sách */
+  box-sizing: content-box;
+  border-bottom: 1px solid #ddd; /* Thêm đường kẻ giữa các mục trong danh sách */
+}
+
+#thong-bao-list li:last-child {
+  border-bottom: none; /* Loại bỏ đường kẻ ở cuối danh sách */
+}
+
+#thong-bao-list li p {
+  max-width: 200px;
+  overflow: hidden;
+  word-wrap: break-word; /* Cho phép xuống dòng khi cần */
+}
+
+
 
 

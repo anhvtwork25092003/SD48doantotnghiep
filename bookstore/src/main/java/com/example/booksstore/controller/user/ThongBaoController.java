@@ -1,8 +1,10 @@
 package com.example.booksstore.controller.user;
 
 import com.example.booksstore.entities.KhachHang;
+import com.example.booksstore.entities.ThongBao;
 import com.example.booksstore.entities.ThongBaoKhachHang;
 import com.example.booksstore.repository.IThongBaoKhachHangRepo;
+import com.example.booksstore.repository.IThongBaoRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,9 @@ import java.util.List;
 public class ThongBaoController {
     @Autowired
     private IThongBaoKhachHangRepo thongBaoKhachHangRepository;
+    @Autowired
+    private IThongBaoRepository thongBaoRepositoryt;
+
 
     @GetMapping("/danh-sach-thong-bao")
     public List<ThongBaoKhachHang> getThongBaoForUser(HttpSession session) {
@@ -41,5 +46,8 @@ public class ThongBaoController {
             return Collections.emptyList(); // Hoặc trả về danh sách trống tùy thuộc vào yêu cầu cụ thể của bạn
         }
     }
-
+    @GetMapping("/load-thong-bao")
+    public List<ThongBao> loadThongBao() {
+        return thongBaoRepositoryt.findAll();
+    }
 }

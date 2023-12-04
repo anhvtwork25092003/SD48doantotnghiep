@@ -42,23 +42,15 @@
             </div>
             <div class="notification-popup" id="notification-popup">
                 <h3>Hộp Thư Đến</h3>
-                <nav>
-                    <ul class="notification-tabs">
-                        <li><a href="#" onclick="showTab('tat-ca')">Tất cả</a></li>
-                        <li><a href="#" onclick="showTab('thong-bao')">Thông báo</a></li>
-                        <li><a href="#" onclick="showTab('uu-dai')">Ưu đãi</a></li>
+                <div class="notification-content" id="thong-bao">
+                    <!-- Nội dung của tab "Thông báo" ở đây -->
+                    <ul id="thong-bao-list">
+                        <!-- Dữ liệu sẽ được thêm vào đây bằng AJAX -->
                     </ul>
-                </nav>
-                <div id="tat-ca" class="notification-content">
-                    Nội dung của tab "Tất cả" ở đây.
-                </div>
-                <div id="thong-bao" class="notification-content">
-                    Nội dung của tab "Thông báo" ở đây.
-                </div>
-                <div id="uu-dai" class="notification-content">
-                    Nội dung của tab "Ưu đãi" ở đây.
                 </div>
             </div>
+
+
             <!-- Phần HTML của trang header -->
             <div class="account-icon">
                 <i class="fa-regular fa-user fa-xl"></i>
@@ -138,5 +130,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
         integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </body>
 </html>
