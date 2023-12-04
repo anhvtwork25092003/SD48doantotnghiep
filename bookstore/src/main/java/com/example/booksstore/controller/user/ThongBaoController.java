@@ -19,7 +19,7 @@ public class ThongBaoController {
     @Autowired
     private IThongBaoKhachHangRepo thongBaoKhachHangRepository;
 
-    @GetMapping("/danh-sach-thong-bao}")
+    @GetMapping("/danh-sach-thong-bao")
     public List<ThongBaoKhachHang> getThongBaoForUser(HttpSession session) {
         try {
             KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");

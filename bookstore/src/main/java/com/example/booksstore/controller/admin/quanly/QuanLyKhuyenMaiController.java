@@ -7,6 +7,7 @@ import com.example.booksstore.repository.IKhuyenMaiReporitory;
 import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.IKhuyenMaiService;
 import com.example.booksstore.service.IThongBaoService;
+import com.example.booksstore.service.ThongBaoKhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -48,6 +49,9 @@ public class QuanLyKhuyenMaiController {
 
     @Autowired
     ISachRepository repository;
+
+    @Autowired
+    ThongBaoKhachHangService thongBaoKhachHangService;
 
     @Value("${upload.anhKhuyenMai}")
     private String uploadAnhKhuyenMai;
@@ -352,12 +356,12 @@ public class QuanLyKhuyenMaiController {
     }
 
 
-
     public ThongBao createThongBao(String noiDungThongBao, Date ngayGuiThongBao) {
         ThongBao thongBaoforCrateNew = ThongBao.builder().noiDung(noiDungThongBao)
                 .ngayGui(ngayGuiThongBao)
                 .build();
         ThongBao thongBaoCretated = this.iThongBaoService.createNew(thongBaoforCrateNew);
-        return null;
+        this.thongBaoKhachHangService.themThongBaoToanBo(thongBaoCretated);
+        return thongBaoCretated;
     }
 }

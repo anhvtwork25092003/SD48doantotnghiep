@@ -5,15 +5,17 @@ import com.example.booksstore.entities.ThongBao;
 import com.example.booksstore.entities.ThongBaoKhachHang;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.IThongBaoKhachHangRepo;
-import com.example.booksstore.service.ThongBaoService;
+import com.example.booksstore.service.ThongBaoKhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ThongBaoServiceImpk implements ThongBaoService {
+@Service
+public class ThongBaoKhachHangServiceImpl implements ThongBaoKhachHangService {
     @Autowired
     private IThongBaoKhachHangRepo thongBaoKhachHangRepository;
 
