@@ -34,6 +34,5 @@ public class ThongBaoController {
             return Collections.emptyList(); // Hoặc trả về danh sách trống tùy thuộc vào yêu cầu cụ thể của bạn
         }
     }
-
-
+    
 }
