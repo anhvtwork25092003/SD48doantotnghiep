@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông Báo</title>
+</head>
+<body>
+<div>test thông báo</div>
+<div id="thongbao-list">
+    <!-- Nơi để hiển thị danh sách thông báo -->
+</div>
+
+<!-- Thẻ ẩn để lưu trữ userId -->
+<input th:if="${idThongBao} != null" th:value="${idThongBao}" id="hiddenUserId"/>
+
+<script src="/user/js/thongbao.js"></script>
+</body>
+</html>

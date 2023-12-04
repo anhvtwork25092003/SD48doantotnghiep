@@ -65,9 +65,6 @@ public class KhachHang {
     @OneToOne(mappedBy = "khachHang", cascade = CascadeType.ALL)
     private GioHang gioHang;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "khachHangsforthongBaoKhuyenMai")
-    private Set<ThongBao> thongBaos = new HashSet<>();
 
     @OneToMany(mappedBy = "khachHangDiaChi")
     private List<DiaChi> diaChiList;
