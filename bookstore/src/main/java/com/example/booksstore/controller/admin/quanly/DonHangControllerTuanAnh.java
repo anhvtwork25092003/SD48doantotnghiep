@@ -1,11 +1,16 @@
 package com.example.booksstore.controller.admin.quanly;
 
 import com.example.booksstore.entities.DonHang;
+import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.NhanVien;
+import com.example.booksstore.entities.ThongBao;
 import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.IDonHangRepo;
+import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.NhanVienRepository;
 import com.example.booksstore.service.INhanVienService;
+import com.example.booksstore.service.IThongBaoService;
+import com.example.booksstore.service.ThongBaoKhachHangService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,6 +40,15 @@ public class DonHangControllerTuanAnh {
 
     @Autowired
     NhanVienRepository nhanVienRepository;
+
+    @Autowired
+    ThongBaoKhachHangService thongBaoKhachHangService;
+
+    @Autowired
+    IThongBaoService iThongBaoService;
+
+    @Autowired
+    IKhachHangRepository iKhachHangRepository;
 
     //BẮT ĐẦU CỦA ĐƠN HÀNG CHỜ
     @GetMapping("/don-hang/cho-xac-nhan")
@@ -111,12 +125,14 @@ public class DonHangControllerTuanAnh {
         // Lấy đơn hàng từ idDonHang
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 1) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
             donHang.setTrangThai(1); // Đặt trạng thái thành 1 (đã duyệt)
             iDonHangRepo.save(donHang);
-
+            guiThongBaoDonHang(donHang,khachHangDangNhap);
             // In thông tin để kiểm tra
             System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
         }
@@ -132,6 +148,8 @@ public class DonHangControllerTuanAnh {
         // Lấy đơn hàng từ idDonHang
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 3) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và thời gian hủy
@@ -140,6 +158,8 @@ public class DonHangControllerTuanAnh {
             // Lưu thời gian hủy
             Date thoiGianHuy = new Date();
             donHang.setNgayHuy(thoiGianHuy);
+            guiThongBaoDonHang(donHang,khachHangDangNhap);
+
             iDonHangRepo.save(donHang);
 
             // In thông tin để kiểm tra
@@ -172,10 +192,13 @@ public class DonHangControllerTuanAnh {
         // Lấy đơn hàng từ idDonHang
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 2) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
             donHang.setTrangThai(2); // Đặt trạng thái thành 1 (đã duyệt)
+            guiThongBaoDonHang(donHang,khachHangDangNhap);
             iDonHangRepo.save(donHang);
 
             // In thông tin để kiểm tra
@@ -221,6 +244,7 @@ public class DonHangControllerTuanAnh {
     public String giaoLaiDonHang(@RequestParam("idDonHang") String idDonHang, Model model, HttpSession session) {
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
 
         if (donHang != null) {
             // Kiểm tra trạng thái của đơn hàng
@@ -228,6 +252,8 @@ public class DonHangControllerTuanAnh {
                 // Nếu trạng thái là 3 (hủy), thì thực hiện giao lại
                 donHang.setTrangThai(0); // Đặt lại trạng thái của đơn hàng thành chờ (status = 0)
                 donHang.setNgayTao(new Date()); // Cập nhật ngày tạo mới
+                guiThongBaoDonHang(donHang,khachHangDangNhap);
+
                 iDonHangRepo.save(donHang);
             }
             // In thông tin để kiểm tra
@@ -241,5 +267,59 @@ public class DonHangControllerTuanAnh {
 
 
     //KẾT THÚC CỦA ĐƠN HÀNG ĐÃ HỦY
+
+
+//    public void guiThongBaoDonHang(DonHang donHang, KhachHang khachHang) {
+//        Date currDate = new Date();
+//        String noiDung = "Thông Báo về đơn hàng " + donHang.getMaDonHang() + "\n"
+//                +"Đơn hàng của bạn đã được xác nhận" + (donHang.getTrangThai() == 1 ? " Trạng thái = 1" : "") + "\n"
+//                + "Đơn hàng của bạn sẽ sớm được xử lý, cảm ơn đã mua hàng!";
+//        ThongBao thongBao = new ThongBao();
+//        thongBao.setNgayGui(currDate);
+//        thongBao.setNoiDung(noiDung);
+//        // lưu thông báo vào db
+//
+//        ThongBao savedNotification = this.iThongBaoService.createNew(thongBao);
+//        // gọi hàm
+//        this.thongBaoKhachHangService.themThongBaoChoNguoiDung(khachHang.getIdKhachHang(), savedNotification);
+//
+//    }
+
+    public void guiThongBaoDonHang(DonHang donHang, KhachHang khachHang) {
+        Date currDate = new Date();
+        String trangThaiMessage = "";
+
+        switch (donHang.getTrangThai()) {
+            case 1:
+                trangThaiMessage = "Đơn hàng của bạn đã được xác nhận và đang được vận chuyển!!!";
+                break;
+            case 2:
+                trangThaiMessage = "Đơn hàng của bạn đã được hoàn thành!!!!";
+                break;
+            case 3:
+//                trangThaiMessage = "Đơn hàng của bạn đã bị hủy vui lòng đặt lại hàng!!!";
+                if (donHang.getTrangThai() == 0) {
+                    trangThaiMessage = "Đơn hàng của bạn đang được giao lại !!!";
+                } else {
+                    trangThaiMessage = "Đơn hàng của bạn đã bị hủy vui lòng đặt lại hàng!!!";
+                }
+                break;
+            default:
+                trangThaiMessage = "Trạng thái đơn hàng không xác định";
+        }
+
+        String noiDung = "Thông Báo về đơn hàng " + donHang.getMaDonHang() + "\n" + trangThaiMessage + "\n"
+                + "Cảm ơn đã mua hàng!";
+
+        ThongBao thongBao = new ThongBao();
+        thongBao.setNgayGui(currDate);
+        thongBao.setNoiDung(noiDung);
+
+        // lưu thông báo vào db
+        ThongBao savedNotification = this.iThongBaoService.createNew(thongBao);
+
+        // gọi hàm
+        this.thongBaoKhachHangService.themThongBaoChoNguoiDung(khachHang.getIdKhachHang(), savedNotification);
+    }
 
 }
