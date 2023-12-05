@@ -67,16 +67,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function main() {
         try {
-            const elements = document.querySelectorAll('.form-check');
+            const elements = document.querySelectorAll('.box-address');
             elements.forEach(async function (element) {
-                const tinhThanhPhoc = document.getElementById('tinhThanhPhoc');
+                const tinhThanhPhoc = element.querySelector('#tinhThanhPhoc');
 
                 const tinhThanhPhoid = parseInt(tinhThanhPhoc.value, 10);
                 console.log(tinhThanhPhoid);
-                const huyenQuanc = document.getElementById('huyenQuanc');
+                const huyenQuanc = element.querySelector('#huyenQuanc');
                 const huyenQuanid = parseInt(huyenQuanc.value .trim(), 10);
 
-                const xaPhuongc = document.getElementById('xaPhuongc');
+                const xaPhuongc = element.querySelector('#xaPhuongc');
                 const xaPhuongid = xaPhuongc.value .trim();
 
                 const provinceData = await findProvinceById(tinhThanhPhoid);
