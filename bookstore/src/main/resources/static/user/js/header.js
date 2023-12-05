@@ -8,7 +8,7 @@ document.getElementById("notification-icon").addEventListener("click", function 
         // Gọi AJAX khi hiển thị popup để lấy dữ liệu thông báo
         $.ajax({
             type: "GET",
-            url: "/api/thong-bao/load-thong-bao",
+            url: "/api/thong-bao/danh-sach-thong-bao",
             success: function(data) {
                 // Hiển thị thông báo với dữ liệu từ AJAX
                 displayNotifications(data);
