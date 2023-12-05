@@ -15,6 +15,7 @@ import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.IThongTinGiaoHangRepo;
 import com.example.booksstore.repository.PhuongThucThanhToanRepo;
+import com.example.booksstore.service.IThongBaoService;
 import com.example.booksstore.service.ThongBaoKhachHangService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,8 @@ public class ThanhToanController {
 
     @Autowired
     IDonHangRepo iDonHangRepo;
+    @Autowired
+    IThongBaoService iThongBaoService;
 
     // chuyển hướng trang thanh toán
     @GetMapping("/xac-nhan-thanh-toan")
@@ -299,7 +302,7 @@ public class ThanhToanController {
                                 gioHangChiTietList
                         );
                 System.out.println("tạo thành công đơn hàng có mã hóa đơn là: " + donHang.getMaDonHang());
-
+                guiThongBao(donHang, khachHang);
 
 
                 return "redirect:/vnpay/vnpayreturn?idDonHang=" + donHang.getIdDonHang();
@@ -430,7 +433,6 @@ public class ThanhToanController {
         return donHangSauKhiLuu;
     }
 
-
     public void guiEmail(String email,
                          String maHoaDon,
                          String soTien,
@@ -443,15 +445,18 @@ public class ThanhToanController {
 
     }
 
-    public ThongBao guiThongBao(DonHang donHang, KhachHang khachHang) {
+    public void guiThongBao(DonHang donHang, KhachHang khachHang) {
         Date currDate = new Date();
-        String noiDung = "Thông Báo về đơn hàng "+ donHang.getMaDonHang() +"\n"
-                +"Đơn hàng của bạn sẽ sớm được xử lý, cảm ơn đã mua hàng!";
+        String noiDung = "Thông Báo về đơn hàng " + donHang.getMaDonHang() + "\n"
+                + "Đơn hàng của bạn sẽ sớm được xử lý, cảm ơn đã mua hàng!";
         ThongBao thongBao = new ThongBao();
         thongBao.setNgayGui(currDate);
-        thongBao.setNoiDung();
+        thongBao.setNoiDung(noiDung);
+        // lưu thông báo vào db
+
+        ThongBao savedNotification = this.iThongBaoService.createNew(thongBao);
+        // gọi hàm
+        this.thongBaoKhachHangService.themThongBaoChoNguoiDung(khachHang.getIdKhachHang(), savedNotification);
 
     }
-
-
 }
