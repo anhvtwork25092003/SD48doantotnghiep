@@ -68,3 +68,19 @@ add emailGiaoHang nvarchar(50)
 -- sửa ngày 2/12
 alter table donhang
 add ngayhuy datetime
+-- sửa ngày 5-12
+CREATE TABLE kiemtradanhgia (
+    id BIGINT PRIMARY KEY identity,
+    solandanhgia INT,
+    idKhachHang int,
+    idSach int,
+    FOREIGN KEY (idKhachHang) REFERENCES KhachHang(idKhachHang),
+    FOREIGN KEY (idSach) REFERENCES Sach(idSach)
+    -- Các trường khác và các ràng buộc khác
+);
+-- nối đánh giá với người dùng
+
+ALTER TABLE danhgia
+ADD CONSTRAINT fk_danhgia_khachhang
+FOREIGN KEY (idKhachhang)
+REFERENCES KhachHang(idKhachhang);
