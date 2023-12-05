@@ -58,7 +58,7 @@ public class ThanhToanController {
         // xác minh đăng nhập
         model.addAttribute("phuongthucThanhToans", this.phuongThucThanhToanRepo.findAll());
 
-        KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+            KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
         // chưa đăng nhập: chuyển đến trang chwua đăng nhập
         if (khachHangDangNhap == null) {
             // lấy list giỏ hàng chi tiết chưa chọn -- toàn bộ giỏ hàng lưu ở sesion

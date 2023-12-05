@@ -2,17 +2,27 @@ package com.example.booksstore.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.Generated;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -20,7 +30,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name="sach")
+@Table(name = "sach")
 @Builder
 public class Sach {
     @Id
@@ -30,13 +40,13 @@ public class Sach {
 
     @Generated
     @Column(name = "masach")
-    private String  maSach;
+    private String maSach;
 
     @Column(name = "tensach")
-    private String  tenSach;
+    private String tenSach;
 
     @Column(name = "mota")
-    private String  moTa;
+    private String moTa;
 
     @Column(name = "trangthai")
     private Integer trangThai;
@@ -63,14 +73,8 @@ public class Sach {
     private String linkAnh5;
 
     @Column(name = "mavach")
-    private String  maVach;
+    private String maVach;
 
-
-    public BigDecimal getGiaSauGiamGia(double phanTramGiamGia) {
-        BigDecimal phanTram = BigDecimal.valueOf(phanTramGiamGia);
-        BigDecimal heSoGiamGia = BigDecimal.ONE.subtract(phanTram.divide(BigDecimal.valueOf(100)));
-        return giaBan.multiply(heSoGiamGia);
-    }
     @ManyToMany
     @JoinTable(
             name = "sachtheloai",
@@ -90,6 +94,15 @@ public class Sach {
     @JsonIgnore
     @ManyToMany(mappedBy = "sachs")
     private Set<KhuyenMai> khuyenMais = new HashSet<>();
+
+    @OneToMany(mappedBy = "sach", cascade = CascadeType.ALL)
+    private List<DanhGia> danhgias;
+
+    public BigDecimal getGiaSauGiamGia(double phanTramGiamGia) {
+        BigDecimal phanTram = BigDecimal.valueOf(phanTramGiamGia);
+        BigDecimal heSoGiamGia = BigDecimal.ONE.subtract(phanTram.divide(BigDecimal.valueOf(100)));
+        return giaBan.multiply(heSoGiamGia);
+    }
 
 
 }

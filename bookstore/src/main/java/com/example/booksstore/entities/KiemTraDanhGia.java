@@ -14,19 +14,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "danhgia")
-public class DanhGia {
+@Table(name = "kiemtradanhgia")
+public class KiemTraDanhGia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "iddanhgia")
-    private Integer idDanhGia;
+    @Column(name = "id")
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "idkhachhang")
@@ -36,17 +34,6 @@ public class DanhGia {
     @JoinColumn(name = "idsach")
     private Sach sach;
 
-    @Column(name = "mucdanhgia")
-    private Integer mucDanhGia;
-
-    @Column(name = "binhluan")
-    private String binhLuan;
-
-    @Column(name = "ngaytao")
-    private Date ngayTao;
-
-    @Column(name = "trangthai")
-    private Integer trangThai;
-
-
+    @Column(name = "solandanhgia")
+    private Integer soLanDanhGia;
 }
