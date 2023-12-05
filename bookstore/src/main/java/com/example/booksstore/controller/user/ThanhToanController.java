@@ -7,6 +7,7 @@ import com.example.booksstore.entities.GioHangChiTiet;
 import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.PhuongThucThanhToan;
+import com.example.booksstore.entities.ThongBao;
 import com.example.booksstore.entities.ThongTinGiaoHang;
 import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.GioHangChiTietReposutory;
@@ -14,6 +15,7 @@ import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.IThongTinGiaoHangRepo;
 import com.example.booksstore.repository.PhuongThucThanhToanRepo;
+import com.example.booksstore.service.ThongBaoKhachHangService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,9 @@ import java.util.List;
 @RequestMapping("/thanh-toan")
 @Controller
 public class ThanhToanController {
+
+    @Autowired
+    ThongBaoKhachHangService thongBaoKhachHangService;
     @Autowired
     DonHangChiTietRepo donHangChiTietRepo;
 
@@ -58,7 +63,7 @@ public class ThanhToanController {
         // xác minh đăng nhập
         model.addAttribute("phuongthucThanhToans", this.phuongThucThanhToanRepo.findAll());
 
-            KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+        KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
         // chưa đăng nhập: chuyển đến trang chwua đăng nhập
         if (khachHangDangNhap == null) {
             // lấy list giỏ hàng chi tiết chưa chọn -- toàn bộ giỏ hàng lưu ở sesion
@@ -294,6 +299,9 @@ public class ThanhToanController {
                                 gioHangChiTietList
                         );
                 System.out.println("tạo thành công đơn hàng có mã hóa đơn là: " + donHang.getMaDonHang());
+
+
+
                 return "redirect:/vnpay/vnpayreturn?idDonHang=" + donHang.getIdDonHang();
             }
         }
@@ -432,6 +440,16 @@ public class ThanhToanController {
                          String ngayThanhToan,
                          List<DonHangChiTiet> donHangChiTietListForEmail
     ) {
+
+    }
+
+    public ThongBao guiThongBao(DonHang donHang, KhachHang khachHang) {
+        Date currDate = new Date();
+        String noiDung = "Thông Báo về đơn hàng "+ donHang.getMaDonHang() +"\n"
+                +"Đơn hàng của bạn sẽ sớm được xử lý, cảm ơn đã mua hàng!";
+        ThongBao thongBao = new ThongBao();
+        thongBao.setNgayGui(currDate);
+        thongBao.setNoiDung();
 
     }
 

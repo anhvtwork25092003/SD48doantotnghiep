@@ -84,3 +84,7 @@ ALTER TABLE danhgia
 ADD CONSTRAINT fk_danhgia_khachhang
 FOREIGN KEY (idKhachhang)
 REFERENCES KhachHang(idKhachhang);
+
+-- sửa db
+ alter table thongbao
+ alter column noiDung nvarchar(max)
