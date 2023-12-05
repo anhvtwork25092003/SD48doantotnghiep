@@ -78,10 +78,10 @@ public class DanhGiaController {
         boolean ketQuaXacMinh = this.iKiemTraDanhGiaService.xacMinhDanhGiaKhachHang(khachHang.getIdKhachHang(), Integer.parseInt(idDanhGia));
         if (ketQuaXacMinh == true) {
             // chuyển trạng thái về 2;
-            
-
+            DanhGia danhGia = this.iDanhGiarepository.findById(Integer.parseInt(idDanhGia)).get();
+            danhGia.setTrangThai(2);
+            DanhGia danhGia1 = this.iDanhGiarepository.save(danhGia);
         }
-
         return "redirect:/trang-chu";
     }
 }
