@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const userId = document.getElementById("hiddenUserId").value;
 
         // Gọi API để lấy danh sách thông báo của người dùng
-        fetch(`/api/danh-sach-thong-bao/${userId}`)
+        fetch(`/api/thong-bao/danh-sach-thong-bao/${userId}`)
             .then(response => response.json())
             .then(data => {
                 // Xóa thông báo cũ trên trang
