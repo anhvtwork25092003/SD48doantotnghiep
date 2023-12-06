@@ -27,8 +27,10 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 @Controller
@@ -46,6 +48,11 @@ public class QuanLySachController {
     ITheLoaiServiec iTheLoaiService;
     @Value("${upload.directory}")
     private String uploadDirectory;
+
+    private String formatCurrency(BigDecimal amount) {
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        return currencyFormatter.format(amount);
+    }
 
     @GetMapping("/sach/hien-thi")
     public String hienThiTrangTongQuanQuanLy(Model model, @RequestParam(defaultValue = "1") int page,
@@ -116,6 +123,10 @@ public class QuanLySachController {
             model.addAttribute("catego", list);
         }
 
+        // Replace the original list of Sach objects with the formatted list
+
+        // Add the formatted Page<Sach> object to the model
+        model.addAttribute("pageOfSach", pageOfSach);
 
         model.addAttribute("pageOfSach", pageOfSach);
         model.addAttribute("authors", tacGiaService.findAllTacGia());

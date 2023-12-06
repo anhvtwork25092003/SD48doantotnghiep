@@ -21,8 +21,10 @@ import lombok.Setter;
 import org.hibernate.annotations.Generated;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -102,6 +104,16 @@ public class Sach {
         BigDecimal phanTram = BigDecimal.valueOf(phanTramGiamGia);
         BigDecimal heSoGiamGia = BigDecimal.ONE.subtract(phanTram.divide(BigDecimal.valueOf(100)));
         return giaBan.multiply(heSoGiamGia);
+    }
+
+
+    public String formatCurrency(BigDecimal amount) {
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        return currencyFormatter.format(amount);
+    }
+
+    public String giaBanVnd() {
+        return formatCurrency(this.giaBan);
     }
 
 
