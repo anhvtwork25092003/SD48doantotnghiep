@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IDonHangRepo extends JpaRepository<DonHang, Integer> {
@@ -19,4 +20,9 @@ public interface IDonHangRepo extends JpaRepository<DonHang, Integer> {
     Page<DonHang> findByMaDonHangContainingAndKhachHang_SdtContaining(Pageable pageable,String maDonHang, String sdt);
     List<DonHang> findByMaDonHangContaining(String maDonHang);
     DonHang findByIdDonHang (int idDonHang);
+
+    List<DonHang> findByNgayThanhToanBetween(Date startTime, Date endTime);
+
+    List<DonHang> findByNgayThanhToan(Date ngayThanhToan);
+
 }
