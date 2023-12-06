@@ -263,7 +263,9 @@ public class DonHangControllerTuanAnh {
             // Loại khách hàng = 1, gửi cả thông báo lẫn email
             guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
             guiEmailDonHang(donHang, thongTinGiaoHang);
+        }
 
+        if("1".equals(loaiKhachHang)){
             for(DonHangChiTiet dhct : donHang.getChiTietDonHang()){
                 iKiemTraDanhGiaService.save(donHang.getKhachHang(),dhct.getSach());
             }
