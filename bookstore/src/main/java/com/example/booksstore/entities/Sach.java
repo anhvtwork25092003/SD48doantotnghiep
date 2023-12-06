@@ -116,5 +116,16 @@ public class Sach {
         return formatCurrency(this.giaBan);
     }
 
+    public String layGiaNeuCoKhuyenMai() {
+        for (KhuyenMai khuyenMai : this.khuyenMais) {
+            if (khuyenMai.getTrangThai() == 1) {
+                BigDecimal phanTram = BigDecimal.valueOf(khuyenMai.getSoPhanTramGiamGia());
+                BigDecimal heSoGiamGia = BigDecimal.ONE.subtract(phanTram.divide(BigDecimal.valueOf(100)));
+                return formatCurrency(giaBan.multiply(heSoGiamGia));
+            }
+        }
+        return null;
+    }
+
 
 }

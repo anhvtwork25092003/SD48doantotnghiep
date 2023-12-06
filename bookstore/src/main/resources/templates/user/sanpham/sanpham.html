@@ -212,7 +212,16 @@
                             <tr>
                                 <td th:text="${sach.maSach}"></td>
                                 <td th:text="${sach.tenSach}"></td>
-                                <td th:text="${sach.giaBanVnd}"></td>
+                                <td>
+                                    <span th:if="${sach.layGiaNeuCoKhuyenMai() == null}" class="text-muted"
+                                          th:text="${'Giá cũ: ' + sach.giaBanVnd}"></span>
+                                    <span th:if="${sach.layGiaNeuCoKhuyenMai() != null}">
+                                        <del class="text-muted" th:text="${'Giá cũ: ' + sach.giaBanVnd}"></del>
+                                        <br>
+                                        <span class="text-success"
+                                              th:text="${'Giá mới: ' + sach.layGiaNeuCoKhuyenMai()}"></span>
+                                    </span>
+                                </td>
                                 <td th:text="${sach.soLuongTonKho}"></td>
                                 <td th:text="${sach.trangThai == 1 ? 'Đang kinh doanh' :'Ngừng kinh doanh'}"></td>
                                 <td th:text="${sach.maVach}"></td>
@@ -265,7 +274,7 @@
                                                 <input class="form-control" id="viewSoLuong"
                                                        th:value="${sach.soLuongTonKho}" disabled/>
                                                 <h6 class="product-price">Giá Bán:</h6>
-                                                <input class="form-control" id="viewGiaBan" th:value="${sach.giaBan}"
+                                                <input class="form-control" id="viewGiaBan" th:value="${sach.giaBanVnd}"
                                                        disabled/>
                                                 <h6 class="product-images">Ảnh:</h6>
                                                 <img th:src="@{|${sach.linkAnh1}|}" id="viewLinkAnh1" alt="anh 1"
@@ -366,7 +375,7 @@
                                                 <div class="form-group">
                                                     <label for="giaBan">Giá Bán:</label>
                                                     <input type="text" id="giaBan" class="form-control" name="giaBan"
-                                                           th:value="${sach.giaBan}">
+                                                           th:value="${sach.giaBanVnd}">
                                                 </div>
 
                                                 <div class="input-field">
