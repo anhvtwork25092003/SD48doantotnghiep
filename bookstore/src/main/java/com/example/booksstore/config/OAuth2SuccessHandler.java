@@ -39,7 +39,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String name = token.getPrincipal().getAttribute("name");
 
         HttpSession session = request.getSession();
-        String redirectUrl = "trang-chu";
+        String redirectUrl = "/trang-chu";
 
         NhanVien nhanVien = nhanVienRepository.findByEmail(email);
         KhachHang khachHang = iKhachHangRepository.findByEmail(email);
