@@ -89,4 +89,17 @@ public class ThongKeServiceimpl implements ThongKeService {
 
         return tongDoanhThu;
     }
+
+    @Override
+    public List<DonHang> getDonHangTrongThangHienTai() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1); // Ngày bắt đầu của tháng
+        Date startOfMonth = calendar.getTime();
+
+        calendar.add(Calendar.MONTH, 1);
+        calendar.add(Calendar.DAY_OF_MONTH, -1); // Ngày cuối cùng của tháng
+        Date endOfMonth = calendar.getTime();
+
+        return iDonHangRepo.findByNgayThanhToanBetween(startOfMonth, endOfMonth);
+    }
 }

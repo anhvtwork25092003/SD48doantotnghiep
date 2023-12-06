@@ -1,7 +1,9 @@
 package com.example.booksstore.service.serviceimpl;
 
 import com.example.booksstore.entities.DanhGia;
+import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.KiemTraDanhGia;
+import com.example.booksstore.entities.Sach;
 import com.example.booksstore.repository.IDanhGiarepository;
 import com.example.booksstore.repository.IKiemTraDanhGiaRepository;
 import com.example.booksstore.service.IKiemTraDanhGiaService;
@@ -62,5 +64,27 @@ public class KiemTraDanhGiaServiceImpl implements IKiemTraDanhGiaService {
             return false;
         }
 
+    }
+
+    @Override
+    public KiemTraDanhGia save(KhachHang khachHang, Sach sach) {
+
+        KiemTraDanhGia kiemTraDanhGia =
+                this.iKiemTraDanhGiaRepository
+                        .findKiemTraDanhGiaByKhachHangIdKhachHangAndSachIdSach(khachHang.getIdKhachHang(), sach.getIdSach());
+        KiemTraDanhGia kiemTraDanhGiaSaved = null;
+        if (kiemTraDanhGia == null) {
+            // tạo mới
+            KiemTraDanhGia kiemTraDanhGiaforSave = new KiemTraDanhGia();
+            kiemTraDanhGiaforSave.setSach(sach);
+            kiemTraDanhGiaforSave.setKhachHang(khachHang);
+            kiemTraDanhGiaforSave.setSoLanDanhGia(1);
+            kiemTraDanhGiaSaved = this.iKiemTraDanhGiaRepository.save(kiemTraDanhGiaforSave);
+        } else {
+            int soLan = kiemTraDanhGia.getSoLanDanhGia() + 1;
+            kiemTraDanhGia.setSoLanDanhGia(soLan);
+            kiemTraDanhGiaSaved = this.iKiemTraDanhGiaRepository.save(kiemTraDanhGia);
+        }
+        return kiemTraDanhGiaSaved;
     }
 }
