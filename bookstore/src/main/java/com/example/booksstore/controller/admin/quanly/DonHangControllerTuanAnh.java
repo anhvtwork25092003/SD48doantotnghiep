@@ -5,10 +5,7 @@ import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.NhanVienRepository;
-import com.example.booksstore.service.EmailSenderService;
-import com.example.booksstore.service.INhanVienService;
-import com.example.booksstore.service.IThongBaoService;
-import com.example.booksstore.service.ThongBaoKhachHangService;
+import com.example.booksstore.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,6 +47,9 @@ public class DonHangControllerTuanAnh {
 
     @Autowired
     private EmailSenderService senderService;
+
+    @Autowired
+    private IKiemTraDanhGiaService iKiemTraDanhGiaService;
 
     //BẮT ĐẦU CỦA ĐƠN HÀNG CHỜ
     @GetMapping("/don-hang/cho-xac-nhan")
@@ -253,6 +253,7 @@ public class DonHangControllerTuanAnh {
         ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
         KhachHang khachHangDangNhap = donHang.getKhachHang();
 
+
 // Kiểm tra loại khách hàng
         String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
         if ("0".equals(loaiKhachHang)) {
@@ -262,6 +263,12 @@ public class DonHangControllerTuanAnh {
             // Loại khách hàng = 1, gửi cả thông báo lẫn email
             guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
             guiEmailDonHang(donHang, thongTinGiaoHang);
+        }
+
+        if("1".equals(loaiKhachHang)){
+            for(DonHangChiTiet dhct : donHang.getChiTietDonHang()){
+                iKiemTraDanhGiaService.save(donHang.getKhachHang(),dhct.getSach());
+            }
         }
 
         model.addAttribute("loggedInUser", nhanVien);
