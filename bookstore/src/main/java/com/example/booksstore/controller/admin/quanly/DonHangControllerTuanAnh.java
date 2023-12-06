@@ -1,13 +1,11 @@
 package com.example.booksstore.controller.admin.quanly;
 
-import com.example.booksstore.entities.DonHang;
-import com.example.booksstore.entities.KhachHang;
-import com.example.booksstore.entities.NhanVien;
-import com.example.booksstore.entities.ThongBao;
+import com.example.booksstore.entities.*;
 import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.NhanVienRepository;
+import com.example.booksstore.service.EmailSenderService;
 import com.example.booksstore.service.INhanVienService;
 import com.example.booksstore.service.IThongBaoService;
 import com.example.booksstore.service.ThongBaoKhachHangService;
@@ -49,6 +47,9 @@ public class DonHangControllerTuanAnh {
 
     @Autowired
     IKhachHangRepository iKhachHangRepository;
+
+    @Autowired
+    private EmailSenderService senderService;
 
     //BẮT ĐẦU CỦA ĐƠN HÀNG CHỜ
     @GetMapping("/don-hang/cho-xac-nhan")
@@ -132,17 +133,33 @@ public class DonHangControllerTuanAnh {
         if (nhanVien == null) {
             return "redirect:/login";
         }
-        KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+
 
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 1) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
             donHang.setTrangThai(1); // Đặt trạng thái thành 1 (đã duyệt)
             iDonHangRepo.save(donHang);
-            guiThongBaoDonHang(donHang, khachHangDangNhap);
+
             // In thông tin để kiểm tra
             System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
         }
+
+
+        ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
+        KhachHang khachHangDangNhap = donHang.getKhachHang();
+
+// Kiểm tra loại khách hàng
+        String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
+        if ("0".equals(loaiKhachHang)) {
+            // Loại khách hàng = 0, chỉ gửi email
+            guiEmailDonHang(donHang, thongTinGiaoHang);
+        } else   {
+            // Loại khách hàng = 1, gửi cả thông báo lẫn email
+            guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
+            guiEmailDonHang(donHang, thongTinGiaoHang);
+        }
+
         model.addAttribute("loggedInUser", nhanVien);
         // Chuyển hướng về trang đơn đã duyệt
         return "redirect:/quan-ly/don-hang/da-duyet";
@@ -158,7 +175,6 @@ public class DonHangControllerTuanAnh {
         if (nhanVien == null) {
             return "redirect:/login";
         }
-        KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
 
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 3) {
@@ -168,13 +184,27 @@ public class DonHangControllerTuanAnh {
             // Lưu thời gian hủy
             Date thoiGianHuy = new Date();
             donHang.setNgayHuy(thoiGianHuy);
-            guiThongBaoDonHang(donHang, khachHangDangNhap);
 
             iDonHangRepo.save(donHang);
 
             // In thông tin để kiểm tra
             System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
         }
+
+        ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
+        KhachHang khachHangDangNhap = donHang.getKhachHang();
+
+// Kiểm tra loại khách hàng
+        String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
+        if ("0".equals(loaiKhachHang)) {
+            // Loại khách hàng = 0, chỉ gửi email
+            guiEmailDonHang(donHang, thongTinGiaoHang);
+        } else   {
+            // Loại khách hàng = 1, gửi cả thông báo lẫn email
+            guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
+            guiEmailDonHang(donHang, thongTinGiaoHang);
+        }
+
         model.addAttribute("loggedInUser", nhanVien);
         // Chuyển hướng về trang đơn đã duyệt
         return "redirect:/quan-ly/don-hang/da-huy";
@@ -208,18 +238,32 @@ public class DonHangControllerTuanAnh {
         if (nhanVien == null) {
             return "redirect:/login";
         }
-        KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+
 
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 2) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
             donHang.setTrangThai(2); // Đặt trạng thái thành 1 (đã duyệt)
-            guiThongBaoDonHang(donHang, khachHangDangNhap);
             iDonHangRepo.save(donHang);
 
             // In thông tin để kiểm tra
             System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
         }
+
+        ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
+        KhachHang khachHangDangNhap = donHang.getKhachHang();
+
+// Kiểm tra loại khách hàng
+        String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
+        if ("0".equals(loaiKhachHang)) {
+            // Loại khách hàng = 0, chỉ gửi email
+            guiEmailDonHang(donHang, thongTinGiaoHang);
+        } else   {
+            // Loại khách hàng = 1, gửi cả thông báo lẫn email
+            guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
+            guiEmailDonHang(donHang, thongTinGiaoHang);
+        }
+
         model.addAttribute("loggedInUser", nhanVien);
         // Chuyển hướng về trang đơn đã duyệt
         return "redirect:/quan-ly/don-hang/hoan-thanh";
@@ -260,7 +304,8 @@ public class DonHangControllerTuanAnh {
     public String giaoLaiDonHang(@RequestParam("idDonHang") String idDonHang, Model model, HttpSession session) {
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
-        KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+
+
 
         if (donHang != null) {
             // Kiểm tra trạng thái của đơn hàng
@@ -268,10 +313,25 @@ public class DonHangControllerTuanAnh {
                 // Nếu trạng thái là 3 (hủy), thì thực hiện giao lại
                 donHang.setTrangThai(0); // Đặt lại trạng thái của đơn hàng thành chờ (status = 0)
                 donHang.setNgayTao(new Date()); // Cập nhật ngày tạo mới
-                guiThongBaoDonHang(donHang, khachHangDangNhap);
+
 
                 iDonHangRepo.save(donHang);
             }
+
+            ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
+            KhachHang khachHangDangNhap = donHang.getKhachHang();
+
+// Kiểm tra loại khách hàng
+            String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
+            if ("0".equals(loaiKhachHang)) {
+                // Loại khách hàng = 0, chỉ gửi email
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            } else   {
+                // Loại khách hàng = 1, gửi cả thông báo lẫn email
+                guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            }
+
             // In thông tin để kiểm tra
             model.addAttribute("loggedInUser", nhanVien);
             System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
@@ -285,23 +345,43 @@ public class DonHangControllerTuanAnh {
     //KẾT THÚC CỦA ĐƠN HÀNG ĐÃ HỦY
 
 
-//    public void guiThongBaoDonHang(DonHang donHang, KhachHang khachHang) {
-//        Date currDate = new Date();
-//        String noiDung = "Thông Báo về đơn hàng " + donHang.getMaDonHang() + "\n"
-//                +"Đơn hàng của bạn đã được xác nhận" + (donHang.getTrangThai() == 1 ? " Trạng thái = 1" : "") + "\n"
-//                + "Đơn hàng của bạn sẽ sớm được xử lý, cảm ơn đã mua hàng!";
-//        ThongBao thongBao = new ThongBao();
-//        thongBao.setNgayGui(currDate);
-//        thongBao.setNoiDung(noiDung);
-//        // lưu thông báo vào db
-//
-//        ThongBao savedNotification = this.iThongBaoService.createNew(thongBao);
-//        // gọi hàm
-//        this.thongBaoKhachHangService.themThongBaoChoNguoiDung(khachHang.getIdKhachHang(), savedNotification);
+//    public void guiEmailDonHang(DonHang donHang,ThongTinGiaoHang thongTinGiaoHang) {
+//        String subject = "Dưới đây là mã đơn hàng và trạng thái đơn hàng của bạn!! "  ;
+//        senderService.sendSimpleEmail(thongTinGiaoHang.getEmailGiaoHang(), subject,
+//                "Mã Đơn Hàng của bạn " + donHang.getMaDonHang() + "\n" +
+//                        "Trạng thái đơn: " + donHang.getTrangThai());
 //
 //    }
 
-    public void guiThongBaoDonHang(DonHang donHang, KhachHang khachHang) {
+    public void guiEmailDonHang(DonHang donHang, ThongTinGiaoHang thongTinGiaoHang) {
+        String trangThaiDonHang = "";
+        switch (donHang.getTrangThai()) {
+            case 1:
+                trangThaiDonHang = "Đơn hàng của bạn đã được xác nhận và đang được vận chuyển!!!";
+                break;
+            case 2:
+                trangThaiDonHang = "Đơn hàng của bạn đã được hoàn thành!!!!";
+                break;
+            case 3:
+                if (donHang.getTrangThai() == 0) {
+                    trangThaiDonHang = "Đơn hàng của bạn đang được giao lại !!!";
+                } else {
+                    trangThaiDonHang = "Đơn hàng của bạn đã bị hủy vui lòng đặt lại hàng!!!";
+                }
+                break;
+            default:
+                trangThaiDonHang = "Trạng thái đơn hàng không xác định";
+        }
+
+        String subject = "Dưới đây là mã đơn hàng và trạng thái đơn hàng của bạn!! ";
+        senderService.sendSimpleEmail(thongTinGiaoHang.getEmailGiaoHang(), subject,
+                "Mã Đơn Hàng của bạn " + donHang.getMaDonHang() + "\n" +
+                        "Trạng thái đơn: " + trangThaiDonHang);
+    }
+
+
+
+    public void guiThongBaoDonHang(DonHang donHang, ThongTinGiaoHang thongTinGiaoHang, KhachHang khachHang) {
         Date currDate = new Date();
         String trangThaiMessage = "";
 
@@ -313,7 +393,6 @@ public class DonHangControllerTuanAnh {
                 trangThaiMessage = "Đơn hàng của bạn đã được hoàn thành!!!!";
                 break;
             case 3:
-//                trangThaiMessage = "Đơn hàng của bạn đã bị hủy vui lòng đặt lại hàng!!!";
                 if (donHang.getTrangThai() == 0) {
                     trangThaiMessage = "Đơn hàng của bạn đang được giao lại !!!";
                 } else {

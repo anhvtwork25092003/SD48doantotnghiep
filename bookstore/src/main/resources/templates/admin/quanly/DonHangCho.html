@@ -89,7 +89,6 @@
             <!--            table của đơn hàng chờ-->
             <div class="col-10">
                 <div class="box">
-                    <th:block th:if="${not donHang.isEmpty()}">
                         <table class="table" style=" border: 0px solid blue;">
                             <thead class="table-dark">
 
@@ -106,9 +105,9 @@
                                     window.location.href = url;
                                 }
                             </script>
-
+                            <th:block th:if="${not donHang.isEmpty()}">
                             <h4 style="text-align: left;">Danh Sách Đơn Hàng Đang Chờ</h4>
-                            <tr>
+                            <tr revs>
                                 <th>Mã Đơn Hàng</th>
                                 <th>Tên Người Đặt</th>
                                 <th>Ngày Tạo</th>
@@ -169,6 +168,11 @@
                                                             <label>Tên Người Đặt</label>
                                                             <input class="form-control" type="text"
                                                                    th:value="${dh.thongTinGiaoHang.tenNguoiNhan}" disabled/>
+                                                        </div>
+                                                        <div class="line-item">
+                                                            <label>Email</label>
+                                                            <input class="form-control" type="text"
+                                                                   th:value="${dh.thongTinGiaoHang.emailGiaoHang}" disabled/>
                                                         </div>
                                                         <div class="line-item">
                                                             <label>Ngày Đặt</label>
@@ -309,7 +313,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <h6 style="color: red;"><b><i>Đang có <span th:text="${donHang.totalElements}"></span>
-                                    đang chờ</i> </b></h6>
+                                   đơn hàng đang chờ</i> </b></h6>
                             </div>
 
                             <!--                        phân trang-->

@@ -47,6 +47,7 @@ public class SignupController {
         khachHang.setSdt(khachHang.getSdt());
         khachHang.setGioiTinh(khachHang.getGioiTinh());
         khachHang.setNgaySinh(khachHang.getNgaySinh());
+        khachHang.setLoaiKhachHang(khachHang.getLoaiKhachHang() != null ? khachHang.getLoaiKhachHang() : "1");
         khachHang.setNgayTaoTaiKhoan(ngayGioHienTai);
         khachHang.setTrangThai(1);
         KhachHang khachHang1 = iKhachHangRepository.findBySdt(khachHang.getSdt());

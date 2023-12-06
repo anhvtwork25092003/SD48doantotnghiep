@@ -79,7 +79,6 @@
             <!--            table của đơn hàng đã duyệt-->
             <div class="col-10">
                 <div class="box">
-                    <th:block th:if="${not donHang.isEmpty()}">
                         <table class="table" style=" border: 0px solid blue;">
                             <thead class="table-dark">
                             <select class="col-2 form-control" onchange="changePage(this)">
@@ -97,6 +96,8 @@
                                     window.location.href = url;
                                 }
                             </script>
+                            <th:block th:if="${not donHang.isEmpty()}">
+
                             <h4 style="text-align: left;">Danh Sách Đơn Hàng Đã Duyệt</h4>
                             <tr>
                                 <th>Mã Đơn Hàng</th>
@@ -158,6 +159,11 @@
                                                             <input class="form-control" type="text"
                                                                    th:value="${dh.thongTinGiaoHang.tenNguoiNhan}"
                                                                    disabled/>
+                                                        </div>
+                                                        <div class="line-item">
+                                                            <label>Email</label>
+                                                            <input class="form-control" type="text"
+                                                                   th:value="${dh.thongTinGiaoHang.emailGiaoHang}" disabled/>
                                                         </div>
                                                         <div class="line-item">
                                                             <label>Ngày Đặt</label>
