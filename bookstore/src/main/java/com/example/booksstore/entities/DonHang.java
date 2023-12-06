@@ -48,6 +48,7 @@ public class DonHang {
     @Column(name = "ngayhuy")
     private Date ngayHuy;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ngaythanhtoan")
     private Date ngayThanhToan;
 

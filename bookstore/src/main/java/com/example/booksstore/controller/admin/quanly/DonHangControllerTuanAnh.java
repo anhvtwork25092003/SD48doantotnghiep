@@ -239,11 +239,11 @@ public class DonHangControllerTuanAnh {
             return "redirect:/login";
         }
 
-
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 2) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
             donHang.setTrangThai(2); // Đặt trạng thái thành 1 (đã duyệt)
+            donHang.setNgayThanhToan(new Date()); // Cập nhật ngày tạo mới
             iDonHangRepo.save(donHang);
 
             // In thông tin để kiểm tra
