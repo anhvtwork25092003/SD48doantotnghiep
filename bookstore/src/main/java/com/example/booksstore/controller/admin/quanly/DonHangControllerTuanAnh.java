@@ -16,14 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/quan-ly")
@@ -54,10 +54,14 @@ public class DonHangControllerTuanAnh {
     @GetMapping("/don-hang/cho-xac-nhan")
     public String quanLyDonHangCho(@RequestParam(defaultValue = "1") int page,
                                    Model model, HttpSession session) {
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (nhanVien == null) {
+            return "redirect:/login";
+        }
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 0);
-        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+
         model.addAttribute("loggedInUser", nhanVien);
         model.addAttribute("donHang", donHangs);
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
@@ -125,6 +129,9 @@ public class DonHangControllerTuanAnh {
         // Lấy đơn hàng từ idDonHang
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (nhanVien == null) {
+            return "redirect:/login";
+        }
         KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
 
         // Kiểm tra xem đơn hàng đã được duyệt chưa
@@ -132,7 +139,7 @@ public class DonHangControllerTuanAnh {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
             donHang.setTrangThai(1); // Đặt trạng thái thành 1 (đã duyệt)
             iDonHangRepo.save(donHang);
-            guiThongBaoDonHang(donHang,khachHangDangNhap);
+            guiThongBaoDonHang(donHang, khachHangDangNhap);
             // In thông tin để kiểm tra
             System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
         }
@@ -148,6 +155,9 @@ public class DonHangControllerTuanAnh {
         // Lấy đơn hàng từ idDonHang
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (nhanVien == null) {
+            return "redirect:/login";
+        }
         KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
 
         // Kiểm tra xem đơn hàng đã được duyệt chưa
@@ -158,7 +168,7 @@ public class DonHangControllerTuanAnh {
             // Lưu thời gian hủy
             Date thoiGianHuy = new Date();
             donHang.setNgayHuy(thoiGianHuy);
-            guiThongBaoDonHang(donHang,khachHangDangNhap);
+            guiThongBaoDonHang(donHang, khachHangDangNhap);
 
             iDonHangRepo.save(donHang);
 
@@ -180,6 +190,9 @@ public class DonHangControllerTuanAnh {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 1);
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (nhanVien == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("loggedInUser", nhanVien);
         model.addAttribute("donHang", donHangs);
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
@@ -192,13 +205,16 @@ public class DonHangControllerTuanAnh {
         // Lấy đơn hàng từ idDonHang
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (nhanVien == null) {
+            return "redirect:/login";
+        }
         KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
 
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 2) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
             donHang.setTrangThai(2); // Đặt trạng thái thành 1 (đã duyệt)
-            guiThongBaoDonHang(donHang,khachHangDangNhap);
+            guiThongBaoDonHang(donHang, khachHangDangNhap);
             iDonHangRepo.save(donHang);
 
             // In thông tin để kiểm tra
@@ -252,7 +268,7 @@ public class DonHangControllerTuanAnh {
                 // Nếu trạng thái là 3 (hủy), thì thực hiện giao lại
                 donHang.setTrangThai(0); // Đặt lại trạng thái của đơn hàng thành chờ (status = 0)
                 donHang.setNgayTao(new Date()); // Cập nhật ngày tạo mới
-                guiThongBaoDonHang(donHang,khachHangDangNhap);
+                guiThongBaoDonHang(donHang, khachHangDangNhap);
 
                 iDonHangRepo.save(donHang);
             }

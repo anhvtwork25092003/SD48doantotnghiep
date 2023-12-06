@@ -1,9 +1,10 @@
 package com.example.booksstore.controller.admin.quanly;
 
 import com.example.booksstore.entities.KhachHang;
-import com.example.booksstore.entities.TheLoai;
+import com.example.booksstore.entities.NhanVien;
 import com.example.booksstore.service.IDiaChiService;
 import com.example.booksstore.service.IKhachHangService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,13 +32,21 @@ public class QuanLyKhachHangController {
     public String hienThiTrangQuanLyKhachHang(Model model, @RequestParam(defaultValue = "1") int page,
                                               @RequestParam(required = false) String maKhachHangTimKiem,
                                               @RequestParam(required = false) String sdtTimKiem,
-                                              @RequestParam(required = false) String trangThaiTimKiem
-                                              ) {
+                                              @RequestParam(required = false) String trangThaiTimKiem,
+                                              HttpSession session
+    ) {
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (nhanVien == null) {
+            return "redirect:/login";
+        } else {
+            model.addAttribute("loggedInUser", nhanVien);
+
+        }
         Page<KhachHang> pageOfKhachHang;
         int pageSize = 2; //Đặt kích thước trang
         int trangThai = 0;
         Pageable pageable = PageRequest.of(page - 1, pageSize); // số trang bắt đầu từ 0
-        boolean daTimKiem = (trangThaiTimKiem !=null);
+        boolean daTimKiem = (trangThaiTimKiem != null);
         if (maKhachHangTimKiem != null || sdtTimKiem != null || trangThaiTimKiem != null) {
             // xử lý trạng thái
             if (trangThaiTimKiem.equals("99")) {
@@ -49,8 +58,8 @@ public class QuanLyKhachHangController {
             }
             model.addAttribute("trangThai", trangThaiTimKiem);
 
-            pageOfKhachHang = iKhachHangService.searchKhachHang(maKhachHangTimKiem, sdtTimKiem,trangThai, pageable);
-        }else{
+            pageOfKhachHang = iKhachHangService.searchKhachHang(maKhachHangTimKiem, sdtTimKiem, trangThai, pageable);
+        } else {
             pageOfKhachHang = iKhachHangService.pageOfKhachHang(pageable);
         }
         model.addAttribute("daTimKiem", daTimKiem);
@@ -73,8 +82,8 @@ public class QuanLyKhachHangController {
             @RequestParam("loaiKhachHang") String loaiKhachHang,
             @RequestParam("ngayTaoTaiKhoan") Date ngayTaoTaiKhoan
 
-    ){
-        KhachHang khachupdate= KhachHang.builder()
+    ) {
+        KhachHang khachupdate = KhachHang.builder()
                 .idKhachHang(Integer.parseInt(idKhachHang))
                 .trangThai(Integer.parseInt(trangThai))
                 .ngayTaoTaiKhoan(ngayTaoTaiKhoan)

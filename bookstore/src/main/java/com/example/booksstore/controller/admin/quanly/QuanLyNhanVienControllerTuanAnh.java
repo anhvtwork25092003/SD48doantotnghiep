@@ -1,9 +1,8 @@
 package com.example.booksstore.controller.admin.quanly;
 
 import com.example.booksstore.entities.NhanVien;
-import com.example.booksstore.entities.Sach;
-import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.service.INhanVienService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -19,12 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/quan-ly")
@@ -38,8 +35,20 @@ public class QuanLyNhanVienControllerTuanAnh {
     public String hienThiManHinhQuanlyNhanVien(Model model, @RequestParam(defaultValue = "1") int page,
                                                @RequestParam(required = false) String memberNameSearch,
                                                @RequestParam(required = false) String memberCodeSearch,
-                                               @RequestParam(required = false) String memberStatusSearch
-                                              ) {
+                                               @RequestParam(required = false) String memberStatusSearch,
+                                               HttpSession session
+    ) {
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (nhanVien == null) {
+            return "redirect:/login";
+        } else {
+            if (nhanVien.getChucVu().equalsIgnoreCase("Nhan vien")) {
+                model.addAttribute("loggedInUser", nhanVien);
+                return "redirect:/quan-ly/don-hang/cho-xac-nhan";
+            } else {
+                model.addAttribute("loggedInUser", nhanVien);
+            }
+        }
         Page<NhanVien> pageOfNhanVien;
         int trangThai = 0;
         int pageSize = 2; // Đặt kích thước trang mặc định
@@ -55,7 +64,7 @@ public class QuanLyNhanVienControllerTuanAnh {
             } else if (memberStatusSearch.equals("0")) {
                 trangThai = 0;
             }
-            pageOfNhanVien = service.searchNhanVien(memberNameSearch,memberCodeSearch,trangThai,pageable);
+            pageOfNhanVien = service.searchNhanVien(memberNameSearch, memberCodeSearch, trangThai, pageable);
         } else {
             pageOfNhanVien = service.pageOfNhanVien(pageable);
         }

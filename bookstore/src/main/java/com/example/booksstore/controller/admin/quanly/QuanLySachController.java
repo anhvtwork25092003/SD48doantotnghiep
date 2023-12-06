@@ -1,11 +1,13 @@
 package com.example.booksstore.controller.admin.quanly;
 
+import com.example.booksstore.entities.NhanVien;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.service.ISachService;
 import com.example.booksstore.service.ITheLoaiServiec;
 import com.example.booksstore.service.TacGiaService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -33,6 +35,7 @@ import java.util.Set;
 @RequestMapping("/quan-ly")
 public class QuanLySachController {
 
+
     @Autowired
     ISachService iSachService;
 
@@ -50,8 +53,16 @@ public class QuanLySachController {
                                              @RequestParam(required = false) String productCodeSearch,
                                              @RequestParam(value = "productStatusSearch", required = false) String productStatusSearch,
                                              @RequestParam(required = false) String priceRangeSearch,
-                                             @RequestParam(required = false) Set<TheLoai> categorySearch
+                                             @RequestParam(required = false) Set<TheLoai> categorySearch,
+                                             HttpSession session
     ) {
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (nhanVien == null) {
+            return "redirect:/login";
+        } else {
+            model.addAttribute("loggedInUser", nhanVien);
+
+        }
         Page<Sach> pageOfSach;
         BigDecimal giaMin = null;
         BigDecimal giaMax = null;
@@ -382,66 +393,5 @@ public class QuanLySachController {
         return "redirect:/quan-ly/sach/hien-thi";
     }
 
-
-    @GetMapping("/sach/hien-thi-test")
-    public String hienThiTrangTongQuanQuanLyTest(Model model, @RequestParam(defaultValue = "1") int page,
-                                                 @RequestParam(required = false) String productNameSearch,
-                                                 @RequestParam(required = false) String productCodeSearch,
-                                                 @RequestParam(required = false) String productStatusSearch,
-                                                 @RequestParam(required = false) String priceRangeSearch,
-                                                 @RequestParam(required = false) Set<TheLoai> categorySearch
-    ) {
-        Page<Sach> pageOfSach;
-
-        BigDecimal giaMin = null;
-        BigDecimal giaMax = null;
-        int trangThai = 0;
-        if (page <= 0) {
-            page = 1;
-        }
-        int pageSize = 5; // Đặt kích thước trang mặc định
-        Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
-//  moi khoi tao trang
-        if (productNameSearch != null || productCodeSearch != null || productStatusSearch != null || priceRangeSearch != null || categorySearch != null) {
-            // xu ly khoang gia
-            if (priceRangeSearch != null) {
-                if (priceRangeSearch.equals("all")) {
-                    giaMin = new BigDecimal(0);
-                    giaMax = new BigDecimal("999999999999999999999999");
-                }
-                if (priceRangeSearch.equals("1")) {
-                    giaMin = new BigDecimal(0);
-                    giaMax = new BigDecimal("100000");
-                }
-                if (priceRangeSearch.equals("2")) {
-                    giaMin = new BigDecimal("100000");
-                    giaMax = new BigDecimal("500000");
-                }
-                if (priceRangeSearch.equals("3")) {
-                    giaMin = new BigDecimal("500000");
-                    giaMax = new BigDecimal("99999999999999999999999999");
-                }
-            }
-
-
-            // xuu ly trang thai
-            if (productStatusSearch.equals("99")) {
-                trangThai = -1;
-            } else if (productStatusSearch.equals("1")) {
-                trangThai = 1;
-            } else if (productStatusSearch.equals("0")) {
-                trangThai = 0;
-            }
-            pageOfSach = iSachService.searchSach(productNameSearch, productCodeSearch, giaMin, giaMax, categorySearch, trangThai, pageable);
-        } else {
-            pageOfSach = iSachService.pageOfSach(pageable);
-        }
-
-
-        model.addAttribute("pageOfSach", pageOfSach);
-        model.addAttribute("authors", tacGiaService.findAllTacGia());
-        model.addAttribute("listTheLoai", iTheLoaiService.findAllTheLoai());
-        return "user/sanpham/testsanpham";
-    }
 }
 

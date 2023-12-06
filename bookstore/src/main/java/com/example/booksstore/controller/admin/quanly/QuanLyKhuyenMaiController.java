@@ -1,6 +1,7 @@
 package com.example.booksstore.controller.admin.quanly;
 
 import com.example.booksstore.entities.KhuyenMai;
+import com.example.booksstore.entities.NhanVien;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.entities.ThongBao;
 import com.example.booksstore.repository.IKhuyenMaiReporitory;
@@ -8,6 +9,7 @@ import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.IKhuyenMaiService;
 import com.example.booksstore.service.IThongBaoService;
 import com.example.booksstore.service.ThongBaoKhachHangService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -61,8 +63,20 @@ public class QuanLyKhuyenMaiController {
                                         @RequestParam(required = false) String tenKhuyenMaiTimKiem,
                                         @RequestParam(required = false) String trangThaiTimKiem,
                                         @RequestParam(required = false) String ngayBatDauTimKiem,
-                                        @RequestParam(required = false) String ngayKetThucTimKiem
+                                        @RequestParam(required = false) String ngayKetThucTimKiem,
+                                        HttpSession session
     ) {
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (nhanVien == null) {
+            return "redirect:/login";
+        } else {
+            if (nhanVien.getChucVu().equalsIgnoreCase("Nhan vien")) {
+                model.addAttribute("loggedInUser", nhanVien);
+                return "redirect:/quan-ly/don-hang/cho-xac-nhan";
+            } else {
+                model.addAttribute("loggedInUser", nhanVien);
+            }
+        }
         Page<KhuyenMai> khuyenMaiPages;
         int pageSize = 5; // Đặt kích thước trang mặc định
         int trangThai = 0;

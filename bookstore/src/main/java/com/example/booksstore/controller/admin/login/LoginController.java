@@ -32,13 +32,13 @@ public class LoginController {
             String role = nhanVienService.getNhanVienRole(nhanVien);
             if (role.equals("Quan tri")) {
                 // Điều hướng đến trang quản trị
-                return "redirect:/tong-quan-quan-tri";
+                return "redirect:/quan-ly/tong-quan";
             } else if (role.equals("Quan ly")) {
                 // Điều hướng đến trang quản lý
-                return "redirect:/tong-quan-quan-ly";
+                return "redirect:/quan-ly/tong-quan";
             } else if (role.equals("Nhan vien")) {
                 // Điều hướng đến trang nhân viên
-                return "redirect:/tong-quan-nhan-vien";
+                return "redirect:/quan-ly/don-hang/cho-xac-nhan";
             }
         }
         return "redirect:/login";

@@ -1,7 +1,9 @@
 package com.example.booksstore.controller.admin.quanly;
 
+import com.example.booksstore.entities.NhanVien;
 import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.service.TacGiaService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -10,15 +12,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
-import java.util.List;
 
 @Controller
 @RequestMapping("/quan-ly")
@@ -30,10 +33,19 @@ public class TacGiaController {
 
     @GetMapping("/tac-gia/hien-thi")
     public String hienThiManHinhTacGia(Model model, @RequestParam(defaultValue = "1") int page,
-                                               @RequestParam(required = false) String memberNameTacGia,
-                                               @RequestParam(required = false) String memberCodeTacGia,
-                                               @RequestParam(required = false) String memberStatusSearch
+                                       @RequestParam(required = false) String memberNameTacGia,
+                                       @RequestParam(required = false) String memberCodeTacGia,
+                                       @RequestParam(required = false) String memberStatusSearch
+            ,
+                                       HttpSession session
     ) {
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (nhanVien == null) {
+            return "redirect:/login";
+        } else {
+            model.addAttribute("loggedInUser", nhanVien);
+
+        }
         Page<TacGia> pageOfTacGia;
         int trangThai = 0;
         int pageSize = 4; // Đặt kích thước trang mặc định
@@ -49,23 +61,23 @@ public class TacGiaController {
             } else if (memberStatusSearch.equals("0")) {
                 trangThai = 0;
             }
-            pageOfTacGia = ser.searchTacGia(memberNameTacGia,memberCodeTacGia,trangThai,pageable);
+            pageOfTacGia = ser.searchTacGia(memberNameTacGia, memberCodeTacGia, trangThai, pageable);
         } else {
             pageOfTacGia = ser.pageOfTacGia(pageable);
         }
 
-        model.addAttribute("data",pageOfTacGia);
+        model.addAttribute("data", pageOfTacGia);
         return "admin/quanly/tacgia/thanh_tacgia";
     }
 
-/*    @GetMapping("/tac-gia/getcreate")
-    private  String getTacGiaCreate(Model model){
-        model.addAttribute("tacgia",new TacGia());
-        return "redirect:/tac-gia/getall";
-    }*/
+    /*    @GetMapping("/tac-gia/getcreate")
+        private  String getTacGiaCreate(Model model){
+            model.addAttribute("tacgia",new TacGia());
+            return "redirect:/tac-gia/getall";
+        }*/
     @Transactional
     @PostMapping("/tac-gia/them-moi")
-    public  String CreateTacgia(
+    public String CreateTacgia(
             @RequestParam("hoVaTen") String hoVaTen,
             @RequestParam("email") String email,
             @RequestParam("trangThai") Integer trangThai,
