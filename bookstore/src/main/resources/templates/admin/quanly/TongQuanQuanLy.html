@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}"
-      xmlns:th="http://www.thymeleaf.org">
+>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +19,10 @@
 <body>
 <article layout:fragment="noiDung">
     <div class="container">
+        <h1>Thống Kê Doanh Thu</h1>
+        <p th:text="'Doanh thu ngày hôm nay: ' + ${doanhThuNgayHienTai}"></p>
+        <p th:text="'Doanh thu ngày hôm qua: ' + ${doanhThuNgayVuaQua}"></p>
+
         <h3>Quản lý</h3>
         <div class="all">
             <div class="row">
