@@ -15,8 +15,15 @@ public class NhanVienController {
             model.addAttribute("loggedInUser", nhanVien);
 //            return "/admin/nhanvien/layoutchungnhanvien/menuNhanVien";
 //            return "/admin/quanly/DonHangCho";
-                return "redirect:/quan-ly/don-hang/cho-xac-nhan";
+            return "redirect:/quan-ly/don-hang/cho-xac-nhan";
         }
+        return "redirect:/login";
+    }
+
+
+    @GetMapping("/logout-nhan-vien")
+    public String logout(HttpSession session) {
+        session.removeAttribute("loggedInUser");
         return "redirect:/login";
     }
 }
