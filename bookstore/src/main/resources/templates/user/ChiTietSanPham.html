@@ -89,52 +89,33 @@
             </div>
         </div>
     </form>
-    <!--    <div class="type-product" id="type1" th:each="sachKhuyenMai : ${chitietkhuyenmai}">-->
-    <!--        <div class="product-main" th:each="sachKhuyenMai2 : ${sachKhuyenMai.sachs}" >-->
-    <!--            <div class="box-img">-->
-    <!--                <img th:src="${sachKhuyenMai2.linkAnh1}" alt="Chưa có ảnh hiển thị" width="460px" height="460px" />-->
-    <!--                <img th:src="${sachKhuyenMai2.linkAnh2}" alt="Chưa có ảnh hiển thị" width="100px" height="100px" />-->
-    <!--                <img th:src="${sachKhuyenMai2.linkAnh3}" alt="Chưa có ảnh hiển thị" width="100px" height="100px" />-->
-    <!--                <img th:src="${sachKhuyenMai2.linkAnh4}" alt="Chưa có ảnh hiển thị" width="100px" height="100px" />-->
-    <!--                <img th:src="${sachKhuyenMai2.linkAnh5}" alt="Chưa có ảnh hiển thị" width="100px" height="100px" />-->
-    <!--            </div>-->
-    <!--                <div class="product-infor">-->
-    <!--                <div class="txt-name" th:text="${sachKhuyenMai2.tenSach}">-->
-    <!--                </div>-->
-    <!--                <div class="btn-right">-->
-    <!--                    <div class="btn-cust btn-love">-->
-    <!--                        <i class="fa fa-heart" aria-hidden="true"></i>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--                <div class="box-price">-->
-    <!--                    <span class="price-sale" th:text="${sachKhuyenMai2.giaBan - (sachKhuyenMai.soPhanTramGiamGia)} + 'đ'"></span>-->
-    <!--                    <span class="price-origin" th:text="${sachKhuyenMai2.giaBan} + 'đ'"></span>-->
-    <!--                    <span class="per-sale" th:text="${sachKhuyenMai.soPhanTramGiamGia} +'%'"></span>-->
-    <!--                </div>-->
-    <!--&lt;!&ndash;                <p class="txt-color"><span class="txt1">Thể Loại:</span><span class="txt2"th:each="sachTL : ${theLoai}"  th:text="${sachTL.idTheLoai}"&ndash;&gt;-->
-    <!--&lt;!&ndash;                                                                              th:text="${sachTL.tenTheLoai}" th:selected="${sachKhuyenMai2.theLoais.contains(sachTL)}"></span></p>&ndash;&gt;-->
-    <!--&lt;!&ndash;                <p class="txt-color"><span class="txt1">Tác Giả:</span><span class="txt2" th:text="${sachKhuyenMai2.tacgia.hoVaTen}"></span></p>&ndash;&gt;-->
-    <!--                <p class="txt-cate">Số lượng</p>-->
-    <!--                <div class="box-number">-->
-    <!--                    <span class="txt-sub" onclick="changeNumberProductType('sub')">-</span>-->
-    <!--                    <input type="tel" th:value="${sachKhuyenMai2.soLuongTonKho}"  />-->
-    <!--                    <span class="txt-plus" onclick="changeNumberProductType('plus')">+</span>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--            <div class="product-bottom">-->
+    <div class="danh-gia-chat-container">
+        <div id="danh-gia-container">
+            <form th:action="@{/danh-gia/them-danh-gia}" method="post" id="danh-gia-form">
+                <!-- Thêm các trường cần thiết, ví dụ: -->
+                <input type="hidden" name="idSach" th:value="${listSach.idSach}"/>
 
-    <!--                <div class="box-btn">-->
-    <!--                    <div class="btn-add">-->
-    <!--                        <i class="fa fa-cart-plus" aria-hidden="true"></i>-->
-    <!--                        Thêm vào giỏ hàng-->
-    <!--                    </div>-->
-    <!--                    <div class="btn-order">-->
-    <!--                        Mua ngay-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
+                <div class="sao">
+                    <input type="radio" name="mucDanhGia" id="sao1" value="1">
+                    <label for="sao1">&#9733;</label>
+                    <input type="radio" name="mucDanhGia" id="sao2" value="2">
+                    <label for="sao2">&#9733;</label>
+                    <input type="radio" name="mucDanhGia" id="sao3" value="3">
+                    <label for="sao3">&#9733;</label>
+                    <input type="radio" name="mucDanhGia" id="sao4" value="4">
+                    <label for="sao4">&#9733;</label>
+                    <input type="radio" name="mucDanhGia" id="sao5" value="5">
+                    <label for="sao5">&#9733;</label>
+                </div>
+
+                <textarea id="binh-luan-nhap" name="binhLuan" placeholder="Nhập đánh giá của bạn"></textarea>
+                <button type="submit">Gửi Đánh Giá</button>
+            </form>
+            <ul id="danh-sach-binh-luan" class="danh-sach-binh-luan">
+
+            </ul>
+        </div>
+    </div>
 </article>
 
 </body>
