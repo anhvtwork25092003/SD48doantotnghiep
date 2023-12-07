@@ -28,9 +28,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @RequestMapping("/thanh-toan")
 @Controller
@@ -62,6 +64,11 @@ public class ThanhToanController {
     @Autowired
     IThongBaoService iThongBaoService;
 
+    public String formatCurrency(BigDecimal amount) {
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        return currencyFormatter.format(amount);
+    }
+
     // chuyển hướng trang thanh toán
     @GetMapping("/xac-nhan-thanh-toan")
     public String xacNhanThanhToan(HttpSession session,
@@ -88,9 +95,9 @@ public class ThanhToanController {
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
             session.setAttribute("danhSachSanPhamDeThanhToan", gioHangChiTietListDaChon);
             BigDecimal tinhTongTienDonHangDaTinhVanChuyen = iDonHangService.tinhTongTienDonHangDaTinhVanChuyen(gioHangChiTietListDaChon);
-            model.addAttribute("tinhTongTienDonHangDaTinhVanChuyen", tinhTongTienDonHangDaTinhVanChuyen);
+            model.addAttribute("tinhTongTienDonHangDaTinhVanChuyen", formatCurrency(tinhTongTienDonHangDaTinhVanChuyen));
             BigDecimal tinhTongTienDonHangChuaTinhVanChuyen = iDonHangService.tinhTongTienDonHangChuaTinhVanChuyen(gioHangChiTietListDaChon);
-            model.addAttribute("tinhTongTienDonHangChuaTinhVanChuyen", tinhTongTienDonHangChuaTinhVanChuyen);
+            model.addAttribute("tinhTongTienDonHangChuaTinhVanChuyen", formatCurrency(tinhTongTienDonHangChuaTinhVanChuyen));
             return "/user/ThanhToanChuaDangNhap";
         } else {
             List<GioHangChiTiet> gioHangChiTietListDaChon = new ArrayList<>();
@@ -103,9 +110,9 @@ public class ThanhToanController {
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
             session.setAttribute("danhSachSanPhamDeThanhToan", gioHangChiTietListDaChon);
             BigDecimal tinhTongTienDonHangDaTinhVanChuyen = iDonHangService.tinhTongTienDonHangDaTinhVanChuyen(gioHangChiTietListDaChon);
-            model.addAttribute("tinhTongTienDonHangDaTinhVanChuyen", tinhTongTienDonHangDaTinhVanChuyen);
+            model.addAttribute("tinhTongTienDonHangDaTinhVanChuyen", formatCurrency(tinhTongTienDonHangDaTinhVanChuyen));
             BigDecimal tinhTongTienDonHangChuaTinhVanChuyen = iDonHangService.tinhTongTienDonHangChuaTinhVanChuyen(gioHangChiTietListDaChon);
-            model.addAttribute("tinhTongTienDonHangChuaTinhVanChuyen", tinhTongTienDonHangChuaTinhVanChuyen);
+            model.addAttribute("tinhTongTienDonHangChuaTinhVanChuyen", formatCurrency(tinhTongTienDonHangChuaTinhVanChuyen));
             return "/user/ThanhToanDaDangNhap";
         }
 
