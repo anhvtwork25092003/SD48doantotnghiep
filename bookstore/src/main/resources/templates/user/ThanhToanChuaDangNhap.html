@@ -127,37 +127,33 @@
                             <th>Thành Tiền</th>
                         </tr>
                         </thead>
-                        <tbody th:each=" dssp: ${danhSachSanPhamTrongGioHang}">
-                        <tr>
+                        <tbody>
+                        <tr th:each="dssp: ${danhSachSanPhamTrongGioHang}">
                             <td class="anhSanPham"><img th:src="@{|${dssp.sach.linkAnh1}|}"></td>
                             <td th:text="${dssp.sach.tenSach}"></td>
-                            <th:block th:with="thanhTien=0">
-
-                                <!-- Kiểm tra giá trị trước khi sử dụng -->
-                                <th:block th:if="${dssp.sach.giaBan != null}">
-                                    <td>
-                                        <span th:if="${dssp.sach.layGiaNeuCoKhuyenMai() == null}" class="text-muted"
-                                              th:text="${'Giá cũ: ' + dssp.sach.giaBanVnd}"></span>
-                                        <span th:if="${dssp.sach.layGiaNeuCoKhuyenMai() != null}">
-                                        <del class="text-muted" th:text="${'Giá cũ: ' + dssp.sach.giaBanVnd}"></del>
+                            <td>
+                                <span th:if="${dssp.sach.giaBan != null}" th:with="giaBanVnd=${dssp.sach.giaBanVnd()}">
+                                    <span th:if="${dssp.sach.layGiaNeuCoKhuyenMai() == null}" class="text-muted"
+                                          th:text="${'Giá cũ: ' + giaBanVnd}"></span>
+                                    <span th:if="${dssp.sach.layGiaNeuCoKhuyenMai() != null}">
+                                        <del class="text-muted" th:text="${'Giá cũ: ' + giaBanVnd}"></del>
                                         <br>
                                         <span class="text-success"
                                               th:text="${'Giá mới: ' + dssp.sach.layGiaNeuCoKhuyenMai()}"></span>
-                                        </span>
-                                    </td>
+                                    </span>
+                                </span>
+                            </td>
+                            <td th:text="${dssp.soLuong}"></td>
+                            <td>
+                                <span th:if="${dssp.sach.layGiaNeuCoKhuyenMai() == null}"
+                                      th:text="${dssp.sach.giaBanVnd() * dssp.soLuong}" hidden></span>
 
-                                    <!-- Hiển thị số lượng -->
-                                    <td th:text="${dssp.soLuong}"></td>
-
-                                    <!-- Hiển thị tổng tiền -->
-                                    <td id="tongGiaGiamGiaPhiaTren" th:if="${dssp.sach.layGiaNeuCoKhuyenMai() != null}"
-                                        th:text="${thanhTien + (dssp.sach.layGiaNeuCoKhuyenMai() * dssp.soLuong)}">
-                                    </td>
-
-                                </th:block>
-                            </th:block>
-
+                                <span th:if="${dssp.sach.layGiaNeuCoKhuyenMai() != null}"
+                                      th:text="${dssp.sach.layGiaNeuCoKhuyenMai() * dssp.soLuong}" hidden></span>
+                                <span th:text="${tinhTongTienDonHangChuaTinhVanChuyen}"></span>
+                            </td>
                         </tr>
+
                         </tbody>
                     </table>
                     <br>
@@ -171,7 +167,7 @@
                                 <table class="table table-bordered">
                                     <tbody>
                                     <tr>
-                                            <!-- Tính tổng số tiền cho mỗi cuốn sách -->
+                                        <!-- Tính tổng số tiền cho mỗi cuốn sách -->
                                         <td>Thành tiền:</td>
                                         <td class="total" th:text="${tinhTongTienDonHangChuaTinhVanChuyen}"></td>
                                     </tr>
