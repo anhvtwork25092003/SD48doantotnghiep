@@ -28,6 +28,9 @@ public class DonHangControllerTuanAnh {
     IDonHangRepo iDonHangRepo;
 
     @Autowired
+    IDonHangService donHangService;
+
+    @Autowired
     DonHangChiTietRepo donHangChiTietRepo;
 
     @Autowired
@@ -51,8 +54,11 @@ public class DonHangControllerTuanAnh {
     @Autowired
     private IKiemTraDanhGiaService iKiemTraDanhGiaService;
 
+
+
     //BẮT ĐẦU CỦA ĐƠN HÀNG CHỜ
     @GetMapping("/don-hang/cho-xac-nhan")
+    // bắt đầu hiển thị giao diện đơn hàng chờ
     public String quanLyDonHangCho(@RequestParam(defaultValue = "1") int page,
                                    Model model, HttpSession session) {
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
@@ -68,6 +74,7 @@ public class DonHangControllerTuanAnh {
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
         return "/admin/quanly/DonHangCho";
     }
+    // bắt đầu hiển thị giao diện đơn hàng chờ
 
     @PostMapping("/tim-kiem-ma")
     public String searchOrders(@RequestParam("maDonHang") String maDonHang,
@@ -177,16 +184,19 @@ public class DonHangControllerTuanAnh {
         }
 
         // Kiểm tra xem đơn hàng đã được duyệt chưa
-        if (donHang.getTrangThai() != 3) {
+        if (donHang.getTrangThai() != 4) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và thời gian hủy
-            donHang.setTrangThai(3); // Đặt trạng thái thành 3 (đã hủy)
+            donHang.setTrangThai(4); // Đặt trạng thái thành 3 (đã hủy)
 
             // Lưu thời gian hủy
             Date thoiGianHuy = new Date();
             donHang.setNgayHuy(thoiGianHuy);
 
             iDonHangRepo.save(donHang);
-
+            // Tăng số lượng tồn kho cho từng sản phẩm trong đơn hàng
+            for (DonHangChiTiet dhct : donHang.getChiTietDonHang()) {
+                donHangService.tangSoLuongTonKho(dhct);
+            }
             // In thông tin để kiểm tra
             System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
         }
@@ -213,6 +223,7 @@ public class DonHangControllerTuanAnh {
 
 
     //BẮT ĐẦU CỦA ĐƠN HÀNG ĐÃ DUYỆT
+    // bắt đầu hiển thị giao diện đơn hàng đã duyệt
     @GetMapping("/don-hang/da-duyet")
     public String quanLyDonHangDaDuyet(HttpSession session, Model model,
                                        @RequestParam(defaultValue = "1") int page) {
@@ -228,8 +239,9 @@ public class DonHangControllerTuanAnh {
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
         return "/admin/quanly/DonHangDaDuyet";
     }
-
-    @GetMapping("/xac-nhan-don-hang-da-giao")
+    // kết thúc hiển thị giao diện đơn hàng đã duyệt
+//
+    @GetMapping("/xac-nhan-don-hang-da-duyet")
     public String xacNhanDonHangDaGiao(Model model, HttpSession session,
                                        @RequestParam("idDonHang") String idDonHang) {
         // Lấy đơn hàng từ idDonHang
@@ -275,39 +287,116 @@ public class DonHangControllerTuanAnh {
 
         model.addAttribute("loggedInUser", nhanVien);
         // Chuyển hướng về trang đơn đã duyệt
-        return "redirect:/quan-ly/don-hang/hoan-thanh";
+        return "redirect:/quan-ly/don-hang/dang-giao";
 
     }
     //KẾT THÚC CỦA ĐƠN HÀNG ĐÃ DUYỆT
 
 
+
+    //BẮT ĐẦU CỦA ĐƠN HÀNG ĐANG GIAO
+    @GetMapping("/don-hang/dang-giao")
+    // bắt đầu hiển thị giao diện đơn hàng đang giao
+    public String quanLyDonHangDangGiao(HttpSession session, Model model,
+                                       @RequestParam(defaultValue = "1") int page) {
+        int pageSize = 5;
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 1);
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (nhanVien == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("loggedInUser", nhanVien);
+        model.addAttribute("donHang", donHangs);
+        model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
+        return "/admin/quanly/DonHangDangGiao";
+    }
+    // kết thúc hiển thị giao diện đơn hàng đang giao
+
+    @GetMapping("/xac-nhan-don-hang-dang-giao")
+    public String xacNhanDonHangDaDuyet(Model model, HttpSession session,
+                                       @RequestParam("idDonHang") String idDonHang) {
+        // Lấy đơn hàng từ idDonHang
+        DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
+        KhachHang khachHangDangNhap = donHang.getKhachHang();
+
+
+// Kiểm tra loại khách hàng
+        String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
+        if (nhanVien == null) {
+            return "redirect:/login";
+        }
+
+        // Kiểm tra xem đơn hàng đã được duyệt chưa
+        if (donHang.getTrangThai() != 3) {
+            // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
+            donHang.setTrangThai(3); // Đặt trạng thái thành 1 (đã duyệt)
+            donHang.setNgayThanhToan(new Date()); // Cập nhật ngày tạo mới
+            if("1".equals(loaiKhachHang)){
+                for(DonHangChiTiet dhct : donHang.getChiTietDonHang()){
+                    iKiemTraDanhGiaService.save(donHang.getKhachHang(),dhct.getSach());
+                }
+            }
+            iDonHangRepo.save(donHang);
+
+            // In thông tin để kiểm tra
+            System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
+        }
+
+
+        if ("0".equals(loaiKhachHang)) {
+            // Loại khách hàng = 0, chỉ gửi email
+            guiEmailDonHang(donHang, thongTinGiaoHang);
+        } else   {
+            // Loại khách hàng = 1, gửi cả thông báo lẫn email
+            guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
+            guiEmailDonHang(donHang, thongTinGiaoHang);
+        }
+
+
+
+        model.addAttribute("loggedInUser", nhanVien);
+        // Chuyển hướng về trang đơn đã duyệt
+        return "redirect:/quan-ly/don-hang/hoan-thanh";
+
+    }
+    //KẾT THÚC CỦA ĐƠN HÀNG ĐANG GIAO
+
+
     //BẮT ĐẦU CỦA ĐƠN HÀNG ĐÃ HOÀN THÀNH
     @GetMapping("/don-hang/hoan-thanh")
+    // bắt đầu hiển thị giao diện đơn hàng đã hoàn thành
     public String quanLyDangGiaoHang(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 2);
+        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 3);
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         model.addAttribute("donHang", donHangs);
         model.addAttribute("loggedInUser", nhanVien);
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
         return "/admin/quanly/DonHangDaHoanThanh";
     }
+    // bắt đầu hiển thị giao diện đơn hàng đã hoàn thành
+
     //KẾT THÚC CỦA ĐƠN HÀNG ĐÃ HOÀN THÀNH
 
 
     //BẮT ĐẦU CỦA ĐƠN HÀNG ĐÃ HỦY
     @GetMapping("/don-hang/da-huy")
+    // bắt đầu hiển thị giao diện đơn hàng đã hủy
     public String quanLyDonHangDaHuy(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 3);
+        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 4);
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         model.addAttribute("loggedInUser", nhanVien);
         model.addAttribute("donHang", donHangs);
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
         return "/admin/quanly/DonHangDaHuy";
     }
+    // bắt đầu hiển thị giao diện đơn hàng đã hủy
 
     @GetMapping("/xac-nhan-giao-lai")
     public String giaoLaiDonHang(@RequestParam("idDonHang") String idDonHang, Model model, HttpSession session) {
@@ -318,7 +407,7 @@ public class DonHangControllerTuanAnh {
 
         if (donHang != null) {
             // Kiểm tra trạng thái của đơn hàng
-            if (donHang.getTrangThai() == 3) {
+            if (donHang.getTrangThai() == 4) {
                 // Nếu trạng thái là 3 (hủy), thì thực hiện giao lại
                 donHang.setTrangThai(0); // Đặt lại trạng thái của đơn hàng thành chờ (status = 0)
                 donHang.setNgayTao(new Date()); // Cập nhật ngày tạo mới
@@ -369,9 +458,12 @@ public class DonHangControllerTuanAnh {
                 trangThaiDonHang = "Đơn hàng của bạn đã được xác nhận và đang được vận chuyển!!!";
                 break;
             case 2:
-                trangThaiDonHang = "Đơn hàng của bạn đã được hoàn thành!!!!";
+                trangThaiDonHang = "Đơn hàng của bạn đang được vận chuyển!!!!";
                 break;
             case 3:
+                trangThaiDonHang = "Đơn hàng của bạn đã được hoàn thành!!!!";
+                break;
+            case 4:
                 if (donHang.getTrangThai() == 0) {
                     trangThaiDonHang = "Đơn hàng của bạn đang được giao lại !!!";
                 } else {
@@ -396,12 +488,15 @@ public class DonHangControllerTuanAnh {
 
         switch (donHang.getTrangThai()) {
             case 1:
-                trangThaiMessage = "Đơn hàng của bạn đã được xác nhận và đang được vận chuyển!!!";
+                trangThaiMessage = "Đơn hàng của bạn đã được xác nhận !!!";
                 break;
             case 2:
-                trangThaiMessage = "Đơn hàng của bạn đã được hoàn thành!!!!";
+                trangThaiMessage = "Đơn hàng của bạn đang được vận chuyển !!!!";
                 break;
             case 3:
+                trangThaiMessage = "Đơn hàng của bạn đã được hoàn thành !!!!";
+                break;
+            case 4:
                 if (donHang.getTrangThai() == 0) {
                     trangThaiMessage = "Đơn hàng của bạn đang được giao lại !!!";
                 } else {

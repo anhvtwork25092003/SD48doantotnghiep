@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <title>Đơn hàng đã duyệt-chờ vận chuyển</title>
+    <title>Đơn hàng đang giao</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -99,7 +99,7 @@
                             </script>
                             <th:block th:if="${not donHang.isEmpty()}">
 
-                            <h4 style="text-align: left;">Danh Sách Đơn Hàng Đã Duyệt</h4>
+                            <h4 style="text-align: left;">Danh Sách Đơn Hàng Đang Giao</h4>
                             <tr>
                                 <th>Mã Đơn Hàng</th>
                                 <th>Tên Người Đặt</th>
@@ -122,8 +122,8 @@
                                 </div>
                                 <td th:text="${dh.ghiChuKhachHangGui}"></td>
                                 <td>
-                                    <a th:href="@{/quan-ly/xac-nhan-don-hang-da-duyet(idDonHang=${dh.idDonHang})}"
-                                       onclick="return confirm('Bạn có chắc muốn giao đơn hàng này không?')">
+                                    <a th:href="@{/quan-ly/xac-nhan-don-hang-dang-giao(idDonHang=${dh.idDonHang})}"
+                                       onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
                                         <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
                                     </a>
 
@@ -302,13 +302,13 @@
                                 <div class="phantrang">
                                     <span th:if="${donHang.number + 1 > 1}">
                                     <a class="btn btn-primary"
-                                       th:href="@{'/quan-ly/don-hang/da-duyet?page=' + ${donHang.number}}">Previous</a>
+                                       th:href="@{'/quan-ly/don-hang/dang-giao?page=' + ${donHang.number}}">Previous</a>
                                     </span>
                                     <span class="btn btn-danger"
                                           th:text="${donHang.number + 1} + '/' + ${donHang.totalPages}"></span>
                                     <span th:if="${donHang.number + 1 < donHang.totalPages}">
                                         <a class="btn btn-primary"
-                                           th:href="@{'/quan-ly/don-hang/da-duyet?page=' + ${donHang.number + 2}}">Next</a>
+                                           th:href="@{'/quan-ly/don-hang/dang-giao?page=' + ${donHang.number + 2}}">Next</a>
                                     </span>
                                 </div>
                             </div>
