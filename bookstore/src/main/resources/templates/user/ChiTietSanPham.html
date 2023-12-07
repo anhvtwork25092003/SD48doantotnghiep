@@ -37,28 +37,18 @@
                         <div class="btn-cust btn-love">
                             <i class="fa fa-heart" aria-hidden="true"></i>
                         </div>
-
                     </div>
-                    <!--                <div class="box-price" th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
-                    <!--                    <div th:with="firstPromotion=${sm.khuyenMais[0]}">-->
-                    <!--                        <span class="price-sale" th:text="${sm.giaBan - firstPromotion.soPhanTramGiamGia} + 'đ'"></span>-->
-                    <!--                        <span class="price-origin" th:text="${sm.giaBan} + 'đ'"></span>-->
-                    <!--                        <span class="per-sale btn btn-warning" th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></span>-->
-                    <!--                    </div>-->
-                    <!--                </div>-->
-                    <div class="box-price" th:if="${not #lists.isEmpty(sm.khuyenMais)}">
-                        <div th:with="firstPromotion=${sm.khuyenMais[0]}">
-                            <span class="price-sale" th:if="${firstPromotion.trangThai == 1}"
-                             th:text="${sm.giaBan.subtract(sm.giaBan.multiply(new java.math.BigDecimal(firstPromotion.soPhanTramGiamGia).divide(new java.math.BigDecimal(100)))) + 'đ'}">
+                    <div class="box-price">
+                            <span class="price-sale" th:if="${sm.layGiaNeuCoKhuyenMai() == null}"
+                                  th:text="${sm.giaBanVnd}">
                             </span>
-                            <span class="price-sale" th:unless="${firstPromotion.trangThai == 1}"
-                                  th:text="${sm.giaBan + 'đ'}"></span>
-                            <span class="price-origin" th:text="${sm.giaBan} + 'đ'"></span>
-                            <span class="per-sale btn btn-warning" th:if="${firstPromotion.trangThai == 1}"
-                                  th:text="${firstPromotion.soPhanTramGiamGia + '%'}"></span>
-                        </div>
+                        <span class="price-sale" th:if="${sm.layGiaNeuCoKhuyenMai() != null}"
+                              th:text="${sm.giaBanVnd }"></span>
+                        <span class="price-origin" th:text="${sm.layGiaNeuCoKhuyenMai()}"></span>
+<!--                        <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
+<!--                            <span class="per-sale btn btn-warning" th:text="${sm.khuyenMais[0].soPhanTramGiamGia + '%'}"></span>-->
+<!--                        </div>-->
                     </div>
-
                     <p class="txt-cate">Số lượng tồn kho:
                         <span th:text="${sm.soLuongTonKho}"></span>
                     </p>
@@ -82,7 +72,7 @@
                     </div>
                     <p class="txt-cate">Số lượng mua hàng:</p>
                     <div class="soLuong">
-                        <input  class="form-control" value="1" id="soLuongCanMua" name="soLuongCanMua" type="number"/>
+                        <input class="form-control" value="1" id="soLuongCanMua" name="soLuongCanMua" type="number"/>
                     </div>
                     <div class="product-bottom">
                         <div class="box-btn">
@@ -132,19 +122,19 @@
     <!--                </div>-->
     <!--            </div>-->
     <!--        </div>-->
-<!--            <div class="product-bottom">-->
+    <!--            <div class="product-bottom">-->
 
-<!--                <div class="box-btn">-->
-<!--                    <div class="btn-add">-->
-<!--                        <i class="fa fa-cart-plus" aria-hidden="true"></i>-->
-<!--                        Thêm vào giỏ hàng-->
-<!--                    </div>-->
-<!--                    <div class="btn-order">-->
-<!--                        Mua ngay-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+    <!--                <div class="box-btn">-->
+    <!--                    <div class="btn-add">-->
+    <!--                        <i class="fa fa-cart-plus" aria-hidden="true"></i>-->
+    <!--                        Thêm vào giỏ hàng-->
+    <!--                    </div>-->
+    <!--                    <div class="btn-order">-->
+    <!--                        Mua ngay-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
 </article>
 
 </body>
