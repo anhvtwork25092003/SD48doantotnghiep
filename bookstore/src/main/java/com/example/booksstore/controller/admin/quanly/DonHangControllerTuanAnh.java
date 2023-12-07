@@ -235,6 +235,12 @@ public class DonHangControllerTuanAnh {
         // Lấy đơn hàng từ idDonHang
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
+        KhachHang khachHangDangNhap = donHang.getKhachHang();
+
+
+// Kiểm tra loại khách hàng
+        String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
         if (nhanVien == null) {
             return "redirect:/login";
         }
@@ -244,18 +250,18 @@ public class DonHangControllerTuanAnh {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
             donHang.setTrangThai(2); // Đặt trạng thái thành 1 (đã duyệt)
             donHang.setNgayThanhToan(new Date()); // Cập nhật ngày tạo mới
+            if("1".equals(loaiKhachHang)){
+                for(DonHangChiTiet dhct : donHang.getChiTietDonHang()){
+                    iKiemTraDanhGiaService.save(donHang.getKhachHang(),dhct.getSach());
+                }
+            }
             iDonHangRepo.save(donHang);
 
             // In thông tin để kiểm tra
             System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
         }
 
-        ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
-        KhachHang khachHangDangNhap = donHang.getKhachHang();
 
-
-// Kiểm tra loại khách hàng
-        String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
         if ("0".equals(loaiKhachHang)) {
             // Loại khách hàng = 0, chỉ gửi email
             guiEmailDonHang(donHang, thongTinGiaoHang);
@@ -265,11 +271,7 @@ public class DonHangControllerTuanAnh {
             guiEmailDonHang(donHang, thongTinGiaoHang);
         }
 
-        if("1".equals(loaiKhachHang)){
-            for(DonHangChiTiet dhct : donHang.getChiTietDonHang()){
-                iKiemTraDanhGiaService.save(donHang.getKhachHang(),dhct.getSach());
-            }
-        }
+
 
         model.addAttribute("loggedInUser", nhanVien);
         // Chuyển hướng về trang đơn đã duyệt
