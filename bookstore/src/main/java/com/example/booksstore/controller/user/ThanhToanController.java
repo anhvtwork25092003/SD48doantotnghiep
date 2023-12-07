@@ -15,6 +15,7 @@ import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.IThongTinGiaoHangRepo;
 import com.example.booksstore.repository.PhuongThucThanhToanRepo;
+import com.example.booksstore.service.IDonHangService;
 import com.example.booksstore.service.IThongBaoService;
 import com.example.booksstore.service.ThongBaoKhachHangService;
 import jakarta.servlet.http.HttpSession;
@@ -34,6 +35,9 @@ import java.util.List;
 @RequestMapping("/thanh-toan")
 @Controller
 public class ThanhToanController {
+
+    @Autowired
+    IDonHangService iDonHangService;
 
     @Autowired
     ThongBaoKhachHangService thongBaoKhachHangService;
