@@ -1,14 +1,20 @@
 package com.example.booksstore.service.serviceimpl;
 
+import com.example.booksstore.dto.ThongKeKhachHangResponse;
 import com.example.booksstore.dto.TopSanPhamDTO;
 import com.example.booksstore.entities.DonHang;
+import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.IDonHangRepo;
+import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.service.ThongKeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +28,9 @@ public class ThongKeServiceimpl implements ThongKeService {
 
     @Autowired
     DonHangChiTietRepo donHangChiTietRepo;
+
+    @Autowired
+    IKhachHangRepository iKhachHangRepository;
 
     @Override
     public BigDecimal tinhDoanhThuTheoMocThoiGian(Date startTime, Date endTime) {
@@ -116,5 +125,34 @@ public class ThongKeServiceimpl implements ThongKeService {
             System.out.println(topSanPhamDTO.getTenSanPham());
         }
         return donHangChiTietRepo.findTop10Products();
+    }
+
+    @Override
+    public ThongKeKhachHangResponse tinhTongSoLuongKhachHangMoi() {
+        ThongKeKhachHangResponse thongKeKhachHangResponse = new ThongKeKhachHangResponse();
+        LocalDate currentDate = LocalDate.now();
+        LocalDateTime startOfWeek = currentDate.atStartOfDay();
+        LocalDateTime endOfWeek = startOfWeek.plusDays(6).with(LocalTime.MAX);
+        Date startOfWeekDate = java.sql.Timestamp.valueOf(startOfWeek);
+        Date endOfWeekDate = java.sql.Timestamp.valueOf(endOfWeek);
+        List<KhachHang> findAllByNgayTaoTaiKhoanBetween
+                = iKhachHangRepository.findAllByNgayTaoTaiKhoanBetween(startOfWeekDate, endOfWeekDate);
+        if (findAllByNgayTaoTaiKhoanBetween == null
+                || findAllByNgayTaoTaiKhoanBetween.size() == 0
+                || findAllByNgayTaoTaiKhoanBetween.isEmpty()) {
+            thongKeKhachHangResponse.setTongKhachHang("Chưa có khách hàng mới trong tuần vừa qua!");
+        } else {
+            thongKeKhachHangResponse.setTongKhachHang(
+                    "Có " + findAllByNgayTaoTaiKhoanBetween.size() + " khách hàng trong tuần vừa qua!");
+            long countOfType0 = findAllByNgayTaoTaiKhoanBetween.stream()
+                    .filter(khachHang -> khachHang.getLoaiKhachHang().equals("0"))
+                    .count();
+            long countOfType1 = findAllByNgayTaoTaiKhoanBetween.stream()
+                    .filter(khachHang -> khachHang.getLoaiKhachHang().equals("1"))
+                    .count();
+            thongKeKhachHangResponse.setKhachVangLai(String.valueOf(countOfType0));
+            thongKeKhachHangResponse.setKhachTaoTaiKhoan(String.valueOf(countOfType1));
+        }
+        return thongKeKhachHangResponse;
     }
 }

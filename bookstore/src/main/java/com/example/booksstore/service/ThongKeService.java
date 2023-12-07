@@ -1,5 +1,6 @@
 package com.example.booksstore.service;
 
+import com.example.booksstore.dto.ThongKeKhachHangResponse;
 import com.example.booksstore.dto.TopSanPhamDTO;
 import com.example.booksstore.entities.DonHang;
 
@@ -13,8 +14,12 @@ public interface ThongKeService {
     BigDecimal getDoanhThuNgayHienTai();
 
     BigDecimal getDoanhThuNgayVuaQua();
+
     List<DonHang> getDonHangTrongThangHienTai();
 
     List<TopSanPhamDTO> getTopSanPhamBanChayNhat();
+
+    ThongKeKhachHangResponse tinhTongSoLuongKhachHangMoi();
+
 
 }
