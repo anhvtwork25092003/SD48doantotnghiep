@@ -87,6 +87,10 @@ public class ThanhToanController {
             // lấy giỏ hàng và list giỏ hàng chi tiết từ sesion
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
             session.setAttribute("danhSachSanPhamDeThanhToan", gioHangChiTietListDaChon);
+            BigDecimal tinhTongTienDonHangDaTinhVanChuyen = iDonHangService.tinhTongTienDonHangDaTinhVanChuyen(gioHangChiTietListDaChon);
+            model.addAttribute("tinhTongTienDonHangDaTinhVanChuyen", tinhTongTienDonHangDaTinhVanChuyen);
+            BigDecimal tinhTongTienDonHangChuaTinhVanChuyen = iDonHangService.tinhTongTienDonHangChuaTinhVanChuyen(gioHangChiTietListDaChon);
+            model.addAttribute("tinhTongTienDonHangChuaTinhVanChuyen", tinhTongTienDonHangChuaTinhVanChuyen);
             return "/user/ThanhToanChuaDangNhap";
         } else {
             List<GioHangChiTiet> gioHangChiTietListDaChon = new ArrayList<>();
@@ -98,6 +102,10 @@ public class ThanhToanController {
             model.addAttribute("khachHangDangNhap", khachHangHienThi);
             model.addAttribute("danhSachSanPhamTrongGioHang", gioHangChiTietListDaChon);
             session.setAttribute("danhSachSanPhamDeThanhToan", gioHangChiTietListDaChon);
+            BigDecimal tinhTongTienDonHangDaTinhVanChuyen = iDonHangService.tinhTongTienDonHangDaTinhVanChuyen(gioHangChiTietListDaChon);
+            model.addAttribute("tinhTongTienDonHangDaTinhVanChuyen", tinhTongTienDonHangDaTinhVanChuyen);
+            BigDecimal tinhTongTienDonHangChuaTinhVanChuyen = iDonHangService.tinhTongTienDonHangChuaTinhVanChuyen(gioHangChiTietListDaChon);
+            model.addAttribute("tinhTongTienDonHangChuaTinhVanChuyen", tinhTongTienDonHangChuaTinhVanChuyen);
             return "/user/ThanhToanDaDangNhap";
         }
 
