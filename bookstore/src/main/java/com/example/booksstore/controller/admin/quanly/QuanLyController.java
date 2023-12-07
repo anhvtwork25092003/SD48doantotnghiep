@@ -1,5 +1,6 @@
 package com.example.booksstore.controller.admin.quanly;
 
+import com.example.booksstore.dto.ThongKeKhachHangResponse;
 import com.example.booksstore.entities.NhanVien;
 import com.example.booksstore.service.ThongKeService;
 import jakarta.servlet.http.HttpSession;
@@ -31,15 +32,19 @@ public class QuanLyController {
             BigDecimal doanhThuNgayHienTai = thongKeService.getDoanhThuNgayHienTai();
             BigDecimal doanhThuNgayVuaQua = thongKeService.getDoanhThuNgayVuaQua();
 
+            ThongKeKhachHangResponse thongKeKhachHangResponse = this.thongKeService.tinhTongSoLuongKhachHangMoi();
+
             String formattedDoanhThuNgayHienTai = formatCurrency(doanhThuNgayHienTai);
             String formattedDoanhThuNgayVuaQua = formatCurrency(doanhThuNgayVuaQua);
 
             model.addAttribute("doanhThuNgayHienTai", formattedDoanhThuNgayHienTai);
+            model.addAttribute("thongkekhachhang", thongKeKhachHangResponse);
             model.addAttribute("doanhThuNgayVuaQua", formattedDoanhThuNgayVuaQua);
             model.addAttribute("loggedInUser", nhanVien);
             return "/admin/quanly/TongQuanQuanLy";
         }
     }
+
     private String formatCurrency(BigDecimal amount) {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
         return currencyFormatter.format(amount);

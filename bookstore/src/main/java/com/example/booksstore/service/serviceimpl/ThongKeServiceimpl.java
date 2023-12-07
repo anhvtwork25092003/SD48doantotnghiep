@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -131,16 +133,23 @@ public class ThongKeServiceimpl implements ThongKeService {
     public ThongKeKhachHangResponse tinhTongSoLuongKhachHangMoi() {
         ThongKeKhachHangResponse thongKeKhachHangResponse = new ThongKeKhachHangResponse();
         LocalDate currentDate = LocalDate.now();
-        LocalDateTime startOfWeek = currentDate.atStartOfDay();
-        LocalDateTime endOfWeek = startOfWeek.plusDays(6).with(LocalTime.MAX);
-        Date startOfWeekDate = java.sql.Timestamp.valueOf(startOfWeek);
-        Date endOfWeekDate = java.sql.Timestamp.valueOf(endOfWeek);
+
+        // Tìm ngày đầu tiên của tuần
+        LocalDate startOfWeek = currentDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+
+        LocalDateTime startOfWeekDateTime = startOfWeek.atStartOfDay();
+        LocalDateTime endOfWeekDateTime = startOfWeek.plusDays(6).atTime(LocalTime.MAX);
+
+        Date startOfWeekDate = java.sql.Timestamp.valueOf(startOfWeekDateTime);
+        Date endOfWeekDate = java.sql.Timestamp.valueOf(endOfWeekDateTime);
         List<KhachHang> findAllByNgayTaoTaiKhoanBetween
                 = iKhachHangRepository.findAllByNgayTaoTaiKhoanBetween(startOfWeekDate, endOfWeekDate);
         if (findAllByNgayTaoTaiKhoanBetween == null
                 || findAllByNgayTaoTaiKhoanBetween.size() == 0
                 || findAllByNgayTaoTaiKhoanBetween.isEmpty()) {
             thongKeKhachHangResponse.setTongKhachHang("Chưa có khách hàng mới trong tuần vừa qua!");
+            thongKeKhachHangResponse.setKhachVangLai("Chưa có khách hàng mới trong tuần vừa qua!");
+            thongKeKhachHangResponse.setKhachTaoTaiKhoan("Chưa có khách hàng mới trong tuần vừa qua!");
         } else {
             thongKeKhachHangResponse.setTongKhachHang(
                     "Có " + findAllByNgayTaoTaiKhoanBetween.size() + " khách hàng trong tuần vừa qua!");
@@ -150,8 +159,8 @@ public class ThongKeServiceimpl implements ThongKeService {
             long countOfType1 = findAllByNgayTaoTaiKhoanBetween.stream()
                     .filter(khachHang -> khachHang.getLoaiKhachHang().equals("1"))
                     .count();
-            thongKeKhachHangResponse.setKhachVangLai(String.valueOf(countOfType0));
-            thongKeKhachHangResponse.setKhachTaoTaiKhoan(String.valueOf(countOfType1));
+            thongKeKhachHangResponse.setKhachVangLai("Có " + countOfType0 + " khách vãng lai");
+            thongKeKhachHangResponse.setKhachTaoTaiKhoan("Có " + countOfType1 + " khách hàng mới tạo tài khoản");
         }
         return thongKeKhachHangResponse;
     }

@@ -20,6 +20,11 @@
 <body>
 <article layout:fragment="noiDung">
     <div class="container">
+        <h1>Thống Kê lượng khách hàng</h1>
+        <p th:text="${thongkekhachhang.tongKhachHang}"></p>
+        <p th:text="${thongkekhachhang.khachVangLai}"></p>
+        <p th:text="${thongkekhachhang.khachTaoTaiKhoan}"></p>
+
         <h1>Thống Kê Doanh Thu</h1>
         <p th:text="'Doanh thu ngày hôm nay: ' + ${doanhThuNgayHienTai}"></p>
         <p th:text="'Doanh thu ngày hôm qua: ' + ${doanhThuNgayVuaQua}"></p>
