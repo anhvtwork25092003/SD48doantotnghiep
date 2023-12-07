@@ -2,6 +2,7 @@ package com.example.booksstore.service.serviceimpl;
 
 import com.example.booksstore.dto.TopSanPhamDTO;
 import com.example.booksstore.entities.DonHang;
+import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.service.ThongKeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class ThongKeServiceimpl implements ThongKeService {
 
     @Autowired
     IDonHangRepo iDonHangRepo;
+
+    @Autowired
+    DonHangChiTietRepo donHangChiTietRepo;
 
     @Override
     public BigDecimal tinhDoanhThuTheoMocThoiGian(Date startTime, Date endTime) {
@@ -106,6 +110,11 @@ public class ThongKeServiceimpl implements ThongKeService {
 
     @Override
     public List<TopSanPhamDTO> getTopSanPhamBanChayNhat() {
-        return iDonHangRepo.findTopSanPhamBanChayNhat();
+        List<TopSanPhamDTO> topSanPhamDTOS = donHangChiTietRepo.findTop10Products();
+
+        for (TopSanPhamDTO topSanPhamDTO : topSanPhamDTOS) {
+            System.out.println(topSanPhamDTO.getTenSanPham());
+        }
+        return donHangChiTietRepo.findTop10Products();
     }
 }

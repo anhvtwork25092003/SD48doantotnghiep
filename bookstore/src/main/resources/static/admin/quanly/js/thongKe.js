@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             var soLuongBanArray = data.map(function (item) {
-                return item.soLuongBan;
+                return item.soLuong;
             });
 
             var topSanPhamChart = new Chart(ctx, {
