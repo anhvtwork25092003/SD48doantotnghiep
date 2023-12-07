@@ -1,5 +1,6 @@
 package com.example.booksstore.repository;
 
+import com.example.booksstore.dto.TopSanPhamDTO;
 import com.example.booksstore.entities.DonHang;
 import com.example.booksstore.entities.KhachHang;
 import org.springframework.data.domain.Page;
@@ -24,5 +25,11 @@ public interface IDonHangRepo extends JpaRepository<DonHang, Integer> {
     List<DonHang> findByNgayThanhToanBetween(Date startTime, Date endTime);
 
     List<DonHang> findByNgayThanhToan(Date ngayThanhToan);
+
+    @Query("SELECT new com.example.booksstore.dto.TopSanPhamDTO(dhct.sach.tenSach, SUM(dhct.soLuong)) " +
+            "FROM DonHangChiTiet dhct " +
+            "GROUP BY dhct.sach.tenSach " +
+            "ORDER BY SUM(dhct.soLuong) DESC")
+    List<TopSanPhamDTO> findTopSanPhamBanChayNhat();
 
 }

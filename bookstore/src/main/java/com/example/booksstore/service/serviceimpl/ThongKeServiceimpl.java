@@ -1,5 +1,6 @@
 package com.example.booksstore.service.serviceimpl;
 
+import com.example.booksstore.dto.TopSanPhamDTO;
 import com.example.booksstore.entities.DonHang;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.service.ThongKeService;
@@ -101,5 +102,10 @@ public class ThongKeServiceimpl implements ThongKeService {
         Date endOfMonth = calendar.getTime();
 
         return iDonHangRepo.findByNgayThanhToanBetween(startOfMonth, endOfMonth);
+    }
+
+    @Override
+    public List<TopSanPhamDTO> getTopSanPhamBanChayNhat() {
+        return iDonHangRepo.findTopSanPhamBanChayNhat();
     }
 }

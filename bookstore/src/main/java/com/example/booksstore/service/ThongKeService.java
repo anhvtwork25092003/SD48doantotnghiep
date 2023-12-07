@@ -1,5 +1,6 @@
 package com.example.booksstore.service;
 
+import com.example.booksstore.dto.TopSanPhamDTO;
 import com.example.booksstore.entities.DonHang;
 
 import java.math.BigDecimal;
@@ -13,4 +14,7 @@ public interface ThongKeService {
 
     BigDecimal getDoanhThuNgayVuaQua();
     List<DonHang> getDonHangTrongThangHienTai();
+
+    List<TopSanPhamDTO> getTopSanPhamBanChayNhat();
+
 }

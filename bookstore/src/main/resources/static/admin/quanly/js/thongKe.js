@@ -29,3 +29,43 @@ fetch('/api/doanh-thu/thang-hien-tai')
             }
         });
     });
+// chartScript.js
+
+document.addEventListener("DOMContentLoaded", function () {
+    var ctx = document.getElementById('topSanPhamChart').getContext('2d');
+
+    fetch('/api/doanh-thu/ban-chay-nhat')
+        .then(response => response.json())
+        .then(data => {
+            var tenSanPhamArray = data.map(function (item) {
+                return item.tenSanPham;
+            });
+
+            var soLuongBanArray = data.map(function (item) {
+                return item.soLuongBan;
+            });
+
+            var topSanPhamChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: tenSanPhamArray,
+                    datasets: [{
+                        label: 'Số Lượng Bán',
+                        data: soLuongBanArray,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+});
+
