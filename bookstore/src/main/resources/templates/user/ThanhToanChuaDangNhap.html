@@ -170,43 +170,23 @@
                             <div class="col-md-6">
                                 <table class="table table-bordered">
                                     <tbody>
-                                    <tr th:each="dssp: ${danhSachSanPhamTrongGioHang}">
-                                        <td th:if="${dssp.sach.giaBan != null}">
-                                            <!-- Tính giá chiết khấu -->
-                                            <span th:if="${dssp.sach.layGiaNeuCoKhuyenMai() == null}" class="text-muted"
-                                                  th:text="${'Giá cũ: ' + dssp.sach.giaBanVnd}"></span>
-                                            <span th:if="${dssp.sach.layGiaNeuCoKhuyenMai() != null}">
-                                        <del class="text-muted" th:text="${'Giá cũ: ' + dssp.sach.giaBanVnd}" hidden></del>
-                                        <br>
-                                        <span class="text-success"
-                                              th:text="${'Giá mới: ' + dssp.sach.layGiaNeuCoKhuyenMai()}" hidden></span>
-                                        </span>
-
+                                    <tr>
                                             <!-- Tính tổng số tiền cho mỗi cuốn sách -->
-                                            <label>Thành tiền:
-                                                <p class="total" th:if="${dssp.sach.layGiaNeuCoKhuyenMai() != null}"
-                                                   th:text="${thanhTien + (dssp.sach.layGiaNeuCoKhuyenMai() * dssp.soLuong)}"></p>
-                                            </label>
-                                            <br>
-                                            <!-- Hiển thị phí vận chuyển từng cuốn -->
-                                            <label>Phí vận chuyển:
-                                                <p class="total">50.000</p>
-                                            </label>
-                                            <br>
-
-                                            <!-- Tính tổng số tiền cho tất cả các sách đã chọn -->
-                                            <label>Tổng số tiền:
-                                                <p class="total" th:if="${dssp.sach.layGiaNeuCoKhuyenMai() != null}"
-                                                   th:text="${thanhTien + (dssp.sach.layGiaNeuCoKhuyenMai() * dssp.soLuong + 50000)}"></p>
-                                                </p>
-                                            </label>
-
-                                        </td>
+                                        <td>Thành tiền:</td>
+                                        <td class="total" th:text="${tinhTongTienDonHangChuaTinhVanChuyen}"></td>
+                                    </tr>
+                                    <!-- Display Phí vận chuyển -->
+                                    <tr>
+                                        <td>Phí vận chuyển:</td>
+                                        <td class="total">50.000 ₫</td>
+                                    </tr>
+                                    <!-- Display Tổng số tiền -->
+                                    <tr>
+                                        <td>Tổng số tiền:</td>
+                                        <td class="total" th:text="${tinhTongTienDonHangDaTinhVanChuyen}"></td>
                                     </tr>
                                     </tbody>
-
                                 </table>
-
                                 <button type="submit" class="btn btn-danger btn-lg btn-block"
                                         onclick="return confirm('Bạn có muốn xác nhận thanh toán không ?')">Thanh
                                     toán
