@@ -65,13 +65,18 @@
                     </div>
                 </a>
                 <h3 th:text="${sach.tenSach}"></h3>
-                <div class="price">
-                    <h4 th:text="${sach.giaBan.subtract(sach.giaBan.multiply(new java.math.BigDecimal(motkhuyenmaidangapdung.soPhanTramGiamGia).divide(new java.math.BigDecimal(100)))) + 'đ'}"></h4>
+                <div class="sale" th:if="${sach.layGiaNeuCoKhuyenMai() == null}">
+                    <h5 th:text="${sach.giaBanVnd}"></h5>
                 </div>
-                <div class="sale">
-                    <h5 th:text="${sach.giaBan} + 'đ'"></h5>
+                <div th:if="${sach.layGiaNeuCoKhuyenMai() != null}">
+                    <del class="text-muted" th:text="${sach.giaBanVnd}"></del>
+                    <h4 class="price" th:text="${sach.layGiaNeuCoKhuyenMai()}"></h4>
                 </div>
-                <div class="discount" th:text="${motkhuyenmaidangapdung.soPhanTramGiamGia} +'%'"></div>
+                <div  th:if="${sach.layPhanTramGiamNeuCoKhuyenMai() == null}">
+                </div>
+                <div class="discount" th:if="${sach.layPhanTramGiamNeuCoKhuyenMai() != null}"
+                     th:text="${sach.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
+                </div>
 
             </div>
             <!-- Các sản phẩm khác -->
@@ -110,18 +115,17 @@
                     </div>
                 </a>
                 <h3 th:text="${sm.tenSach}"></h3>
-                <div th:each="ctkm : ${sm.khuyenMais}">
-                    <div th:if="${ctkm.trangThai == 1}">
-                        <div class="price">
-                            <h4 th:text="${sm.giaBan.subtract(sm.giaBan.multiply(new java.math.BigDecimal(ctkm.soPhanTramGiamGia).divide(new java.math.BigDecimal(100)))) + 'đ'}"></h4>
-                        </div>
-                        <div class="sale">
-                            <h5 th:text="${sm.giaBan}"></h5>
-                        </div>
-                        <div class="discount"
-                             th:text="${ctkm.soPhanTramGiamGia + '%'}">
-                        </div>
-                    </div>
+                <div class="text-muted" th:if="${sm.layGiaNeuCoKhuyenMai() == null}">
+                    <h5 th:text="${sm.giaBanVnd}"></h5>
+                </div>
+                <div th:if="${sm.layGiaNeuCoKhuyenMai() != null}">
+                    <del class="text-muted" th:text="${sm.giaBanVnd}"></del>
+                    <h4 class="price" th:text="${sm.layGiaNeuCoKhuyenMai()}"></h4>
+                </div>
+                <div th:if="${sm.layPhanTramGiamNeuCoKhuyenMai() == null}">
+                </div>
+                <div class="discount" th:if="${sm.layPhanTramGiamNeuCoKhuyenMai() != null}"
+                     th:text="${sm.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
                 </div>
             </div>
 

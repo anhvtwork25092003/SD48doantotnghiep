@@ -45,9 +45,12 @@
                         <span class="price-sale" th:if="${listSach.layGiaNeuCoKhuyenMai() != null}"
                               th:text="${listSach.giaBanVnd }"></span>
                         <span class="price-origin" th:text="${listSach.layGiaNeuCoKhuyenMai()}"></span>
-                        <!--                        <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
-                        <!--                            <span class="per-sale btn btn-warning" th:text="${sm.khuyenMais[0].soPhanTramGiamGia + '%'}"></span>-->
-                        <!--                        </div>-->
+                        <div th:if="${listSach.layPhanTramGiamNeuCoKhuyenMai() == null}">
+                            <span class="per-sale btn btn-warning" ></span>
+                        </div>
+                        <div th:if="${listSach.layPhanTramGiamNeuCoKhuyenMai() != null}">
+                            <span class="per-sale btn btn-warning" th:text="${listSach.layPhanTramGiamNeuCoKhuyenMai() + '%'}"></span>
+                        </div>
                     </div>
                     <p class="txt-cate">Số lượng tồn kho:
                         <span th:text="${listSach.soLuongTonKho}"></span>
@@ -109,7 +112,7 @@
                 </div>
 
                 <textarea id="binh-luan-nhap" name="binhLuan" placeholder="Nhập đánh giá của bạn"></textarea>
-                <button type="submit">Gửi Đánh Giá</button>
+                <button class="btn btn-success" type="submit">Gửi Đánh Giá</button>
             </form>
             <div id="danh-sach-binh-luan" th:each="dg, iterStat : ${listdg}">
                 <span th:text="${dg.idDanhGia}+' '+${dg.khachHang.hoVaTen}" style="font-size: 13px"></span><br>

@@ -46,18 +46,17 @@
                         </div>
                     </a>
                     <h3 th:text="${sachKhuyenMai2.tenSach}"></h3>
-                    <div th:if="${sachKhuyenMai2.khuyenMais != null}">
-                        <div th:each="ctkm : ${sachKhuyenMai2.khuyenMais}">
-                            <div th:if="${ctkm.trangThai == 1}">
-                                <div class="price">
-                                    <h4 th:text="${sachKhuyenMai2.giaBan.subtract(sachKhuyenMai2.giaBan.multiply(new java.math.BigDecimal(ctkm.soPhanTramGiamGia).divide(new java.math.BigDecimal(100)))) + 'đ'}"></h4>
-                                </div>
-                                <div class="sale">
-                                    <h5 th:text="${sachKhuyenMai2.giaBan} + 'đ'"></h5>
-                                </div>
-                                <div class="discount" th:text="${ctkm.soPhanTramGiamGia} +'%'"></div>
-                            </div>
-                        </div>
+                    <div class="sale" th:if="${sachKhuyenMai2.layGiaNeuCoKhuyenMai() == null}">
+                        <h5 th:text="${sachKhuyenMai2.giaBanVnd}"></h5>
+                    </div>
+                    <div th:if="${sachKhuyenMai2.layGiaNeuCoKhuyenMai() != null}">
+                        <del class="text-muted" th:text="${sachKhuyenMai2.giaBanVnd}"></del>
+                        <h4 class="price" th:text="${sachKhuyenMai2.layGiaNeuCoKhuyenMai()}"></h4>
+                    </div>
+                    <div  th:if="${sachKhuyenMai2.layPhanTramGiamNeuCoKhuyenMai() == null}">
+                    </div>
+                    <div class="discount" th:if="${sachKhuyenMai2.layPhanTramGiamNeuCoKhuyenMai() != null}"
+                         th:text="${sachKhuyenMai2.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
                     </div>
                 </div>
                 <div class="button">

@@ -101,51 +101,8 @@ header img {
     font-size: 100%;
 }
 
-.list-category {
-    background-color: white;
-    margin-top: 12px;
-    border-radius: 3px;
-    padding: 16px;
-}
-
-.pagination {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.page-numbers {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    margin-right: 10px;
-}
-
-.page-numbers li {
-    margin: 0 5px;
-}
-
-.page-numbers a {
-    text-decoration: none;
-    color: #333;
-    background-color: #eee;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-.prev-btn,
-.next-btn {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.prev-btn:hover,
-.next-btn:hover {
-    background-color: #555;
+.price {
+    color: red;
 }
 
 .discount {
