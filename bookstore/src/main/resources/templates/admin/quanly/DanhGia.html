@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Đơn hàng chờ xác nhận</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/admin/quanly/css/DonHangCho.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<article layout:fragment="noiDung">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <form th:action="@{/danh-gia/tim-kiem-id}" method="post">
+                    <div class="boxsearch">
+                        <h6 style="text-align: center;">Tìm theo Id đánh giá </h6>
+                        <div class="search">
+                            <input class="form-control" name="idDanhGia" type="search" placeholder="Search"
+                                   th:value="${param.idDanhGia}">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm
+                    </button>
+                </form>
+            </div>
+            <div class="col-10">
+                <div class="box">
+                    <table class="table" style=" border: 0px solid blue;">
+                        <thead class="table-dark">
+
+                        <select class="col-2 form-control" onchange="changePage(this)">
+                            <option value="">Chọn</option>
+                            <option value="/danh-gia/chua-duyet">Đánh Giá Chưa Duyệt</option>
+                            <option value="/danh-gia/da-duyet">Đánh Giá Đã Duyệt</option>
+                            <option value="/danh-gia/khong-duyet">Đánh Giá Không Duyệt</option>
+                        </select>
+                        <script>
+                            function changePage(select) {
+                                var selectedOption = select.options[select.selectedIndex];
+                                var url = selectedOption.value;
+                                window.location.href = url;
+                            }
+                        </script>
+                        <th:block th:if="${listdg != null}">
+                            <h4 style="text-align: left;">Danh Sách Đơn Hàng Đang Chờ</h4>
+                            <tr revs>
+                                <th>ID Đánh Giá</th>
+                                <th>Tên Sách</th>
+                                <th>Tên Khách Hàng</th>
+                                <th>Mức Đánh Giá</th>
+                                <th>Bình Luận</th>
+                                <th>Ngày Tạo</th>
+                                <th>Trạng Thái</th>
+                            </tr>
+
+                        </thead>
+                        <tbody th:each="dg, iterStat : ${listdg.content}">
+                        <tr>
+                            <td th:text="${dg.idDanhGia}"></td>
+                            <td th:text="${dg.sach.tenSach}"></td>
+                            <td th:text="${dg.khachHang.hoVaTen}"></td>
+                            <td th:text="${dg.mucDanhGia}"></td>
+                            <td th:text="${dg.binhLuan}"></td>
+                            <td th:text="${dg.ngayTao}"></td>
+                            <td th:text="${dg.trangThai}"></td>
+                            <td>
+
+                                <a th:href="@{/danh-gia/cap-nhat(idDanhGia=${dg.idDanhGia})}"
+                                   onclick="return confirm('Bạn có chắc muốn xác nhận đánh giá này không?')">
+                                    <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
+                                </a>
+                                <a th:href="@{/danh-gia/xoa(idDanhGia=${dg.idDanhGia})}"
+                                   onclick="return confirm('Bạn có chắc muốn xác nhận đánh giá này không?')">
+                                    <i class="fa-solid fa-circle-xmark" style="color: #006ec2;"></i>
+                                </a>
+
+                                <a data-toggle="modal" th:attr="data-target='#modalDanhGia-' + ${dg.idDanhGia}">
+                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                                </a>
+
+                                <div class="modal fade" th:id="'modalDanhGia-' + ${dg.idDanhGia}" tabindex="-1"
+                                     role="dialog"
+                                     aria-labelledby="basicModal" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myModalLabel">Chi tiết đơn hàng chờ</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="box-address">
+                                                    <div class="line-item">
+                                                        <label>ID Đánh Giá</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dg.idDanhGia}" disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Tên Sách</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dg.sach.tenSach}" disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Tên Khách Hàng</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dg.khachHang.hoVaTen}" disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Mức Đánh Giá</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dg.mucDanhGia}" disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Bình Luận</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dg.binhLuan}" disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Ngày Tạo</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dg.ngayTao}"
+                                                               disabled>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Trạng Thái</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dg.trangThai}"
+                                                               disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--            table của đơn hàng chờ-->
+
+                    <th:block th:if="${listdg.isEmpty()}">
+                        <h2>Không có dữ liệu nào cả!!!</h2>
+                    </th:block>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <h6 style="color: red;"><b><i>Đang Có <span th:text="${listdg.totalElements}"></span>
+                                Đánh Giá</i> </b></h6>
+                        </div>
+
+                        <!--                        phân trang-->
+                        <div class="col-6">
+                            <div class="phantrang">
+                                    <span th:if="${listdg.number + 1 > 1}">
+                                        <a class="btn btn-primary"
+                                           th:href="@{'/quan-ly/don-hang/cho-xac-nhan?page=' + ${listdg.number}}">Previous</a>
+                                    </span>
+                                <span class="btn btn-danger"
+                                      th:text="${listdg.number} + 1 + '/' + ${listdg.totalPages}"></span>
+                                <span th:if="${listdg.number + 1 < listdg.totalPages}">
+                                       <a class="btn btn-primary"
+                                          th:href="@{'/quan-ly/don-hang/cho-xac-nhan?page=' + ${listdg.number + 2}}">Next</a>
+                                    </span>
+                            </div>
+                        </div>
+                        <!--phân trang-->
+
+                    </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+<!--    <script src="/admin/quanly/js/DonHangCho.js"></script>-->
+</article>
+</body>
+</html>

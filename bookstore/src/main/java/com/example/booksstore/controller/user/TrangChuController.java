@@ -1,7 +1,9 @@
 package com.example.booksstore.controller.user;
 
+import com.example.booksstore.entities.DanhGia;
 import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.Sach;
+import com.example.booksstore.repository.IDanhGiarepository;
 import com.example.booksstore.service.IKhuyenMaiService;
 import com.example.booksstore.service.ISachService;
 import com.example.booksstore.service.ITheLoaiServiec;
@@ -22,7 +24,8 @@ public class TrangChuController {
     ITheLoaiServiec iTheLoaiServiec;
     @Autowired
     TacGiaService tacGiaService;
-
+    @Autowired
+    IDanhGiarepository iDanhGiarepository;
     @Autowired
     IKhuyenMaiService iKhuyenMaiService;
 
@@ -45,6 +48,12 @@ public class TrangChuController {
     public String detail(@RequestParam("idSach") Integer idSach, Model model) {
         Sach sach = iSachService.dateil(idSach);
         model.addAttribute("listSach", sach);
+        int trangthai=1;
+        List<DanhGia> danhGia = this.iDanhGiarepository.findAllBySach_IdSachAndTrangThai(idSach,trangthai);
+        for(DanhGia danhGia1:danhGia){
+            System.out.println(danhGia1.getIdDanhGia());
+        }
+        model.addAttribute("listdg",danhGia);
         return "user/ChiTietSanPham";
     }
 

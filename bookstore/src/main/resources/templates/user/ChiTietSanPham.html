@@ -20,52 +20,52 @@
 <body>
 <article layout:fragment="noiDung">
     <form th:action="@{/gio-hang/them-san-pham-vao-gio}" method="post">
-        <div class="type-product" th:each="sm : ${listSach}">
+        <div class="type-product">
 
             <div class="product-main">
-                <input type="hidden" name="idSach" id="idSach" th:value="${sm.idSach}"/>
+                <input type="hidden" name="idSach" id="idSach" th:value="${listSach.idSach}"/>
                 <div class="box-img">
-                    <img th:src="${sm.linkAnh1}" width="460px" height="460px" alt="product"/>
-                    <img th:src="${sm.linkAnh2}" width="88px" height="88px" alt="item"/>
-                    <img th:src="${sm.linkAnh3}" width="88px" height="88px" alt="item"/>
-                    <img th:src="${sm.linkAnh4}" width="88px" height="88px" alt="item"/>
-                    <img th:src="${sm.linkAnh5}" width="88px" height="88px" alt="item"/>
+                    <img th:src="${listSach.linkAnh1}" width="460px" height="460px" alt="product"/>
+                    <img th:src="${listSach.linkAnh2}" width="88px" height="88px" alt="item"/>
+                    <img th:src="${listSach.linkAnh3}" width="88px" height="88px" alt="item"/>
+                    <img th:src="${listSach.linkAnh4}" width="88px" height="88px" alt="item"/>
+                    <img th:src="${listSach.linkAnh5}" width="88px" height="88px" alt="item"/>
                 </div>
                 <div class="product-infor">
-                    <div class="txt-name" th:text="${sm.tenSach}"></div>
+                    <div class="txt-name" th:text="${listSach.tenSach}"></div>
                     <div class="btn-right">
                         <div class="btn-cust btn-love">
                             <i class="fa fa-heart" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div class="box-price">
-                            <span class="price-sale" th:if="${sm.layGiaNeuCoKhuyenMai() == null}"
-                                  th:text="${sm.giaBanVnd}">
+                            <span class="price-sale" th:if="${listSach.layGiaNeuCoKhuyenMai() == null}"
+                                  th:text="${listSach.giaBanVnd}">
                             </span>
-                        <span class="price-sale" th:if="${sm.layGiaNeuCoKhuyenMai() != null}"
-                              th:text="${sm.giaBanVnd }"></span>
-                        <span class="price-origin" th:text="${sm.layGiaNeuCoKhuyenMai()}"></span>
-<!--                        <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
-<!--                            <span class="per-sale btn btn-warning" th:text="${sm.khuyenMais[0].soPhanTramGiamGia + '%'}"></span>-->
-<!--                        </div>-->
+                        <span class="price-sale" th:if="${listSach.layGiaNeuCoKhuyenMai() != null}"
+                              th:text="${listSach.giaBanVnd }"></span>
+                        <span class="price-origin" th:text="${listSach.layGiaNeuCoKhuyenMai()}"></span>
+                        <!--                        <div th:if="${not #lists.isEmpty(sm.khuyenMais)}">-->
+                        <!--                            <span class="per-sale btn btn-warning" th:text="${sm.khuyenMais[0].soPhanTramGiamGia + '%'}"></span>-->
+                        <!--                        </div>-->
                     </div>
                     <p class="txt-cate">Số lượng tồn kho:
-                        <span th:text="${sm.soLuongTonKho}"></span>
+                        <span th:text="${listSach.soLuongTonKho}"></span>
                     </p>
-                    <div th:if="${not #lists.isEmpty(sm.theLoais)}">
+                    <div th:if="${not #lists.isEmpty(listSach.theLoais)}">
                         <p class="txt-color">
                             <span class="txt1">Thể Loại:</span>
-                            <span class="txt2" th:text="${sm.theLoais[0].tenTheLoai}"></span>
-                            <span th:each="otherGenre, iterStat : ${sm.theLoais}" th:if="${iterStat.index > 0}">
+                            <span class="txt2" th:text="${listSach.theLoais[0].tenTheLoai}"></span>
+                            <span th:each="otherGenre, iterStat : ${listSach.theLoais}" th:if="${iterStat.index > 0}">
                             <span th:text="${', ' + otherGenre.tenTheLoai}"></span>
                         </span>
                         </p>
                     </div>
-                    <div th:if="${not #lists.isEmpty(sm.tacgia)}">
+                    <div th:if="${not #lists.isEmpty(listSach.tacgia)}">
                         <p class="txt-color">
                             <span class="txt1">Tác Giả:</span>
-                            <span class="txt2" th:text="${sm.tacgia[0].hoVaTen}"></span>
-                            <span th:each="otherAuthor, iterStat : ${sm.tacgia}" th:if="${iterStat.index > 0}">
+                            <span class="txt2" th:text="${listSach.tacgia[0].hoVaTen}"></span>
+                            <span th:each="otherAuthor, iterStat : ${listSach.tacgia}" th:if="${iterStat.index > 0}">
                             <span th:text="${', ' + otherAuthor.hoVaTen}"></span>
                         </span>
                         </p>
@@ -111,9 +111,11 @@
                 <textarea id="binh-luan-nhap" name="binhLuan" placeholder="Nhập đánh giá của bạn"></textarea>
                 <button type="submit">Gửi Đánh Giá</button>
             </form>
-            <ul id="danh-sach-binh-luan" class="danh-sach-binh-luan">
-
-            </ul>
+            <div id="danh-sach-binh-luan" th:each="dg, iterStat : ${listdg}">
+                <span th:text="${dg.idDanhGia}+' '+${dg.khachHang.hoVaTen}" style="font-size: 13px"></span><br>
+                <span  th:utext="${'&#9733;'.repeat(dg.mucDanhGia)}" style="color: gold"></span><br>
+                <span th:text="${dg.binhLuan}"></span>
+            </div>
         </div>
     </div>
 </article>
