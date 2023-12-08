@@ -118,7 +118,7 @@
                                 <td th:text="${dh.ngayTao}"></td>
                                 <td th:text="${dh.thongTinGiaoHang.sdt}"></td>
                                 <div th:each="ctdh : ${dh.chiTietDonHang}">
-                                    <td th:text="${ctdh.thanhTien}"></td>
+                                    <td th:text="${ctdh.thanhTienVnd}"></td>
                                 </div>
                                 <td th:text="${dh.ghiChuKhachHangGui}"></td>
                                 <td>
@@ -188,11 +188,6 @@
                                                             <input class="form-control" value="Shipper"
                                                                    disabled>
                                                         </div>
-                                                        <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
-                                                            <label>Tổng Tiền</label>
-                                                            <input class="form-control" type="text"
-                                                                   th:value="${ctdh.thanhTien}" disabled>
-                                                        </div>
                                                         <div class="line-item">
                                                             <label>Ghi Chú:</label>
                                                             <textarea class="form-control" type="text"
@@ -243,7 +238,7 @@
                                                         </div>
                                                         <div class="line-item">
                                                             <label>Tiền vận chuyển:</label>
-                                                            <input value="50.000"
+                                                            <input value="50.000 ₫"
                                                                    class="form-control" type="text"
                                                                    disabled/>
                                                         </div>
@@ -256,7 +251,7 @@
                                                         </div>
                                                         <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
                                                             <label>Tổng tiền:</label>
-                                                            <input th:value="${ctdh.thanhTien}"
+                                                            <input th:value="${ctdh.thanhTienVnd}"
                                                                    class="form-control" type="text"
                                                                    disabled/>
                                                         </div>

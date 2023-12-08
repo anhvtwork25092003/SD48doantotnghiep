@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -53,5 +55,15 @@ public class DonHangChiTiet {
     @ManyToOne
     @JoinColumn(name = "idkhuyenmai")
     private KhuyenMai khuyenMai;
+
+
+    public String formatCurrency(BigDecimal amount) {
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        return currencyFormatter.format(amount);
+    }
+
+    public String thanhTienVnd() {
+        return formatCurrency(this.thanhTien);
+    }
 }
 

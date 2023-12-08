@@ -75,25 +75,25 @@
             </div>
             <div class="col-10">
                 <div class="box">
-                        <table class="table" style=" border: 0px solid blue;">
-                            <thead class="table-dark">
-                            <select class="col-2 form-control" onchange="changePage(this)">
-                                <option value="">Chọn</option>
-                                <option value="/quan-ly/don-hang/da-duyet">Đơn Hàng Đã Duyệt</option>
-                                <option value="/quan-ly/don-hang/dang-giao">Đơn Hàng Đang Giao</option>
-                                <option value="/quan-ly/don-hang/hoan-thanh">Đã Hoàn Thành</option>
-                                <option value="/quan-ly/don-hang/da-huy">Đã Hủy</option>
-                            </select>
-                            </select>
+                    <table class="table" style=" border: 0px solid blue;">
+                        <thead class="table-dark">
+                        <select class="col-2 form-control" onchange="changePage(this)">
+                            <option value="">Chọn</option>
+                            <option value="/quan-ly/don-hang/da-duyet">Đơn Hàng Đã Duyệt</option>
+                            <option value="/quan-ly/don-hang/dang-giao">Đơn Hàng Đang Giao</option>
+                            <option value="/quan-ly/don-hang/hoan-thanh">Đã Hoàn Thành</option>
+                            <option value="/quan-ly/don-hang/da-huy">Đã Hủy</option>
+                        </select>
+                        </select>
 
-                            <script>
-                                function changePage(select) {
-                                    var selectedOption = select.options[select.selectedIndex];
-                                    var url = selectedOption.value;
-                                    window.location.href = url;
-                                }
-                            </script>
-                            <th:block th:if="${not donHang.isEmpty()}">
+                        <script>
+                            function changePage(select) {
+                                var selectedOption = select.options[select.selectedIndex];
+                                var url = selectedOption.value;
+                                window.location.href = url;
+                            }
+                        </script>
+                        <th:block th:if="${not donHang.isEmpty()}">
                             <h4 style="text-align: left;">Danh Sách Đơn Hàng Đã Bị Hủy</h4>
                             <tr>
                                 <th class="col-1">Mã Đơn Hàng</th>
@@ -106,217 +106,216 @@
                                 <th>Lý Do Hủy</th>
                                 <th>Hành Động</th>
                             </tr>
-                            </thead>
-                            <tbody th:each="dh, iterStat : ${donHang.content}">
-                            <tr>
-                                <td th:text="${dh.maDonHang}"></td>
-                                <td th:text="${dh.thongTinGiaoHang.tenNguoiNhan}"></td>
-                                <td th:text="${dh.ngayTao}"></td>
-                                <td th:text="${dh.ngayHuy}"></td>
-                                <td th:text="${dh.thongTinGiaoHang.sdt}"></td>
-                                <div th:each="ctdh : ${dh.chiTietDonHang}">
-                                    <td th:text="${ctdh.thanhTien}"></td>
-                                </div>
-                                <td th:text="${dh.ghiChuKhachHangGui}"></td>
-                                <td th:text="${dh.ghiChuLyDoDonHang}"></td>
-                                <td>
-                                    <!--start đây là nút xác nhận  nhận đơn hàng-->
-                                    <a th:href="@{/quan-ly/xac-nhan-giao-lai(idDonHang=${dh.idDonHang})}"
-                                       onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
-                                        <i class="fa-solid fa-repeat"></i>
-                                    </a>
-                                    <!--end đây là nút xác  nhận đơn hàng-->
+                        </thead>
+                        <tbody th:each="dh, iterStat : ${donHang.content}">
+                        <tr>
+                            <td th:text="${dh.maDonHang}"></td>
+                            <td th:text="${dh.thongTinGiaoHang.tenNguoiNhan}"></td>
+                            <td th:text="${dh.ngayTao}"></td>
+                            <td th:text="${dh.ngayHuy}"></td>
+                            <td th:text="${dh.thongTinGiaoHang.sdt}"></td>
+                            <div th:each="ctdh : ${dh.chiTietDonHang}">
+                                <td th:text="${ctdh.thanhTienVnd}"></td>
+                            </div>
+                            <td th:text="${dh.ghiChuKhachHangGui}"></td>
+                            <td th:text="${dh.ghiChuLyDoDonHang}"></td>
+                            <td>
+                                <!--start đây là nút xác nhận  nhận đơn hàng-->
+                                <a th:href="@{/quan-ly/xac-nhan-giao-lai(idDonHang=${dh.idDonHang})}"
+                                   onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
+                                    <i class="fa-solid fa-repeat"></i>
+                                </a>
+                                <!--end đây là nút xác  nhận đơn hàng-->
 
-                                    <!--start đây là nút xem  nhận đơn hàng-->
-                                    <a data-toggle="modal" th:attr="data-target='#modalDonHang-' + ${dh.idDonHang}">
-                                        <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
-                                    </a>
-                                    <!--end  đây là nút xem  nhận đơn hàng-->
+                                <!--start đây là nút xem  nhận đơn hàng-->
+                                <a data-toggle="modal" th:attr="data-target='#modalDonHang-' + ${dh.idDonHang}">
+                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                                </a>
+                                <!--end  đây là nút xem  nhận đơn hàng-->
 
 
-                                    <!--  modal chi tiết đơn hàng -->
+                                <!--  modal chi tiết đơn hàng -->
 
-                                    <div class="modal fade" th:id="'modalDonHang-' + ${dh.idDonHang}" tabindex="-1"
-                                         role="dialog"
-                                         aria-labelledby="basicModal" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="myModalLabel">Chi tiết đơn hàng chờ</h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="box-address">
-                                                        <div class="line-item">
-                                                            <label>Mã Đơn Hàng</label>
-                                                            <input class="form-control" type="text"
-                                                                   th:value="${dh.maDonHang}" disabled/>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Tên Người Đặt</label>
-                                                            <input class="form-control" type="text"
-                                                                   th:value="${dh.thongTinGiaoHang.tenNguoiNhan}"
-                                                                   disabled/>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Email</label>
-                                                            <input class="form-control" type="text"
-                                                                   th:value="${dh.thongTinGiaoHang.emailGiaoHang}" disabled/>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Ngày Đặt</label>
-                                                            <input class="form-control" type="text"
-                                                                   th:value="${dh.ngayTao}"
-                                                                   disabled>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Ngày Hủy</label>
-                                                            <input class="form-control" type="text"
-                                                                   th:value="${dh.ngayHuy}"
-                                                                   disabled>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Số Điện Thoại</label>
-                                                            <input class="form-control" type="tel"
-                                                                   th:value="${dh.thongTinGiaoHang.sdt}" disabled>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Phương thức thanh toán</label>
-                                                            <input class="form-control" type="text"
-                                                                   th:value="${dh.phuongThucThanhToan.tenPhuongThucThanhToan}"
-                                                                   disabled>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Vận chuyển:</label>
-                                                            <input class="form-control" value="Shipper"
-                                                                   disabled>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Tổng Tiền</label>
-                                                            <input class="form-control" type="text"
-                                                                   th:value="${dh.thongTinGiaoHang.sdt}" disabled>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Ghi Chú:</label>
-                                                            <input class="form-control" type="text"
-                                                                      th:value="${dh.ghiChuKhachHangGui}"
-                                                                      disabled />
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Lý Do Hủy Của Khách:</label>
-                                                            <input class="form-control" type="text"
-                                                                      th:value="${dh.ghiChuLyDoDonHang}"
-                                                                      disabled />
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Địa Chỉ:</label>
-                                                            <input th:value="${dh.thongTinGiaoHang.diaChiCuThe}"
-                                                                   class="form-control" type="text"
-                                                                   disabled/>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Tỉnh/Thành phố:</label>
-                                                            <input id="tinhThanhPhoc" th:value="${dh.thongTinGiaoHang.thanhPho}"
-                                                                   class="form-control" type="text"
-                                                                   disabled/>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Quận/Huyện:</label>
-                                                            <input id="huyenQuanc" th:value="${dh.thongTinGiaoHang.quanHuyen}"
-                                                                   class="form-control" type="text"
-                                                                   disabled/>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Phường/Xã:</label>
-                                                            <input id="xaPhuongc" th:value="${dh.thongTinGiaoHang.phuongXa}"
-                                                                   class="form-control" type="text"
-                                                                   disabled/>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <table class="table">
-                                                                <thead>
-                                                                <tr>
-                                                                    <th>Mã Sản Phẩm</th>
-                                                                    <th>Tên Sản Phẩm</th>
-                                                                    <th>Số Lượng Mua</th>
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                <tr th:each="ctdh : ${dh.chiTietDonHang}">
-                                                                    <td th:text="${ctdh.sach.maSach}"></td>
-                                                                    <td th:text="${ctdh.sach.tenSach}"></td>
-                                                                    <td th:text="${ctdh.soLuong}"></td>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                        <div class="line-item">
-                                                            <label>Tiền vận chuyển:</label>
-                                                            <input value="50.000"
-                                                                   class="form-control" type="text"
-                                                                   disabled/>
-                                                        </div>
+                                <div class="modal fade" th:id="'modalDonHang-' + ${dh.idDonHang}" tabindex="-1"
+                                     role="dialog"
+                                     aria-labelledby="basicModal" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myModalLabel">Chi tiết đơn hàng chờ</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="box-address">
+                                                    <div class="line-item">
+                                                        <label>Mã Đơn Hàng</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dh.maDonHang}" disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Tên Người Đặt</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dh.thongTinGiaoHang.tenNguoiNhan}"
+                                                               disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Email</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dh.thongTinGiaoHang.emailGiaoHang}"
+                                                               disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Ngày Đặt</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dh.ngayTao}"
+                                                               disabled>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Ngày Hủy</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dh.ngayHuy}"
+                                                               disabled>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Số Điện Thoại</label>
+                                                        <input class="form-control" type="tel"
+                                                               th:value="${dh.thongTinGiaoHang.sdt}" disabled>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Phương thức thanh toán</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dh.phuongThucThanhToan.tenPhuongThucThanhToan}"
+                                                               disabled>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Vận chuyển:</label>
+                                                        <input class="form-control" value="Shipper"
+                                                               disabled>
+                                                    </div>
 
-                                                        <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
-                                                            <label>Phần trăm giảm:</label>
-                                                            <input th:value="${ctdh.phanTramGiam}"
-                                                                   class="form-control" type="text"
-                                                                   disabled/>
-                                                        </div>
-                                                        <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
-                                                            <label>Tổng tiền:</label>
-                                                            <input th:value="${ctdh.thanhTien}"
-                                                                   class="form-control" type="text"
-                                                                   disabled/>
-                                                        </div>
+                                                    <div class="line-item">
+                                                        <label>Ghi Chú:</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dh.ghiChuKhachHangGui}"
+                                                               disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Lý Do Hủy Của Khách:</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dh.ghiChuLyDoDonHang}"
+                                                               disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Địa Chỉ:</label>
+                                                        <input th:value="${dh.thongTinGiaoHang.diaChiCuThe}"
+                                                               class="form-control" type="text"
+                                                               disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Tỉnh/Thành phố:</label>
+                                                        <input id="tinhThanhPhoc"
+                                                               th:value="${dh.thongTinGiaoHang.thanhPho}"
+                                                               class="form-control" type="text"
+                                                               disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Quận/Huyện:</label>
+                                                        <input id="huyenQuanc"
+                                                               th:value="${dh.thongTinGiaoHang.quanHuyen}"
+                                                               class="form-control" type="text"
+                                                               disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Phường/Xã:</label>
+                                                        <input id="xaPhuongc" th:value="${dh.thongTinGiaoHang.phuongXa}"
+                                                               class="form-control" type="text"
+                                                               disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Mã Sản Phẩm</th>
+                                                                <th>Tên Sản Phẩm</th>
+                                                                <th>Số Lượng Mua</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="ctdh : ${dh.chiTietDonHang}">
+                                                                <td th:text="${ctdh.sach.maSach}"></td>
+                                                                <td th:text="${ctdh.sach.tenSach}"></td>
+                                                                <td th:text="${ctdh.soLuong}"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Tiền vận chuyển:</label>
+                                                        <input value="50.000 ₫"
+                                                               class="form-control" type="text"
+                                                               disabled/>
+                                                    </div>
 
-                                                        <div class="line-item" th:each="nv : ${loggedInUser}">
-                                                            <label>Người Duyệt</label>
-                                                            <input th:value="${nv.hoVaTen}"
-                                                                   class="form-control" type="text" disabled>
-                                                        </div>
+                                                    <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
+                                                        <label>Phần trăm giảm:</label>
+                                                        <input th:value="${ctdh.phanTramGiam}"
+                                                               class="form-control" type="text"
+                                                               disabled/>
+                                                    </div>
+                                                    <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
+                                                        <label>Tổng tiền:</label>
+                                                        <input th:value="${ctdh.thanhTienVnd}"
+                                                               class="form-control" type="text"
+                                                               disabled/>
+                                                    </div>
+
+                                                    <div class="line-item" th:each="nv : ${loggedInUser}">
+                                                        <label>Người Duyệt</label>
+                                                        <input th:value="${nv.hoVaTen}"
+                                                               class="form-control" type="text" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                                                        Close
-                                                    </button>
-                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Close
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
-                                    <!--  modal chi tiết đơn hàng -->
+                                </div>
+                                <!--  modal chi tiết đơn hàng -->
 
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <th:block th:if="${donHang.isEmpty()}">
-                            <h2>Không có dữ liệu nào cả!!!</h2>
-                        </th:block>
-                        <div class="row">
-                            <div class="col-6">
-                                <h6 style="color: red;"><b><i>Đang có <span th:text="${donHang.totalElements}"></span>
-                                    đơn hàng đã hủy</i> </b></h6>
-                            </div>
-                            <div class="col-6">
-                                <div class="phantrang">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <th:block th:if="${donHang.isEmpty()}">
+                        <h2>Không có dữ liệu nào cả!!!</h2>
+                    </th:block>
+                    <div class="row">
+                        <div class="col-6">
+                            <h6 style="color: red;"><b><i>Đang có <span th:text="${donHang.totalElements}"></span>
+                                đơn hàng đã hủy</i> </b></h6>
+                        </div>
+                        <div class="col-6">
+                            <div class="phantrang">
                                     <span th:if="${donHang.number + 1 > 1}">
                                         <a class="btn btn-primary"
                                            th:href="@{'/quan-ly/don-hang/da-huy?page=' + ${donHang.number}}">Previous</a>
                                     </span>
-                                    <span class="btn btn-danger"
-                                          th:text="${donHang.number + 1} + '/' + ${donHang.totalPages}"></span>
-                                    <span th:if="${donHang.number + 1 < donHang.totalPages}">
+                                <span class="btn btn-danger"
+                                      th:text="${donHang.number + 1} + '/' + ${donHang.totalPages}"></span>
+                                <span th:if="${donHang.number + 1 < donHang.totalPages}">
                                         <a class="btn btn-primary"
                                            th:href="@{'/quan-ly/don-hang/da-huy?page=' + ${donHang.number + 2}}">Next</a>
                                     </span>
-                                </div>
                             </div>
                         </div>
+                    </div>
                     </th:block>
                 </div>
             </div>

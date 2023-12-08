@@ -215,7 +215,7 @@
                                                                th:name="'sachKM'"
                                                                th:value="${sach.idSach}"/>
                                                         <label th:for="'sachCheckbox_' + ${sach.idSach}"
-                                                               th:text="${sach.maSach} + ' '+${sach.tenSach}  + ' '+${sach.giaBan}"></label><br/>
+                                                               th:text="${sach.maSach} + ' '+${sach.tenSach}  + ' '+${sach.giaBanVnd}"></label><br/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -406,7 +406,7 @@
                                                                        th:value="${sachh.idSach}"
                                                                        th:checked="${khuyenmai.sachs.contains(sachh)}"/>
                                                                 <label th:for="'sachCheckbox_' + ${sachh.idSach}"
-                                                                       th:text="${sachh.maSach} + ' '+${sachh.tenSach}  + ' '+${sachh.giaBan}"></label><br/>
+                                                                       th:text="${sachh.maSach} + ' '+${sachh.tenSach}  + ' '+${sachh.giaBanVnd}"></label><br/>
                                                             </div>
                                                         </div>
                                                         <script th:inline="javascript">
@@ -523,11 +523,11 @@
                                                                    disabled/>
                                                             <strong>Giá gốc:</strong>
                                                             <input class="form-control"
-                                                                   th:value="${sachKhuyenMai.giaBan}"
+                                                                   th:value="${sachKhuyenMai.giaBanVnd}"
                                                                    disabled/>
                                                             <strong>Giá hiện tại:</strong>
                                                             <input class="form-control"
-                                                                   th:value="${sachKhuyenMai.giaBan -  (khuyenmai.soPhanTramGiamGia)}"
+                                                                   th:value="${sachKhuyenMai.layGiaNeuCoKhuyenMai()}"
                                                                    disabled/>
                                                             <strong>Phần Trăm giảm:</strong>
                                                             <input class="form-control"
