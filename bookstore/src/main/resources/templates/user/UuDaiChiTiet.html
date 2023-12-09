@@ -47,17 +47,16 @@
                         </div>
                     </a>
                     <h3 th:text="${sachKhuyenMai2.tenSach}"></h3>
-                    <div class="sale" th:if="${sachKhuyenMai2.layGiaNeuCoKhuyenMai() == null}">
+                    <div  th:if="${sachKhuyenMai2.layGiaNeuCoKhuyenMai() == null}" class="text-muted">
                         <h5 th:text="${sachKhuyenMai2.giaBanVnd}"></h5>
                     </div>
                     <div th:if="${sachKhuyenMai2.layGiaNeuCoKhuyenMai() != null}">
                         <del class="text-muted" th:text="${sachKhuyenMai2.giaBanVnd}"></del>
                         <h4 class="price" th:text="${sachKhuyenMai2.layGiaNeuCoKhuyenMai()}"></h4>
                     </div>
-                    <div  th:if="${sachKhuyenMai2.layPhanTramGiamNeuCoKhuyenMai() == null}">
-                    </div>
                     <div class="discount" th:if="${sachKhuyenMai2.layPhanTramGiamNeuCoKhuyenMai() != null}"
                          th:text="${sachKhuyenMai2.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
+                        <!-- Hiển thị % khi có khuyến mãi -->
                     </div>
                 </div>
             </div>

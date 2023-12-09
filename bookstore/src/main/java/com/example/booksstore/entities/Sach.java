@@ -126,13 +126,13 @@ public class Sach {
         }
         return null;
     }
-    public int layPhanTramGiamNeuCoKhuyenMai() {
+    public Integer  layPhanTramGiamNeuCoKhuyenMai() {
         for (KhuyenMai khuyenMai : this.khuyenMais) {
             if (khuyenMai.getTrangThai() == 1) {
                 return khuyenMai.getSoPhanTramGiamGia();
             }
         }
-        return 0; // hoặc bạn có thể trả về giá trị mặc định tùy thuộc vào yêu cầu của bạn
+        return null; // hoặc bạn có thể trả về giá trị mặc định tùy thuộc vào yêu cầu của bạn
     }
 
 

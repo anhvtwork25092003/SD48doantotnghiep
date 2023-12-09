@@ -45,9 +45,6 @@
                         <span class="price-sale" th:if="${listSach.layGiaNeuCoKhuyenMai() != null}"
                               th:text="${listSach.giaBanVnd }"></span>
                         <span class="price-origin" th:text="${listSach.layGiaNeuCoKhuyenMai()}"></span>
-                        <div th:if="${listSach.layPhanTramGiamNeuCoKhuyenMai() == null}">
-                            <span class="per-sale btn btn-warning" ></span>
-                        </div>
                         <div th:if="${listSach.layPhanTramGiamNeuCoKhuyenMai() != null}">
                             <span class="per-sale btn btn-warning" th:text="${listSach.layPhanTramGiamNeuCoKhuyenMai() + '%'}"></span>
                         </div>

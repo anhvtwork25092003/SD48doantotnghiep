@@ -72,10 +72,9 @@
                     <del class="text-muted" th:text="${sach.giaBanVnd}"></del>
                     <h4 class="price" th:text="${sach.layGiaNeuCoKhuyenMai()}"></h4>
                 </div>
-                <div  th:if="${sach.layPhanTramGiamNeuCoKhuyenMai() == null}">
-                </div>
                 <div class="discount" th:if="${sach.layPhanTramGiamNeuCoKhuyenMai() != null}"
                      th:text="${sach.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
+                    <!-- Hiển thị % khi có khuyến mãi -->
                 </div>
 
             </div>
@@ -122,10 +121,9 @@
                     <del class="text-muted" th:text="${sm.giaBanVnd}"></del>
                     <h4 class="price" th:text="${sm.layGiaNeuCoKhuyenMai()}"></h4>
                 </div>
-                <div th:if="${sm.layPhanTramGiamNeuCoKhuyenMai() == null}">
-                </div>
                 <div class="discount" th:if="${sm.layPhanTramGiamNeuCoKhuyenMai() != null}"
                      th:text="${sm.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
+                    <!-- Hiển thị % khi có khuyến mãi -->
                 </div>
             </div>
 
