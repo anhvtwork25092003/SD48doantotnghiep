@@ -1,6 +1,7 @@
 package com.example.booksstore.controller.user;
 
 import com.example.booksstore.entities.Sach;
+import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.ISachService;
@@ -47,6 +48,7 @@ public class TimKiemController {
                                       @RequestParam(required = false) String productNameSearch,
                                       @RequestParam(required = false) String priceRangeSearch,
                                       @RequestParam(required = false) Set<TheLoai> categorySearch,
+                                      @RequestParam(required = false) Set<TacGia> tacGiaSearch,
                                       @RequestParam(required = false) String sapXepGia
     ) {
         Page<Sach> pageOfSach;
@@ -55,7 +57,7 @@ public class TimKiemController {
         int pageSize = 5; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
 //  moi khoi tao trang
-        if (productNameSearch != null || priceRangeSearch != null || categorySearch != null) {
+        if (productNameSearch != null || priceRangeSearch != null || categorySearch != null || tacGiaSearch != null) {
             // xu ly khoang gia
             if (priceRangeSearch != null) {
                 if (priceRangeSearch.equals("all")) {
@@ -85,7 +87,7 @@ public class TimKiemController {
             }
             // xuu ly trang thai
 
-            pageOfSach = iSachService.TimKiemSach(productNameSearch, giaMin, giaMax, categorySearch, sapXepGia, pageable);
+            pageOfSach = iSachService.TimKiemSach(productNameSearch, giaMin, giaMax, categorySearch,tacGiaSearch, sapXepGia, pageable);
         } else {
             pageOfSach = iSachService.pageOfSach(pageable);
         }
@@ -93,14 +95,22 @@ public class TimKiemController {
         if (categorySearch != null) {
             model.addAttribute("catego", categorySearch);
         } else {
-            List<TheLoai> list = new ArrayList<TheLoai>();
+            List<TheLoai> list = new ArrayList();
             model.addAttribute("catego", list);
+        }
+
+        if (tacGiaSearch != null) {
+            model.addAttribute("tacGia", tacGiaSearch);
+        } else {
+            List<TacGia> list = new ArrayList();
+            model.addAttribute("tacGia", list);
         }
 
 
         model.addAttribute("pageOfSach", pageOfSach);
         model.addAttribute("authors", tacGiaService.findAllTacGia());
         model.addAttribute("listTheLoai", iTheLoaiService.findAllTheLoai());
+        model.addAttribute("listTacGia", tacGiaService.findAllTacGia());
         System.out.println("aaaaaaaaaaaaaaaaaaaaaa" + pageOfSach);
         System.out.println("aaaaaaaaaaaaaaaaaaaaaa" + tacGiaService.findAllTacGia());
         System.out.println("aaaaaaaaaaaaaaaaaaaaaa" + iTheLoaiService.findAllTheLoai());

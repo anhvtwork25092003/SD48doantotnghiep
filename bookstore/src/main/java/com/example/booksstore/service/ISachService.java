@@ -1,6 +1,7 @@
 package com.example.booksstore.service;
 
 import com.example.booksstore.entities.Sach;
+import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.entities.TheLoai;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ public interface ISachService {
 
     Page<Sach> searchSach(String tenSach, String maSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, Integer trangThai, Pageable pageable);
 
-    Page<Sach> TimKiemSach(String tenSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, String sapXepGia, Pageable pageable);
+    Page<Sach> TimKiemSach(String tenSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, Set<TacGia> tacGias, String sapXepGia, Pageable pageable);
 
     Sach getOne(int id);
 

@@ -1,6 +1,7 @@
 package com.example.booksstore.service.serviceimpl;
 
 import com.example.booksstore.entities.Sach;
+import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.ISachService;
@@ -39,8 +40,8 @@ public class SachServiceImpl implements ISachService {
     }
 
     @Override
-    public Page<Sach> TimKiemSach(String tenSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, String sapXepGia, Pageable pageable) {
-        Specification<Sach> spec = TimKiemSachSpecification.filterTimKiemSach(tenSach, giaMin, giaMax, theLoai, sapXepGia);
+    public Page<Sach> TimKiemSach(String tenSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, Set<TacGia> tacGias, String sapXepGia, Pageable pageable) {
+        Specification<Sach> spec = TimKiemSachSpecification.filterTimKiemSach(tenSach, giaMin, giaMax, theLoai,tacGias, sapXepGia);
         return iSachRepository.findAll(spec, pageable);
 
     }

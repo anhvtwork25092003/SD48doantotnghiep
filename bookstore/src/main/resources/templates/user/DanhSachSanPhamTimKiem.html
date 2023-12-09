@@ -19,7 +19,7 @@
             <form th:action="@{/danh-sach-tim-kiem/loc}" method="get" enctype="multipart/form-data">
                 <div class="locTheLoai">
                     <h3>Thể Loại</h3>
-                    <ul>
+                    <ul style="max-height: 200px; overflow-y: scroll;">
                         <th:block th:each="category : ${listTheLoai}">
                             <input type="checkbox"
                                    th:id="'category_' + ${category.idTheLoai}"
@@ -28,6 +28,23 @@
                                    th:checked="${catego.contains(category)}"/>
                             <label th:for="'category_' + ${category.idTheLoai}"
                                    th:text="${category.tenTheLoai}">
+                            </label>
+                            <br>
+                        </th:block>
+                    </ul>
+                </div>
+                <hr>
+                <div class="locTheLoai">
+                    <h3>Tác Giả</h3>
+                    <ul style="max-height: 200px; overflow-y: scroll;">
+                        <th:block th:each="tacgia : ${listTacGia}">
+                            <input type="checkbox"
+                                   th:id="'tacgia_' + ${tacgia.idTacGia}"
+                                   th:name="tacGiaSearch"
+                                   th:value="${tacgia.idTacGia}"
+                                   th:checked="${tacGia.contains(tacgia)}"/>
+                            <label th:for="'tacgia_' + ${tacgia.idTacGia}"
+                                   th:text="${tacgia.hoVaTen}">
                             </label>
                             <br>
                         </th:block>
