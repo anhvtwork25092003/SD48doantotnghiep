@@ -61,7 +61,7 @@
                             <td th:text="${dh.maDonHang}"></td>
                             <td th:text="${dh.ngayTao}"></td>
                             <td th:text="${dh.ngayHuy}"></td>
-                            <td th:text="${dh.trangThai == 0 ? 'Chờ duyệt' : (dh.trangThai == 1 ? 'Đang ship' : (dh.trangThai == 2 ? 'Thành công' : (dh.trangThai == 3 ? 'Đã hủy' : 'Unknown')))}"></td>
+                            <td th:text="${dh.trangThai == 0 ? 'Chờ duyệt' : (dh.trangThai == 1 ? 'Đã xác nhận' : (dh.trangThai == 2 ? 'Đang giao' : (dh.trangThai == 3 ? 'Hoàn Thành' : (dh.trangThai == 4 ? 'Đã hủy' : 'Unknown'))))}"></td>
                             <td th:text="${dh.phiVanChuyen}"></td>
                             <!-- Add more columns as needed -->
                             <td>
@@ -215,7 +215,7 @@
                                 </div>
                                 <a type="button" class="btn btn-danger" data-toggle="modal"
                                    th:attr="data-target='#viewlyDoHuyDon-' + ${dh.idDonHang}"
-                                   th:classappend="${(dh.trangThai == 3) || (dh.trangThai == 2) || (dh.trangThai == 1)?'disabled':''}">
+                                   th:classappend="${(dh.trangThai == 4) || (dh.trangThai == 3) || (dh.trangThai == 2) || (dh.trangThai == 1)?'disabled':''}">
                                     <i class="fa-regular fa-trash-can"></i>
                                 </a>
 

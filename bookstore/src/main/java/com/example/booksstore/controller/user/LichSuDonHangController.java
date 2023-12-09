@@ -55,9 +55,9 @@ public class LichSuDonHangController {
         DonHang donHang = iDonHangRepo.getReferenceById(Integer.parseInt(idDonHang));
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
         // Kiểm tra xem đơn hàng đã được duyệt chưa
-        if (donHang.getTrangThai() != 3) {
+        if (donHang.getTrangThai() != 4) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
-            donHang.setTrangThai(3); // Đặt trạng thái thành 1 (đã duyệt)
+            donHang.setTrangThai(4); // Đặt trạng thái thành 1 (đã duyệt)
             //lý do đơn hàng hủy
             donHang.setGhiChuLyDoDonHang(ghiChuLyDoDonHang);
 
