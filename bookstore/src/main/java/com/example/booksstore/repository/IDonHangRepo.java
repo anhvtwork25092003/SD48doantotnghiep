@@ -17,7 +17,7 @@ public interface IDonHangRepo extends JpaRepository<DonHang, Integer> {
     Page<DonHang> findAllByKhachHangOrderByNgayTaoDesc(@Param("khachHang") KhachHang khachHang, Pageable pageable);
 
     //    Page<DonHang> findAllBykhachHang(Pageable pageable,KhachHang khachHang);
-    Page<DonHang> findAllByTrangThaiOrderByIdDonHang(Pageable pageable, int trangThai);
+    Page<DonHang> findAllByTrangThaiOrderByIdDonHangDesc(Pageable pageable, int trangThai);
 
     Page<DonHang> findByMaDonHangContainingAndKhachHang_SdtContaining(Pageable pageable, String maDonHang, String sdt);
 

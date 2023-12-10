@@ -67,7 +67,7 @@ public class DonHangControllerTuanAnh {
         }
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 0);
+        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 0);
 
         model.addAttribute("loggedInUser", nhanVien);
         model.addAttribute("donHang", donHangs);
@@ -229,7 +229,7 @@ public class DonHangControllerTuanAnh {
                                        @RequestParam(defaultValue = "1") int page) {
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 1);
+        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 1);
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         if (nhanVien == null) {
             return "redirect:/login";
@@ -301,7 +301,7 @@ public class DonHangControllerTuanAnh {
                                        @RequestParam(defaultValue = "1") int page) {
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 1);
+        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 1);
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         if (nhanVien == null) {
             return "redirect:/login";
@@ -371,7 +371,7 @@ public class DonHangControllerTuanAnh {
     public String quanLyDangGiaoHang(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 3);
+        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 3);
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         model.addAttribute("donHang", donHangs);
         model.addAttribute("loggedInUser", nhanVien);
@@ -389,7 +389,7 @@ public class DonHangControllerTuanAnh {
     public String quanLyDonHangDaHuy(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHang(pageable, 4);
+        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 4);
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         model.addAttribute("loggedInUser", nhanVien);
         model.addAttribute("donHang", donHangs);

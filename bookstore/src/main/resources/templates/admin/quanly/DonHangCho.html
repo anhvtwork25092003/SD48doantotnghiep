@@ -126,7 +126,7 @@
                             <td th:text="${dh.ngayTao}"></td>
                             <td th:text="${dh.thongTinGiaoHang.sdt}"></td>
                             <div th:each="ctdh : ${dh.chiTietDonHang}">
-                                <td th:text="${ctdh.thanhTienVnd}"></td>
+                                <td th:text="${50.000 + ctdh.thanhTienVnd }"></td>
                             </div>
                             <td th:text="${dh.ghiChuKhachHangGui}"></td>
                             <td>
@@ -263,7 +263,7 @@
                                                     </div>
                                                     <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
                                                         <label>Tổng tiền:</label>
-                                                        <input th:value="${ctdh.thanhTienVnd}"
+                                                        <input th:value="${50.000 + ctdh.thanhTienVnd}"
                                                                class="form-control" type="text"
                                                                disabled/>
                                                     </div>
