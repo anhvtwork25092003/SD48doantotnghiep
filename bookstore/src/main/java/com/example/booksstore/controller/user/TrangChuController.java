@@ -32,7 +32,7 @@ public class TrangChuController {
     @GetMapping("/trang-chu")
     public String HienThiTrangChu(Model model) {
         List<Sach> sachList = iSachService.getall();
-        List<Sach> saches = sachList.subList(0, 5);
+        List<Sach> saches = sachList.subList(0, 10);
         model.addAttribute("sachmoi", saches);
         if (iKhuyenMaiService.getAllKhuyenMaiDangApDung(1) != null) {
             model.addAttribute("motkhuyenmaidangapdung", iKhuyenMaiService.getAllKhuyenMaiDangApDung(1).get(0));

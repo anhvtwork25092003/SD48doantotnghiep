@@ -37,7 +37,7 @@ header img {
 
 .product {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     position: relative;
     font-family: cursive;
     border: 1px solid darkgray;
