@@ -62,7 +62,7 @@ margin-top: 10px;
 }
   
 .boxtrang {
-  width: auto;
+  width: 215px;
   height: auto;
   border: 1px white solid;
   background-color: white;
@@ -72,8 +72,8 @@ margin-top: 10px;
 .search {
   margin: 9px 20px;
 }
-.date {
-  margin-left: -18px;
-}
+/*.date {*/
+/*  margin-left: -18px;*/
+/*}*/
   
   
