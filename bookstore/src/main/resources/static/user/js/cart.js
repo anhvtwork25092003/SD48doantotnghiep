@@ -72,6 +72,6 @@ function calculateSubtotal() {
     });
 
     // Hiển thị giá tiền subtotal trong phần tổng tiền
-    document.querySelector('.subtotal .value').textContent = subtotal.toFixed(0);
+    document.querySelector('.subtotal .value').textContent = subtotal.toFixed(2);
 }
 

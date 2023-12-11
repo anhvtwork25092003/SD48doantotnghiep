@@ -1,18 +1,14 @@
 package com.example.booksstore.controller.user;
 
 import com.example.booksstore.config.Config;
-import com.example.booksstore.entities.DiaChi;
-import com.example.booksstore.entities.DonHang;
-import com.example.booksstore.entities.DonHangChiTiet;
-import com.example.booksstore.entities.GioHangChiTiet;
-import com.example.booksstore.entities.KhachHang;
-import com.example.booksstore.entities.PhuongThucThanhToan;
-import com.example.booksstore.entities.ThongTinGiaoHang;
+import com.example.booksstore.entities.*;
 import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.GioHangChiTietReposutory;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.IThongTinGiaoHangRepo;
+import com.example.booksstore.service.IThongBaoService;
+import com.example.booksstore.service.ThongBaoKhachHangService;
 import com.example.booksstore.service.javaMailService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +41,7 @@ import java.util.TimeZone;
 public class PaymentController {
     @Autowired
     javaMailService javaMailService;
+
     @Autowired
     IDonHangRepo iDonHangRepo;
 
@@ -53,12 +50,18 @@ public class PaymentController {
 
     @Autowired
     IThongTinGiaoHangRepo iThongTinGiaoHangRepo;
+
     @Autowired
     IKhachHangRepository iKhachHangRepository;
 
     @Autowired
     GioHangChiTietReposutory gioHangChiTietReposutory;
 
+    @Autowired
+    ThongBaoKhachHangService thongBaoKhachHangService;
+
+    @Autowired
+    IThongBaoService iThongBaoService;
 
     @GetMapping("/vnpayreturn")
     public String vnpayReturn(@RequestParam(value = "vnp_ResponseCode", required = false) String responseCode,
@@ -182,6 +185,7 @@ public class PaymentController {
                     String tieuDe = "Thông Báo Đơn Hàng Mới Từ Fahasa";
                     String body = "Cảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi, đơn hàng của bạn sẽ sớm được xử lý!";
                     javaMailService.sendEmail(emailNhanDon, tieuDe, body);
+                    guiThongBaoVnPay(donHang,khachHang);
                 }
             } else {
                 model.addAttribute("thongBao", "Thanh toan không thanh cong !");
@@ -339,5 +343,20 @@ public class PaymentController {
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
         return new ModelAndView("redirect:" + paymentUrl);
+    }
+
+    public void guiThongBaoVnPay(DonHang donHang, KhachHang khachHang) {
+        Date currDate = new Date();
+        String noiDung = "Thông Báo về đơn hàng " + donHang.getMaDonHang() + "\n"
+                + "Đơn hàng của bạn sẽ sớm được xử lý, cảm ơn đã mua hàng!";
+        ThongBao thongBao = new ThongBao();
+        thongBao.setNgayGui(currDate);
+        thongBao.setNoiDung(noiDung);
+        // lưu thông báo vào db
+
+        ThongBao savedNotification = this.iThongBaoService.createNew(thongBao);
+        // gọi hàm
+        this.thongBaoKhachHangService.themThongBaoChoNguoiDung(khachHang.getIdKhachHang(), savedNotification);
+
     }
 }
