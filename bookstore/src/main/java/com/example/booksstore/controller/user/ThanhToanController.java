@@ -83,6 +83,9 @@ public class ThanhToanController {
             // lấy list giỏ hàng chi tiết chưa chọn -- toàn bộ giỏ hàng lưu ở sesion
             List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
                     .getAttribute("listSanPhamTrongGioHangTamThoi");
+            if(listSanPhamTrongGioHangTamThoi == null){
+                listSanPhamTrongGioHangTamThoi = new ArrayList<>();
+            }
             List<GioHangChiTiet> gioHangChiTietListDaChon = new ArrayList<>();
             for (GioHangChiTiet gioHangChiTiet : listSanPhamTrongGioHangTamThoi) {
                 for (String idgh : IdgioHangChiTietListDaChon) {
