@@ -50,27 +50,23 @@ public class NhanVienController {
     @PostMapping("/nhan-vien/thay-doi")
     public String nhanvienthaydoi(
             @RequestParam("idNhanVien") String idNhanVien,
-            @RequestParam("maNhanVien") String maNhanVien,
             @RequestParam("hoVaTen") String hoVaTen,
             @RequestParam("sdt") String sdt,
             @RequestParam("ngaySinh") Date ngaySinh,
-            @RequestParam("trangThai") String trangThai,
-            @RequestParam("matKhau") String matKhau,
-            @RequestParam("email") String email,
-            @RequestParam("chucVu") String chucVu
+            @RequestParam("email") String email
 
     ) throws IOException {
         NhanVien nhanVien = this.service.getOne(Integer.parseInt(idNhanVien));
         NhanVien nhanvienUpDate = NhanVien.builder()
                 .idNhanVien(Integer.parseInt(idNhanVien))
-                .maNhanVien(maNhanVien)
+                .maNhanVien(nhanVien.getMaNhanVien())
                 .hoVaTen(hoVaTen)
                 .sdt(sdt)
                 .ngaySinh(ngaySinh)
-                .trangThai(Integer.parseInt(trangThai))
-                .matKhau(matKhau)
+                .trangThai(nhanVien.getTrangThai())
+                .matKhau(nhanVien.getMatKhau())
                 .email(email)
-                .chucVu(chucVu)
+                .chucVu(nhanVien.getChucVu())
                 .linkAnhNhanVien(nhanVien.getLinkAnhNhanVien())
                 .build();
         this.service.save(nhanvienUpDate);
