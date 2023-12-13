@@ -28,8 +28,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -59,8 +57,6 @@ public class QuanLySachController {
                                              @RequestParam(required = false) String productNameSearch,
                                              @RequestParam(required = false) String productCodeSearch,
                                              @RequestParam(value = "productStatusSearch", required = false) String productStatusSearch,
-                                             @RequestParam(required = false) String priceRangeSearch,
-                                             @RequestParam(required = false) Set<TheLoai> categorySearch,
                                              HttpSession session
     ) {
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
@@ -77,27 +73,8 @@ public class QuanLySachController {
         int pageSize = 5; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
 //  moi khoi tao trang
-        if (productNameSearch != null || productCodeSearch != null || productStatusSearch != null || priceRangeSearch != null || categorySearch != null) {
+        if (productNameSearch != null || productCodeSearch != null || productStatusSearch != null) {
             // xu ly khoang gia
-            if (priceRangeSearch != null) {
-                if (priceRangeSearch.equals("all")) {
-                    giaMin = new BigDecimal(0);
-                    giaMax = new BigDecimal("999999999999999999999999");
-                }
-                if (priceRangeSearch.equals("1")) {
-                    giaMin = new BigDecimal(0);
-                    giaMax = new BigDecimal("100000");
-                }
-                if (priceRangeSearch.equals("2")) {
-                    giaMin = new BigDecimal("100000");
-                    giaMax = new BigDecimal("500000");
-                }
-                if (priceRangeSearch.equals("3")) {
-                    giaMin = new BigDecimal("500000");
-                    giaMax = new BigDecimal("99999999999999999999999999");
-                }
-                model.addAttribute("price", priceRangeSearch);
-            }
 
             // xuu ly trang thai
             if (productStatusSearch != null) {
@@ -111,16 +88,9 @@ public class QuanLySachController {
                 model.addAttribute("psta", productStatusSearch);
 
             }
-            pageOfSach = iSachService.searchSach(productNameSearch, productCodeSearch, giaMin, giaMax, categorySearch, trangThai, pageable);
+            pageOfSach = iSachService.searchSach(productNameSearch, productCodeSearch, trangThai, pageable);
         } else {
             pageOfSach = iSachService.pageOfSach(pageable);
-        }
-
-        if (categorySearch != null) {
-            model.addAttribute("catego", categorySearch);
-        } else {
-            List<TheLoai> list = new ArrayList<TheLoai>();
-            model.addAttribute("catego", list);
         }
 
         // Replace the original list of Sach objects with the formatted list
@@ -153,7 +123,6 @@ public class QuanLySachController {
             @RequestParam("linkAnh5") MultipartFile linkAnh5
     ) {
         try {
-
             String duongDanCotDinh = "/image/anhsanpham/";
             String duongDanLuuAnh1 = duongDanCotDinh + linkAnh1.getOriginalFilename();
             String duongDanLuuAnh2 = duongDanCotDinh + linkAnh2.getOriginalFilename();

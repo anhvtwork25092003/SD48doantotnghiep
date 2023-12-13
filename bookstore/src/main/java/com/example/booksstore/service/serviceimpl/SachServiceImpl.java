@@ -34,14 +34,14 @@ public class SachServiceImpl implements ISachService {
     }
 
     @Override
-    public Page<Sach> searchSach(String tenSach, String maSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, Integer trangThai, Pageable pageable) {
-        Specification<Sach> spec = SachSpecification.filterSach(tenSach, maSach, giaMin, giaMax, theLoai, trangThai);
+    public Page<Sach> searchSach(String tenSach, String maSach, Integer trangThai, Pageable pageable) {
+        Specification<Sach> spec = SachSpecification.filterSach(tenSach, maSach, trangThai);
         return iSachRepository.findAll(spec, pageable);
     }
 
     @Override
     public Page<Sach> TimKiemSach(String tenSach, BigDecimal giaMin, BigDecimal giaMax, Set<TheLoai> theLoai, Set<TacGia> tacGias, String sapXepGia, Pageable pageable) {
-        Specification<Sach> spec = TimKiemSachSpecification.filterTimKiemSach(tenSach, giaMin, giaMax, theLoai,tacGias, sapXepGia);
+        Specification<Sach> spec = TimKiemSachSpecification.filterTimKiemSach(tenSach, giaMin, giaMax, theLoai, tacGias, sapXepGia);
         return iSachRepository.findAll(spec, pageable);
 
     }
