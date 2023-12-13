@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thông tin tài khoản</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="/user/css/son_thongtintaikhoan.css"/>
+    <!-- Các stylesheet và link khác -->
+
+</head>
+<body>
+<article>
+    <div class="container">
+        <div class="row">
+<!--            &lt;!&ndash; Sidebar &ndash;&gt;-->
+<!--            <section class="col-md-3 menutttk">-->
+<!--                <nav>-->
+<!--                    <h2>Tài Khoản</h2>-->
+<!--                    <ul>-->
+<!--                        <li><a href="/quan-ly/thong-tin/hien-thi">Thông tin tài khoản</a></li>-->
+<!--                    </ul>-->
+<!--                </nav>-->
+<!--            </section>-->
+
+<!--            &lt;!&ndash; Nội dung chính &ndash;&gt;-->
+            <section class="col-md-10">
+                <form th:action="@{/nhan-vien/thay-doi}" method="post">
+                    <div class="table-responsive">
+                        <center>
+                            <h2>Thông tin tài khoản</h2>
+                        </center>
+                        <div th:each="thongtintaikhoan, iterStat : ${session.loggedInUser}">
+                            <div class="group">
+                                <input class="text-input" id="idNhanVien" type="text" name="idNhanVien"
+                                       th:value="${thongtintaikhoan.idNhanVien}" hidden/>
+                            </div>
+                            <br>
+                            <div class="group">
+                                <label for="linkAnhNhanVien">Image<span style="color: #ff0000">*</span></label>
+                                <img th:src="@{|${thongtintaikhoan.linkAnhNhanVien}|}" class="text-input" id="linkAnhNhanVien" alt="anh nhan vien" name="linkAnhNhanVien"
+                                     width="88px" height="88px">
+                            </div>
+                            <br>
+                            <div class="group">
+                                <label for="maNhanVien">Mã Nhân Viên<span style="color: #ff0000">*</span></label>
+                                <input class="text-input" id="maNhanVien" type="text" name="maNhanVien"
+                                       th:value="${thongtintaikhoan.maNhanVien}" disabled/>
+                            </div>
+                            <br>
+                            <div class="group">
+                                <label for="hoVaTen">Họ Và Tên<span style="color: #ff0000">*</span></label>
+                                <input class="text-input" id="hoVaTen" type="text" name="trangThai"
+                                       th:value="${thongtintaikhoan.hoVaTen}"/>
+                            </div>
+                            <br>
+                            <div class="group">
+                                <label for="sdt">SDT<span style="color: #ff0000">*</span></label>
+                                <input class="text-input" id="sdt" type="text" name="sdt"
+                                       th:value="${thongtintaikhoan.sdt}"/>
+                            </div>
+                            <br>
+                            <div class="group">
+                                <label for="ngaySinh">Ngày Sinh<span style="color: #ff0000">*</span></label>
+                                <input class="text-input" id="ngaySinh" type="date" name="ngaySinh"
+                                       th:value="${thongtintaikhoan.ngaySinh}"/>
+                            </div>
+
+                            <div class="group">
+                                <input class="text-input" id="matKhau" type="text" name="matKhau"
+                                       th:value="${thongtintaikhoan.matKhau}" hidden/>
+                            </div>
+                            <div class="group">
+                                <input class="text-input" id="trangThai" type="text" name="trangThai"
+                                       th:value="${thongtintaikhoan.trangThai}" hidden/>
+                            </div>
+                            <br>
+                            <div class="group">
+                                <label for="email">Email<span style="color: #ff0000">*</span></label>
+                                <input class="text-input" id="email" type="text" name="email"
+                                       th:value="${thongtintaikhoan.email}"/>
+                            </div>
+                            <br>
+                            <div class="group">
+                                <label for="chucVu">Chức Vụ<span style="color: #ff0000">*</span></label>
+                                <input class="text-input" id="chucVu" type="text" name="chucVu"
+                                       th:value="${thongtintaikhoan.chucVu}"/>
+                            </div>
+                            <br>
+                            <div class="group btn">
+                                <button class="btn-warning" type="submit">Lưu thay đổi</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</article>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+        integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/user/js/DiaChi.js"></script>
+</body>
+</html>

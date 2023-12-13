@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
 >
 <head>
     <meta charset="UTF-8"/>
@@ -7,19 +8,25 @@
     <title>Menu Nhân Viên</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <link rel="stylesheet" href="/admin/nhanvien/css/menuNhanVien.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel='stylesheet' href='https://unpkg.com/swiper/swiper-bundle.min.css'>
+
 </head>
 <body>
 <div class="container-fluid">
     <div class="header">
         <img class="logo" src="/image/logoicon/fahasa-logo.png"/>
         <div class="header-icons">
-            <div>
-                <i class="fa-solid fa-bell fa-xl"></i>
-            </div>
             <div class="account-icon">
+                <i class="fa-regular fa-user fa-xl"></i>
                 <div class="account-dropdown">
-                    <a href="#" class="thongtin">Thông tin chi tiết</a>
-                    <a href="/logout-nhan-vien" class="dangxuat">Đăng xuất</a>
+                    <!-- Kiểm tra xem người dùng đã đăng nhập hay chưa -->
+                    <th:block th:if="${session.loggedInUser != null}">
+                        <!-- Hiển thị thông tin tài khoản -->
+                        <a th:href="@{'/quan-ly/thong-tin/hien-thi/' + ${session.loggedInUser.idNhanVien}}"
+                           class="thongtin">Thông tin tài khoản</a>
+                        <a href="/logout/nv" class="dangxuat">Đăng xuất</a>
+                    </th:block>
                 </div>
             </div>
         </div>

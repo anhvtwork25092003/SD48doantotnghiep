@@ -77,13 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             // updateDistricts();
             // updateWards();
-            const elements = document.querySelectorAll('.form-check');
+            const elements = document.querySelectorAll('.form-checked');
             elements.forEach( async function (element) {
-                const spanElement = document.getElementById('spann'); // Chọn thẻ span bên trong element
-                const thongtins= document.getElementById('thongtinnhan')
+                const spanElement = element.querySelector('span');
+                const thongtins= element.querySelector('h6')
                 // Lấy giá trị từ thẻ span sử dụng innerText
                 const addressInfo = spanElement.innerText;
-console.log(addressInfo);
                 // Tách giá trị thành mảng sử dụng dấu ' | ' làm dấu phân cách
                 const addressArray = addressInfo.split(' | ');
 
@@ -105,8 +104,8 @@ console.log(addressInfo);
                 const phuongx = wardData.WardName;
                 // Xử lý giá trị theo nhu cầu của bạn
                 const concatenatedString= hoVaTen +','+tinhtp +','+ huyenq + ','  + phuongx + ',' + diaChiCuThe + ',' + sdtNguoiNhan ;
-                console.log(concatenatedString)
                 thongtins.textContent=concatenatedString;
+                console.log(thongtins.textContent);
             });
 
             // ...

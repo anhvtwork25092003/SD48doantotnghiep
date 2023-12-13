@@ -67,10 +67,10 @@
 
             <form th:action="@{'/thanh-toan/xac-nhan-len-don'}" method="post" enctype="multipart/form-data">
                 <div class="diaChi">
-                    <div class="form-check">
+                    <div class="form-checked">
                         <!-- Trong template Thymeleaf -->
                         <div th:each="diaChi, diaChiIter : ${khachHangDangNhap.diaChiList}">
-                            <div class="form-check">
+                            <div class="form-checked">
                                 <input class="form-check-input" type="radio"
                                        th:id="'diaChiRadio_' + ${diaChiIter.index}"
                                        th:name="'diaChiRadio'" th:value="${diaChi.idDiaChi}">
