@@ -57,16 +57,16 @@
 
         <!-- ưu đãi lớn -->
         <div class="row"><h4>ƯU ĐÃI LỚN</h4></div>
-        <div class="product">
-            <div th:if="${motkhuyenmaidangapdung != null}">
-                <div th:each="sach : ${motkhuyenmaidangapdung.sachs}" th:limit="5" class="product-item">
+        <div class="product" th:if="${motkhuyenmaidangapdung != null}">
+<!--            <div th:if="${motkhuyenmaidangapdung != null}">-->
+                <div th:each="sach ,iterStat : ${motkhuyenmaidangapdung.sachs}" th:if="${iterStat.index < 5}" class="product-item">
                     <a th:href="@{'/trang-chu/detail?idSach=' + ${sach.idSach}}">
                         <div class="product-image">
                             <img th:src="${sach.linkAnh1}">
                         </div>
                     </a>
                     <h3 th:text="${sach.tenSach}"></h3>
-                    <div class="sale" th:if="${sach.layGiaNeuCoKhuyenMai() == null}">
+                    <div class="text-muted" th:if="${sach.layGiaNeuCoKhuyenMai() == null}">
                         <h5 th:text="${sach.giaBanVnd}"></h5>
                     </div>
                     <div th:if="${sach.layGiaNeuCoKhuyenMai() != null}">
@@ -80,27 +80,27 @@
                 </div>
                 <!-- Các sản phẩm khác -->
                 <div class="button"><a href="/uu-dai">Xem thêm</a></div>
-            </div>
-            <div th:if="${motkhuyenmaidangapdung == null}">
-                <h1>Hiện chưa có ưu đãi nào đang áp dụng!</h1>
-            </div>
+<!--            </div>-->
+
         </div>
+        <h6 th:if="${motkhuyenmaidangapdung == null}">
+            <h1>Hiện chưa có ưu đãi nào đang áp dụng!</h1>
+        </h6>
         <!-- end ưu đãi lớn -->
 
         <br>
 
-        <!-- sảm phẩm bán chạy -->
+<!--         sảm phẩm bán chạy -->
         <div class="row"><h4>SẢN PHẨM BÁN CHẠY</h4></div>
-        <div class="product">
-            <div th:if="${listSachBanChay != null}">
-                <div th:each="sach : ${listSachBanChay}" th:limit="5" class="product-item">
+        <div class="product" th:if="${listSachBanChay != null}">
+                <div th:each="sach, iterStat : ${listSachBanChay}"th:if="${iterStat.index < 10}" class="product-item">
                     <a th:href="@{'/trang-chu/detail?idSach=' + ${sach.idSach}}">
                         <div class="product-image">
                             <img th:src="${sach.linkAnh1}">
                         </div>
                     </a>
                     <h3 th:text="${sach.tenSach}"></h3>
-                    <div class="sale" th:if="${sach.layGiaNeuCoKhuyenMai() == null}">
+                    <div class="text-muted" th:if="${sach.layGiaNeuCoKhuyenMai() == null}">
                         <h5 th:text="${sach.giaBanVnd}"></h5>
                     </div>
                     <div th:if="${sach.layGiaNeuCoKhuyenMai() != null}">
@@ -113,12 +113,10 @@
                     </div>
                 </div>
                 <!-- Các sản phẩm khác -->
-                <div class="button"><a href="/uu-dai">Xem thêm</a></div>
-            </div>
-            <div th:if="${listSachBanChay == null}">
-                <h1>Hãy tiến hành bán hàng tăng doanh số nhé!</h1>
-            </div>
         </div>
+        <h6 th:if="${listSachBanChay == null}">
+            <h1>Hãy tiến hành bán hàng tăng doanh số nhé!</h1>
+        </h6>
         <!-- end sảm phẩm bán chạy -->
         <br>
 
