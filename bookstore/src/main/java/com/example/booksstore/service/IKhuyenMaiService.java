@@ -15,7 +15,11 @@ public interface IKhuyenMaiService {
     Page<KhuyenMai> getAllKhuyenMaiTheoTrangThai(Pageable pageable, int trangThai);
 
     Page<KhuyenMai> getAllKhuyenMaiDangHienThi(Pageable pageable, int trangThaiHienThi);
-    List<KhuyenMai> getAllKhuyenMaiDangHienThi( int trangThaiHienThi);
+
+    List<KhuyenMai> getAllKhuyenMaiDangHienThi(int trangThaiHienThi);
+
+    Page<KhuyenMai> get4KhuyenMaiDangHienThi(Pageable pageable, int trangThaiHienThi);
+
     List<KhuyenMai> getAllKhuyenMaiDangApDung(int trangThaiHienThi);
 
     KhuyenMai SaveOrUpdateKhuyenMai(KhuyenMai khuyenMai);
@@ -33,5 +37,6 @@ public interface IKhuyenMaiService {
     Page<KhuyenMai> searchKhuyenMai(String tenKhuyenMai, Date ngayBatDau, Date ngayKetThuc, Integer trangThai, Pageable pageable);
 
     KhuyenMai getOne1(int idKhuyenMai);
+
     KhuyenMai chiTietKhuyenMai(int idKhuyenMai);
 }

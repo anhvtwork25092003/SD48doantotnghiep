@@ -29,8 +29,8 @@
         <!--            </div>-->
         <!--        </div>-->
 
-        <div class="columnBaner">
-            <div class="column" th:each="anhKhuyenMai : ${khuyenmaihienthisale}"
+        <div class="columnBaner" th:if="${not khuyenmaihienthisale.isEmpty()}">
+            <div class="column" th:each="anhKhuyenMai : ${khuyenmaihienthisale.content}"
                  th:if="${anhKhuyenMai.trangThaiHienThi == 1 or anhKhuyenMai.trangThaiHienThi == 0}">
                 <a th:href="@{'/uu-dai/uu-dai-chi-tiet?idKhuyenMai=' + ${anhKhuyenMai.idKhuyenMai}}">
                     <img th:src="${anhKhuyenMai.linkAnhKhuyenMai}">
@@ -58,28 +58,32 @@
         <!-- ưu đãi lớn -->
         <div class="row"><h4>ƯU ĐÃI LỚN</h4></div>
         <div class="product">
-            <div th:each="sach : ${motkhuyenmaidangapdung.sachs}" th:limit="5" class="product-item">
-                <a th:href="@{'/trang-chu/detail?idSach=' + ${sach.idSach}}">
-                    <div class="product-image">
-                        <img th:src="${sach.linkAnh1}">
+            <div th:if="${motkhuyenmaidangapdung != null}">
+                <div th:each="sach : ${motkhuyenmaidangapdung.sachs}" th:limit="5" class="product-item">
+                    <a th:href="@{'/trang-chu/detail?idSach=' + ${sach.idSach}}">
+                        <div class="product-image">
+                            <img th:src="${sach.linkAnh1}">
+                        </div>
+                    </a>
+                    <h3 th:text="${sach.tenSach}"></h3>
+                    <div class="sale" th:if="${sach.layGiaNeuCoKhuyenMai() == null}">
+                        <h5 th:text="${sach.giaBanVnd}"></h5>
                     </div>
-                </a>
-                <h3 th:text="${sach.tenSach}"></h3>
-                <div class="sale" th:if="${sach.layGiaNeuCoKhuyenMai() == null}">
-                    <h5 th:text="${sach.giaBanVnd}"></h5>
+                    <div th:if="${sach.layGiaNeuCoKhuyenMai() != null}">
+                        <del class="text-muted" th:text="${sach.giaBanVnd}"></del>
+                        <h4 class="price" th:text="${sach.layGiaNeuCoKhuyenMai()}"></h4>
+                    </div>
+                    <div class="discount" th:if="${sach.layPhanTramGiamNeuCoKhuyenMai() != null}"
+                         th:text="${sach.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
+                        <!-- Hiển thị % khi có khuyến mãi -->
+                    </div>
                 </div>
-                <div th:if="${sach.layGiaNeuCoKhuyenMai() != null}">
-                    <del class="text-muted" th:text="${sach.giaBanVnd}"></del>
-                    <h4 class="price" th:text="${sach.layGiaNeuCoKhuyenMai()}"></h4>
-                </div>
-                <div class="discount" th:if="${sach.layPhanTramGiamNeuCoKhuyenMai() != null}"
-                     th:text="${sach.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
-                    <!-- Hiển thị % khi có khuyến mãi -->
-                </div>
-
+                <!-- Các sản phẩm khác -->
+                <div class="button"><a href="/uu-dai">Xem thêm</a></div>
             </div>
-            <!-- Các sản phẩm khác -->
-            <div class="button"><a href="/uu-dai">Xem thêm</a></div>
+            <div th:if="${motkhuyenmaidangapdung == null}">
+                <h1>Hiện chưa có ưu đãi nào đang áp dụng!</h1>
+            </div>
         </div>
         <!-- end ưu đãi lớn -->
 
@@ -88,16 +92,32 @@
         <!-- sảm phẩm bán chạy -->
         <div class="row"><h4>SẢN PHẨM BÁN CHẠY</h4></div>
         <div class="product">
-            <div class="product-item">
-                <div class="product-image">
-                    <img src="/image/anhsanpham/sanpham1.jpg" alt="Doraemon Plus 1">
+            <div th:if="${listSachBanChay != null}">
+                <div th:each="sach : ${listSachBanChay}" th:limit="5" class="product-item">
+                    <a th:href="@{'/trang-chu/detail?idSach=' + ${sach.idSach}}">
+                        <div class="product-image">
+                            <img th:src="${sach.linkAnh1}">
+                        </div>
+                    </a>
+                    <h3 th:text="${sach.tenSach}"></h3>
+                    <div class="sale" th:if="${sach.layGiaNeuCoKhuyenMai() == null}">
+                        <h5 th:text="${sach.giaBanVnd}"></h5>
+                    </div>
+                    <div th:if="${sach.layGiaNeuCoKhuyenMai() != null}">
+                        <del class="text-muted" th:text="${sach.giaBanVnd}"></del>
+                        <h4 class="price" th:text="${sach.layGiaNeuCoKhuyenMai()}"></h4>
+                    </div>
+                    <div class="discount" th:if="${sach.layPhanTramGiamNeuCoKhuyenMai() != null}"
+                         th:text="${sach.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
+                        <!-- Hiển thị % khi có khuyến mãi -->
+                    </div>
                 </div>
-                <h3>FIX CỨNG</h3>
-                <div class="price"><h4>20.000 đ</h4></div>
-                <div class="sale"><h5>25.000 đ</h5></div>
+                <!-- Các sản phẩm khác -->
+                <div class="button"><a href="/uu-dai">Xem thêm</a></div>
             </div>
-            <!-- Các sản phẩm khác -->
-            <div class="button"><a href="/trang-chu-them">Xem thêm</a></div>
+            <div th:if="${listSachBanChay == null}">
+                <h1>Hãy tiến hành bán hàng tăng doanh số nhé!</h1>
+            </div>
         </div>
         <!-- end sảm phẩm bán chạy -->
         <br>
@@ -128,7 +148,7 @@
             </div>
 
             <!-- Các sản phẩm khác -->
-<!--            <div class="button"><a href="#">Xem thêm</a></div>-->
+            <!--            <div class="button"><a href="#">Xem thêm</a></div>-->
         </div>
         <br>
     </div>

@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface DonHangChiTietRepo extends JpaRepository<DonHangChiTiet, Integer> {
 
-    @Query("SELECT new com.example.booksstore.dto.TopSanPhamDTO(d.sach.tenSach AS tenSanPham, SUM(d.soLuong) AS soLuong) " +
+    @Query("SELECT new com.example.booksstore.dto.TopSanPhamDTO( d.sach.idSach, d.sach.tenSach AS tenSanPham, SUM(d.soLuong) AS soLuong) " +
             "FROM DonHangChiTiet d " +
-            "GROUP BY d.sach.tenSach " +
+            "GROUP BY d.sach.idSach,d.sach.tenSach " +
             "ORDER BY SUM(d.soLuong) DESC limit 10")
     List<TopSanPhamDTO> findTop10Products();
 }

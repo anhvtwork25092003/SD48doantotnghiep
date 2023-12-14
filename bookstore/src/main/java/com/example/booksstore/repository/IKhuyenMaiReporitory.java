@@ -18,6 +18,8 @@ public interface IKhuyenMaiReporitory extends JpaRepository<KhuyenMai, Integer> 
 
     Page<KhuyenMai> findAllByTrangThaiHienThiOrderByIdKhuyenMaiDesc(Pageable pageable, int trangThaiHienThi);
 
+    Page<KhuyenMai> findAllByTrangThaiHienThi(Pageable pageable, int trangThaiHienThi);
+
     List<KhuyenMai> findAllByTrangThaiHienThiOrderByIdKhuyenMaiDesc( int trangThaiHienThi);
 
     List<KhuyenMai> findAllByTrangThaiOrderByIdKhuyenMaiDesc( int trangThaiHienThi);

@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TopSanPhamDTO {
+    private int idSach;
     private String tenSanPham;
     private Long soLuong;
 }

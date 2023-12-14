@@ -44,6 +44,11 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
     }
 
     @Override
+    public Page<KhuyenMai> get4KhuyenMaiDangHienThi(Pageable pageable,  int trangThaiHienThi) {
+        return this.iKhuyenMaiReporitory.findAllByTrangThaiHienThi(pageable, trangThaiHienThi);
+    }
+
+    @Override
     public List<KhuyenMai> getAllKhuyenMaiDangApDung( int trangThaiHienThi) {
         return this.iKhuyenMaiReporitory.findAllByTrangThaiOrderByIdKhuyenMaiDesc( trangThaiHienThi);
     }
