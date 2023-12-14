@@ -45,21 +45,6 @@
                         <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
                         <div class="row">
                             <div class="col-11">
-                                <!--                            <div class="form-check">-->
-                                <!--                                <input class="form-check-input col-sm-2 col-form-label" type="radio"-->
-                                <!--                                       name="exampleRadios"-->
-                                <!--                                       id="exampleRadios1" value="option1" checked>-->
-                                <!--                                <label class="form-check-label col-sm-10" for="exampleRadios1">-->
-                                <!--                                    Hôm nay-->
-                                <!--                                </label>-->
-                                <!--                            </div>-->
-                                <!--                            <div class="form-check">-->
-                                <!--                                <input class="form-check-input col-sm-2 col-form-label" type="radio"-->
-                                <!--                                       name="exampleRadios"-->
-                                <!--                                       id="exampleRadios2" value="option2">-->
-                                <!--                                <label class="form-check-label col-sm-10" for="exampleRadios2">-->
-                                <!--                                    Lựa chọn-->
-                                <!--                                </label>-->
                                 <div class="date">
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Từ</label>
@@ -566,13 +551,14 @@
                             khuyến mại!</i> </b></h6>
 
                         <div>
-                        <span th:if="${khuyenMaiPages.number + 1 > 1}">
-                            <a th:href="@{'/quan-ly/khuyen-mai/hien-thi?page=' + ${khuyenMaiPages.number}}">Previous</a>
-                        </span>
+                            <span th:if="${khuyenMaiPages.number + 1 > 1}">
+                                <a class="btn btn-danger" th:href="@{'/quan-ly/khuyen-mai/hien-thi?page=' + ${khuyenMaiPages.number}
+                                + '&tenKhuyenMaiTimKiem=' + ${khn} + '&trangThaiTimKiem=' + ${khsta} + '&ngayBatDauTimKiem=' +${khds} + '&ngayKetThucTimKiem=' + ${khde}   }">Previous</a>
+                            </span>
                             <span th:text="${khuyenMaiPages.number + 1} + ' / ' + ${khuyenMaiPages.totalPages}"></span>
                             <span th:if="${khuyenMaiPages.number + 1 < khuyenMaiPages.totalPages}">
-                            <a th:href="@{'/quan-ly/khuyen-mai/hien-thi?page=' + ${khuyenMaiPages.number + 2}}">Next</a>
-                        </span>
+                                <a class="btn btn-danger" th:href="@{'/quan-ly/khuyen-mai/hien-thi?page=' + ${khuyenMaiPages.number + 2}
+                                + '&tenKhuyenMaiTimKiem=' + ${khn} + '&trangThaiTimKiem=' + ${khsta} + '&ngayBatDauTimKiem=' +${khds} + '&ngayKetThucTimKiem=' + ${khde}  }">Next</a>
                             </span>
                         </div>
 

@@ -2,8 +2,9 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    /* background-color: #E4E3E3; */
 }
-.all  {
+.all {
     flex-wrap: nowrap;
     background-color: white;
 }
@@ -57,11 +58,12 @@ tr:nth-child(even) {
     background-color: #555;
 }
 
-  /* Định dạng phần tổng tiền */
+/* Định dạng phần tổng tiền */
 .total-col {
     text-align: right;
 }
-  /* Định dạng biểu tượng "xóa" */
+
+/* Định dạng biểu tượng "xóa" */
 .remove-btn {
     background-color: transparent;
     border: none;
@@ -79,6 +81,22 @@ tr:nth-child(even) {
 .total {
     font-weight: bold;
 }
-a{
-  margin-left: 20px;
+.line-item {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+/* Đặt kích thước cho các trường input và select */
+.line-item input[type="text"],
+.line-item input[type="email"],
+.line-item select {
+    flex: 1;
+    margin-right: 10px;
+}
+
+/* Đặt kích thước cho textarea và xóa margin phải */
+.line-item textarea {
+    flex: 1;
+    margin-right: 0;
 }
