@@ -41,6 +41,10 @@
                             <form th:action="@{/thanh-toan/them-dia-chi}" method="post"
                                   enctype="multipart/form-data">
                                 <div class="form-group">
+                                    <label for="tenNguoiNhan">Tên người nhận</label>
+                                    <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan" class="form-control" type="text">
+                                    <label for="sdtnhanhang">Số Điện Thoại nhận hàng</label>
+                                    <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control" type="text">
                                     <label for="tinhThanhPho">Tỉnh Thành Phố</label>
                                     <select name="tinhThanhPhoThemMoi" id="tinhThanhPho"
                                             class="form-control"></select>
@@ -67,7 +71,7 @@
 
             <form th:action="@{'/thanh-toan/xac-nhan-len-don'}" method="post" enctype="multipart/form-data">
                 <div class="diaChi">
-                    <div class="form-checked">
+                    <div class="form-checked"  >
                         <!-- Trong template Thymeleaf -->
                         <div th:each="diaChi, diaChiIter : ${khachHangDangNhap.diaChiList}">
                             <div class="form-checked">
@@ -80,9 +84,9 @@
                                       style="display: none">
                                 </span>
                                     <h6 id="thongtinnhan"></h6>
-                                    <a th:href="'#'" th:text="'Sửa'"></a>
+<!--                                    <a th:href="'#'" th:text="'Sửa'"></a>-->
                                     <!-- Thẻ a để xóa, thay thế "{yourControllerMapping}" và "{id}" bằng giá trị thực tế -->
-                                    <a th:href="@{'/menu-nguoi-dung/xoa-dia-chi/' + ${diaChi.idDiaChi}}"
+                                    <a th:href="@{'/thanh-toan/xoa-dia-chi/' + ${diaChi.idDiaChi}}"
                                        onclick="return confirm('Are you sure?')">Delete</a>
 
                                 </label>

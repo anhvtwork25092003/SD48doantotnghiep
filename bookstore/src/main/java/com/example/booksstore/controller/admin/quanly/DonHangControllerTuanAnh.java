@@ -83,7 +83,7 @@ public class DonHangControllerTuanAnh {
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<DonHang> timKiemMaAndSdt = iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContaining(pageable, maDonHang, sdt);
-        NhanVien nhanVien = (NhanVien) session.getAttribute("loggedInUser");
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         model.addAttribute("loggedInUser", nhanVien);
         model.addAttribute("donHang", timKiemMaAndSdt);
         System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
@@ -169,7 +169,7 @@ public class DonHangControllerTuanAnh {
 
         model.addAttribute("loggedInUser", nhanVien);
         // Chuyển hướng về trang đơn đã duyệt
-        return "redirect:/quan-ly/don-hang/da-duyet";
+        return "redirect:/quan-ly/don-hang/cho-xac-nhan";
 
     }
 
@@ -287,7 +287,7 @@ public class DonHangControllerTuanAnh {
 
         model.addAttribute("loggedInUser", nhanVien);
         // Chuyển hướng về trang đơn đã duyệt
-        return "redirect:/quan-ly/don-hang/dang-giao";
+        return "redirect:/quan-ly/don-hang/da-duyet";
 
     }
     //KẾT THÚC CỦA ĐƠN HÀNG ĐÃ DUYỆT
@@ -301,7 +301,7 @@ public class DonHangControllerTuanAnh {
                                        @RequestParam(defaultValue = "1") int page) {
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 1);
+        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 2);
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         if (nhanVien == null) {
             return "redirect:/login";
@@ -321,7 +321,6 @@ public class DonHangControllerTuanAnh {
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
         KhachHang khachHangDangNhap = donHang.getKhachHang();
-
 
 // Kiểm tra loại khách hàng
         String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
@@ -345,7 +344,6 @@ public class DonHangControllerTuanAnh {
             System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
         }
 
-
         if ("0".equals(loaiKhachHang)) {
             // Loại khách hàng = 0, chỉ gửi email
             guiEmailDonHang(donHang, thongTinGiaoHang);
@@ -355,11 +353,9 @@ public class DonHangControllerTuanAnh {
             guiEmailDonHang(donHang, thongTinGiaoHang);
         }
 
-
-
         model.addAttribute("loggedInUser", nhanVien);
         // Chuyển hướng về trang đơn đã duyệt
-        return "redirect:/quan-ly/don-hang/hoan-thanh";
+        return "redirect:/quan-ly/don-hang/dang-giao";
 
     }
     //KẾT THÚC CỦA ĐƠN HÀNG ĐANG GIAO
@@ -441,15 +437,6 @@ public class DonHangControllerTuanAnh {
 
 
     //KẾT THÚC CỦA ĐƠN HÀNG ĐÃ HỦY
-
-
-//    public void guiEmailDonHang(DonHang donHang,ThongTinGiaoHang thongTinGiaoHang) {
-//        String subject = "Dưới đây là mã đơn hàng và trạng thái đơn hàng của bạn!! "  ;
-//        senderService.sendSimpleEmail(thongTinGiaoHang.getEmailGiaoHang(), subject,
-//                "Mã Đơn Hàng của bạn " + donHang.getMaDonHang() + "\n" +
-//                        "Trạng thái đơn: " + donHang.getTrangThai());
-//
-//    }
 
     public void guiEmailDonHang(DonHang donHang, ThongTinGiaoHang thongTinGiaoHang) {
         String trangThaiDonHang = "";

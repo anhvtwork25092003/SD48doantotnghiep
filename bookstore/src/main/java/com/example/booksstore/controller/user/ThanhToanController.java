@@ -116,6 +116,7 @@ public class ThanhToanController {
             model.addAttribute("tinhTongTienDonHangDaTinhVanChuyen", formatCurrency(tinhTongTienDonHangDaTinhVanChuyen));
             BigDecimal tinhTongTienDonHangChuaTinhVanChuyen = iDonHangService.tinhTongTienDonHangChuaTinhVanChuyen(gioHangChiTietListDaChon);
             model.addAttribute("tinhTongTienDonHangChuaTinhVanChuyen", formatCurrency(tinhTongTienDonHangChuaTinhVanChuyen));
+            session.setAttribute("selectedValues", IdgioHangChiTietListDaChon);
             return "/user/ThanhToanDaDangNhap";
         }
 

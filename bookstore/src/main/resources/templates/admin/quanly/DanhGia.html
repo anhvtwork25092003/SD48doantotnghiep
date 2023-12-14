@@ -35,8 +35,7 @@
                     <table class="table" style=" border: 0px solid blue;">
                         <thead class="table-dark">
 
-                        <select class="col-2 form-control" onchange="changePage(this)">
-                            <option value="">Chọn</option>
+                        <select class="col-3 form-control" onchange="changePage(this)">
                             <option value="/danh-gia/chua-duyet">Đánh Giá Chưa Duyệt</option>
                             <option value="/danh-gia/da-duyet">Đánh Giá Đã Duyệt</option>
                             <option value="/danh-gia/khong-duyet">Đánh Giá Không Duyệt</option>
@@ -50,7 +49,7 @@
                         </script>
                         <th:block th:if="${listdg != null}">
                             <h4 style="text-align: left;">Danh Sách Đánh Giá</h4>
-                            <tr revs>
+                            <tr >
                                 <th>ID Đánh Giá</th>
                                 <th>Tên Sách</th>
                                 <th>Tên Khách Hàng</th>
@@ -58,6 +57,7 @@
                                 <th>Bình Luận</th>
                                 <th>Ngày Tạo</th>
                                 <th>Trạng Thái</th>
+                                <th>Hành Động</th>
                             </tr>
 
                         </thead>
@@ -77,7 +77,7 @@
                                     <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
                                 </a>
                                 <a th:href="@{/danh-gia/xoa(idDanhGia=${dg.idDanhGia})}"
-                                   onclick="return confirm('Bạn có chắc muốn xác nhận đánh giá này không?')">
+                                   onclick="return confirm('Bạn có chắc muốn xóa đánh giá này không?')">
                                     <i class="fa-solid fa-circle-xmark" style="color: #006ec2;"></i>
                                 </a>
 
@@ -133,7 +133,7 @@
                                                     <div class="line-item">
                                                         <label>Trạng Thái</label>
                                                         <input class="form-control" type="text"
-                                                               th:value="${dg.trangThai}"
+                                                               th:value="${dg.trangThai == 0 ? 'Chưa duyệt' : (dg.trangThai == 1 ? 'Đã duyệt' : 'Không duyệt')}"
                                                                disabled>
                                                     </div>
                                                 </div>
