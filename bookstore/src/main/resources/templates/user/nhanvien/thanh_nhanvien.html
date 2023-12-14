@@ -72,49 +72,55 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form th:action="@{/quan-ly/nhan-vien/them-moi}" method="post" th:object="${nhanvien}"
+                                        <form th:action="@{/quan-ly/nhan-vien/them-moi}" method="post"
+                                              th:object="${nhanvien}"
                                               enctype="multipart/form-data">
                                             <div class="input-field">
                                                 <label for="maNhanVien">Mã Nhân Viên:</label>
                                                 <input type="text" id="maNhanVien" class="form-control" readonly
-                                                       placeholder="Mã Nhân Viên Tự Tăng !" name="maNhanVien" />
+                                                       placeholder="Mã Nhân Viên Tự Tăng !" name="maNhanVien"/>
                                             </div>
                                             <div class="input-field">
                                                 <label for="hoVaTen">Tên Nhân Viên:</label>
-                                                <input type="text" id="hoVaTen" class="form-control" name="hoVaTen" />
+                                                <input type="text" id="hoVaTen" class="form-control" name="hoVaTen"/>
                                             </div>
 
                                             <div class="input-field">
                                                 <label for="sdt">Số điện thoại:</label>
-                                                <input type="tel" name="sdt" id="sdt" class="form-control"  />
+                                                <input type="tel" name="sdt" id="sdt" class="form-control"/>
                                             </div>
-                                             <div class="input-field">
+                                            <div class="input-field">
                                                 <label for="ngaySinh">Ngày Sinh:</label>
-                                                <input type="date" name="ngaySinh" id="ngaySinh" class="form-control"  />
+                                                <input type="date" name="ngaySinh" id="ngaySinh" class="form-control"/>
                                             </div>
-                                             <div class="input-field">
+                                            <div class="input-field">
                                                 <label for="matKhau">Mật Khẩu:</label>
-                                                <input type="text" name="matKhau" id="matKhau" class="form-control"  />
+                                                <input type="text" name="matKhau" id="matKhau" class="form-control"/>
                                             </div>
                                             <div class="input-field">
                                                 <label for="trangThai">Trạng Thái:</label>
-                                                <select  id="trangThai" class="form-control" name="trangThai">
+                                                <select id="trangThai" class="form-control" name="trangThai">
                                                     <option value="1">Đang Làm</option>
                                                     <option value="0">Đã Nghỉ</option>
                                                 </select>
                                             </div>
                                             <div class="input-field">
                                                 <label for="email">Email:</label>
-                                                <input type="email" id="email" name="email"class="form-control">
+                                                <input type="email" id="email" name="email" class="form-control">
                                             </div>
                                             <div class="input-field">
                                                 <label for="chucVu">Chức vụ:</label>
-                                                <input type="text" id="chucVu" class="form-control" name="chucVu">
+                                                <select id="chucVu" class="form-control" name="chucVu">
+                                                    <option value="Quan ly">Quản lý</option>
+                                                    <option value="Nhan vien">Nhân viên</option>
+                                                </select>
                                             </div>
+
                                             <div class="form-group">
                                                 <label for="linkAnhNhanVien">Chọn ảnh :</label> <br>
                                                 <!--anh 1-->
-                                                <input type="file" id="linkAnhNhanVien" name="linkAnhNhanVien" accept="image/*"
+                                                <input type="file" id="linkAnhNhanVien" name="linkAnhNhanVien"
+                                                       accept="image/*"
                                                        onchange="displayImage(this, 'selectedImage1')"/>
                                                 <!-- hien thi anh 1-->
                                                 <img id="selectedImage1" src="#" alt="Ảnh đã chọn"
@@ -184,7 +190,8 @@
                         </tr>
 
                         <!--start modal for view action-->
-                        <div class="modal fade" th:id="'modalNhanVien-' + ${nhanvien.idNhanVien}" tabindex="-1" role="dialog"
+                        <div class="modal fade" th:id="'modalNhanVien-' + ${nhanvien.idNhanVien}" tabindex="-1"
+                             role="dialog"
                              aria-labelledby="viewModalLabel"
                              aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -200,21 +207,30 @@
                                         <!-- Display Product Details -->
                                         <div class="product-details">
                                             <h6 class="product-name">Mã Nhân Viên:</h6>
-                                            <input class="form-control" id="viewMaNhanVien" th:value="${nhanvien.maNhanVien}" disabled/>
+                                            <input class="form-control" id="viewMaNhanVien"
+                                                   th:value="${nhanvien.maNhanVien}" disabled/>
                                             <h6 class="product-name">Tên Nhân Viên:</h6>
-                                            <input class="form-control" id="viewTenNhanVien" th:value="${nhanvien.hoVaTen}" disabled/>
+                                            <input class="form-control" id="viewTenNhanVien"
+                                                   th:value="${nhanvien.hoVaTen}" disabled/>
                                             <h6 class="product-description">Số Điện Thoại:</h6>
-                                            <input class="form-control" id="viewsdt" th:value="${nhanvien.sdt}" disabled/>
+                                            <input class="form-control" id="viewsdt" th:value="${nhanvien.sdt}"
+                                                   disabled/>
                                             <h6 class="product-description">Ngày Sinh:</h6>
-                                            <input type="date" class="form-control" id="viewNgaySinh" th:value="${nhanvien.ngaySinh}" disabled/>
+                                            <input type="date" class="form-control" id="viewNgaySinh"
+                                                   th:value="${nhanvien.ngaySinh}" disabled/>
                                             <h6 class="product-description">Mật Khẩu:</h6>
-                                            <input class="form-control" type="password" id="viewMoTa" th:value="${nhanvien.matKhau}" disabled/>
+                                            <input class="form-control" type="password" id="viewMoTa"
+                                                   th:value="${nhanvien.matKhau}" disabled/>
                                             <h6 class="product-description">Email:</h6>
-                                            <input class="form-control" id="viewMoTa" th:value="${nhanvien.email}" disabled/>
+                                            <input class="form-control" id="viewMoTa" th:value="${nhanvien.email}"
+                                                   disabled/>
                                             <h6 class="product-description">Chức vụ:</h6>
-                                            <input class="form-control" id="viewMoTa" th:value="${nhanvien.chucVu}" disabled/>
+                                            <input class="form-control" id="viewMoTa" th:value="${nhanvien.chucVu}"
+                                                   disabled/>
                                             <h6 class="product-status">Trạng Thái:</h6>
-                                            <input class="form-control" id="viewTrangThai" th:value="${nhanvien.trangThai == 1 ? 'Đang Làm': 'Đã Nghỉ'}" disabled/>
+                                            <input class="form-control" id="viewTrangThai"
+                                                   th:value="${nhanvien.trangThai == 1 ? 'Đang Làm': 'Đã Nghỉ'}"
+                                                   disabled/>
                                             <h6 class="product-images">Ảnh Nhân Viên:</h6>
                                             <img th:src="@{|${nhanvien.linkAnhNhanVien}|}" id="viewLinkAnh1" alt="anh 1"
                                                  width="88px" height="88px">
@@ -232,7 +248,8 @@
 
                         <!--start editview action-->
 
-                        <div class="modal fade" th:id="'modalEditNhanVien-' + ${nhanvien.idNhanVien}" tabindex="-1" role="dialog"
+                        <div class="modal fade" th:id="'modalEditNhanVien-' + ${nhanvien.idNhanVien}" tabindex="-1"
+                             role="dialog"
                              aria-labelledby="editModalLabel"
                              aria-hidden="true">+
                             <div class="modal-dialog modal-lg" role="document">
@@ -246,33 +263,40 @@
                                     </div>
                                     <div class="modal-body">
                                         <!-- Form for Edetaiiting Product Dls -->
-                                        <form th:action="@{/quan-ly/nhan-vien/cap-nhat}" method="post" th:object="${nhanvien2}"
+                                        <form th:action="@{/quan-ly/nhan-vien/cap-nhat}" method="post"
+                                              th:object="${nhanvien2}"
                                               id="editProductForm" enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <label for="maNhanVien">Mã Nhân Viên:</label>
-                                                <input type="text" th:value="${nhanvien.maNhanVien}" id="maNhanVien"  name="maNhanVien"
+                                                <input type="text" th:value="${nhanvien.maNhanVien}" id="maNhanVien"
+                                                       name="maNhanVien"
                                                        class="form-control" readonly>
                                             </div>
-                                            <input type="text" id="idNhanVien" name="idNhanVien"  class="form-control"
+                                            <input type="text" id="idNhanVien" name="idNhanVien" class="form-control"
                                                    th:value="${nhanvien.idNhanVien}" hidden>
                                             <div class="form-group">
                                                 <label for="hoVaTen">Tên Nhân Viên:</label>
                                                 <input type="text" id="hoVaTen" class="form-control"
-                                                   th:value="${nhanvien.hoVaTen}" name="hoVaTen">
+                                                       th:value="${nhanvien.hoVaTen}" name="hoVaTen">
                                             </div>
                                             <div class="form-group">
                                                 <label for="sdt">Số Điện Thoại:</label>
-                                                <input type="tel" id="sdt" class="form-control" th:value="${nhanvien.sdt}" name="sdt">
+                                                <input type="tel" id="sdt" class="form-control"
+                                                       th:value="${nhanvien.sdt}" name="sdt">
                                             </div>
                                             <div class="form-group">
                                                 <label for="ngaySinh">Ngày Sinh:</label>
-                                                <input type="date" id="ngaySinh" class="form-control" th:value="${nhanvien.ngaySinh}" name="ngaySinh">
+                                                <input type="date" id="ngaySinh" class="form-control"
+                                                       th:value="${nhanvien.ngaySinh}" name="ngaySinh">
                                             </div>
                                             <div class="form-group">
                                                 <label for="trangThai">Trạng Thái:</label>
                                                 <select id="trangThai" class="form-control" name="trangThai">
-                                                    <option th:selected="${nhanvien.trangThai == 1}" value="1">Đang Làm</option>
-                                                    <option th:selected="${nhanvien.trangThai == 0}" value="0">Đã Nghỉ</option>
+                                                    <option th:selected="${nhanvien.trangThai == 1}" value="1">Đang
+                                                        Làm
+                                                    </option>
+                                                    <option th:selected="${nhanvien.trangThai == 0}" value="0">Đã Nghỉ
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -295,15 +319,16 @@
                                                     <img th:src="@{|${nhanvien.linkAnhNhanVien}|}"
                                                          th:id="'editviewLinkAnhNhanVien-' + ${nhanvien.idNhanVien}"
                                                          alt="anhNhanVien" width="88px" height="88px"
-                                                         th:onclick="'editImage(\'' + 'editlinkAnhNhanVien-' + ${nhanvien.idNhanVien} + '\', \'checkthayDoiImage-' + ${nhanvien.idNhanVien} + '\')'" />
+                                                         th:onclick="'editImage(\'' + 'editlinkAnhNhanVien-' + ${nhanvien.idNhanVien} + '\', \'checkthayDoiImage-' + ${nhanvien.idNhanVien} + '\')'"/>
                                                 </label>
                                                 <input type="text" name="checkthayDoiImage"
-                                                       th:id="'checkthayDoiImage-' + ${nhanvien.idNhanVien}" value="chuaThayDoi"
+                                                       th:id="'checkthayDoiImage-' + ${nhanvien.idNhanVien}"
+                                                       value="chuaThayDoi"
                                                        hidden>
                                                 <input type="file" class="custom-file-input"
                                                        th:id="'editlinkAnhNhanVien-' + ${nhanvien.idNhanVien}"
                                                        name="editlinkAnhNhanVien" accept="image/*"
-                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnhNhanVien-' + ${nhanvien.idNhanVien} + '\')'" />
+                                                       th:attr="onchange='displayImage(this, \'editviewLinkAnhNhanVien-' + ${nhanvien.idNhanVien} + '\')'"/>
                                                 <button class="delete-button"
                                                         th:attr="onclick=|deleteImage('editviewLinkAnhNhanVien-${nhanvien.idNhanVien}', 'editlinkAnhNhanVien-${nhanvien.idNhanVien}', 'checkthayDoiImage-${nhanvien.idNhanVien}', event)|">
                                                     Xóa Ảnh
