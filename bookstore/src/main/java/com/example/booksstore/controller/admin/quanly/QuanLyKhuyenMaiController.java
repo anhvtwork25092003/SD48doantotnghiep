@@ -333,7 +333,11 @@ public class QuanLyKhuyenMaiController {
         if (khuyenMai == null) {
             System.out.println("khong tim thay khuyen mai!");
         } else {
-            KhuyenMai khuyenMaiupdated = this.iKhuyenMaiService.updateTrangThai(Integer.parseInt(idKhuyenMai), 0);
+            Date currentDate = new Date();
+            khuyenMai.setNgayKetThuc(currentDate);
+            khuyenMai.setTrangThai(0);
+
+            KhuyenMai khuyenMaiupdated = this.iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai);
         }
         return "redirect:/quan-ly/khuyen-mai/hien-thi";
     }
