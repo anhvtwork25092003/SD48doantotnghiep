@@ -39,12 +39,12 @@
                         </div>
                     </div>
                     <div class="box-price">
-                            <span class="price-sale" th:if="${listSach.layGiaNeuCoKhuyenMai() == null}"
+                            <span class="text-muted" th:if="${listSach.layGiaNeuCoKhuyenMai() == null}"
                                   th:text="${listSach.giaBanVnd}">
                             </span>
-                        <span class="price-sale" th:if="${listSach.layGiaNeuCoKhuyenMai() != null}"
-                              th:text="${listSach.giaBanVnd }"></span>
-                        <span class="price-origin" th:text="${listSach.layGiaNeuCoKhuyenMai()}"></span>
+                        <del class="text-muted" th:if="${listSach.layGiaNeuCoKhuyenMai() != null}"
+                              th:text="${listSach.giaBanVnd }"></del>
+                        <span class="price-sale" th:text="${listSach.layGiaNeuCoKhuyenMai()}"></span>
                         <div th:if="${listSach.layPhanTramGiamNeuCoKhuyenMai() != null}">
                             <span class="per-sale btn btn-warning" th:text="${listSach.layPhanTramGiamNeuCoKhuyenMai() + '%'}"></span>
                         </div>

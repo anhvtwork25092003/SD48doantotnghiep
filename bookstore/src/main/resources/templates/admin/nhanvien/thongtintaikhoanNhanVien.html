@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}"
+      xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Thông tin tài khoản</title>
     <meta charset="utf-8">
@@ -13,6 +15,9 @@
 
 </head>
 <body>
+<article layout:fragment="noiDung">
+    <h6 th:text="${loggedInUser.hoVaTen}" hidden></h6>
+    <h6 th:text="${loggedInUser.chucVu}" hidden></h6>
 <article>
     <div class="container">
         <div class="row">
@@ -101,7 +106,7 @@
         </div>
     </div>
 </article>
-
+</article>
 <!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
