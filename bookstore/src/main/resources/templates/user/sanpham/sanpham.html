@@ -133,7 +133,7 @@
                                             <div class="input-field">
                                                 <label for="tenSach">Tên Sách:</label>
                                                 <input type="text" id="maSach" class="form-control" name="tenSach"
-                                                       required>
+                                                       required th:maxlength="100">
                                             </div>
                                             <div class="input-field">
                                                 <label for="maSach">Thể loại:</label>
@@ -155,7 +155,7 @@
                                             <div class="input-field">
                                                 <label for="moTa">Mô tả:</label>
                                                 <textarea id="moTa" class="form-control" name="moTa"
-                                                          required></textarea>
+                                                          required th:maxlength="250"></textarea>
                                             </div>
                                             <div class="input-field">
                                                 <label for="trangThai">Trạng Thái:</label>
@@ -384,12 +384,12 @@
                                                 <div class="form-group">
                                                     <label for="tenSach">Tên Sách:</label>
                                                     <input type="text" id="tenSach" class="form-control"
-                                                           th:value="${sach.tenSach}" name="tenSach">
+                                                           th:value="${sach.tenSach}" th:maxlength="100" name="tenSach">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="moTa">Mô tả:</label>
-                                                    <textarea id="moTa" class="form-control" th:value="${sach.moTa}"
-                                                              name="moTa"></textarea>
+                                                    <textarea id="moTa" class="form-control" th:text="${sach.moTa}"
+                                                              name="moTa th:maxlength="250""></textarea>
 
                                                 </div>
                                                 <div class="form-group">
@@ -407,7 +407,7 @@
                                                 <div class="form-group">
                                                     <label for="soLuong">Số Lượng:</label>
                                                     <input type="number" id="soLuong" class="form-control"
-                                                           name="soLuongTonKho"
+                                                           name="soLuongTonKho" th:maxlength="10"
                                                            th:value="${sach.soLuongTonKho}">
                                                 </div>
                                                 <div class="form-group">
@@ -548,7 +548,7 @@
                                                 <div class="form-group">
                                                     <label for="maVach">Mã Vạch:</label>
                                                     <input type="text" id="maVach" class="form-control"
-                                                           th:value="${sach.maVach}" name="maVach">
+                                                           th:value="${sach.maVach}" th:maxlength="20"name="maVach">
                                                 </div>
                                                 <br>
                                                 <button type="submit" class="btn btn-primary">
