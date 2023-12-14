@@ -23,6 +23,39 @@
 
     <div class="container-fluid">
         <div class="tong">
+            <!--            thông báo các đoạn mã vạch-->
+            <span th:if="${thongBaoMaVach != null}">
+                <h1 id="thongBaoMaVach" th:text="${thongBaoMaVach}" hidden></h1>
+                <script th:inline="javascript">
+                    /*<![CDATA[*/
+                    // Lấy giá trị từ thẻ span
+                    var thongBaoMaVach = document.getElementById('thongBaoMaVach').innerText;
+                    // Kiểm tra nếu có thông báo thì hiển thị alert
+                    if (thongBaoMaVach.trim() !== '') {
+                        alert(thongBaoMaVach);
+                    }
+                    /*]]>*/
+                </script>
+            </span>
+            <span th:if="${danhSachLoiValidate != null}">
+                <span th:if="${danhSachLoiValidate.size() > 0}">
+                    <div id="hiddenList" th:attr="data-list=${danhSachLoiValidate}" hidden>
+                        <!-- Lặp qua danh sách và hiển thị mỗi phần tử trong div ẩn -->
+                        <span th:each="loi : ${danhSachLoiValidate}">
+                            <span th:text="${loi}"></span>
+                        </span>
+                    </div>
+                    <script th:inline="javascript">
+                        // Lấy giá trị của danh sách từ thẻ div ẩn
+                        var hiddenList = document.getElementById('hiddenList').getAttribute('data-list');
+
+                        // Hiển thị danh sách trong alert
+                        alert('Danh sách: ' + hiddenList);
+                    </script>
+                </span>
+            </span>
+
+
             <div class="row">
                 <div class="col-4">
                     <!--search -->
@@ -95,15 +128,17 @@
                                             <div class="input-field">
                                                 <label for="maSach">Mã Sách:</label>
                                                 <input type="text" id="maSach" class="form-control" readonly
-                                                       placeholder="Mã Sách Tự tăng !" name="maSach">
+                                                       placeholder="Mã Sách Tự tăng !" name="maSach" required>
                                             </div>
                                             <div class="input-field">
                                                 <label for="tenSach">Tên Sách:</label>
-                                                <input type="text" id="maSach" class="form-control" name="tenSach">
+                                                <input type="text" id="maSach" class="form-control" name="tenSach"
+                                                       required>
                                             </div>
                                             <div class="input-field">
                                                 <label for="maSach">Thể loại:</label>
-                                                <select multiple="multiple" name="theLoais" class="form-control">
+                                                <select multiple="multiple" name="theLoais" class="form-control"
+                                                        required>
                                                     <option th:each="listTheLoai : ${listTheLoai}"
                                                             th:value="${listTheLoai.idTheLoai}"
                                                             th:text="${listTheLoai.tenTheLoai}"></option>
@@ -111,7 +146,7 @@
                                             </div>
                                             <div class="input-field">
                                                 <label for="maSach">Tác giả:</label>
-                                                <select multiple="multiple" name="tacgia" class="form-control">
+                                                <select multiple="multiple" name="tacgia" class="form-control" required>
                                                     <option th:each="listTheLoai : ${authors}"
                                                             th:value="${listTheLoai.idTacGia}"
                                                             th:text="${listTheLoai.hoVaTen}"></option>
@@ -119,7 +154,8 @@
                                             </div>
                                             <div class="input-field">
                                                 <label for="moTa">Mô tả:</label>
-                                                <textarea id="moTa" class="form-control" name="moTa"></textarea>
+                                                <textarea id="moTa" class="form-control" name="moTa"
+                                                          required></textarea>
                                             </div>
                                             <div class="input-field">
                                                 <label for="trangThai">Trạng Thái:</label>
@@ -130,17 +166,19 @@
                                             </div>
                                             <div class="input-field">
                                                 <label for="soLuong">Số Lượng:</label>
-                                                <input type="number" id="soLuongTonKho" name="soLuongTonKho"
+                                                <input type="number" id="soLuongTonKho" name="soLuongTonKho" required
                                                        class="form-control">
                                             </div>
                                             <div class="input-field">
                                                 <label for="giaBan">Giá Bán:</label>
-                                                <input type="text" id="giaBan" class="form-control" name="giaBan">
+                                                <input type="number" id="giaBan" class="form-control" name="giaBan"
+                                                       required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="linkAnh1">Chọn ảnh :</label> <br>
                                                 <!--anh 1-->
                                                 <input type="file" id="linkAnh1" name="linkAnh1" accept="image/*"
+                                                       required
                                                        onchange="displayImage(this, 'selectedImage1')"/>
                                                 <!-- hien thi anh 1-->
                                                 <img id="selectedImage1" src="#" alt="Ảnh đã chọn"

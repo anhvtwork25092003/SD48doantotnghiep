@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -28,6 +29,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -128,9 +131,40 @@ public class QuanLySachController {
             @RequestParam("linkAnh2") MultipartFile linkAnh2,
             @RequestParam("linkAnh3") MultipartFile linkAnh3,
             @RequestParam("linkAnh4") MultipartFile linkAnh4,
-            @RequestParam("linkAnh5") MultipartFile linkAnh5
+            @RequestParam("linkAnh5") MultipartFile linkAnh5,
+            Model model,
+            RedirectAttributes redirectAttributes
     ) {
         try {
+            // validate nè
+
+            List<String> listLoiValidate = new ArrayList<>();
+            int countLoiValidate = 0;
+            if (tenSach.trim().length() > 50 || tenSach.trim().length() == 0) {
+                listLoiValidate.add("Tên ngắn dưới 50 kí tự và không để trống!");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if (moTa.trim().length() > 250 || moTa.trim().length() == 0) {
+                listLoiValidate.add("Mô tả dưới 250 kí tự và không để trống!");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if (soLuongTonKho.trim().length() > 0) {
+                listLoiValidate.add("Số lượng phải dương chứ!");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if (giaBan.trim().length() == 0 || Double.parseDouble(giaBan.trim()) < 0) {
+                listLoiValidate.add("Giá bán phải dương chứ, bán vậy lỗ!!");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if (maVach.trim().length() != 12) {
+                listLoiValidate.add("Mã vạch phải là dãy 12 số nha!");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if (countLoiValidate > 0) {
+                redirectAttributes.addFlashAttribute("danhSachLoiValidate", listLoiValidate);
+                return "redirect:/quan-ly/sach/hien-thi";
+            }
+
             String duongDanCotDinh = "/image/anhsanpham/";
             String duongDanLuuAnh1 = duongDanCotDinh + linkAnh1.getOriginalFilename();
             String duongDanLuuAnh2 = duongDanCotDinh + linkAnh2.getOriginalFilename();
@@ -178,32 +212,15 @@ public class QuanLySachController {
                 Path path5 = Paths.get(uploadDirectory + linkAnh5.getOriginalFilename());
                 Files.write(path5, bytes5);
             }
-
             // xu ly lưu sách
             Sach sachFoundByMaVach = this.iSachService.getOneByMaVach(maVach);
             if (sachFoundByMaVach != null) {
                 // ma vach da ton tai
-                // update theo id
-                // cap nhat so luong
-                int soLuongUpDate = Integer.parseInt(soLuongTonKho) + sachFoundByMaVach.getSoLuongTonKho();
-                BigDecimal giaBanOke = new BigDecimal(giaBan);
-                Sach sach = Sach.builder()
-                        .idSach(sachFoundByMaVach.getIdSach())
-                        .tenSach(tenSach)
-                        .tacgia(tacgia)
-                        .theLoais(theLoais)
-                        .trangThai(Integer.parseInt(trangThai))
-                        .moTa(moTa)
-                        .soLuongTonKho(soLuongUpDate)
-                        .giaBan(giaBanOke)
-                        .maVach(maVach)
-                        .linkAnh1(duongDanLuuAnh1)
-                        .linkAnh2(duongDanLuuAnh2)
-                        .linkAnh3(duongDanLuuAnh3)
-                        .linkAnh4(duongDanLuuAnh4)
-                        .linkAnh5(duongDanLuuAnh5)
-                        .build();
-                this.iSachService.save(sach);
+                // thông báo
+                redirectAttributes.addFlashAttribute("thongBaoMaVach", "Mã vạch " + sachFoundByMaVach.getMaVach() +
+                        " đã tồn tại!, hãy cập nhật sản phẩm này hoặc thay đổi mã vạch mới!");
+                System.out.println("in trước khi chuyển");
+                return "redirect:/quan-ly/sach/hien-thi";
             } else {
                 // ma vach chua ton tai
                 BigDecimal giaBanOke = new BigDecimal(giaBan);
@@ -223,9 +240,7 @@ public class QuanLySachController {
                         .linkAnh5(duongDanLuuAnh5)
                         .build();
                 this.iSachService.save(sach);
-
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
