@@ -79,7 +79,7 @@ public class QuanLyKhuyenMaiController {
         }
         Page<KhuyenMai> khuyenMaiPages;
         int pageSize = 5; // Đặt kích thước trang mặc định
-        int trangThai = 0;
+        int trangThai = -1;
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
         if (tenKhuyenMaiTimKiem != null || trangThaiTimKiem != null) {
             // xử lý trạng thái
@@ -87,34 +87,31 @@ public class QuanLyKhuyenMaiController {
                 trangThai = 1;
             } else if (trangThaiTimKiem.equals("0")) {
                 trangThai = 0;
+            } else {
+                trangThai = -1;
             }
-            model.addAttribute("trangThai", trangThaiTimKiem);
-
+            model.addAttribute("khsta", trangThaiTimKiem);
+            model.addAttribute("khds", "");
+            model.addAttribute("khde", "");
+            model.addAttribute("khn", "");
             Date ngayBatDau = null;
             Date ngayKetThuc = null;
-
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
             try {
                 if (ngayBatDauTimKiem != null && !ngayBatDauTimKiem.isEmpty()) {
                     ngayBatDau = sdf.parse(ngayBatDauTimKiem);
+                    model.addAttribute("khds", ngayBatDauTimKiem);
+
                 }
 
                 if (ngayKetThucTimKiem != null && !ngayKetThucTimKiem.isEmpty()) {
                     ngayKetThuc = sdf.parse(ngayKetThucTimKiem);
+                    model.addAttribute("khde", ngayKetThucTimKiem);
+
                 }
             } catch (ParseException e) {
                 e.printStackTrace(); // Handle the exception properly in a real-world scenario
             }
-
-//            if (ngayHomNayTimKiem != null && !ngayHomNayTimKiem.isEmpty()) {
-//                // Set ngayBatDau and ngayKetThuc as today
-//                LocalDate today = LocalDate.now();
-//                ngayBatDau = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
-//                ngayKetThuc = Date.from(today.atStartOfDay(ZoneId.systemDefault()).plusDays(1).minusSeconds(1).toInstant());
-//            }
-
-
             khuyenMaiPages = iKhuyenMaiService.searchKhuyenMai(tenKhuyenMaiTimKiem, ngayBatDau, ngayKetThuc, trangThai, pageable);
         } else {
             khuyenMaiPages = iKhuyenMaiService.getAllKhuyenMaiTheoTrangThai(pageable, 1);
