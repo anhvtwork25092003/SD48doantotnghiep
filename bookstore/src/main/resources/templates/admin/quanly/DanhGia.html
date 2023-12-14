@@ -49,7 +49,7 @@
                             }
                         </script>
                         <th:block th:if="${listdg != null}">
-                            <h4 style="text-align: left;">Danh Sách Đơn Hàng Đang Chờ</h4>
+                            <h4 style="text-align: left;">Danh Sách Đánh Giá</h4>
                             <tr revs>
                                 <th>ID Đánh Giá</th>
                                 <th>Tên Sách</th>
@@ -69,7 +69,7 @@
                             <td th:text="${dg.mucDanhGia}"></td>
                             <td th:text="${dg.binhLuan}"></td>
                             <td th:text="${dg.ngayTao}"></td>
-                            <td th:text="${dg.trangThai}"></td>
+                            <td th:text="${dg.trangThai == 0 ? 'Chưa duyệt' : (dg.trangThai == 1 ? 'Đã duyệt' : 'Không duyệt')}"></td>
                             <td>
 
                                 <a th:href="@{/danh-gia/cap-nhat(idDanhGia=${dg.idDanhGia})}"

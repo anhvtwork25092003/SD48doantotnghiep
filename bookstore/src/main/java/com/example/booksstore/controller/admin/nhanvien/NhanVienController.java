@@ -40,11 +40,12 @@ public class NhanVienController {
         }
         return "redirect:/login";
     }
-    @GetMapping("/thong-tin/hien-thi/{idNhanVien}")
-    public String hienThiThongTin(@PathVariable Integer idNhanVien, HttpSession session) {
-        NhanVien nhanVien = nhanVienRepository.getById(idNhanVien);
+    @GetMapping("/thong-tin/hien-thi")
+    public String hienThiThongTin(HttpSession session,Model model) {
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         session.setAttribute("loggedInUser", nhanVien);
-        return "admin/layoutchung/thongtintaikhoannv";
+        model.addAttribute("loggedInUser", nhanVien);
+        return "admin/nhanvien/thongtintaikhoanNhanVien";
 //        return "redirect:/quan-ly/thong-tin/hien-thi";
     }
     @PostMapping("/nhan-vien/thay-doi")
