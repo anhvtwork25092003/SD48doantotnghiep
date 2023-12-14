@@ -535,15 +535,19 @@
                         </th:block>
                         <h6 style="color: red;"><b><i>Đang có <span th:text="${pageOfSach.totalElements}"></span> Sản
                             Phẩm!</i> </b></h6>
+                        <!-- Bổ sung mã Thymeleaf để hiển thị nút chuyển trang -->
+                        <div>
+                        </div>
                         <!-- phân trang-->
                         <div>
                         <span th:if="${pageOfSach.number + 1 > 1}">
-                            <a th:href="@{'/quan-ly/sach/hien-thi?page=' + ${pageOfSach.number}}">Previous</a>
+                            <a th:href="@{'/quan-ly/sach/hien-thi?page='
+                            + ${pageOfSach.number} + '&productNameSearch=' + ${pn} + '&productCodeSearch=' + ${pc} + '&productStatusSearch=' + ${psta}}">Previous</a>
                         </span>
                             <span th:text="${pageOfSach.number + 1} + ' / ' + ${pageOfSach.totalPages}"></span>
                             <span th:if="${pageOfSach.number + 1 < pageOfSach.totalPages}">
-                            <a th:href="@{'/quan-ly/sach/hien-thi?page=' + ${pageOfSach.number + 2}}">Next</a>
-                        </span>
+                            <a th:href="@{'/quan-ly/sach/hien-thi?page=' + ${pageOfSach.number + 2} + '&productNameSearch=' + ${pn} + '&productCodeSearch=' + ${pc} + '&productStatusSearch=' + ${psta}}">Next</a>
+                            </span>
                             </span>
                         </div>
                         <!--end phân trang-->

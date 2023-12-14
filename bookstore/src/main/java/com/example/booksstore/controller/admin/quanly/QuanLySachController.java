@@ -69,29 +69,37 @@ public class QuanLySachController {
         Page<Sach> pageOfSach;
         BigDecimal giaMin = null;
         BigDecimal giaMax = null;
-        int trangThai = 0;
+        int trangThai = -1;
         int pageSize = 5; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
-//  moi khoi tao trang
-        if (productNameSearch != null || productCodeSearch != null || productStatusSearch != null) {
-            // xu ly khoang gia
+        //  moi khoi tao trang
+        // xu ly khoang gia
 
-            // xuu ly trang thai
-            if (productStatusSearch != null) {
-                if (productStatusSearch.equals("S1")) {
-                    trangThai = -1;
-                } else if (productStatusSearch.equals("S2")) {
-                    trangThai = 1;
-                } else if (productStatusSearch.equals("S3")) {
-                    trangThai = 0;
-                }
-                model.addAttribute("psta", productStatusSearch);
-
-            }
-            pageOfSach = iSachService.searchSach(productNameSearch, productCodeSearch, trangThai, pageable);
+        if (productCodeSearch == null) {
+            model.addAttribute("pc", "");
         } else {
-            pageOfSach = iSachService.pageOfSach(pageable);
+            model.addAttribute("pc", productCodeSearch);
         }
+        if (productNameSearch != null) {
+            model.addAttribute("pn", productNameSearch);
+        } else {
+            model.addAttribute("pn", "");
+        }
+
+        // xuu ly trang thai
+        if (productStatusSearch != null) {
+            if (productStatusSearch.equals("S1")) {
+                trangThai = -1;
+            } else if (productStatusSearch.equals("S2")) {
+                trangThai = 1;
+            } else if (productStatusSearch.equals("S3")) {
+                trangThai = 0;
+            }
+            // gửi modal để phân trang link
+            model.addAttribute("psta", productStatusSearch);
+
+        }
+        pageOfSach = iSachService.searchSach(productNameSearch, productCodeSearch, trangThai, pageable);
 
         // Replace the original list of Sach objects with the formatted list
 
