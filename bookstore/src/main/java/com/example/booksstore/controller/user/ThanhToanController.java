@@ -83,7 +83,7 @@ public class ThanhToanController {
             // lấy list giỏ hàng chi tiết chưa chọn -- toàn bộ giỏ hàng lưu ở sesion
             List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
                     .getAttribute("listSanPhamTrongGioHangTamThoi");
-            if(listSanPhamTrongGioHangTamThoi == null){
+            if (listSanPhamTrongGioHangTamThoi == null) {
                 listSanPhamTrongGioHangTamThoi = new ArrayList<>();
             }
             List<GioHangChiTiet> gioHangChiTietListDaChon = new ArrayList<>();
@@ -239,6 +239,9 @@ public class ThanhToanController {
                                 email,
                                 gioHangChiTietList
                         );
+                for (DonHangChiTiet donHangChiTiet : donHang.getChiTietDonHang()) {
+                    this.iDonHangService.truSoLuongTonKho(donHangChiTiet);
+                }
                 System.out.println("tạo thành công đơn hàng có mã hóa đơn là: " + donHang.getMaDonHang());
                 return "redirect:/vnpay/vnpayreturn?idDonHang=" + donHang.getIdDonHang();
 
@@ -324,14 +327,17 @@ public class ThanhToanController {
                                 khachHang.getEmail(),
                                 gioHangChiTietList
                         );
+                // trừ số lượng hàng tồn kho
+                for (DonHangChiTiet donHangChiTiet : donHang.getChiTietDonHang()) {
+                    this.iDonHangService.truSoLuongTonKho(donHangChiTiet);
+                }
                 System.out.println("tạo thành công đơn hàng có mã hóa đơn là: " + donHang.getMaDonHang());
                 guiThongBao(donHang, khachHang);
-
-
                 return "redirect:/vnpay/vnpayreturn?idDonHang=" + donHang.getIdDonHang();
             }
         }
     }
+
 
     public DonHang luuDonHang(
             PhuongThucThanhToan phuongThucThanhToan,
@@ -450,6 +456,7 @@ public class ThanhToanController {
             DonHangChiTiet donHangChiTietMoiLuuVaoDB = this.donHangChiTietRepo.save(donHangChiTietDeThemVaoList);
             donHangChiTietList.add(donHangChiTietDeThemVaoList);
         }
+        donHangVuaKhoiTao.setChiTietDonHang(donHangChiTietList);
 
         // tiến hành lưu lại đơn hàng
         DonHang donHangSauKhiLuu = this.iDonHangRepo.save(donHangVuaKhoiTao);

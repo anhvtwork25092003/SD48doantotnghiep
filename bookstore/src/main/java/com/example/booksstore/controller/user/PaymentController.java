@@ -1,12 +1,20 @@
 package com.example.booksstore.controller.user;
 
 import com.example.booksstore.config.Config;
-import com.example.booksstore.entities.*;
+import com.example.booksstore.entities.DiaChi;
+import com.example.booksstore.entities.DonHang;
+import com.example.booksstore.entities.DonHangChiTiet;
+import com.example.booksstore.entities.GioHangChiTiet;
+import com.example.booksstore.entities.KhachHang;
+import com.example.booksstore.entities.PhuongThucThanhToan;
+import com.example.booksstore.entities.ThongBao;
+import com.example.booksstore.entities.ThongTinGiaoHang;
 import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.GioHangChiTietReposutory;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.IThongTinGiaoHangRepo;
+import com.example.booksstore.service.IDonHangService;
 import com.example.booksstore.service.IThongBaoService;
 import com.example.booksstore.service.ThongBaoKhachHangService;
 import com.example.booksstore.service.javaMailService;
@@ -39,6 +47,9 @@ import java.util.TimeZone;
 @Controller
 @RequestMapping("/vnpay")
 public class PaymentController {
+
+    @Autowired
+    IDonHangService iDonHangService;
     @Autowired
     javaMailService javaMailService;
 
@@ -138,6 +149,9 @@ public class PaymentController {
                                     khachHang.getEmail(),
                                     DonHangChiTietDaDuocVnPayThanhToan
                             );
+                    for (DonHangChiTiet donHangChiTiet : donHang.getChiTietDonHang()) {
+                        this.iDonHangService.truSoLuongTonKho(donHangChiTiet);
+                    }
                     model.addAttribute("thongBao", "Thanh toan thanh cong !");
                     model.addAttribute("donHang", donHang);
                     // gửi mail
@@ -178,6 +192,9 @@ public class PaymentController {
                                     emailThanhToanChuaDangNhap,
                                     DonHangChiTietDaDuocVnPayThanhToan
                             );
+                    for (DonHangChiTiet donHangChiTiet : donHang.getChiTietDonHang()) {
+                        this.iDonHangService.truSoLuongTonKho(donHangChiTiet);
+                    }
                     // tạo thông báo + gửi đơn hàng vừa được tạo sang thymleaf
                     model.addAttribute("thongBao", "Thanh toan thanh cong !");
                     model.addAttribute("donHang", donHang);
@@ -185,7 +202,7 @@ public class PaymentController {
                     String tieuDe = "Thông Báo Đơn Hàng Mới Từ Fahasa";
                     String body = "Cảm ơn bạn đã mua hàng tại cửa hàng của chúng tôi, đơn hàng của bạn sẽ sớm được xử lý!";
                     javaMailService.sendEmail(emailNhanDon, tieuDe, body);
-                    guiThongBaoVnPay(donHang,khachHang);
+                    guiThongBaoVnPay(donHang, khachHang);
                 }
             } else {
                 model.addAttribute("thongBao", "Thanh toan không thanh cong !");
@@ -258,7 +275,6 @@ public class PaymentController {
                         .emailGiaoHang(emailGiaoHang)
                         .build();
         ThongTinGiaoHang thongTinGiaoHangMoiLuu = this.iThongTinGiaoHangRepo.save(thongTinGiaoHangForCreateDonHang);
-
         donHangVuaKhoiTao.setThongTinGiaoHang(thongTinGiaoHangMoiLuu);
 
         //CHI TIET DON HANG
@@ -267,6 +283,7 @@ public class PaymentController {
             donHangChiTiet.setDonHang(donHangVuaKhoiTao);
             DonHangChiTiet donHangChiTietMoiLuuVaoDB = this.donHangChiTietRepo.save(donHangChiTiet);
         }
+        donHangVuaKhoiTao.setChiTietDonHang(DonHangChiTietDaDuocVnPayThanhToan);
 
         // tiến hành lưu lại đơn hàng
         DonHang donHangSauKhiLuu = this.iDonHangRepo.save(donHangVuaKhoiTao);
