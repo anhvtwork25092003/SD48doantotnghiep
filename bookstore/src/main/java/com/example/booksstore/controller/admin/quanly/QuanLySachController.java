@@ -148,7 +148,7 @@ public class QuanLySachController {
                 listLoiValidate.add("Mô tả dưới 250 kí tự và không để trống!");
                 countLoiValidate = countLoiValidate + 1;
             }
-            if (soLuongTonKho.trim().length() > 0) {
+            if (soLuongTonKho.trim().length() < 0) {
                 listLoiValidate.add("Số lượng phải dương chứ!");
                 countLoiValidate = countLoiValidate + 1;
             }
