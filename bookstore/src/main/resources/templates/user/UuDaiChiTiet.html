@@ -40,7 +40,7 @@
             <div class="row">Thời Gian Bắt Đầu Áp Dụng<h4 th:text="${sachKhuyenMai.ngayBatDau}"></h4></div>
             <div class="row">Thời Gian Kết Thúc<h4 th:text="${sachKhuyenMai.ngayKetThuc}"></h4></div>
             <div class="product">
-                <div class="product-item" th:each="sachKhuyenMai2 : ${sachKhuyenMai.sachs}" th:limit="5">
+                <div class="product-item" th:each="sachKhuyenMai2,iterStat : ${sachKhuyenMai.sachs}" th:if="${iterStat.index < 50}">
                     <a th:href="@{'/trang-chu/detail?idSach=' + ${sachKhuyenMai2.idSach}}">
                         <div class="product-image">
                             <img th:src="${sachKhuyenMai2.linkAnh1}" alt="Chưa có ảnh hiển thị">
