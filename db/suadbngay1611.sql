@@ -88,3 +88,33 @@ REFERENCES KhachHang(idKhachhang);
 -- sửa db
  alter table thongbao
  alter column noiDung nvarchar(max)
+ -- mong là sửa lần cuối
+ create table TraHang(
+IdTraHang int identity PRIMARY KEY,
+IdDonHang int,
+NgayTao datetime,
+trangThai int -- 0 là đang chuẩn bị hàng, 1 đang vận chuyển, 2 vận chuyển thành công
+)
+go
+create table TraHangChiTiet(
+IdTraHangChiTiet int identity PRIMARY KEY,
+IdSach int,
+IdTraHang int,
+SoLuong int,
+)
+
+-- tạo các liên kết
+ALTER TABLE TraHangChiTiet
+ADD CONSTRAINT fk_trahangchitiet_trahang
+FOREIGN KEY (IdTraHang)
+REFERENCES TraHang(IdTraHang);
+
+ALTER TABLE TraHangChiTiet
+ADD CONSTRAINT fk_trahangchitiet_sach
+FOREIGN KEY (IdSach)
+REFERENCES Sach(IdSach);
+
+ALTER TABLE TraHang
+ADD CONSTRAINT fk_trahnag_donhang
+FOREIGN KEY (IdDonHang)
+REFERENCES DonHang(IdDonHang);
