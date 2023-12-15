@@ -21,8 +21,10 @@ import lombok.Setter;
 import org.hibernate.annotations.Generated;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 @AllArgsConstructor
@@ -101,5 +103,27 @@ public class DonHang {
         }
         return doanhThu;
     }
+    public String formatCurrency(BigDecimal amount) {
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        return currencyFormatter.format(amount);
+    }
+    public String tinhTongTienFormatted() {
+        // Logic tính doanh thu của đơn hàng
+        // Bạn có thể tính doanh thu bằng cách lấy tổng giá trị của các đơn hàng chi tiết
+        BigDecimal doanhThu = BigDecimal.ZERO;
+        if (chiTietDonHang != null) {
+            for (DonHangChiTiet chiTiet : chiTietDonHang) {
+                doanhThu = doanhThu.add(chiTiet.getThanhTien());
+            }
+        }
+
+        // Thêm 50.000 vào doanh thu
+        doanhThu = doanhThu.add(new BigDecimal("50000"));
+
+        // Định dạng doanh thu thành chuỗi tiền tệ
+        return formatCurrency(doanhThu);
+    }
+
+
 }
 

@@ -78,7 +78,7 @@
                     <table class="table" style=" border: 0px solid blue;">
                         <thead class="table-dark">
                         <select class="col-3 form-control" onchange="changePage(this)">
-                            <option value="/quan-ly/don-hang/cho-xac-nhan">Đơn Hàng Chờ Xác Nhận</option>
+<!--                            <option value="/quan-ly/don-hang/cho-xac-nhan">Đơn Hàng Chờ Xác Nhận</option>-->
                             <option value="/quan-ly/don-hang/da-duyet">Đơn Hàng Đã Duyệt</option>
                             <option value="/quan-ly/don-hang/dang-giao">Đơn Hàng Đang Giao</option>
                             <option value="/quan-ly/don-hang/hoan-thanh">Đã Hoàn Thành</option>
@@ -114,9 +114,9 @@
                             <td th:text="${dh.ngayTao}"></td>
                             <td th:text="${dh.ngayHuy}"></td>
                             <td th:text="${dh.thongTinGiaoHang.sdt}"></td>
-                            <div th:each="ctdh : ${dh.chiTietDonHang}">
-                                <td th:text="${50.000 + ctdh.thanhTienVnd}"></td>
-                            </div>
+<!--                            <div th:each="ctdh : ${dh.chiTietDonHang}">-->
+                                <td th:text="${dh.tinhTongTienFormatted()}"></td>
+<!--                            </div>-->
                             <td th:text="${dh.ghiChuKhachHangGui}"></td>
                             <td th:text="${dh.ghiChuLyDoDonHang}"></td>
                             <td>
@@ -261,13 +261,13 @@
 
                                                     <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
                                                         <label>Phần trăm giảm:</label>
-                                                        <input th:value="${ctdh.phanTramGiam}"
+                                                        <input th:value="${ctdh.phanTramGiam + '%'}"
                                                                class="form-control" type="text"
                                                                disabled/>
                                                     </div>
-                                                    <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
+                                                    <div class="line-item">
                                                         <label>Tổng tiền:</label>
-                                                        <input th:value="${50.000 + ctdh.thanhTienVnd}"
+                                                        <input th:value="${dh.tinhTongTienFormatted()}"
                                                                class="form-control" type="text"
                                                                disabled/>
                                                     </div>

@@ -102,7 +102,7 @@
                                 <th>Tổng Tiền</th>
                                 <th>Ghi chú</th>
                                 <th>Hành động</th>
-                                <th>Người Duyệt</th>
+<!--                                <th>Người Duyệt</th>-->
                             </tr>
                         </thead>
                         <tbody th:each="dh, iterStat : ${donHang.content}">
@@ -111,9 +111,10 @@
                             <td th:text="${dh.thongTinGiaoHang.tenNguoiNhan}"></td>
                             <td th:text="${dh.ngayTao}"></td>
                             <td th:text="${dh.thongTinGiaoHang.sdt}"></td>
-                            <div th:each="ctdh : ${dh.chiTietDonHang}">
-                                <td th:text="${50.000 + ctdh.thanhTienVnd }"></td>
-                            </div>
+<!--                            <div th:each="ctdh : ${dh.chiTietDonHang}">-->
+<!--                                <td th:text="${50000 + ctdh.thanhTienVnd }"></td>-->
+<!--                            </div>-->
+                            <td th:text="${dh.tinhTongTienFormatted()}"></td>
                             <td th:text="${dh.ghiChuKhachHangGui}"></td>
                             <td>
                                 <!-- startđây là nút xác nhận đơn hàng-->
@@ -243,13 +244,13 @@
 
                                                     <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
                                                         <label>Phần trăm giảm:</label>
-                                                        <input th:value="${ctdh.phanTramGiam}"
+                                                        <input th:value="${ctdh.phanTramGiam + '%'}"
                                                                class="form-control" type="text"
                                                                disabled/>
                                                     </div>
-                                                    <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
+                                                    <div class="line-item">
                                                         <label>Tổng tiền:</label>
-                                                        <input th:value="${50.000 + ctdh.thanhTienVnd}"
+                                                        <input th:value="${dh.tinhTongTienFormatted()}"
                                                                class="form-control" type="text"
                                                                disabled/>
                                                     </div>
@@ -280,11 +281,11 @@
 
                                 <!--  nút hủy đơn hàng -->
                             </td>
-                            <div th:each="nv : ${loggedInUser}">
-                                <td>
-                                    <span th:text="${nv.maNhanVien}"></span> - <span th:text="${nv.hoVaTen}"></span>
-                                </td>
-                            </div>
+<!--                            <div th:each="nv : ${loggedInUser}">-->
+<!--                                <td>-->
+<!--                                    <span th:text="${nv.maNhanVien}"></span> - <span th:text="${nv.hoVaTen}"></span>-->
+<!--                                </td>-->
+<!--                            </div>-->
                         </tr>
                         </tbody>
                     </table>
