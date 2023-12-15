@@ -28,7 +28,7 @@ header img {
 
 .product {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     background-color: white;
     font-family: cursive;
     border: 1px solid darkgray;
