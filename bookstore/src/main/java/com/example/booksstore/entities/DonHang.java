@@ -3,7 +3,6 @@ package com.example.booksstore.entities;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -91,6 +90,8 @@ public class DonHang {
 
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)
     private List<DonHangChiTiet> chiTietDonHang;
+    @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)
+    private List<TraHang> traHang;
 
     public BigDecimal tinhDoanhThu() {
         // Logic tính doanh thu của đơn hàng
@@ -103,10 +104,12 @@ public class DonHang {
         }
         return doanhThu;
     }
+
     public String formatCurrency(BigDecimal amount) {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
         return currencyFormatter.format(amount);
     }
+
     public String tinhTongTienFormatted() {
         // Logic tính doanh thu của đơn hàng
         // Bạn có thể tính doanh thu bằng cách lấy tổng giá trị của các đơn hàng chi tiết
