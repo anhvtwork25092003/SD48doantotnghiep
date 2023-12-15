@@ -43,9 +43,48 @@
                                 </p>
                                 <!-- Thêm phần tử cho biểu tượng loading -->
 
-                                <button type="submit" class="btn btn">
-                                    <i class="fa-solid fa-rotate-right fa-l" style="color: #f96515;"></i>
-                                </button>
+<!--                                <button type="submit" class="btn btn">-->
+<!--                                    <i class="fa-solid fa-rotate-right fa-l" style="color: #f96515;"></i>-->
+<!--                                </button>-->
+                                <script>
+                                    $(document).ready(function() {
+                                        // Khi giá trị của input thay đổi
+                                        $("#soLuongSach").change(function() {
+                                            updateQuantity(this);
+                                        });
+                                    });
+
+                                    function updateQuantity(input) {
+                                        // Lấy giá trị mới từ input
+                                        var newQuantity = input.value;
+
+                                        // Hiển thị biểu tượng loading
+                                        $("#loadingIcon").show();
+
+                                        // Gửi yêu cầu AJAX để cập nhật số lượng
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/update-quantity", // Đặt URL cập nhật số lượng của bạn
+                                            data: {
+                                                idSach: $(input).siblings('[name="idSachgh"]').val(),
+                                                soLuong: newQuantity
+                                            },
+                                            success: function(data) {
+                                                // Xử lý kết quả từ máy chủ (nếu cần)
+                                                console.log("Cập nhật số lượng thành công!");
+
+                                                // Ẩn biểu tượng loading
+                                                $("#loadingIcon").hide();
+                                            },
+                                            error: function(error) {
+                                                console.error("Lỗi khi cập nhật số lượng:", error);
+
+                                                // Ẩn biểu tượng loading
+                                                $("#loadingIcon").hide();
+                                            }
+                                        });
+                                    }
+                                </script>
                             </form>
                             <div th:if="${item.sach.layGiaNeuCoKhuyenMai() == null}" class="text-muted">
                                 <div class="pricesale">
