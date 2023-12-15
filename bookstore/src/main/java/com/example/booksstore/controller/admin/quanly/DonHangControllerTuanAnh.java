@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,7 +56,6 @@ public class DonHangControllerTuanAnh {
     private IKiemTraDanhGiaService iKiemTraDanhGiaService;
 
 
-
     //BẮT ĐẦU CỦA ĐƠN HÀNG CHỜ
     @GetMapping("/don-hang/cho-xac-nhan")
     // bắt đầu hiển thị giao diện đơn hàng chờ
@@ -77,17 +77,102 @@ public class DonHangControllerTuanAnh {
     // bắt đầu hiển thị giao diện đơn hàng chờ
 
     @PostMapping("/tim-kiem-ma")
-    public String searchOrders(@RequestParam("maDonHang") String maDonHang,
-                               @RequestParam("sdt") String sdt, HttpSession session,
-                               Model model, @RequestParam(defaultValue = "1") int page) {
+    public String searchOrders(
+            @RequestParam("maDonHang") String maDonHang,
+            @RequestParam("sdt") String sdt,
+            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+            HttpSession session,
+            Model model,
+            @RequestParam(defaultValue = "1") int page
+    ) {
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> timKiemMaAndSdt = iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContaining(pageable, maDonHang, sdt);
+        Page<DonHang> timKiemMaAndSdt =
+                iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContainingAndNgayTaoBetween(
+                        pageable, maDonHang, sdt, startDate, endDate
+                );
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         model.addAttribute("loggedInUser", nhanVien);
         model.addAttribute("donHang", timKiemMaAndSdt);
         System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
         return "/admin/quanly/DonHangCho";
+    }
+
+    @PostMapping("/tim-kiem-da-duyet")
+    public String searchDaDuyet(@RequestParam("maDonHang") String maDonHang,
+                                @RequestParam("sdt") String sdt,
+                                @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                                HttpSession session,
+                                Model model, @RequestParam(defaultValue = "1") int page) {
+        int pageSize = 5;
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<DonHang> timKiemMaAndSdt =
+                iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContainingAndNgayTaoBetween
+                        (pageable, maDonHang, sdt, startDate, endDate);
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        model.addAttribute("loggedInUser", nhanVien);
+        model.addAttribute("donHang", timKiemMaAndSdt);
+        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
+        return "/admin/quanly/DonHangDaDuyet";
+    }
+
+    @PostMapping("/tim-kiem-dang-giao")
+    public String searchOrdersDangGiao(@RequestParam("maDonHang") String maDonHang,
+                                       @RequestParam("sdt") String sdt,
+                                       @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                       @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                                       HttpSession session,
+                                       Model model, @RequestParam(defaultValue = "1") int page) {
+        int pageSize = 5;
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<DonHang> timKiemMaAndSdt =
+                iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContainingAndNgayTaoBetween
+                        (pageable, maDonHang, sdt, startDate, endDate);
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        model.addAttribute("loggedInUser", nhanVien);
+        model.addAttribute("donHang", timKiemMaAndSdt);
+        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
+        return "/admin/quanly/DonHangDangGiao";
+    }
+
+    @PostMapping("/tim-kiem-hoan-thanh")
+    public String searchOrdersHoanThanh(@RequestParam("maDonHang") String maDonHang,
+                                        @RequestParam("sdt") String sdt,
+                                        @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                        @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                                        HttpSession session,
+                                        Model model, @RequestParam(defaultValue = "1") int page) {
+        int pageSize = 5;
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<DonHang> timKiemMaAndSdt =
+                iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContainingAndNgayTaoBetween
+                        (pageable, maDonHang, sdt, startDate, endDate);
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        model.addAttribute("loggedInUser", nhanVien);
+        model.addAttribute("donHang", timKiemMaAndSdt);
+        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
+        return "/admin/quanly/DonHangDaHoanThanh";
+    }
+
+    @PostMapping("/tim-kiem-da-huy")
+    public String searchOrdersDaHuy(@RequestParam("maDonHang") String maDonHang,
+                                    @RequestParam("sdt") String sdt,
+                                    @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                    @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                                    HttpSession session,
+                                    Model model, @RequestParam(defaultValue = "1") int page) {
+        int pageSize = 5;
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<DonHang> timKiemMaAndSdt =
+                iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContainingAndNgayTaoBetween
+                        (pageable, maDonHang, sdt, startDate, endDate);
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        model.addAttribute("loggedInUser", nhanVien);
+        model.addAttribute("donHang", timKiemMaAndSdt);
+        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
+        return "/admin/quanly/DonHangDaHuy";
     }
 
     @PostMapping("/cap-nhat-nv")
@@ -161,7 +246,7 @@ public class DonHangControllerTuanAnh {
         if ("0".equals(loaiKhachHang)) {
             // Loại khách hàng = 0, chỉ gửi email
             guiEmailDonHang(donHang, thongTinGiaoHang);
-        } else   {
+        } else {
             // Loại khách hàng = 1, gửi cả thông báo lẫn email
             guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
             guiEmailDonHang(donHang, thongTinGiaoHang);
@@ -209,7 +294,7 @@ public class DonHangControllerTuanAnh {
         if ("0".equals(loaiKhachHang)) {
             // Loại khách hàng = 0, chỉ gửi email
             guiEmailDonHang(donHang, thongTinGiaoHang);
-        } else   {
+        } else {
             // Loại khách hàng = 1, gửi cả thông báo lẫn email
             guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
             guiEmailDonHang(donHang, thongTinGiaoHang);
@@ -239,6 +324,7 @@ public class DonHangControllerTuanAnh {
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
         return "/admin/quanly/DonHangDaDuyet";
     }
+
     // kết thúc hiển thị giao diện đơn hàng đã duyệt
 //
     @GetMapping("/xac-nhan-don-hang-da-duyet")
@@ -262,9 +348,9 @@ public class DonHangControllerTuanAnh {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
             donHang.setTrangThai(2); // Đặt trạng thái thành 1 (đã duyệt)
             donHang.setNgayThanhToan(new Date()); // Cập nhật ngày tạo mới
-            if("1".equals(loaiKhachHang)){
-                for(DonHangChiTiet dhct : donHang.getChiTietDonHang()){
-                    iKiemTraDanhGiaService.save(donHang.getKhachHang(),dhct.getSach());
+            if ("1".equals(loaiKhachHang)) {
+                for (DonHangChiTiet dhct : donHang.getChiTietDonHang()) {
+                    iKiemTraDanhGiaService.save(donHang.getKhachHang(), dhct.getSach());
                 }
             }
             iDonHangRepo.save(donHang);
@@ -277,12 +363,11 @@ public class DonHangControllerTuanAnh {
         if ("0".equals(loaiKhachHang)) {
             // Loại khách hàng = 0, chỉ gửi email
             guiEmailDonHang(donHang, thongTinGiaoHang);
-        } else   {
+        } else {
             // Loại khách hàng = 1, gửi cả thông báo lẫn email
             guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
             guiEmailDonHang(donHang, thongTinGiaoHang);
         }
-
 
 
         model.addAttribute("loggedInUser", nhanVien);
@@ -293,12 +378,11 @@ public class DonHangControllerTuanAnh {
     //KẾT THÚC CỦA ĐƠN HÀNG ĐÃ DUYỆT
 
 
-
     //BẮT ĐẦU CỦA ĐƠN HÀNG ĐANG GIAO
     @GetMapping("/don-hang/dang-giao")
     // bắt đầu hiển thị giao diện đơn hàng đang giao
     public String quanLyDonHangDangGiao(HttpSession session, Model model,
-                                       @RequestParam(defaultValue = "1") int page) {
+                                        @RequestParam(defaultValue = "1") int page) {
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 2);
@@ -315,7 +399,7 @@ public class DonHangControllerTuanAnh {
 
     @GetMapping("/xac-nhan-don-hang-dang-giao")
     public String xacNhanDonHangDaDuyet(Model model, HttpSession session,
-                                       @RequestParam("idDonHang") String idDonHang) {
+                                        @RequestParam("idDonHang") String idDonHang) {
         // Lấy đơn hàng từ idDonHang
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
@@ -333,9 +417,9 @@ public class DonHangControllerTuanAnh {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
             donHang.setTrangThai(3); // Đặt trạng thái thành 1 (đã duyệt)
             donHang.setNgayThanhToan(new Date()); // Cập nhật ngày tạo mới
-            if("1".equals(loaiKhachHang)){
-                for(DonHangChiTiet dhct : donHang.getChiTietDonHang()){
-                    iKiemTraDanhGiaService.save(donHang.getKhachHang(),dhct.getSach());
+            if ("1".equals(loaiKhachHang)) {
+                for (DonHangChiTiet dhct : donHang.getChiTietDonHang()) {
+                    iKiemTraDanhGiaService.save(donHang.getKhachHang(), dhct.getSach());
                 }
             }
             iDonHangRepo.save(donHang);
@@ -347,7 +431,7 @@ public class DonHangControllerTuanAnh {
         if ("0".equals(loaiKhachHang)) {
             // Loại khách hàng = 0, chỉ gửi email
             guiEmailDonHang(donHang, thongTinGiaoHang);
-        } else   {
+        } else {
             // Loại khách hàng = 1, gửi cả thông báo lẫn email
             guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
             guiEmailDonHang(donHang, thongTinGiaoHang);
@@ -400,7 +484,6 @@ public class DonHangControllerTuanAnh {
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
 
 
-
         if (donHang != null) {
             // Kiểm tra trạng thái của đơn hàng
             if (donHang.getTrangThai() == 4) {
@@ -420,7 +503,7 @@ public class DonHangControllerTuanAnh {
             if ("0".equals(loaiKhachHang)) {
                 // Loại khách hàng = 0, chỉ gửi email
                 guiEmailDonHang(donHang, thongTinGiaoHang);
-            } else   {
+            } else {
                 // Loại khách hàng = 1, gửi cả thông báo lẫn email
                 guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
                 guiEmailDonHang(donHang, thongTinGiaoHang);
@@ -466,7 +549,6 @@ public class DonHangControllerTuanAnh {
                 "Mã Đơn Hàng của bạn " + donHang.getMaDonHang() + "\n" +
                         "Trạng thái đơn: " + trangThaiDonHang);
     }
-
 
 
     public void guiThongBaoDonHang(DonHang donHang, ThongTinGiaoHang thongTinGiaoHang, KhachHang khachHang) {

@@ -21,60 +21,50 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-2">
-                <div class="boxsearch">
-                    <h6 style="text-align: center;">Tìm theo mã đơn hàng</h6>
-                    <div class="search">
-                        <input class="form-control" type="search" placeholder="Search">
-                        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+                <form th:action="@{/quan-ly/tim-kiem-dang-giao}" method="post">
+                    <div class="boxsearch">
+                        <h6 style="text-align: center;">Tìm theo mã đơn hàng</h6>
+                        <div class="search">
+                            <input class="form-control" name="maDonHang" type="search" placeholder="Search"
+                                   th:value="${param.maDonHang}">
+                            <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+                        </div>
                     </div>
-                </div>
-                <div class="boxsearch">
-                    <h6 style="text-align: center;">Tìm theo số điện thoại</h6>
-                    <div class="search">
-                        <input class="form-control" type="search" placeholder="Search">
-                        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+                    <div class="boxsearch">
+                        <h6 style="text-align: center;">Tìm theo số điện thoại</h6>
+                        <div class="search">
+                            <input class="form-control" type="search" name="sdt" placeholder="Search"
+                                   th:value="${param.sdt}">
+                            <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+                        </div>
                     </div>
-                </div>
-                <br>
-                <div class="boxtrang">
-                    <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
-                    <div class="row">
-                        <div class="col-11">
-                            <div class="form-check">
-                                <input class="form-check-input col-sm-2 col-form-label" type="radio"
-                                       name="exampleRadios"
-                                       id="exampleRadios1" value="option1" checked>
-                                <label class="form-check-label col-sm-10" for="exampleRadios1">
-                                    Hôm nay
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input col-sm-2 col-form-label" type="radio"
-                                       name="exampleRadios"
-                                       id="exampleRadios2" value="option2">
-                                <label class="form-check-label col-sm-10" for="exampleRadios2">
-                                    Lựa chọn
-                                </label>
+                    <br>
+                    <div class="boxtrang">
+                        <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="date">
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Từ</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" type="date" name="" id="">
+                                        <div class="col">
+                                            <input class="form-control" type="datetime-local" name="startDate"
+                                                   th:value="${param.startDate}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Đến</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" type="date" name="" id="">
+                                        <div class="col">
+                                            <input class="form-control" type="datetime-local" name="endDate"
+                                                   th:value="${param.endDate}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <button type="button" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm
-                </button>
+                    <button type="submit" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm
+                    </button>
+                </form>
             </div>
             <!--            table của đơn hàng đã duyệt-->
             <div class="col-10">
@@ -82,7 +72,7 @@
                     <table class="table" style=" border: 0px solid blue;">
                         <thead class="table-dark">
                         <select class="col-3 form-control" onchange="changePage(this)">
-<!--                            <option value="/quan-ly/don-hang/cho-xac-nhan">Đơn Hàng Chờ Xác Nhận</option>-->
+                            <!--                            <option value="/quan-ly/don-hang/cho-xac-nhan">Đơn Hàng Chờ Xác Nhận</option>-->
                             <option value="/quan-ly/don-hang/da-duyet">Đơn Hàng Đã Duyệt</option>
                             <option value="/quan-ly/don-hang/dang-giao">Đơn Hàng Đang Giao</option>
                             <option value="/quan-ly/don-hang/hoan-thanh">Đã Hoàn Thành</option>
@@ -108,7 +98,7 @@
                                 <th>Tổng Tiền</th>
                                 <th>Ghi Chú</th>
                                 <th>Hành Động</th>
-<!--                                <th>Người Duyệt</th>-->
+                                <!--                                <th>Người Duyệt</th>-->
                             </tr>
                         </thead>
                         <tbody th:each="dh, iterStat : ${donHang.content}">
@@ -117,9 +107,9 @@
                             <td th:text="${dh.thongTinGiaoHang.tenNguoiNhan}"></td>
                             <td th:text="${dh.ngayTao}"></td>
                             <td th:text="${dh.thongTinGiaoHang.sdt}"></td>
-<!--                            <div th:each="ctdh : ${dh.chiTietDonHang}">-->
-                                <td th:text="${dh.tinhTongTienFormatted()}"></td>
-<!--                            </div>-->
+                            <!--                            <div th:each="ctdh : ${dh.chiTietDonHang}">-->
+                            <td th:text="${dh.tinhTongTienFormatted()}"></td>
+                            <!--                            </div>-->
                             <td th:text="${dh.ghiChuKhachHangGui}"></td>
                             <td>
                                 <a th:href="@{/quan-ly/xac-nhan-don-hang-dang-giao(idDonHang=${dh.idDonHang})}"
@@ -228,6 +218,7 @@
                                                                 <th>Mã Sản Phẩm</th>
                                                                 <th>Tên Sản Phẩm</th>
                                                                 <th>Số Lượng Mua</th>
+                                                                <th>Phần Trăm Giảm</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -235,6 +226,8 @@
                                                                 <td th:text="${ctdh.sach.maSach}"></td>
                                                                 <td th:text="${ctdh.sach.tenSach}"></td>
                                                                 <td th:text="${ctdh.soLuong}"></td>
+                                                                <td th:text="${ctdh.phanTramGiam + '%'}"></td>
+
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -242,13 +235,6 @@
                                                     <div class="line-item">
                                                         <label>Tiền vận chuyển:</label>
                                                         <input value="50.000 ₫"
-                                                               class="form-control" type="text"
-                                                               disabled/>
-                                                    </div>
-
-                                                    <div class="line-item" th:each="ctdh : ${dh.chiTietDonHang}">
-                                                        <label>Phần trăm giảm:</label>
-                                                        <input th:value="${ctdh.phanTramGiam + '%'}"
                                                                class="form-control" type="text"
                                                                disabled/>
                                                     </div>
@@ -276,11 +262,11 @@
                                 </div>
                                 <!--  modal chi tiết đơn hàng -->
                             </td>
-<!--                            <div th:each="nv : ${loggedInUser}">-->
-<!--                                <td>-->
-<!--                                    <span th:text="${nv.maNhanVien}"></span> - <span th:text="${nv.hoVaTen}"></span>-->
-<!--                                </td>-->
-<!--                            </div>-->
+                            <!--                            <div th:each="nv : ${loggedInUser}">-->
+                            <!--                                <td>-->
+                            <!--                                    <span th:text="${nv.maNhanVien}"></span> - <span th:text="${nv.hoVaTen}"></span>-->
+                            <!--                                </td>-->
+                            <!--                            </div>-->
                         </tr>
                         </tbody>
                     </table>
