@@ -195,6 +195,8 @@
                                                 <!-- các sản phẩm được áp dungj -->
                                                 <h2>Các sản phẩm được áp dụng</h2>
                                                 <div style="height: 200px; overflow-y: scroll;" id="bookList">
+                                                    <input type="text" id="searchInputAdd"
+                                                           placeholder="Nhập để tìm kiếm" oninput="searchBooks()">
                                                     <div th:each="sach : ${sachs}" class="bookItem">
                                                         <input type="checkbox"
                                                                th:id="'sachCheckbox_' + ${sach.idSach}"
@@ -204,6 +206,54 @@
                                                                th:text="${sach.maSach} + ' '+${sach.tenSach}  + ' '+${sach.giaBanVnd}"></label><br/>
                                                     </div>
                                                 </div>
+                                                <script th:inline="javascript">
+                                                    function searchBooks() {
+                                                        var searchValue = document.getElementById("searchInputAdd").value.toLowerCase();
+                                                        var checkboxes = document.querySelectorAll('.bookItem');
+
+                                                        checkboxes.forEach(function (checkbox) {
+                                                            var labelText = checkbox.textContent || checkbox.innerText;
+                                                            checkbox.style.display = labelText.toLowerCase().includes(searchValue) ? 'block' : 'none';
+                                                        });
+                                                    }
+                                                </script>
+
+                                                <!-- Add tabs for the two lists -->
+                                                <!-- Add tabs for the two lists -->
+                                                <div>
+                                                    <button type="button" onclick="showList('list1')">Tab 1</button>
+                                                    <button type="button" onclick="showList('list2')">Tab 2</button>
+                                                </div>
+
+                                                <!-- List 1 -->
+                                                <div id="list1" class="bookList">
+                                                    <h2>Các sản phẩm được áp dụng cho List 1</h2>
+                                                </div>
+
+                                                <!-- List 2 -->
+                                                <div id="list2" class="bookList">
+                                                    <h2>Các sản phẩm được áp dụng cho List 2</h2>
+                                                </div>
+
+                                                <script th:inline="javascript">
+                                                    function showList(listId) {
+                                                        document.getElementById('list1').style.display = 'block';
+                                                        document.getElementById('list2').style.display = 'none';
+                                                        // Hide all lists
+                                                        var lists = document.querySelectorAll('.bookList');
+                                                        lists.forEach(function (list) {
+                                                            list.style.display = 'none';
+                                                        });
+
+                                                        // Show the selected list
+                                                        var selectedList = document.getElementById(listId);
+                                                        if (selectedList) {
+                                                            selectedList.style.display = 'block';
+                                                        }
+                                                    }
+                                                </script>
+
+
                                             </div>
                                             <!-- các sản phẩm được áp dungj -->
                                         </div>
