@@ -33,4 +33,7 @@ public class TraHangChiTiet {
     @ManyToOne
     @JoinColumn(name = "idtrahang")
     private TraHang traHang;
+
+    @Column(name = "soluong")
+    private int soLuong;
 }

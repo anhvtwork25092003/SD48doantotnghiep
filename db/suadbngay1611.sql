@@ -102,7 +102,6 @@ IdSach int,
 IdTraHang int,
 SoLuong int,
 )
-
 -- tạo các liên kết
 ALTER TABLE TraHangChiTiet
 ADD CONSTRAINT fk_trahangchitiet_trahang

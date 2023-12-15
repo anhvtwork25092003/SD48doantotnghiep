@@ -35,4 +35,6 @@ public interface IDonHangRepo extends JpaRepository<DonHang, Integer> {
                     "GROUP BY IdSach " +
                     "ORDER BY soLuong DESC", nativeQuery = true)
     List<TopSanPhamDTO> findTop10SanPhamBanChayNhat();
+
+
 }
