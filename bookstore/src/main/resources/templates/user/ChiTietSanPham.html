@@ -19,7 +19,8 @@
 </head>
 <body>
 <article layout:fragment="noiDung">
-    <form id="addToCartForm" th:action="@{/gio-hang/them-san-pham-vao-gio}" method="post">
+    <form id="addToCartForm" onsubmit="return validateSoLuong()" th:action="@{/gio-hang/them-san-pham-vao-gio}"
+          method="post">
         <div class="type-product">
 
             <div class="product-main">
@@ -33,20 +34,21 @@
                 </div>
                 <div class="product-infor">
                     <div class="txt-name" th:text="${listSach.tenSach}"></div>
-<!--                    <div class="btn-right">-->
-<!--                        <div class="btn-cust btn-love">-->
-<!--                            <i class="fa fa-heart" aria-hidden="true"></i>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <!--                    <div class="btn-right">-->
+                    <!--                        <div class="btn-cust btn-love">-->
+                    <!--                            <i class="fa fa-heart" aria-hidden="true"></i>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                     <div class="box-price">
                             <span class="text-muted" th:if="${listSach.layGiaNeuCoKhuyenMai() == null}"
                                   th:text="${listSach.giaBanVnd}">
                             </span>
                         <del class="text-muted" th:if="${listSach.layGiaNeuCoKhuyenMai() != null}"
-                              th:text="${listSach.giaBanVnd }"></del>
+                             th:text="${listSach.giaBanVnd }"></del>
                         <span class="price-sale" th:text="${listSach.layGiaNeuCoKhuyenMai()}"></span>
                         <div th:if="${listSach.layPhanTramGiamNeuCoKhuyenMai() != null}">
-                            <span class="per-sale btn btn-warning" th:text="${listSach.layPhanTramGiamNeuCoKhuyenMai() + '%'}"></span>
+                            <span class="per-sale btn btn-warning"
+                                  th:text="${listSach.layPhanTramGiamNeuCoKhuyenMai() + '%'}"></span>
                         </div>
                     </div>
                     <p class="txt-cate">Số lượng tồn kho:
@@ -72,11 +74,23 @@
                     </div>
                     <p class="txt-cate">Số lượng mua hàng:</p>
                     <div class="soLuong">
-                        <input class="form-control" value="1" id="soLuongCanMua" name="soLuongCanMua" type="number"/>
+                        <input class="form-control" value="1" id="soLuongCanMua" name="soLuongCanMua" type="number"
+                               min="1" max="20" required/>
                     </div>
+                    <script>
+                        function validateSoLuong() {
+                            var soLuong = document.getElementById('soLuongCanMua').value;
+                            if (soLuong < 0) {
+                                alert('Số lượng cần mua không được âm');
+                                return false;
+                            }
+                            return true;
+                        }
+                    </script>
                     <div class="product-bottom">
                         <div class="box-btn">
-                            <button type="button" onclick="addToCart()" class="btn-add form-control">
+                            <button type="button" onsubmit="return validateSoLuong()" onclick="addToCart()"
+                                    class="btn-add form-control">
                                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
                                 Thêm vào giỏ hàng
                             </button>
@@ -89,8 +103,50 @@
             </div>
         </div>
     </form>
+<!--    <script>-->
+<!--        function addToCart() {-->
+<!--            // Lấy giá trị từ số lượng-->
+<!--            var soLuongCanMua = document.getElementById("soLuongCanMua").value;-->
+
+<!--            // Thêm giá trị số lượng vào form-->
+<!--            document.getElementById("addToCartForm").querySelector("[name='soLuongCanMua']").value = soLuongCanMua;-->
+
+<!--            // Gửi yêu cầu POST không đồng bộ bằng JavaScript-->
+<!--            var formData = new FormData(document.getElementById("addToCartForm"));-->
+<!--            var xhr = new XMLHttpRequest();-->
+
+<!--            xhr.onreadystatechange = function () {-->
+<!--                if (xhr.readyState === XMLHttpRequest.DONE) {-->
+<!--                    if (xhr.status === 200) {-->
+<!--                        // Xử lý kết quả nếu cần thiết-->
+<!--                        console.log("Sản phẩm đã được thêm vào giỏ hàng thành công!");-->
+<!--                    } else {-->
+<!--                        // Xử lý lỗi nếu cần thiết-->
+<!--                        console.error("Có lỗi xảy ra khi thêm vào giỏ hàng.");-->
+<!--                    }-->
+<!--                }-->
+<!--            };-->
+
+<!--            xhr.open("POST", "/gio-hang/them-san-pham-vao-gio", true);-->
+<!--            xhr.send(formData);-->
+<!--        }-->
+<!--    </script>-->
     <script>
+        function validateSoLuong() {
+            var soLuong = document.getElementById('soLuongCanMua').value;
+            if (soLuong < 1 || soLuong > 20) {
+                alert('Số lượng cần mua phải nằm trong khoảng từ 1 đến 20.');
+                return false;
+            }
+            return true;
+        }
+
         function addToCart() {
+            // Kiểm tra số lượng trước khi thêm vào giỏ hàng
+            if (!validateSoLuong()) {
+                return false;
+            }
+
             // Lấy giá trị từ số lượng
             var soLuongCanMua = document.getElementById("soLuongCanMua").value;
 
@@ -117,6 +173,7 @@
             xhr.send(formData);
         }
     </script>
+
     <div class="danh-gia-chat-container">
         <div id="danh-gia-container">
             <form th:action="@{/danh-gia/them-danh-gia}" method="post" id="danh-gia-form">
@@ -141,7 +198,7 @@
             </form>
             <div id="danh-sach-binh-luan" th:each="dg, iterStat : ${listdg}">
                 <span th:text="${dg.idDanhGia}+' '+${dg.khachHang.hoVaTen}" style="font-size: 13px"></span><br>
-                <span  th:utext="${'&#9733;'.repeat(dg.mucDanhGia)}" style="color: gold"></span><br>
+                <span th:utext="${'&#9733;'.repeat(dg.mucDanhGia)}" style="color: gold"></span><br>
                 <span th:text="${dg.binhLuan}"></span>
             </div>
         </div>
