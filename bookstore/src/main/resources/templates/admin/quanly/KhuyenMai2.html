@@ -368,7 +368,8 @@
                                                 <div class="input-field">
                                                     <label> Ngày Kết Thúc</label>
                                                     <input type="datetime-local" id="ngayKetThuc" class="form-control"
-                                                           name="ngayKetThuc" th:value="${khuyenmai.ngayKetThuc}"/>
+                                                           name="ngayKetThuc" th:value="${khuyenmai.ngayKetThuc}"
+                                                    />
                                                 </div>
                                                 <div class="input-field">
                                                     <label>Trạng Thái</label>
@@ -467,10 +468,75 @@
                                                                 });
                                                             });
                                                         </script>
-
-
                                                     </div>
                                                 </div>
+
+                                                <!--tính năng mới-->
+<!--                                                <div>-->
+<!--                                                    <button type="button"-->
+<!--                                                            th:onclick="|showList('list1${khuyenmai.idKhuyenMai}')|">-->
+<!--                                                        Tất cả sản phẩm-->
+<!--                                                    </button>-->
+<!--                                                    <button type="button"-->
+<!--                                                            th:onclick="|showList('list2${khuyenmai.idKhuyenMai}')|">Các-->
+<!--                                                        sản phẩm chưa-->
+<!--                                                        áp dụng khuyến mãi-->
+<!--                                                    </button>-->
+<!--                                                </div>-->
+
+<!--                                                &lt;!&ndash; List 1 &ndash;&gt;-->
+<!--                                                <div th:id="'list1' + ${khuyenmai.idKhuyenMai}" class="bookList">-->
+<!--                                                    <span th:text="'list1'+${khuyenmai.idKhuyenMai}" hidden></span>-->
+<!--                                                    <h2>Tất cả các sản phẩm</h2>-->
+<!--                                                    <div style="height: 200px; overflow-y: scroll;" id="bookList">-->
+<!--                                                        <input type="text" id="searchInputAdd"-->
+<!--                                                               placeholder="Nhập để tìm kiếm" oninput="searchBooks()">-->
+<!--                                                        <div th:each="sach : ${sachs}" class="bookItem">-->
+<!--                                                            <input type="checkbox"-->
+<!--                                                                   th:id="'sachCheckbox_' + ${sach.idSach}"-->
+<!--                                                                   th:name="'sachKM'"-->
+<!--                                                                   th:value="${sach.idSach}"/>-->
+<!--                                                            <label th:for="'sachCheckbox_' + ${sach.idSach}"-->
+<!--                                                                   th:text="${sach.maSach} + ' '+${sach.tenSach}  + ' '+${sach.giaBanVnd}"></label><br/>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <script th:inline="javascript">-->
+<!--                                                        function searchBooks() {-->
+<!--                                                            var searchValue = document.getElementById("searchInputAdd").value.toLowerCase();-->
+<!--                                                            var checkboxes = document.querySelectorAll('.bookItem');-->
+
+<!--                                                            checkboxes.forEach(function (checkbox) {-->
+<!--                                                                var labelText = checkbox.textContent || checkbox.innerText;-->
+<!--                                                                checkbox.style.display = labelText.toLowerCase().includes(searchValue) ? 'block' : 'none';-->
+<!--                                                            });-->
+<!--                                                        }-->
+<!--                                                    </script>-->
+<!--                                                </div>-->
+
+<!--                                                &lt;!&ndash; List 2 &ndash;&gt;-->
+<!--                                                <div th:id="'list2' + ${khuyenmai.idKhuyenMai}" class="bookList"-->
+<!--                                                     style="display: none;">-->
+<!--                                                    <span th:text="'list2'+${khuyenmai.idKhuyenMai}" hidden></span>-->
+
+<!--                                                </div>-->
+
+<!--                                                <script th:inline="javascript">-->
+<!--                                                    function showList(listId) {-->
+<!--                                                        document.getElementById('list1').style.display = 'block';-->
+<!--                                                        document.getElementById('list2').style.display = 'none';-->
+<!--                                                        // Hide all lists-->
+<!--                                                        var lists = document.querySelectorAll('.bookList');-->
+<!--                                                        lists.forEach(function (list) {-->
+<!--                                                            list.style.display = 'none';-->
+<!--                                                        });-->
+
+<!--                                                        // Show the selected list-->
+<!--                                                        var selectedList = document.getElementById(listId);-->
+<!--                                                        if (selectedList) {-->
+<!--                                                            selectedList.style.display = 'block';-->
+<!--                                                        }-->
+<!--                                                    }-->
+<!--                                                </script>-->
                                                 <button type="submit" class="btn btn-primary" id="saveEditBtn"
                                                         onclick="return confirm('Bạn có muốn cập nhật khuyến mại')">Lưu
                                                 </button>

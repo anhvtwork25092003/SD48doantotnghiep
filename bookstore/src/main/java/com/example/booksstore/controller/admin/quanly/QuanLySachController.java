@@ -7,6 +7,7 @@ import com.example.booksstore.entities.TheLoai;
 import com.example.booksstore.service.ISachService;
 import com.example.booksstore.service.ITheLoaiServiec;
 import com.example.booksstore.service.TacGiaService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -274,8 +275,10 @@ public class QuanLySachController {
                           @RequestParam("editlinkAnh2") MultipartFile linkAnh2,
                           @RequestParam("editlinkAnh3") MultipartFile linkAnh3,
                           @RequestParam("editlinkAnh4") MultipartFile linkAnh4,
-                          @RequestParam("editlinkAnh5") MultipartFile linkAnh5
+                          @RequestParam("editlinkAnh5") MultipartFile linkAnh5,
+                          HttpServletRequest request
     ) throws IOException {
+        String url = request.getRequestURI().toString();
         System.out.println(trangThaiThayDoiAnh1);
         System.out.println(trangThaiThayDoiAnh2);
         System.out.println(trangThaiThayDoiAnh3);
@@ -374,7 +377,7 @@ public class QuanLySachController {
         }
         // xu ly lưu sách
         // xu  ly so luong
-        int soLuongUpDate = Integer.parseInt(soLuongTonKho) + this.iSachService.getOne(Integer.parseInt(IdSach)).getSoLuongTonKho();
+        Integer.parseInt(soLuongTonKho);
         BigDecimal giaBanOke = new BigDecimal(giaBan);
         Sach sachUpDate = Sach.builder()
                 .idSach(Integer.parseInt(IdSach))
@@ -383,7 +386,7 @@ public class QuanLySachController {
                 .theLoais(theLoais)
                 .trangThai(Integer.parseInt(trangThai))
                 .moTa(moTa)
-                .soLuongTonKho(soLuongUpDate)
+                .soLuongTonKho( Integer.parseInt(soLuongTonKho))
                 .giaBan(giaBanOke)
                 .maVach(maVach)
                 .linkAnh1(duongDanLuuAnh1)
@@ -393,7 +396,7 @@ public class QuanLySachController {
                 .linkAnh5(duongDanLuuAnh5)
                 .build();
         this.iSachService.save(sachUpDate);
-        return "redirect:/quan-ly/sach/hien-thi";
+        return url;
     }
 
 }
