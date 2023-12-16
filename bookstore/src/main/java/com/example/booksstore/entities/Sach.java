@@ -78,6 +78,7 @@ public class Sach {
     private String maVach;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "sachtheloai",
             joinColumns = @JoinColumn(name = "idsach"),
@@ -86,6 +87,7 @@ public class Sach {
     private Set<TheLoai> theLoais = new HashSet<>();
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "sachtacgia",
             joinColumns = @JoinColumn(name = "idsach"),
@@ -98,6 +100,7 @@ public class Sach {
     private Set<KhuyenMai> khuyenMais = new HashSet<>();
 
     @OneToMany(mappedBy = "sach", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<DanhGia> danhgias;
 
     public BigDecimal getGiaSauGiamGia(double phanTramGiamGia) {

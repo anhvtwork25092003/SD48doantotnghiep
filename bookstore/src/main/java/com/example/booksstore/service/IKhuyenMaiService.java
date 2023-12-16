@@ -39,4 +39,6 @@ public interface IKhuyenMaiService {
     KhuyenMai getOne1(int idKhuyenMai);
 
     KhuyenMai chiTietKhuyenMai(int idKhuyenMai);
+
+    List<Sach> danhSachSachKhongThamGiaKhuyenMai(Date thoigianbatdau, Date thoigianketthuc);
 }

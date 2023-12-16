@@ -63,7 +63,7 @@ public class SachServiceImpl implements ISachService {
 
     @Override
     public List<Sach> getall() {
-        List<Sach> s = iSachRepository.findAll();
+        List<Sach> s = iSachRepository.findAllSach();
         return s;
     }
 

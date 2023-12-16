@@ -12,7 +12,8 @@ import java.util.List;
 public interface ISachRepository extends JpaRepository<Sach, Integer> {
     Page<Sach> findAll(Pageable pageable);
     Page<Sach> findAll(Specification<Sach> spec, Pageable pageable);
-
+    @Query("SELECT s FROM Sach s")
+    List<Sach> findAllSach();
     Sach findByIdSach(int id);
 
     List<Sach> findAllByOrderByIdSachDesc();

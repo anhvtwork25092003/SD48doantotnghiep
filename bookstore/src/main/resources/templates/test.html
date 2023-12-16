@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Form Example</title>
+    <!-- Import Thymeleaf JavaScript -->
+
+</head>
+<body>
+<form id="myForm" th:action="@{/submitForm}" method="post" onsubmit="return validateForm()">
+    <!-- Your form fields go here -->
+    <input type="text" id="field1" name="field1" th:value="${model.field1}" />
+    <input type="text" id="field2" name="field2" th:value="${model.field2}" />
+    <!-- Add other form fields as needed -->
+
+    <!-- Submit button with onclick event -->
+    <button type="submit" onclick="return validateForm()">Submit</button>
+</form>
+
+<!-- Your JavaScript validation function -->
+<script th:inline="javascript">
+    function validateForm() {
+        // Get form fields
+        var field1 = document.getElementById('field1').value;
+        var field2 = document.getElementById('field2').value;
+        // Add more fields as needed
+
+        // Perform validation
+        if (field1.trim() === '' || field2.trim() === '') {
+            // Display alert if any field is empty
+            alert('Please fill in all fields.');
+            return false; // Prevent form submission
+        }
+
+        // If validation passes, allow form submission
+        return true;
+    }
+</script>
+</body>
+</html>
