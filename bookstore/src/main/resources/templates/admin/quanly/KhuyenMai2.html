@@ -182,22 +182,28 @@
                                                 <h2>Hiệu lực thời gian</h2>
                                                 <div class="col-md-12">
                                                     <label>Ngày bắt đầu:</label>
-                                                    <input class="form-control" type="datetime-local" id="ngayBatDau"
+                                                    <input class="form-control" type="datetime-local"
+                                                           id="ngayBatDauThemMoi"
                                                            step=60
                                                            name="ngayBatDau">
                                                 </div>
                                                 <div class="col-md-12">
                                                     <label>Ngày kết thúc:</label>
-                                                    <input class="form-control" type="datetime-local" id="ngayKetThuc"
+                                                    <input class="form-control" type="datetime-local"
+                                                           id="ngayKetThucThemMoi"
                                                            step=60
-                                                           name="ngayKetThuc">
+                                                           name="ngayKetThuc" onchange="updateThymeleaf()">
+
                                                 </div>
                                                 <!-- các sản phẩm được áp dungj -->
                                                 <!-- Add tabs for the two lists -->
                                                 <!-- Add tabs for the two lists -->
                                                 <div>
-                                                    <button type="button" onclick="showList('list1')">Tất cả sản phẩm</button>
-                                                    <button type="button" onclick="showList('list2')">Các sản phẩm chưa áp dụng khuyến mãi</button>
+                                                    <button type="button" onclick="showList('list1')">Tất cả sản phẩm
+                                                    </button>
+                                                    <button type="button" onclick="showList('list2')">Các sản phẩm chưa
+                                                        áp dụng khuyến mãi
+                                                    </button>
                                                 </div>
 
                                                 <!-- List 1 -->
@@ -230,7 +236,7 @@
 
                                                 <!-- List 2 -->
                                                 <div id="list2" class="bookList" style="display: none;">
-                                                    <h2>Các sản phẩm được áp dụng cho List 2</h2>
+
                                                 </div>
 
                                                 <script th:inline="javascript">

@@ -44,13 +44,13 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
     }
 
     @Override
-    public Page<KhuyenMai> get4KhuyenMaiDangHienThi(Pageable pageable,  int trangThaiHienThi) {
+    public Page<KhuyenMai> get4KhuyenMaiDangHienThi(Pageable pageable, int trangThaiHienThi) {
         return this.iKhuyenMaiReporitory.findAllByTrangThaiHienThi(pageable, trangThaiHienThi);
     }
 
     @Override
-    public List<KhuyenMai> getAllKhuyenMaiDangApDung( int trangThaiHienThi) {
-        return this.iKhuyenMaiReporitory.findAllByTrangThaiOrderByIdKhuyenMaiDesc( trangThaiHienThi);
+    public List<KhuyenMai> getAllKhuyenMaiDangApDung(int trangThaiHienThi) {
+        return this.iKhuyenMaiReporitory.findAllByTrangThaiOrderByIdKhuyenMaiDesc(trangThaiHienThi);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
 
         if (khuyenMai.isPresent()) {
             KhuyenMai khuyenMai2 = khuyenMai.get();
-          Date currentDate = new Date();
+            Date currentDate = new Date();
             khuyenMai2.setNgayKetThuc(currentDate);
             khuyenMai2.setTrangThai(trạngThaiUpdate);
             return iKhuyenMaiReporitory.save(khuyenMai2);
@@ -156,6 +156,22 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
     @Override
     public KhuyenMai chiTietKhuyenMai(int idKhuyenMai) {
         return iKhuyenMaiReporitory.getById(idKhuyenMai);
+    }
+
+    @Override
+    public List<Sach> danhSachSachKhongThamGiaKhuyenMai(Date thoigianbatdau, Date thoigianketthuc) {
+        List<KhuyenMai> khuyenMais = iKhuyenMaiReporitory
+                .findByTimeRange(thoigianketthuc, thoigianbatdau);
+        List<Sach> toanBoSach = this.iSachService.getall();
+        for (KhuyenMai khuyenMaiss : khuyenMais) {
+            for (Sach s : khuyenMaiss.getSachs()) {
+                if (toanBoSach.contains(s)) {
+                    toanBoSach.remove(s);
+                }
+            }
+        }
+
+        return toanBoSach;
     }
 
 
