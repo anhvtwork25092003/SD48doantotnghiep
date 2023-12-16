@@ -216,7 +216,7 @@ img {
 }
 
 .cart .items .cartSection input.qty {
-  width: 2em;
+  width: 75px;
   text-align: center;
   font-size: 1em;
   padding: .25em;

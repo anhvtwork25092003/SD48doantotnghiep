@@ -32,13 +32,13 @@
                         <div class="cartSection">
                             <!-- Sử dụng biểu thức Thymeleaf để đổ dữ liệu động -->
                             <img th:src="${item.sach.linkAnh1}" alt="" class="itemImg"/>
-                            <p class="itemNumber" th:text="${item.sach.idSach}" name="idSachgh"></p>
+                            <p class="itemNumber" th:text="${item.sach.idSach}" name="idSachgh" hidden></p>
                             <h3 th:text="${item.sach.tenSach}"></h3>
                             <form th:action="@{'/gio-hang/cap-nhat-luong-san-pham?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
                                   method="post">
                                 <p class="qty-control">
                                     <input type="hidden" th:value="${item.sach.idSach}" name="idSachgh">
-                                    <input type="text" class="qty" th:value="${item.soLuong}" name="soLuongSach"
+                                    <input type="number" class="qty" th:value="${item.soLuong}" name="soLuongSach"
                                            id="soLuongSach"/>
                                 </p>
                                 <!-- Thêm phần tử cho biểu tượng loading -->
