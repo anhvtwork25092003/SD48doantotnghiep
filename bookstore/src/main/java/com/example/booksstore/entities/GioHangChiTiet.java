@@ -1,9 +1,23 @@
 package com.example.booksstore.entities;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,7 +25,7 @@ import java.util.Date;
 @Setter
 @Entity
 @Builder
-@Table(name="giohangchitiet")
+@Table(name = "giohangchitiet")
 public class GioHangChiTiet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +45,23 @@ public class GioHangChiTiet {
 
     @Column(name = "ngaychinhsua")
     private Date ngayChinhSua;
+
+    public String formatCurrency(BigDecimal amount) {
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        return currencyFormatter.format(amount);
+    }
+
+    public String tinhThanhTien() {
+        if (this.sach.layGiaNeuCoKhuyenMai() == null) {
+            // return thành tiền với giá gốc, chuyển thành vnd
+            BigDecimal thanhTien = this.sach.getGiaBan().multiply(BigDecimal.valueOf(this.soLuong));
+            return formatCurrency(thanhTien);
+        } else {
+            // có khuyến mãi, return ra giá khuyến mãi
+            return this.sach.layGiaNeuCoKhuyenMai();
+        }
+    }
+
 
 }
 

@@ -71,4 +71,9 @@ public class SachServiceImpl implements ISachService {
     public Sach dateil(Integer idSach) {
         return iSachRepository.getById(idSach);
     }
+
+    @Override
+    public List<Sach> danhSachNhungSachChuaThamGiaKhuyenMaiOHienThienVaTuongLai() {
+        return null;
+    }
 }

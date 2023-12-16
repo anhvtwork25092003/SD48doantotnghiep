@@ -96,13 +96,13 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
 
     @Override
     public List<String> layThongTinSachTrongKhuyenMai(Set<Sach> sachs, Date thoigianbatdau, Date thoigianketthuc) {
-        System.out.println(" da chay den sv impl");
+        System.out.println(" da chay den sv i khuyen mai impl");
         List<KhuyenMai> khuyenMais = iKhuyenMaiReporitory
                 .findByTimeRange(thoigianketthuc, thoigianbatdau);
         List<String> ketQua = new ArrayList<String>();
         String ketquaDon = "";
         if (khuyenMais.isEmpty()) {
-            System.out.println("khong tim duoc khuye mai phu hop voi thoi gian day, lisst ketquar trong");
+            System.out.println("khong tim duoc khuyen mai phu hop voi thoi gian day, lisst ketquar trong");
         } else {
             System.out.println("có khuyễn mãi xuất hiện trong thời gian đưa vào, bắt đầu check sách");
             for (KhuyenMai khuyenMaiss : khuyenMais) {

@@ -126,7 +126,8 @@ public class Sach {
         }
         return null;
     }
-    public Integer  layPhanTramGiamNeuCoKhuyenMai() {
+
+    public Integer layPhanTramGiamNeuCoKhuyenMai() {
         for (KhuyenMai khuyenMai : this.khuyenMais) {
             if (khuyenMai.getTrangThai() == 1) {
                 return khuyenMai.getSoPhanTramGiamGia();
@@ -134,7 +135,6 @@ public class Sach {
         }
         return null; // hoặc bạn có thể trả về giá trị mặc định tùy thuộc vào yêu cầu của bạn
     }
-
 
 
 }

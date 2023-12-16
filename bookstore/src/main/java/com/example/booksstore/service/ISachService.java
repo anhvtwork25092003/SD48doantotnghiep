@@ -28,4 +28,7 @@ public interface ISachService {
     List<Sach> getall();
 
     Sach dateil(Integer idSach);
+
+    List<Sach> danhSachNhungSachChuaThamGiaKhuyenMaiOHienThienVaTuongLai();
+
 }
