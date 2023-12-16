@@ -130,17 +130,6 @@ public class Sach {
         return null;
     }
 
-    public BigDecimal layGiaNeuCoKhuyenMaiDeTinhGioHAng() {
-        for (KhuyenMai khuyenMai : this.khuyenMais) {
-            if (khuyenMai.getTrangThai() == 1) {
-                BigDecimal phanTram = BigDecimal.valueOf(khuyenMai.getSoPhanTramGiamGia());
-                BigDecimal heSoGiamGia = BigDecimal.ONE.subtract(phanTram.divide(BigDecimal.valueOf(100)));
-                return giaBan.multiply(heSoGiamGia);
-            }
-        }
-        return null;
-    }
-
     public Integer layPhanTramGiamNeuCoKhuyenMai() {
         for (KhuyenMai khuyenMai : this.khuyenMais) {
             if (khuyenMai.getTrangThai() == 1) {
