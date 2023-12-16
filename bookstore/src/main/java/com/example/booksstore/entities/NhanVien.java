@@ -1,6 +1,9 @@
 package com.example.booksstore.entities;
 
+import com.example.booksstore.service.NonBlankString;
+import com.example.booksstore.service.NonNumericString;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.sql.Date;

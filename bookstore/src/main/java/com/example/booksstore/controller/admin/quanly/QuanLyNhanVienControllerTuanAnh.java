@@ -11,21 +11,56 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/quan-ly")
+@Validated
 public class QuanLyNhanVienControllerTuanAnh {
+
+    private static boolean hasNonNumericCharacters(String phoneNumber) {
+        // Define a regular expression pattern for finding non-numeric characters
+        String regex = "[^0-9]";
+
+        // Create a Pattern object
+        Pattern pattern = Pattern.compile(regex);
+
+        // Check if the phone number contains any non-numeric characters
+        return pattern.matcher(phoneNumber).find();
+    }
+
+    public static boolean isEmailValid(String email) {
+        // Regular expression to check if email contains '@'
+        String regex = ".*@.*";
+
+        // Create a Pattern object
+        Pattern pattern = Pattern.compile(regex);
+
+        // Create matcher object
+        Matcher matcher = pattern.matcher(email);
+
+        // Check if the email matches the pattern
+        return matcher.matches();
+    }
+
     @Autowired
     INhanVienService service;
     @Value("${upload.anhnhanvien}")
@@ -76,6 +111,7 @@ public class QuanLyNhanVienControllerTuanAnh {
     @Transactional
     @PostMapping("/nhan-vien/them-moi")
     public String themNhanVien(
+
             @RequestParam("hoVaTen") String hoVaTen,
             @RequestParam("sdt") String sdt,
             @RequestParam("ngaySinh") Date ngaySinh,
@@ -83,8 +119,51 @@ public class QuanLyNhanVienControllerTuanAnh {
             @RequestParam("matKhau") String matKhau,
             @RequestParam("email") String email,
             @RequestParam("chucVu") String chucVu,
-            @RequestParam("linkAnhNhanVien") MultipartFile linkAnhNhanVien) {
+            @RequestParam("linkAnhNhanVien") MultipartFile linkAnhNhanVien,
+            Model model,
+            RedirectAttributes redirectAttributes
+    ) {
         try {
+            List<String> listLoiValidate = new ArrayList<>();
+            int countLoiValidate = 0;
+            if (hoVaTen.trim().length() > 50     ) {
+                listLoiValidate.add("Tên ngắn dưới 50 kí tự và không để trống , chữ cái đầu phải viết hoa!");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if ( hoVaTen.trim().length() == 0){
+                listLoiValidate.add(" Tên không được để trống");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if (sdt.trim().length() > 20 ) {
+                listLoiValidate.add("Số điện thoại không quá 20 và không để trống , không được chứa kí tự !");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if (sdt.trim().length() == 0 ){
+                listLoiValidate.add("Số điện thoại không để trống  !");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if(hasNonNumericCharacters(sdt)){
+                listLoiValidate.add("Số điện thoại  không được chứa kí tự !");
+                countLoiValidate = countLoiValidate + 1;
+            }
+
+            if (matKhau.trim().length() < 0) {
+                listLoiValidate.add("mật khẩu phải lớn hơn 0");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if (email.trim().length() <0) {
+                listLoiValidate.add("Email phải dài hơn 0");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if(isEmailValid(email)){
+                listLoiValidate.add("Email phải có @");
+                countLoiValidate = countLoiValidate + 1;
+            }
+            if (countLoiValidate > 0) {
+                redirectAttributes.addFlashAttribute("danhSachLoiValidate", listLoiValidate);
+                return "redirect:/quan-ly/nhan-vien/hien-thi";
+            }
+
             String duongDanCotDinh = "/image/anhnhanvien/";
             String duongDanLuuAnh = duongDanCotDinh + linkAnhNhanVien.getOriginalFilename();
             System.out.println(duongDanCotDinh + linkAnhNhanVien.getOriginalFilename());

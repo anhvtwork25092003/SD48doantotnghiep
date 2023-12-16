@@ -97,3 +97,28 @@ function editImage(inputId, tinhTrangThayDoi) {
         reader.readAsDataURL(fileInput.files[0]);
     }
 }
+function checkEmail() {
+    var emailInput = document.getElementById('email');
+    var emailError = document.getElementById('email-error');
+
+    var emailValue = emailInput.value;
+
+    if (emailValue.indexOf('@') === -1) {
+        emailError.textContent = 'Email must contain the @ symbol.';
+    } else {
+        emailError.textContent = '';
+    }
+}
+
+function checkTen() {
+    var tenInput = document.getElementById('hoVaTen');
+    var tenError = document.getElementById('ten-error');
+
+    var tenValue = tenInput.value;
+
+    if (tenValue.length ==0) {
+        tenError.textContent = 'Tên không được để trống';
+    } else {
+        tenError.textContent = '';
+    }
+}

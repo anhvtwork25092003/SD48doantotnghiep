@@ -79,6 +79,14 @@ chatInput.addEventListener("keydown", (e) => {
         handleChat();
     }
 });
+function checkEmpty() {
+    var hoVaTen1 = document.getElementById('hoVaTen').value.trim();
+
+    if (hoVaTen1 == "") {
+        alert('Tên Nhân Viên không được để trống.');
+    }
+
+}
 
 sendChatBtn.addEventListener("click", handleChat);
 closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
