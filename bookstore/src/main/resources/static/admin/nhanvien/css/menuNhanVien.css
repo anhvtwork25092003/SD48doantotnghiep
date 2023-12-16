@@ -161,3 +161,24 @@
 .menu-dropdown:hover {
     display: block;
 }
+/* Thêm đoạn CSS này vào trong file CSS của bạn (menuQuanLy.css) hoặc thêm trực tiếp vào trang HTML */
+/* Đoạn CSS này xếp cột các mục con của menu */
+/* Thêm đoạn CSS này vào trong file CSS của bạn (menuQuanLy.css) hoặc thêm trực tiếp vào trang HTML */
+/* Đoạn CSS này xếp cột các mục con của menu */
+
+.submenu {
+    display: none;
+    position: absolute;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-direction: row; /* Xếp các mục con theo chiều ngang */
+}
+
+.nav-item:hover .submenu {
+    display: flex;
+}
+
+.submenu .nav-item {
+    display: block;
+    margin-right: 10px; /* Khoảng cách giữa các mục con */
+}
+
