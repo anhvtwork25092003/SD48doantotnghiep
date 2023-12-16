@@ -40,45 +40,38 @@
             <div class="row">Thời Gian Bắt Đầu Áp Dụng<h4 th:text="${sachKhuyenMai.ngayBatDau}"></h4></div>
             <div class="row">Thời Gian Kết Thúc<h4 th:text="${sachKhuyenMai.ngayKetThuc}"></h4></div>
             <div class="product">
-                <div class="product-item" th:each="sachKhuyenMai2,iterStat : ${sachKhuyenMai.sachs}" th:if="${iterStat.index < 50}">
-                    <a th:href="@{'/trang-chu/detail?idSach=' + ${sachKhuyenMai2.idSach}}">
-                        <div class="product-image">
-                            <img th:src="${sachKhuyenMai2.linkAnh1}" alt="Chưa có ảnh hiển thị">
+                <div class="product-item" th:each="sachKhuyenMai2,iterStat : ${sachKhuyenMai.sachs}"
+                     th:if="${iterStat.index < 50}">
+                    <div th:if="${sachKhuyenMai2.trangThai == 1}">
+                        <a th:href="@{'/trang-chu/detail?idSach=' + ${sachKhuyenMai2.idSach}}">
+                            <div class="product-image">
+                                <img th:src="${sachKhuyenMai2.linkAnh1}" alt="Chưa có ảnh hiển thị">
+                            </div>
+                        </a>
+                        <h3 th:text="${sachKhuyenMai2.tenSach}"></h3>
+                        <div th:if="${sachKhuyenMai2.layGiaNeuCoKhuyenMai() == null}" class="text-muted">
+                            <h5 th:text="${sachKhuyenMai2.giaBanVnd}"></h5>
                         </div>
-                    </a>
-                    <h3 th:text="${sachKhuyenMai2.tenSach}"></h3>
-                    <div  th:if="${sachKhuyenMai2.layGiaNeuCoKhuyenMai() == null}" class="text-muted">
-                        <h5 th:text="${sachKhuyenMai2.giaBanVnd}"></h5>
-                    </div>
-                    <div th:if="${sachKhuyenMai2.layGiaNeuCoKhuyenMai() != null}">
-                        <del class="text-muted" th:text="${sachKhuyenMai2.giaBanVnd}"></del>
-                        <h4 class="price" th:text="${sachKhuyenMai2.layGiaNeuCoKhuyenMai()}"></h4>
-                    </div>
-                    <div class="discount" th:if="${sachKhuyenMai2.layPhanTramGiamNeuCoKhuyenMai() != null}"
-                         th:text="${sachKhuyenMai2.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
-                        <!-- Hiển thị % khi có khuyến mãi -->
+                        <div th:if="${sachKhuyenMai2.layGiaNeuCoKhuyenMai() != null}">
+                            <del class="text-muted" th:text="${sachKhuyenMai2.giaBanVnd}"></del>
+                            <h4 class="price" th:text="${sachKhuyenMai2.layGiaNeuCoKhuyenMai()}"></h4>
+                        </div>
+                        <div class="discount" th:if="${sachKhuyenMai2.layPhanTramGiamNeuCoKhuyenMai() != null}"
+                             th:text="${sachKhuyenMai2.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
+                            <!-- Hiển thị % khi có khuyến mãi -->
+                        </div>
                     </div>
                 </div>
             </div>
             <br>
         </div>
-
-
         <!-- Các sản phẩm khác -->
         <!-- end Các sản phẩm ưu đãi -->
 
         <!-- phân trang -->
-<!--            <div class="pagination">-->
-<!--                <button class="prev-btn"><<</button>-->
-<!--                <ul class="page-numbers">-->
-<!--                    <li><a href="#">1</a></li>-->
-<!--                    <li><a href="#">2</a></li>-->
-<!--                    <li><a href="#">3</a></li>-->
-<!--                    &lt;!&ndash; Thêm các số trang khác vào đây &ndash;&gt;-->
-<!--                </ul>-->
-<!--                <button class="next-btn">>></button>-->
-<!--            </div>-->
         <!-- phân trang -->
+
+    </div>
     </div>
 </article>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
