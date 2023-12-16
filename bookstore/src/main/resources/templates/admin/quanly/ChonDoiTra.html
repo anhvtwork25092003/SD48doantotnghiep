@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en"
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/quanly/DonHangCho}"
       xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
 <head>
     <title>Đơn hàng đã hoàn thành</title>
     <!-- Required meta tags -->
@@ -13,7 +13,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<article>
+<article layout:fragment="noiDung">
     <form th:action="@{/quan-ly/tra-hang}" method="post">
         <div class="container-fluid">
             <div class="row">
@@ -32,15 +32,17 @@
                         <input type="hidden" name="idDonHang" th:value="${thd.donHang.idDonHang}">
                         <th scope="row" th:text="${iterStat.index + 1}"></th>
                         <td th:text="${thd.sach.tenSach}"></td>
-                        <td th:text="${thd.sach.tenSach}" nam></td>
+                        <td th:text="${thd.sach.tenSach}"></td>
                         <td><input type="number" name="soLuong" pattern="\d*" title="Vui lòng nhập một số hợp lệ"
-                                   th:min="0" th:max="${thd.soLuong}">/<span th:text="${thd.soLuong}"></span>
+                                   th:min="0" th:max="${thd.soLuong}" value="0">/<span th:text="${thd.soLuong}"></span>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <button type="submit">Đổi Hàng</button>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-outline-secondary" type="submit">Xác Nhận</button>
+            </div>
         </div>
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

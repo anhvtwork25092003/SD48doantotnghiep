@@ -39,24 +39,92 @@
                             <tr>
                                 <th>Id Đổi</th>
                                 <th>Mã Đơn Hàng</th>
-                                <th>Tên Sách Đổi</th>
-                                <th>Số Lượng Đổi</th>
                                 <th>Ngày Tạo</th>
                                 <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
                         <tbody th:each="dhd, iterStat : ${listth.content}">
-                        <tr>
-                            <td th:text="${dhd.traHang.idTraHang}"></td>
-                            <td th:text="${dhd.traHang.donHang.maDonHang}"></td>
-                            <td th:text="${dhd.sach.tenSach}"></td>
-                            <td th:text="${dhd.soLuong}"></td>
-                            <td th:text="${dhd.traHang.ngayTao}"></td>
-                            <td th:text="${dhd.traHang.trangThai}"></td>
-                            <td>
-                                a
+                        <tr >
+                            <td th:text="${dhd.idTraHang}"></td>
+                            <td th:text="${dhd.donHang.maDonHang}"></td>
+                            <td th:text="${dhd.ngayTao}"></td>
+                            <td th:text="${dhd.trangThai == 0 ? 'Đang chuẩn bị hàng' : (dhd.trangThai == 1 ? 'Đang vận chuyển' : 'Vận chuyển thành công')}"></td>
 
+                            <td>
+                                <a th:href="@{/quan-ly/xac-nhan-tra-hang-tra(idTraHang=${dhd.idTraHang})}"
+                                   onclick="return confirm('Bạn có chắc muốn chuyển trạng thái không?')"
+                                   th:hidden="${dhd.trangThai == 2}">
+                                    <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
+                                </a>
+                                <a data-toggle="modal" th:attr="data-target='#modalDonHangDoi-' + ${dhd.idTraHang}">
+                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                                </a>
+                                <div class="modal fade" th:id="'modalDonHangDoi-' + ${dhd.idTraHang}" tabindex="-1"
+                                     role="dialog"
+                                     aria-labelledby="basicModal" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="myModalLabel">Chi tiết đổi</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="box-address">
+                                                    <div class="line-item">
+                                                        <label>Mã Đơn Hàng</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dhd.donHang.maDonHang}" disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Ngày Tạo</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dhd.ngayTao}" disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Người Đặt</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dhd.donHang.khachHang.hoVaTen}"
+                                                               disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>SDT Người Đặt</label>
+                                                        <input class="form-control" type="tel"
+                                                               th:value="${dhd.donHang.khachHang.sdt}"
+                                                               disabled>
+                                                    </div>
+                                                    <br>
+                                                    <div class="line-item">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Mã Sản Phẩm</th>
+                                                                <th>Tên Sản Phẩm</th>
+                                                                <th>Số Lượng Đổi</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="ctdh : ${dhd.traHangChiTietList}">
+                                                                <td th:text="${ctdh.sach.maSach}"></td>
+                                                                <td th:text="${ctdh.sach.tenSach}"></td>
+                                                                <td th:text="${ctdh.soLuong}"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
