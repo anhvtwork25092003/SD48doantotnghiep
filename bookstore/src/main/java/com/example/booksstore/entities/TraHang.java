@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -35,6 +36,11 @@ public class TraHang {
     @JoinColumn(name = "iddonhang")
     private DonHang donHang;
 
+    @Column(name = "ngaytao")
+    private Date ngayTao;
+
+    @Column(name = "trangthai")
+    private Integer trangThai;
 
     @OneToMany(mappedBy = "traHang", cascade = CascadeType.ALL)
     private List<TraHangChiTiet> traHangChiTietList;

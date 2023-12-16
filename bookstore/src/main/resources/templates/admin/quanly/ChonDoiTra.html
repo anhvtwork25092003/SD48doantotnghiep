@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>Đơn hàng đã hoàn thành</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/admin/quanly/css/DonHangDaHoanThanh.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<article>
+    <form th:action="@{/quan-ly/tra-hang}" method="post">
+        <div class="container-fluid">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Mã Sách</th>
+                        <th scope="col">Tên Sách</th>
+                        <th scope="col">Số Lượng</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="thd,iterStat : ${thongTinSanPhamList}">
+                    <tr>
+                        <input type="hidden" name="idSach" th:value="${thd.sach.idSach}">
+                        <input type="hidden" name="idDonHang" th:value="${thd.donHang.idDonHang}">
+                        <th scope="row" th:text="${iterStat.index + 1}"></th>
+                        <td th:text="${thd.sach.tenSach}"></td>
+                        <td th:text="${thd.sach.tenSach}" nam></td>
+                        <td><input type="number" name="soLuong" pattern="\d*" title="Vui lòng nhập một số hợp lệ"
+                                   th:min="0" th:max="${thd.soLuong}">/<span th:text="${thd.soLuong}"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="submit">Đổi Hàng</button>
+        </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="/admin/quanly/js/DonHang.js"></script>
+</article>
+</body>
+</html>

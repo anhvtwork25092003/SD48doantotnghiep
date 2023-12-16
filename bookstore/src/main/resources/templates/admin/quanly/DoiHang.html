@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>Đơn hàng đã hoàn thành</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/admin/quanly/css/DonHangDaHoanThanh.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<article layout:fragment="noiDung">
+    <h6 th:text="${loggedInUser.hoVaTen}" hidden></h6>
+    <h6 th:text="${loggedInUser.chucVu}" hidden></h6>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <div class="boxsearch">
+                    <h6 style="text-align: center;">Tìm theo mã đơn hàng</h6>
+                    <div class="search">
+                        <input class="form-control" type="search" placeholder="Search">
+                    </div>
+                </div>
+                <br>
+                <button type="button" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm
+                </button>
+            </div>
+            <div class="col-10">
+                <div class="box">
+                    <table class="table" style=" border: 0px solid blue;">
+                        <thead class="table-dark">
+                        <th:block th:if="${not listth.isEmpty()}">
+                            <h4 style="text-align: left;">Danh Sách Đơn Hàng Đổi </h4>
+                            <tr>
+                                <th>Id Đổi</th>
+                                <th>Mã Đơn Hàng</th>
+                                <th>Tên Sách Đổi</th>
+                                <th>Số Lượng Đổi</th>
+                                <th>Ngày Tạo</th>
+                                <th>Trạng Thái</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody th:each="dhd, iterStat : ${listth.content}">
+                        <tr>
+                            <td th:text="${dhd.traHang.idTraHang}"></td>
+                            <td th:text="${dhd.traHang.donHang.maDonHang}"></td>
+                            <td th:text="${dhd.sach.tenSach}"></td>
+                            <td th:text="${dhd.soLuong}"></td>
+                            <td th:text="${dhd.traHang.ngayTao}"></td>
+                            <td th:text="${dhd.traHang.trangThai}"></td>
+                            <td>
+                                a
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <th:block th:if="${listth.isEmpty()}">
+                        <h2>Không có dữ liệu nào cả!!!</h2>
+                    </th:block>
+                    <div class="row">
+                        <div class="col-6">
+                            <h6 style="color: red;"><b><i>Đang có <span th:text="${listth.totalElements}"></span>
+                                đơn hàng đổi</i> </b></h6>
+                        </div>
+                        <div class="col-6">
+                            <div class="phantrang">
+                                    <span th:if="${listth.number + 1 > 1}">
+                                        <a class="btn btn-primary"
+                                           th:href="@{'/quan-ly/danh-sach-doitra?page=' + ${listth.number}}">Previous</a>
+                                    </span>
+                                <span class="btn btn-danger"
+                                      th:text="${listth.number + 1} + '/' + ${listth.totalPages}"></span>
+                                <span th:if="${listth.number + 1 < listth.totalPages}">
+                                        <a class="btn btn-primary"
+                                           th:href="@{'/quan-ly/danh-sach-doitra?page=' + ${listth.number + 2}}">Next</a>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="/admin/quanly/js/DonHang.js"></script>
+</article>
+</body>
+</html>
