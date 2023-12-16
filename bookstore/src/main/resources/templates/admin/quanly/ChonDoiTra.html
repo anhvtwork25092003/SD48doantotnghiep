@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/quanly/DonHangCho}"
       xmlns:th="http://www.thymeleaf.org">
@@ -10,35 +10,44 @@
     <link rel="stylesheet" href="/admin/quanly/css/DonHangDaHoanThanh.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
 </head>
 <body>
 <article layout:fragment="noiDung">
     <form th:action="@{/quan-ly/tra-hang}" method="post">
         <div class="container-fluid">
             <div class="row">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Mã Sách</th>
-                        <th scope="col">Tên Sách</th>
-                        <th scope="col">Số Lượng</th>
-                    </tr>
-                    </thead>
-                    <tbody th:each="thd,iterStat : ${thongTinSanPhamList}">
-                    <tr>
-                        <input type="hidden" name="idSach" th:value="${thd.sach.idSach}">
-                        <input type="hidden" name="idDonHang" th:value="${thd.donHang.idDonHang}">
-                        <th scope="row" th:text="${iterStat.index + 1}"></th>
-                        <td th:text="${thd.sach.tenSach}"></td>
-                        <td th:text="${thd.sach.tenSach}"></td>
-                        <td><input type="number" name="soLuong" pattern="\d*" title="Vui lòng nhập một số hợp lệ"
-                                   th:min="0" th:max="${thd.soLuong}" value="0">/<span th:text="${thd.soLuong}"></span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Mã Sách</th>
+                            <th scope="col">Tên Sách</th>
+                            <th scope="col">Số Lượng</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="thd,iterStat : ${thongTinSanPhamList}">
+                        <tr>
+                            <input type="hidden" name="idSach" th:value="${thd.sach.idSach}">
+                            <input type="hidden" name="idDonHang" th:value="${thd.donHang.idDonHang}">
+                            <th scope="row" th:text="${iterStat.index + 1}"></th>
+                            <td th:text="${thd.sach.tenSach}"></td>
+                            <td th:text="${thd.sach.tenSach}"></td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" name="soLuong" class="form-control" pattern="\d*"
+                                           title="Vui lòng nhập một số hợp lệ" th:min="0" th:max="${thd.soLuong}" value="0">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">/<span th:text="${thd.soLuong}"></span></span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button class="btn btn-outline-secondary" type="submit">Xác Nhận</button>
