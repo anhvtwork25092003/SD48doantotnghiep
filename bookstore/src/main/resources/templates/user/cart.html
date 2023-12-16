@@ -35,12 +35,15 @@
                                 <img th:src="${item.sach.linkAnh1}" alt="" class="itemImg"/>
                                 <p class="itemNumber" th:text="${item.sach.idSach}" name="idSachgh" hidden></p>
                                 <h3 th:text="${item.sach.tenSach}"></h3>
-                                <form th:action="@{'/gio-hang/cap-nhat-luong-san-pham?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
+                                <form id="addToCartForm" onsubmit="return validateSoLuong()"
+                                      th:action="@{'/gio-hang/cap-nhat-luong-san-pham?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
                                       method="post">
                                     <p class="qty-control">
                                         <input type="hidden" th:value="${item.sach.idSach}" name="idSachgh">
-                                        <input type="number" class="qty" th:value="${item.soLuong}" name="soLuongSach"
-                                               id="soLuongSach"/>
+                                        <input type="hidden" th:value="${item.sach.soLuongTonKho}" name="soLuongTonKho"
+                                        id="soLuongTonKho">
+                                        <input type="number" class="qty" min="1" value="1" th:value="${item.soLuong}" name="soLuongSach"
+                                               id="soLuongSach" required/>
                                     </p>
                                     <!-- Thêm phần tử cho biểu tượng loading -->
 
@@ -87,6 +90,61 @@
                                         }
                                     </script>
                                 </form>
+                                <script>
+                                    function validateSoLuong() {
+                                        var soLuongSach = parseInt(document.getElementById('soLuongSach').value);
+                                        var soLuongTonKho = parseInt(document.getElementById('soLuongTonKho').value);
+
+                                        // Kiểm tra số lượng cần mua phải lớn hơn 0
+                                        if (soLuongSach < 1) {
+                                            alert('Số lượng cần mua phải lớn hơn 0.');
+                                            return false;
+                                        }
+
+                                        // Kiểm tra số lượng cần mua phải nhỏ hơn hoặc bằng số lượng tồn kho
+                                        if (soLuongSach > soLuongTonKho) {
+                                            alert('Số lượng cần mua không được vượt quá số lượng tồn kho.');
+                                            return false;
+                                        }
+
+                                        // Kiểm tra số lượng cần mua phải nằm trong khoảng từ 1 đến 20
+                                        // if (soLuongSach < 1 || soLuongSach > 20) {
+                                        //     alert('Số lượng cần mua phải nằm trong khoảng từ 1 đến 20.');
+                                        //     return false;
+                                        // }
+
+                                        return true;
+                                    }
+
+                                    function addToCart() {
+                                        // Kiểm tra số lượng trước khi thêm vào giỏ hàng
+                                        if (!validateSoLuong()) {
+                                            return false;
+                                        }
+
+                                        // Các bước thêm vào giỏ hàng
+                                        // ...
+
+                                        // Gửi yêu cầu POST không đồng bộ bằng JavaScript
+                                        var formData = new FormData(document.getElementById("addToCartForm"));
+                                        var xhr = new XMLHttpRequest();
+
+                                        xhr.onreadystatechange = function () {
+                                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                                if (xhr.status === 200) {
+                                                    // Xử lý kết quả nếu cần thiết
+                                                    console.log("Sản phẩm đã được thêm vào trang thanh toán!");
+                                                } else {
+                                                    // Xử lý lỗi nếu cần thiết
+                                                    console.error("Có lỗi xảy ra khi thanh toán.");
+                                                }
+                                            }
+                                        };
+                                        xhr.open("POST", "/gio-hang/cap-nhat-luong-san-pham?idGioHangChiTiet="+ idGioHangChiTiet, true);
+                                        // xhr.open("POST", "/gio-hang/danh-sach-san-pham", true);
+                                        xhr.send(formData);
+                                    }
+                                </script>
                                 <div th:if="${item.sach.layGiaNeuCoKhuyenMai() == null}" class="text-muted">
                                     <div class="pricesale">
                                         <p th:text="${item.sach.giaBanVnd}"></p>
@@ -122,7 +180,7 @@
                     <!-- Bạn có thể tính tổng giá động trong controller và truyền vào đây -->
                     <span class="value"></span>
                 </li>
-                <li class="totalRow"><a href="#" class="btn continue" id="checkoutButton">Checkout</a></li>
+                <li class="totalRow"><a href="#" class="btn continue" id="checkoutButton" onsubmit="return validateSoLuong()" onclick="addToCart()">Checkout</a></li>
                 <script th:inline="javascript">
                     /* Thêm mã JavaScript Thymeleaf để xử lý khi nhấp vào nút thanh toán */
                     document.getElementById('checkoutButton').addEventListener('click', function () {

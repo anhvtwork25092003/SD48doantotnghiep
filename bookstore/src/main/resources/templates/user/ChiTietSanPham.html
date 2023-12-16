@@ -51,10 +51,15 @@
                                   th:text="${listSach.layPhanTramGiamNeuCoKhuyenMai() + '%'}"></span>
                         </div>
                     </div>
-                    <p class="txt-cate">Số lượng tồn kho:
-                        <input class="col-1" id="soLuongTonKho" name="soLuongTonKho"
-                               th:value="${listSach.soLuongTonKho}" disabled>
+                    <p class="txt-cate">
+                        Số lượng tồn kho:
+                        <input class="col-1" id="soLuongTonKho" name="soLuongTonKho" th:value="${listSach.soLuongTonKho}" disabled>
+                        <!-- Thêm điều kiện th:if -->
+                        <span style="color:red;" th:if="${listSach.soLuongTonKho == 0}"
+                              th:text="${'Sản phẩm hiện đang hết hàng vui lòng chọn sản phẩm khác' }"
+                              class="status-message"></span>
                     </p>
+
                     <div th:if="${not #lists.isEmpty(listSach.theLoais)}">
                         <p class="txt-color">
                             <span class="txt1">Thể Loại:</span>
@@ -76,7 +81,7 @@
                     <p class="txt-cate">Số lượng mua hàng:</p>
                     <div class="soLuong">
                         <input class="form-control" value="1" id="soLuongCanMua" name="soLuongCanMua" type="number"
-                               min="1" max="20" required/>
+                               min="1" required/>
                     </div>
                     <script>
                         function validateSoLuong() {
@@ -147,10 +152,10 @@
             }
 
             // Kiểm tra số lượng cần mua phải nhỏ hơn hoặc bằng số lượng tồn kho
-            if (soLuongCanMua > soLuongTonKho) {
-                alert('Số lượng cần mua không được vượt quá số lượng tồn kho.');
-                return false;
-            }
+            // if (soLuongCanMua > soLuongTonKho) {
+            //     alert('Số lượng cần mua không được vượt quá số lượng tồn kho.');
+            //     return false;
+            // }
 
             // Kiểm tra số lượng cần mua phải nằm trong khoảng từ 1 đến 20
             if (soLuongCanMua < 1 || soLuongCanMua > 20) {
