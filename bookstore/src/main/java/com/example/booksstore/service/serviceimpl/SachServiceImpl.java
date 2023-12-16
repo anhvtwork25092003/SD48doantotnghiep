@@ -57,13 +57,13 @@ public class SachServiceImpl implements ISachService {
     }
 
     @Override
-    public List<Sach> sachmoi() {
-        return iSachRepository.findAllByOrderByIdSachDesc();
+    public Page<Sach> sachmoi(Pageable pageable) {
+        return iSachRepository.findAllByTrangThaiOrderByIdSachDesc(1, pageable);
     }
 
     @Override
     public List<Sach> getall() {
-        List<Sach> s = iSachRepository.findAllSach();
+        List<Sach> s = iSachRepository.findAllSachDangHoatDong();
         return s;
     }
 

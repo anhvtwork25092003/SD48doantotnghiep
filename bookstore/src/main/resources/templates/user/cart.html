@@ -26,88 +26,90 @@
                 </li>
                 <!-- Lặp qua danh sách sản phẩm từ controller -->
                 <li class="items odd" th:each="item : ${danhSachSanPhamTrongGioHang}">
-                    <input type="checkbox" class="item-checkbox" th:name="SachDaChonDeMua"
-                           th:value="${item.idGioHangChiTiet}">
-                    <div class="infoWrap">
-                        <div class="cartSection">
-                            <!-- Sử dụng biểu thức Thymeleaf để đổ dữ liệu động -->
-                            <img th:src="${item.sach.linkAnh1}" alt="" class="itemImg"/>
-                            <p class="itemNumber" th:text="${item.sach.idSach}" name="idSachgh" hidden></p>
-                            <h3 th:text="${item.sach.tenSach}"></h3>
-                            <form th:action="@{'/gio-hang/cap-nhat-luong-san-pham?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
-                                  method="post">
-                                <p class="qty-control">
-                                    <input type="hidden" th:value="${item.sach.idSach}" name="idSachgh">
-                                    <input type="number" class="qty" th:value="${item.soLuong}" name="soLuongSach"
-                                           id="soLuongSach"/>
-                                </p>
-                                <!-- Thêm phần tử cho biểu tượng loading -->
+                    <div  th:if="${item.sach.trangThai == 1}">
+                        <input type="checkbox" class="item-checkbox" th:name="SachDaChonDeMua"
+                               th:value="${item.idGioHangChiTiet}">
+                        <div class="infoWrap">
+                            <div class="cartSection">
+                                <!-- Sử dụng biểu thức Thymeleaf để đổ dữ liệu động -->
+                                <img th:src="${item.sach.linkAnh1}" alt="" class="itemImg"/>
+                                <p class="itemNumber" th:text="${item.sach.idSach}" name="idSachgh" hidden></p>
+                                <h3 th:text="${item.sach.tenSach}"></h3>
+                                <form th:action="@{'/gio-hang/cap-nhat-luong-san-pham?idGioHangChiTiet=' + ${item.idGioHangChiTiet}}"
+                                      method="post">
+                                    <p class="qty-control">
+                                        <input type="hidden" th:value="${item.sach.idSach}" name="idSachgh">
+                                        <input type="number" class="qty" th:value="${item.soLuong}" name="soLuongSach"
+                                               id="soLuongSach"/>
+                                    </p>
+                                    <!-- Thêm phần tử cho biểu tượng loading -->
 
-<!--                                <button type="submit" class="btn btn">-->
-<!--                                    <i class="fa-solid fa-rotate-right fa-l" style="color: #f96515;"></i>-->
-<!--                                </button>-->
-                                <script>
-                                    $(document).ready(function() {
-                                        // Khi giá trị của input thay đổi
-                                        $("#soLuongSach").change(function() {
-                                            updateQuantity(this);
+                                    <!--                                <button type="submit" class="btn btn">-->
+                                    <!--                                    <i class="fa-solid fa-rotate-right fa-l" style="color: #f96515;"></i>-->
+                                    <!--                                </button>-->
+                                    <script>
+                                        $(document).ready(function () {
+                                            // Khi giá trị của input thay đổi
+                                            $("#soLuongSach").change(function () {
+                                                updateQuantity(this);
+                                            });
                                         });
-                                    });
 
-                                    function updateQuantity(input) {
-                                        // Lấy giá trị mới từ input
-                                        var newQuantity = input.value;
+                                        function updateQuantity(input) {
+                                            // Lấy giá trị mới từ input
+                                            var newQuantity = input.value;
 
-                                        // Hiển thị biểu tượng loading
-                                        $("#loadingIcon").show();
+                                            // Hiển thị biểu tượng loading
+                                            $("#loadingIcon").show();
 
-                                        // Gửi yêu cầu AJAX để cập nhật số lượng
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "/update-quantity", // Đặt URL cập nhật số lượng của bạn
-                                            data: {
-                                                idSach: $(input).siblings('[name="idSachgh"]').val(),
-                                                soLuong: newQuantity
-                                            },
-                                            success: function(data) {
-                                                // Xử lý kết quả từ máy chủ (nếu cần)
-                                                console.log("Cập nhật số lượng thành công!");
+                                            // Gửi yêu cầu AJAX để cập nhật số lượng
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/update-quantity", // Đặt URL cập nhật số lượng của bạn
+                                                data: {
+                                                    idSach: $(input).siblings('[name="idSachgh"]').val(),
+                                                    soLuong: newQuantity
+                                                },
+                                                success: function (data) {
+                                                    // Xử lý kết quả từ máy chủ (nếu cần)
+                                                    console.log("Cập nhật số lượng thành công!");
 
-                                                // Ẩn biểu tượng loading
-                                                $("#loadingIcon").hide();
-                                            },
-                                            error: function(error) {
-                                                console.error("Lỗi khi cập nhật số lượng:", error);
+                                                    // Ẩn biểu tượng loading
+                                                    $("#loadingIcon").hide();
+                                                },
+                                                error: function (error) {
+                                                    console.error("Lỗi khi cập nhật số lượng:", error);
 
-                                                // Ẩn biểu tượng loading
-                                                $("#loadingIcon").hide();
-                                            }
-                                        });
-                                    }
-                                </script>
-                            </form>
-                            <div th:if="${item.sach.layGiaNeuCoKhuyenMai() == null}" class="text-muted">
-                                <div class="pricesale">
-                                    <p th:text="${item.sach.giaBanVnd}"></p>
+                                                    // Ẩn biểu tượng loading
+                                                    $("#loadingIcon").hide();
+                                                }
+                                            });
+                                        }
+                                    </script>
+                                </form>
+                                <div th:if="${item.sach.layGiaNeuCoKhuyenMai() == null}" class="text-muted">
+                                    <div class="pricesale">
+                                        <p th:text="${item.sach.giaBanVnd}"></p>
+                                    </div>
+                                </div>
+                                <div th:if="${item.sach.layGiaNeuCoKhuyenMai() != null}">
+                                    <del class="text-muted" th:text="${item.sach.giaBanVnd}"></del>
+                                    <div class="pricesale">
+                                        <p th:text="${item.sach.layGiaNeuCoKhuyenMai()}"></p>
+                                    </div>
                                 </div>
                             </div>
-                            <div th:if="${item.sach.layGiaNeuCoKhuyenMai() != null}">
-                                <del class="text-muted" th:text="${item.sach.giaBanVnd}"></del>
-                                <div class="pricesale">
-                                    <p th:text="${item.sach.layGiaNeuCoKhuyenMai()}"></p>
-                                </div>
+                            <div class="cartSection removeWrap">
+                                <a th:if="${loggedInUser != null}"
+                                   th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idGioHangChiTiet=' + ${item.idGioHangChiTiet} +'&idSachgh='}"
+                                   class="remove">x</a>
+                                <a th:if="${loggedInUser == null}"
+                                   th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idSachgh=' + ${item.sach.idSach} + '&idGioHangChiTiet='}"
+                                   class="remove">x</a>
                             </div>
-                        </div>
-                        <div class="cartSection removeWrap">
-                            <a th:if="${loggedInUser != null}"
-                               th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idGioHangChiTiet=' + ${item.idGioHangChiTiet} +'&idSachgh='}"
-                               class="remove">x</a>
-                            <a th:if="${loggedInUser == null}"
-                               th:href="@{'/gio-hang/xoa-san-pham-khoi-gio?idSachgh=' + ${item.sach.idSach} + '&idGioHangChiTiet='}"
-                               class="remove">x</a>
-                        </div>
 
 
+                        </div>
                     </div>
                 </li>
             </ul>

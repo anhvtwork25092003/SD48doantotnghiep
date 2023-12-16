@@ -40,17 +40,18 @@ public class TrangChuController {
 
     @GetMapping("/trang-chu")
     public String HienThiTrangChu(Model model) {
-        List<Sach> sachList = iSachService.sachmoi();
-        List<Sach> saches = sachList.subList(0, 10);
+        Pageable pageableSachMoi = PageRequest.of(0, 10);
+        Page<Sach> saches = iSachService.sachmoi(pageableSachMoi);
         model.addAttribute("sachmoi", saches);
-
         // top sản phẩm bán chạy gồm 5 sác
         List<TopSanPhamDTO> topSanPhamDTOS = this.thongKeService.getTopSanPhamBanChayNhat();
-        if(topSanPhamDTOS.size() >0){
+        if (topSanPhamDTOS.size() > 0) {
             List<Sach> listSachBanChay = new ArrayList<>();
-            for (TopSanPhamDTO topSanPhamDTO : topSanPhamDTOS){
-                    Sach s = this.iSachService.getOne(topSanPhamDTO.getIdSach());
+            for (TopSanPhamDTO topSanPhamDTO : topSanPhamDTOS) {
+                Sach s = this.iSachService.getOne(topSanPhamDTO.getIdSach());
+                if (s.getTrangThai() == 1) {
                     listSachBanChay.add(s);
+                }
             }
             model.addAttribute("listSachBanChay", listSachBanChay);
         }

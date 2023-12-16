@@ -88,7 +88,7 @@
                             return true;
                         }
                     </script>
-                    <div class="product-bottom">
+                    <div class="product-bottom" th:if="${listSach.trangThai == 1}">
                         <div class="box-btn">
                             <button type="button" onsubmit="return validateSoLuong()" onclick="addToCart()"
                                     class="btn-add form-control">
@@ -99,6 +99,9 @@
                                 Mua ngay
                             </button>
                         </div>
+                    </div>
+                    <div class="product-bottom" th:if="${listSach.trangThai == 0}">
+                        Sản phẩm đã ngừng kinh doanh!
                     </div>
                 </div>
             </div>

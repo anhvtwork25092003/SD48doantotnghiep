@@ -60,6 +60,7 @@
         <div class="product" th:if="${motkhuyenmaidangapdung != null}">
 <!--            <div th:if="${motkhuyenmaidangapdung != null}">-->
                 <div th:each="sach ,iterStat : ${motkhuyenmaidangapdung.sachs}" th:if="${iterStat.index < 5}" class="product-item">
+                    <div th:if="${sach.trangThai == 1}">
                     <a th:href="@{'/trang-chu/detail?idSach=' + ${sach.idSach}}">
                         <div class="product-image">
                             <img th:src="${sach.linkAnh1}">
@@ -76,6 +77,7 @@
                     <div class="discount" th:if="${sach.layPhanTramGiamNeuCoKhuyenMai() != null}"
                          th:text="${sach.layPhanTramGiamNeuCoKhuyenMai() + '%'}">
                         <!-- Hiển thị % khi có khuyến mãi -->
+                    </div>
                     </div>
                 </div>
                 <!-- Các sản phẩm khác -->
@@ -125,7 +127,7 @@
             <h4>SẢN PHẨM MỚI NHẤT</h4>
         </div>
         <div class="product">
-            <div class="product-item" th:each="sm : ${sachmoi}">
+            <div class="product-item" th:each="sm : ${sachmoi.content}">
                 <a th:href="@{'/trang-chu/detail?idSach=' + ${sm.idSach}}">
                     <div class="product-image">
                         <img th:src="${sm.linkAnh1}">

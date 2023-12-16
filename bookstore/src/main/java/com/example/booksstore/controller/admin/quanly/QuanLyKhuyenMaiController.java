@@ -117,7 +117,7 @@ public class QuanLyKhuyenMaiController {
             khuyenMaiPages = iKhuyenMaiService.getAllKhuyenMaiTheoTrangThai(pageable, 1);
         }
 
-        model.addAttribute("sachs", repository.findAll());
+        model.addAttribute("sachs", repository.findAllSachDangHoatDong());
         model.addAttribute("khuyenMaiPages", khuyenMaiPages);
         return "/admin/quanly/KhuyenMai2";
     }

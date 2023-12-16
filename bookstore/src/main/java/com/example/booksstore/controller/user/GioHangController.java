@@ -4,10 +4,12 @@ package com.example.booksstore.controller.user;
 import com.example.booksstore.entities.GioHang;
 import com.example.booksstore.entities.GioHangChiTiet;
 import com.example.booksstore.entities.KhachHang;
+import com.example.booksstore.entities.Sach;
 import com.example.booksstore.entities.TemporaryIdGenerator;
 import com.example.booksstore.repository.GioHangChiTietReposutory;
 import com.example.booksstore.repository.GioHangRepository;
 import com.example.booksstore.repository.IKhachHangRepository;
+import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.ISachService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,9 @@ public class GioHangController {
     ISachService iSachService;
 
     @Autowired
+    ISachRepository iSachRepository;
+
+    @Autowired
     GioHangChiTietReposutory gioHangChiTietReposutory;
 
 
@@ -58,6 +63,10 @@ public class GioHangController {
             }
             List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
                     .getAttribute("listSanPhamTrongGioHangTamThoi");
+            for (GioHangChiTiet gioHangChiTiet : listSanPhamTrongGioHangTamThoi) {
+                Sach sach = this.iSachRepository.findByIdSach(gioHangChiTiet.getSach().getIdSach());
+                gioHangChiTiet.setSach(sach);
+            }
             if (listSanPhamTrongGioHangTamThoi == null) {
                 // nếu list chưa tồn tại thì tạo mới
                 listSanPhamTrongGioHangTamThoi = new ArrayList<>();
@@ -97,8 +106,8 @@ public class GioHangController {
         if (khachHang == null) {
             // chua dang nhap
             // lấy list được lưu ở sesion ra
-                List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
-                        .getAttribute("listSanPhamTrongGioHangTamThoi");
+            List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
+                    .getAttribute("listSanPhamTrongGioHangTamThoi");
 
             //  thực hiện các thao tác với list
             // kiểm tra trong list đã có sách thêm vào chưa

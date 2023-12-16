@@ -23,7 +23,7 @@ public interface ISachService {
 
     Sach getOneByMaVach(String maVach);
 
-    List<Sach> sachmoi();
+    Page<Sach> sachmoi(Pageable pageable);
 
     List<Sach> getall();
 
