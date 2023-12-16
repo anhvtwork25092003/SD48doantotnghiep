@@ -5,8 +5,7 @@ import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.repository.ITraHangChiTietRepository;
 import com.example.booksstore.repository.ITraHangRepository;
-import com.example.booksstore.service.IDonHangService;
-import com.example.booksstore.service.TraHangService;
+import com.example.booksstore.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,7 +34,12 @@ public class TraHangController {
     ITraHangRepository iTraHangRepository;
     @Autowired
     ITraHangChiTietRepository iTraHangChiTietRepository;
-
+    @Autowired
+    private EmailSenderService senderService;
+    @Autowired
+    ThongBaoKhachHangService thongBaoKhachHangService;
+    @Autowired
+    IThongBaoService iThongBaoService;
     @GetMapping("/danh-sach-doi/{idDonHang}")
     public String laydanhsachsoluongcothetra(@PathVariable int idDonHang, Model model,HttpSession session) {
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
@@ -72,6 +76,10 @@ public class TraHangController {
                 iTraHangRepository.save(traHang);
                 iTraHangChiTietRepository.save(traHangChiTiet);
             }
+            ThongTinGiaoHang thongTinGiaoHang =traHang.getDonHang().getThongTinGiaoHang();
+            KhachHang khachHangDangNhap = traHang.getDonHang().getKhachHang();
+            guiEmailDonHang( traHang,thongTinGiaoHang);
+            guiThongBaoDonHang(traHang,thongTinGiaoHang,khachHangDangNhap);
         }
 
 
@@ -109,8 +117,64 @@ public class TraHangController {
             System.out.println("Đã xác nhận và cập nhật trạng thái trả hàng: " + traHang);
         }
         model.addAttribute("loggedInUser", nhanVien);
+        ThongTinGiaoHang thongTinGiaoHang = traHang.getDonHang().getThongTinGiaoHang();
+        KhachHang khachHangDangNhap = traHang.getDonHang().getKhachHang();
+        guiEmailDonHang( traHang,thongTinGiaoHang);
+        guiThongBaoDonHang(traHang,thongTinGiaoHang,khachHangDangNhap);
         // Chuyển hướng về trang đơn đã duyệt
         return "redirect:/quan-ly/danh-sach-doitra";
+    }
 
+    public void guiEmailDonHang(TraHang traHang, ThongTinGiaoHang thongTinGiaoHang) {
+        String trangThaiDonHang = "";
+        switch (traHang.getTrangThai()) {
+            case 1:
+                trangThaiDonHang = "Đơn hàng của bạn đang được vận chuyển!!!!";
+                break;
+            case 2:
+                trangThaiDonHang = "Đơn hàng của bạn đã được hoàn thành!!!!";
+                break;
+            default:
+                if(traHang.getTrangThai() == 0) {
+                    trangThaiDonHang = "Đơn hàng của bạn đã được đổi lại và đang chuẩn bị hàng!!!";
+                }
+        }
+
+        String subject = "Dưới đây là mã đơn hàng và trạng thái đơn hàng của bạn!! ";
+        senderService.sendSimpleEmail(thongTinGiaoHang.getEmailGiaoHang(), subject,
+                "Mã Đơn Hàng của bạn " + traHang.getDonHang().getMaDonHang() + "\n" +
+                        "Trạng thái đơn: " + trangThaiDonHang);
+    }
+
+
+    public void guiThongBaoDonHang(TraHang traHang, ThongTinGiaoHang thongTinGiaoHang, KhachHang khachHang) {
+        Date currDate = new Date();
+        String trangThaiMessage = "";
+
+        switch (traHang.getTrangThai()) {
+            case 1:
+                trangThaiMessage = "Đơn hàng của bạn đang được vận chuyển";
+                break;
+            case 2:
+                trangThaiMessage = "Đơn hàng của bạn đã được hoàn thành !!!!";
+                break;
+            default:
+                if(traHang.getTrangThai() == 0) {
+                    trangThaiMessage = "Đơn hàng của bạn đã được đổi lại và đang chuẩn bị hàng!!!\"";
+                }
+        }
+
+        String noiDung = "Thông Báo về đơn hàng " + traHang.getDonHang().getMaDonHang() + "\n" + trangThaiMessage + "\n"
+                + "Cảm ơn đã mua hàng!";
+
+        ThongBao thongBao = new ThongBao();
+        thongBao.setNgayGui(currDate);
+        thongBao.setNoiDung(noiDung);
+
+        // lưu thông báo vào db
+        ThongBao savedNotification = this.iThongBaoService.createNew(thongBao);
+
+        // gọi hàm
+        this.thongBaoKhachHangService.themThongBaoChoNguoiDung(khachHang.getIdKhachHang(), savedNotification);
     }
 }
