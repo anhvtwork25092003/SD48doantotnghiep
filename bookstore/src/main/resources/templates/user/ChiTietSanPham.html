@@ -52,7 +52,8 @@
                         </div>
                     </div>
                     <p class="txt-cate">Số lượng tồn kho:
-                        <span th:text="${listSach.soLuongTonKho}"></span>
+                        <input class="col-1" id="soLuongTonKho" name="soLuongTonKho"
+                               th:value="${listSach.soLuongTonKho}" disabled>
                     </p>
                     <div th:if="${not #lists.isEmpty(listSach.theLoais)}">
                         <p class="txt-color">
@@ -133,11 +134,27 @@
 <!--    </script>-->
     <script>
         function validateSoLuong() {
-            var soLuong = document.getElementById('soLuongCanMua').value;
-            if (soLuong < 1 || soLuong > 20) {
+            var soLuongCanMua = parseInt(document.getElementById('soLuongCanMua').value);
+            var soLuongTonKho = parseInt(document.getElementById('soLuongTonKho').value);
+
+            // Kiểm tra số lượng cần mua phải lớn hơn 0
+            if (soLuongCanMua < 1) {
+                alert('Số lượng cần mua phải lớn hơn 0.');
+                return false;
+            }
+
+            // Kiểm tra số lượng cần mua phải nhỏ hơn hoặc bằng số lượng tồn kho
+            if (soLuongCanMua > soLuongTonKho) {
+                alert('Số lượng cần mua không được vượt quá số lượng tồn kho.');
+                return false;
+            }
+
+            // Kiểm tra số lượng cần mua phải nằm trong khoảng từ 1 đến 20
+            if (soLuongCanMua < 1 || soLuongCanMua > 20) {
                 alert('Số lượng cần mua phải nằm trong khoảng từ 1 đến 20.');
                 return false;
             }
+
             return true;
         }
 
@@ -147,11 +164,8 @@
                 return false;
             }
 
-            // Lấy giá trị từ số lượng
-            var soLuongCanMua = document.getElementById("soLuongCanMua").value;
-
-            // Thêm giá trị số lượng vào form
-            document.getElementById("addToCartForm").querySelector("[name='soLuongCanMua']").value = soLuongCanMua;
+            // Các bước thêm vào giỏ hàng
+            // ...
 
             // Gửi yêu cầu POST không đồng bộ bằng JavaScript
             var formData = new FormData(document.getElementById("addToCartForm"));
@@ -173,6 +187,8 @@
             xhr.send(formData);
         }
     </script>
+
+
 
     <div class="danh-gia-chat-container">
         <div id="danh-gia-container">
