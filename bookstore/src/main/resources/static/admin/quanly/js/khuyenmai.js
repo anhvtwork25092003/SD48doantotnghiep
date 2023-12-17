@@ -173,47 +173,7 @@ function displayBooks(books) {
 
         var label = document.createElement('label');
         label.htmlFor = 'sachCheckbox_' + sach.idSach;
-        label.appendChild(document.createTextNode(sach.maSach + ' ' + sach.tenSach + ' ' + sach.giaBanVnd));
-
-        var div = document.createElement('div');
-        div.className = 'bookItem';
-        div.appendChild(checkbox);
-        div.appendChild(label);
-
-        danhsachsanpham.appendChild(div);
-    });
-}
-
-// khác
-function updateThymeleaf2(id) {
-    var ngayBatDau = document.getElementById("ngayBatDauThemMoi").value;
-    var ngayKetThuc = document.getElementById("ngayKetThucThemMoi").value;
-
-    // Gửi yêu cầu API để lấy danh sách sách chưa áp dụng khuyến mãi
-    fetch('/api/books/haventsaleoff?batdau=' + ngayBatDau + '&ketthuc=' + ngayKetThuc)
-        .then(response => response.json())
-        .then(data => {
-            // Cập nhật Thymeleaf fragment
-            document.getElementById(id).innerHTML = '';
-            displayBooks(data, id);
-        })
-        .catch(error => console.error('Error:', error));
-}
-
-function displayBooks2(books, id) {
-    var danhsachsanpham = document.getElementById(id);
-
-    // Tạo checkbox cho mỗi sách
-    books.forEach(function (sach) {
-        var checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = 'sachCheckbox_' + sach.idSach;
-        checkbox.name = 'sachKM2';
-        checkbox.value = sach.idSach;
-
-        var label = document.createElement('label');
-        label.htmlFor = 'sachCheckbox_' + sach.idSach;
-        label.appendChild(document.createTextNode(sach.maSach + ' ' + sach.tenSach + ' ' + sach.giaBanVnd));
+        label.appendChild(document.createTextNode(sach.maSach + ' ' + sach.tenSach + ' ' + sach.giaBan));
 
         var div = document.createElement('div');
         div.className = 'bookItem';
