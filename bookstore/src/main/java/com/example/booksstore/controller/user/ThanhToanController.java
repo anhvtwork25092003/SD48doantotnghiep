@@ -7,12 +7,14 @@ import com.example.booksstore.entities.GioHangChiTiet;
 import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.PhuongThucThanhToan;
+import com.example.booksstore.entities.Sach;
 import com.example.booksstore.entities.ThongBao;
 import com.example.booksstore.entities.ThongTinGiaoHang;
 import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.GioHangChiTietReposutory;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
+import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.repository.IThongTinGiaoHangRepo;
 import com.example.booksstore.repository.PhuongThucThanhToanRepo;
 import com.example.booksstore.service.IDonHangService;
@@ -54,7 +56,8 @@ public class ThanhToanController {
 
     @Autowired
     IKhachHangRepository iKhachHangRepository;
-
+    @Autowired
+    ISachRepository iSachRepository;
 
     @Autowired
     GioHangChiTietReposutory gioHangChiTietReposutory;
@@ -90,6 +93,9 @@ public class ThanhToanController {
             for (GioHangChiTiet gioHangChiTiet : listSanPhamTrongGioHangTamThoi) {
                 for (String idgh : IdgioHangChiTietListDaChon) {
                     if (gioHangChiTiet.getIdGioHangChiTiet() == Integer.parseInt(idgh)) {
+                        // lấy thông tin mới nhất của sách
+                        Sach sach = this.iSachRepository.findByIdSach(gioHangChiTiet.getSach().getIdSach());
+                        gioHangChiTiet.setSach(sach);
                         gioHangChiTietListDaChon.add(gioHangChiTiet);
                     }
                 }
