@@ -138,6 +138,7 @@ public class QuanLyKhuyenMaiController {
             Model model
     ) throws ParseException {
         try {
+            System.out.println("ban đầu" + ngayBatDau + "và" + ngayKetThuc);
             String duongDanCotDinh = "/image/anhKhuyenMai/";
             String duongDanLuuAnhBannerKhuyenMai = duongDanCotDinh + linkBannerKhuyenMai.getOriginalFilename();
             String duongDanLuuAnhKhuyenMai = duongDanCotDinh + linkAnhKhuyenMai.getOriginalFilename();
@@ -159,6 +160,7 @@ public class QuanLyKhuyenMaiController {
                 Files.write(path2, bytes2);
             }
             // xử lý Date
+
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             Date dateNgayBatDau = null;
             Date dateNgayKetThuc = null;
@@ -167,6 +169,7 @@ public class QuanLyKhuyenMaiController {
             ngayKetThuc = ngayKetThuc + ":00";
             dateNgayBatDau = dateFormat.parse(ngayBatDau);
             dateNgayKetThuc = dateFormat.parse(ngayKetThuc);
+            System.out.println(dateNgayBatDau + "và" + dateNgayKetThuc);
             List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMai(sachKM, dateNgayKetThuc, dateNgayBatDau);
             if (result.isEmpty()) {
                 // active for add new books
@@ -287,10 +290,11 @@ public class QuanLyKhuyenMaiController {
             // lay khuyen mai dang ton tai
             KhuyenMai khuyenMaiGetOne = this.iKhuyenMaiService.getOne(Integer.parseInt(idKhuyenMai)).get();
             // Thêm cứng giây thành "00"
-            ngayBatDau = ngayBatDau + ":00";
-            ngayKetThuc = ngayKetThuc + ":00";
-            dateNgayBatDau = dateFormat.parse(ngayBatDau);
-            dateNgayKetThuc = dateFormat.parse(ngayKetThuc);
+            String ngayBatDaus = ngayBatDau + ":00";
+            String ngayKetThucs = ngayKetThuc + ":00";
+            dateNgayBatDau = dateFormat.parse(ngayBatDaus);
+            dateNgayKetThuc = dateFormat.parse(ngayKetThucs);
+            System.out.println(dateNgayBatDau + " cap nhat" + dateNgayKetThuc);
             List<String> result = iKhuyenMaiService.layThongTinSachTrongKhuyenMaiChoUpdate(sachKM2, dateNgayKetThuc, dateNgayBatDau, Integer.parseInt(idKhuyenMai));
             if (result.isEmpty()) {
                 KhuyenMai KMupdate = KhuyenMai.builder()
@@ -334,9 +338,14 @@ public class QuanLyKhuyenMaiController {
             System.out.println("khong tim thay khuyen mai!");
         } else {
             Date currentDate = new Date();
+
+            // Đặt giá trị giây thành 00
+            currentDate.setTime(currentDate.getTime() / 60000 * 60000);
+            String ngayHienTai = currentDate.toString();
+            System.out.println(ngayHienTai);
+
             khuyenMai.setNgayKetThuc(currentDate);
             khuyenMai.setTrangThai(0);
-
             KhuyenMai khuyenMaiupdated = this.iKhuyenMaiService.SaveOrUpdateKhuyenMai(khuyenMai);
         }
         return "redirect:/quan-ly/khuyen-mai/hien-thi";

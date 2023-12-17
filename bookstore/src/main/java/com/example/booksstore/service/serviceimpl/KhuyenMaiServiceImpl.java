@@ -85,7 +85,7 @@ public class KhuyenMaiServiceImpl implements IKhuyenMaiService {
         return this.iKhuyenMaiReporitory.findById(IdKhuyenMai);
     }
 
-    @Scheduled(fixedRate = 60000) // Lên lịch chạy mỗi phút (60,000 ms)
+    @Scheduled(fixedRate = 6000) // Lên lịch chạy mỗi phút (60,000 ms)
     public void updateTrangThai() {
         List<KhuyenMai> khuyenMais = iKhuyenMaiReporitory.findAll();
         for (KhuyenMai khuyenMai : khuyenMais) {

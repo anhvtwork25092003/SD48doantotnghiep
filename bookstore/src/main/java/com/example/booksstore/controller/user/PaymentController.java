@@ -205,6 +205,8 @@ public class PaymentController {
                     guiThongBaoVnPay(donHang, khachHang);
                 }
             } else {
+                // xóa session
+                session.removeAttribute("sanphamdathanhtoanboivnpay");
                 model.addAttribute("thongBao", "Thanh toan không thanh cong !");
             }
         }

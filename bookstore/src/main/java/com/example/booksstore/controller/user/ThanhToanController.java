@@ -94,6 +94,8 @@ public class ThanhToanController {
                 for (String idgh : IdgioHangChiTietListDaChon) {
                     if (gioHangChiTiet.getIdGioHangChiTiet() == Integer.parseInt(idgh)) {
                         // lấy thông tin mới nhất của sách
+                        Sach sach = this.iSachRepository.findByIdSach(gioHangChiTiet.getSach().getIdSach());
+                        gioHangChiTiet.setSach(sach);
                         gioHangChiTietListDaChon.add(gioHangChiTiet);
                     }
                 }
