@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @Controller
 @RequestMapping("/quan-ly")
@@ -43,7 +45,7 @@ public class QuanLyKhachHangController {
 
         }
         Page<KhachHang> pageOfKhachHang;
-        int pageSize = 2; //Đặt kích thước trang
+        int pageSize = 5; //Đặt kích thước trang
         int trangThai = 0;
         Pageable pageable = PageRequest.of(page - 1, pageSize); // số trang bắt đầu từ 0
         boolean daTimKiem = (trangThaiTimKiem != null);
@@ -68,35 +70,71 @@ public class QuanLyKhachHangController {
         return "admin/quanly/KhachHang";
     }
 
-
     @PostMapping("/khach-hang/cap-nhat")
-    public String khachHangsua(
-            @RequestParam("idKhachHang") String idKhachHang,
+    public String thongtinsua(
+            @RequestParam("idKhachHang") Integer idKhachHang,
             @RequestParam("hoVaTen") String hoVaTen,
             @RequestParam("sdt") String sdt,
-            @RequestParam("ngaySinh") Date ngaySinh,
-            @RequestParam("gioiTinh") String gioiTinh,
+            @RequestParam("ngaySinh") String ngaySinh,
+            @RequestParam("gioiTinh") Integer gioiTinh,
             @RequestParam("email") String email,
-            @RequestParam("trangThai") String trangThai,
-            @RequestParam("matKhau") String matKhau,
-            @RequestParam("loaiKhachHang") String loaiKhachHang,
-            @RequestParam("ngayTaoTaiKhoan") Date ngayTaoTaiKhoan
-
+            @RequestParam("trangThai") String trangThai
     ) {
-        KhachHang khachupdate = KhachHang.builder()
-                .idKhachHang(Integer.parseInt(idKhachHang))
-                .trangThai(Integer.parseInt(trangThai))
-                .ngayTaoTaiKhoan(ngayTaoTaiKhoan)
-                .matKhau(matKhau)
-                .loaiKhachHang(loaiKhachHang)
-                .hoVaTen(hoVaTen)
-                .sdt(sdt)
-                .ngaySinh(ngaySinh)
-                .gioiTinh(Integer.parseInt(gioiTinh))
-                .email(email)
-                .build();
-        this.iKhachHangService.save(khachupdate);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            java.util.Date getNgaySinhs = dateFormat.parse(ngaySinh);
+            KhachHang khachHang = iKhachHangService.detail(idKhachHang);
+            khachHang = KhachHang.builder()
+                    .idKhachHang(idKhachHang)
+                    .trangThai(khachHang.getTrangThai())
+                    .ngayTaoTaiKhoan(khachHang.getNgayTaoTaiKhoan())
+                    .matKhau(khachHang.getMatKhau())
+                    .loaiKhachHang(khachHang.getLoaiKhachHang())
+                    .hoVaTen(hoVaTen)
+                    .sdt(sdt)
+                    .ngaySinh(getNgaySinhs)
+                    .gioiTinh(gioiTinh)
+                    .email(email)
+                    .trangThai(Integer.parseInt(trangThai))
+                    .build();
+
+            iKhachHangService.save(khachHang);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/quan-ly/khach-hang/hien-thi";
     }
+
+
+//    @PostMapping("/khach-hang/cap-nhat")
+//    public String khachHangsua(
+//            @RequestParam("idKhachHang") String idKhachHang,
+//            @RequestParam("hoVaTen") String hoVaTen,
+//            @RequestParam("sdt") String sdt,
+//            @RequestParam("ngaySinh") Date ngaySinh,
+//            @RequestParam("gioiTinh") String gioiTinh,
+//            @RequestParam("email") String email,
+//            @RequestParam("trangThai") String trangThai,
+//            @RequestParam("matKhau") String matKhau,
+//            @RequestParam("loaiKhachHang") String loaiKhachHang,
+//            @RequestParam("ngayTaoTaiKhoan") Date ngayTaoTaiKhoan
+//
+//    ) {
+//        KhachHang khachupdate = KhachHang.builder()
+//                .idKhachHang(Integer.parseInt(idKhachHang))
+//                .trangThai(Integer.parseInt(trangThai))
+//                .ngayTaoTaiKhoan(ngayTaoTaiKhoan)
+//                .matKhau(matKhau)
+//                .loaiKhachHang(loaiKhachHang)
+//                .hoVaTen(hoVaTen)
+//                .sdt(sdt)
+//                .ngaySinh(ngaySinh)
+//                .gioiTinh(Integer.parseInt(gioiTinh))
+//                .email(email)
+//                .build();
+//        this.iKhachHangService.save(khachupdate);
+//        return "redirect:/quan-ly/khach-hang/hien-thi";
+//    }
 
 }

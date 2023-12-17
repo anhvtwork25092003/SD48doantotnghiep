@@ -94,6 +94,7 @@
                                 <th>Ngày Đặt</th>
                                 <th>Số điện Thoại</th>
                                 <th>Tổng Tiền</th>
+                                <th>ID Đổi Hàng</th>
                                 <th>Ghi Chú</th>
                                 <th>Hành Động</th>
                                 <!--                                <th>Người Duyệt</th>-->
@@ -106,6 +107,9 @@
                             <td th:text="${dh.ngayTao}"></td>
                             <td th:text="${dh.thongTinGiaoHang.sdt}"></td>
                             <td th:text="${dh.tinhTongTienFormatted()}"></td>
+                            <div th:each="th : ${dh.traHang}">
+                                <td th:text="${th.idTraHang}"></td>
+                            </div>
                             <td th:text="${dh.ghiChuKhachHangGui}"></td>
                             <td>
                                 <!--start đây là nút xem  nhận đơn hàng-->
@@ -226,6 +230,12 @@
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
+                                                            </div>
+                                                            <div class="line-item" th:each="th : ${dh.traHang}">
+                                                                <label>ID Đổi Hàng:</label>
+                                                                <input th:value="${th.idTraHang}"
+                                                                       class="form-control" type="text"
+                                                                       disabled/>
                                                             </div>
                                                             <div class="line-item">
                                                                 <label>Tiền vận chuyển:</label>
