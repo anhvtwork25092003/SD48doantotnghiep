@@ -67,7 +67,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <form th:action="@{/quan-ly/tac-gia/them-moi}" method="post" th:object="${tacgia}"
-                                              enctype="multipart/form-data">
+                                              enctype="multipart/form-data" onsubmit="return validateForm()">
                                             <div class="input-field">
                                                 <label for="idTacGia">ID Tac Gia:</label>
                                                 <input type="text" id="idTacGia"  name="idTacGia" class="form-control" readonly
@@ -75,40 +75,66 @@
                                             </div>
                                             <div class="input-field">
                                                 <label for="hoVaTen">Ho Va Ten:</label>
-                                                <input type="text" id="hoVaTen" class="form-control" name="hoVaTen"/>
+                                                <input type="text" id="hoVaTen" class="form-control" name="hoVaTen"  required minlength="3" maxlength="50"/>
                                             </div>
 
                                             <div class="input-field">
                                                 <label for="email">Email :</label>
-                                                <input id="email" class="form-control" name="email" />
+                                                <input type="email"  id="email" class="form-control" name="email"  required/>
                                             </div>
                                             <div class="input-field">
                                                 <label for="trangThai">Trạng Thái:</label>
-                                                <select  id="trangThai" class="form-control" name="trangThai">
+                                                <select  id="trangThai" class="form-control" name="trangThai" required>
                                                     <option value="1">Đang Hoạt Động</option>
                                                     <option value="0">Không Hoạt Động </option>
                                                 </select>
                                             </div>
                                             <div class="input-field">
                                                 <label for="sdt">Số Điện Thoại:</label>
-                                                <input type="tel" id="sdt" name="sdt" class="form-control"/>
+                                                <input type="tel" id="sdt" name="sdt" class="form-control" required/>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="linkAnhTacGia">Chọn ảnh :</label> <br>
                                                 <!--anh 1-->
                                                 <input type="file" id="linkAnhTacGia" name="linkAnhTacGia" accept="image/*"
-                                                       onchange="displayImage(this, 'selectedImage1')"/>
+                                                       onchange="displayImage(this, 'selectedImage1')" required/>
                                                 <!-- hien thi anh 1-->
                                                 <img id="selectedImage1" src="#" alt="Ảnh đã chọn"
                                                      style="max-width: 88px; height: auto; display: none;"/>
                                             </div>
 
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary" id="saveBtn">Thêm</button>
+                                                <button type="submit" class="btn btn-primary" >Thêm</button>
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                                             </div>
                                         </form>
+                                        <script>
+                                            function validateForm() {
+
+                                                // Validate email
+                                                // var emailInput = document.getElementById('email');
+                                                // var emailValue = emailInput.value.trim();
+                                                // var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                                                // if (!emailRegex.test(emailValue)) {
+                                                //     alert('Email không hợp lệ');
+                                                //     return false;
+                                                // }
+
+                                                // Validate phone number
+                                                var phoneInput = document.getElementById('sdt');
+                                                var phoneValue = phoneInput.value.trim();
+                                                var phoneRegex = /^[0-9]{10,}$/; // Modify this regex based on your phone number format
+                                                if (!phoneRegex.test(phoneValue)) {
+                                                    alert('Số Điện Thoại không hợp lệ');
+                                                    return false;
+                                                }
+
+                                                // Additional conditions can be added here
+
+                                                return true; // If everything is valid, allow form submission
+                                            }
+                                        </script>
 
                                     </div>
 
@@ -234,17 +260,17 @@
                                             <div class="form-group">
                                                 <label for="hoVaTen">Tên Tác Giả:</label>
                                                 <input type="text" id="hoVaTen" class="form-control"
-                                                       th:value="${tacGia.hoVaTen}" name="hoVaTen">
+                                                       th:value="${tacGia.hoVaTen}" name="hoVaTen" required minlength="3" maxlength="50">
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email:</label>
                                                 <input type="email" id="email" class="form-control"
                                                    name="email"
-                                                   th:value="${tacGia.email}">
+                                                   th:value="${tacGia.email}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="trangThai">Trạng Thái:</label>
-                                                <select id="trangThai" class="form-control" name="trangThai">
+                                                <select id="trangThai" class="form-control" name="trangThai" required>
                                                     <option th:selected="${tacGia.trangThai == 1}" value="1">Đang Hoạt Động
                                                     </option>
                                                     <option th:selected="${tacGia.trangThai == 0}" value="0">Không Hoạt Động
@@ -254,7 +280,7 @@
                                             <div class="form-group">
                                                 <label for="sdt">Số điện thoại:</label>
                                                 <input type="tel" id="sdt" class="form-control" name="sdt"
-                                                       th:value="${tacGia.sdt}">
+                                                       th:value="${tacGia.sdt}" required>
                                             </div>
                                             <!--                                             anh 1-->
                                             <div class="image-container">

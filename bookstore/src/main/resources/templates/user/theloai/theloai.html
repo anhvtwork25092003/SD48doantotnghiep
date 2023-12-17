@@ -65,34 +65,74 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form th:action="@{/the-loai/them-moi}" method="post"
-                                                      th:object="${theLoai}" enctype="multipart/form-data">
+<!--                                                <form th:action="@{/the-loai/them-moi}" method="post"-->
+<!--                                                      th:object="${theLoai}" enctype="multipart/form-data">-->
+<!--                                                    <div class="input-field">-->
+<!--                                                        <label for="tentheloai">ID Thể Loại:</label>-->
+<!--                                                        <input type="text" id="idtheloai" class="form-control" readonly-->
+<!--                                                               + name="idtheloai">-->
+<!--                                                    </div>-->
+<!--                                                    <div class="input-field">-->
+<!--                                                        <label for="tenTheLoai">Tên Thể Loại:</label>-->
+<!--                                                        <input type="text" id="tenTheLoai" class="form-control"-->
+<!--                                                               + name="tenTheLoai" required>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="input-field">-->
+<!--                                                        <label for="mota">Mô Tả:</label>-->
+<!--                                                        <input type="text" id="mota" class="form-control"-->
+<!--                                                               + name="mota" required>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="input-field">-->
+<!--                                                        <label for="trangThai">Trạng Thái:</label>-->
+<!--                                                        <select id="trangThai" name="trangThai" class="form-control">-->
+<!--                                                            <option value="1">Hoạt động</option>-->
+<!--                                                            <option value="0">Ngừng hoạt động</option>-->
+<!--                                                        </select>-->
+<!--                                                    </div>-->
+<!--                                                    <br>-->
+<!--                                                    <button type="submit" class="btn btn-primary" id="saveBtn">Thêm-->
+<!--                                                    </button>-->
+<!--                                                </form>-->
+                                                <form th:action="@{/the-loai/them-moi}" method="post" th:object="${theLoai}" enctype="multipart/form-data" onsubmit="return validateForm()" >
                                                     <div class="input-field">
                                                         <label for="tentheloai">ID Thể Loại:</label>
-                                                        <input type="text" id="idtheloai" class="form-control" readonly
-                                                               + name="idtheloai">
+                                                        <input type="text" id="idtheloai" class="form-control" readonly name="idtheloai" required>
                                                     </div>
                                                     <div class="input-field">
                                                         <label for="tenTheLoai">Tên Thể Loại:</label>
-                                                        <input type="text" id="tenTheLoai" class="form-control"
-                                                               + name="tenTheLoai">
+                                                        <input type="text" id="tenTheLoai" class="form-control" name="tenTheLoai" required minlength="3" maxlength="50">
+                                                        <!-- Bạn có thể thay đổi giá trị của minlength và maxlength tùy thuộc vào yêu cầu của bạn -->
                                                     </div>
                                                     <div class="input-field">
                                                         <label for="mota">Mô Tả:</label>
-                                                        <input type="text" id="mota" class="form-control"
-                                                               + name="mota">
+                                                        <input type="text" id="mota" class="form-control" name="mota" required minlength="10" maxlength="200">
+                                                        <!-- Bạn có thể thay đổi giá trị của minlength và maxlength tùy thuộc vào yêu cầu của bạn -->
                                                     </div>
                                                     <div class="input-field">
                                                         <label for="trangThai">Trạng Thái:</label>
-                                                        <select id="trangThai" name="trangThai" class="form-control">
+                                                        <select id="trangThai" name="trangThai" class="form-control" required>
                                                             <option value="1">Hoạt động</option>
                                                             <option value="0">Ngừng hoạt động</option>
                                                         </select>
                                                     </div>
                                                     <br>
-                                                    <button type="submit" class="btn btn-primary" id="saveBtn">Thêm
-                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">Thêm</button>
                                                 </form>
+                                                <script>
+                                                    function validateForm() {
+                                                        var tenTheLoaiInput = document.getElementById('tenTheLoai');
+                                                        var tenTheLoaiValue = tenTheLoaiInput.value;
+
+                                                        // Check if the first letter is uppercase
+                                                        if (tenTheLoaiValue.charAt(0) !== tenTheLoaiValue.charAt(0).toUpperCase()) {
+                                                            alert('Tên thể loại phải bắt đầu bằng chữ in hoa');
+                                                            return false;
+                                                        }
+
+                                                        return true;
+                                                    }
+
+                                                </script>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">
@@ -100,6 +140,7 @@
                                                     </button>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +182,7 @@
                                                 <!-- Form for Editing Product Details -->
                                                 <form th:action="@{/the-loai/cap-nhat}" method="post"
                                                       th:object="${theloai}"
-                                                      id="editProductForm" enctype="multipart/form-data">
+                                                      enctype="multipart/form-data" onsubmit="return validatecapnhat()">
                                                     <div class="input-field">
                                                         <label for="IdTheLoai">ID Thể Loại:</label>
                                                         <input type="text" th:value="${theloai.IdTheLoai}"
@@ -151,25 +192,41 @@
                                                         <label for="tenTheLoai">Tên Thể Loại:</label>
                                                         <input type="text" id="tenTheLoai"
                                                                th:value="${theloai.tenTheLoai}" class="form-control"
-                                                               name="tenTheLoai">
+                                                               name="tenTheLoai"  required minlength="3" maxlength="50">
                                                     </div>
                                                     <div class="input-field">
                                                         <label for="moTa">Mô Tả:</label>
                                                         <input type="text" class="form-control"
-                                                               th:value="${theloai.moTa}" name="moTa" id="moTa">
+                                                               th:value="${theloai.moTa}" name="moTa" id="moTa" required minlength="10" maxlength="200">
                                                     </div>
                                                     <div class="input-field">
                                                         <label for="trangThai">Trạng Thái:</label>
-                                                        <select id="trangThai" name="trangThai" class="form-control"
+                                                        <select id="trangThai" name="trangThai" class="form-control" required
                                                                 th:value="${theloai.trangThai}">
                                                             <option value="1">Hoạt động</option>
                                                         </select>
                                                     </div>
                                                     <br>
-                                                    <button type="submit" class="btn btn-primary" id="saveEditBtn"onclick="return confirm('Bạn có muốn cập nhật Thể Loại')">
+                                                    <button type="submit" class="btn btn-primary">
                                                         Lưu
                                                     </button>
                                                 </form>
+                                                <script>
+                                                    function validatecapnhat() {
+                                                        var tenTheLoaiInput = document.getElementById('tenTheLoai');
+                                                        var tenTheLoaiValue = tenTheLoaiInput.value.trim();  // Trim leading and trailing spaces
+
+                                                        console.log('Actual value:', tenTheLoaiValue);  // Add this line for debugging
+
+                                                        // Check if the entire string is in uppercase
+                                                        if (tenTheLoaiValue !== tenTheLoaiValue.toUpperCase()) {
+                                                            alert('Tên thể loại phải viết hoa');
+                                                            return false;
+                                                        }
+
+                                                        return true;
+                                                    }
+                                                </script>
                                             </div>
                                             <div class="modal-footer">
                                                 <form th:action="@{/the-loai/cap-nhat-ngung-hoat-dong}" method="post"
