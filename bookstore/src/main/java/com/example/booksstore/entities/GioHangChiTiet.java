@@ -58,7 +58,8 @@ public class GioHangChiTiet {
             return formatCurrency(thanhTien);
         } else {
             // có khuyến mãi, return ra giá khuyến mãi
-            return this.sach.layGiaNeuCoKhuyenMai();
+            BigDecimal thanhTien2 = this.sach.layGiaNeuCoKhuyenMaiBigdecimal().multiply(BigDecimal.valueOf(this.soLuong));
+            return formatCurrency(thanhTien2);
         }
     }
 

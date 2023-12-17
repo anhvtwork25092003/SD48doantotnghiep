@@ -278,7 +278,6 @@ public class QuanLySachController {
                           @RequestParam("editlinkAnh5") MultipartFile linkAnh5,
                           HttpServletRequest request
     ) throws IOException {
-        String url = request.getRequestURI().toString();
         System.out.println(trangThaiThayDoiAnh1);
         System.out.println(trangThaiThayDoiAnh2);
         System.out.println(trangThaiThayDoiAnh3);
@@ -386,7 +385,7 @@ public class QuanLySachController {
                 .theLoais(theLoais)
                 .trangThai(Integer.parseInt(trangThai))
                 .moTa(moTa)
-                .soLuongTonKho( Integer.parseInt(soLuongTonKho))
+                .soLuongTonKho(Integer.parseInt(soLuongTonKho))
                 .giaBan(giaBanOke)
                 .maVach(maVach)
                 .linkAnh1(duongDanLuuAnh1)
@@ -396,7 +395,8 @@ public class QuanLySachController {
                 .linkAnh5(duongDanLuuAnh5)
                 .build();
         this.iSachService.save(sachUpDate);
-        return url;
+        return "redirect:/quan-ly/sach/hien-thi";
+
     }
 
 }

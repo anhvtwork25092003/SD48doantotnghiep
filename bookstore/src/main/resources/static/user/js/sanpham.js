@@ -189,6 +189,23 @@ function editImage(inputId, tinhTrangThayDoi) {
     }
 }
 
+function validateFormCapNhat() {
+    // Get form fields
+    var field1 = document.getElementById('field1').value;
+    var field2 = document.getElementById('field2').value;
+    // Add more fields as needed
+
+    // Perform validation
+    if (field1.trim() === '' || field2.trim() === '') {
+        // Display alert if any field is empty
+        alert('Please fill in all fields.');
+        return false; // Prevent form submission
+    }
+
+    // If validation passes, allow form submission
+    return true;
+}
+
 
 
 

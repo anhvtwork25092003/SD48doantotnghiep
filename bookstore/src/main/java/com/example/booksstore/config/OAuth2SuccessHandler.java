@@ -44,7 +44,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         NhanVien nhanVien = nhanVienRepository.findByEmail(email);
         KhachHang khachHang = iKhachHangRepository.findByEmail(email);
 
-        if (khachHang != null) {
+        if (khachHang != null && khachHang.getTrangThai() == 1) {
             // Đã tồn tại trong hệ thống -> login user đó
             session.setAttribute("loggedInUser", khachHang);
             System.out.println("Đăng nhập KH " + khachHang.toString());
@@ -53,7 +53,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
             return;
         }
 
-        if (nhanVien != null) {
+        if (nhanVien != null && nhanVien.getTrangThai() == 1) {
             // Đã tồn tại trong hệ thống -> login user đó
             session.setAttribute("dangnhapnhanvien", nhanVien);
 

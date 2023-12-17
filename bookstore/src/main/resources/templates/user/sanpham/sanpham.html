@@ -74,29 +74,6 @@
                                 <option th:value="S3" th:selected="${psta=='S3'}">Ngừng hoạt động</option>
                             </select>
                             <br>
-                            <!--                            <label>Thể loại:</label><br>-->
-                            <!--                            <div id="categoryList" style="max-height: 200px; overflow-y: scroll;">-->
-                            <!--                                <th:block th:each="category : ${listTheLoai}">-->
-                            <!--                                    <input type="checkbox" th:id="'category_' + ${category.idTheLoai}"-->
-                            <!--                                           th:name="categorySearch" th:value="${category.idTheLoai}"-->
-                            <!--                                           th:checked="${catego.contains(category)}"-->
-                            <!--                                    />-->
-                            <!--                                    <label th:for="'category_' + ${category.idTheLoai}"-->
-                            <!--                                           th:text="${category.tenTheLoai}"></label><br>-->
-                            <!--                                </th:block>-->
-                            <!--                            </div>-->
-
-
-                            <!--                            <label>Khoảng giá:</label><br>-->
-                            <!--                            <input type="radio" name="priceRangeSearch" value="all"-->
-                            <!--                                   th:checked="${price=='all'}"> Tất cả<br>-->
-                            <!--                            <input type="radio" name="priceRangeSearch" value="1"-->
-                            <!--                                   th:checked="${price=='1'}"> Dưới 100.000 vnd<br>-->
-                            <!--                            <input type="radio" name="priceRangeSearch" value="2"-->
-                            <!--                                   th:checked="${price=='2'}">Từ 100.000 đến 500.000<br>-->
-                            <!--                            <input type="radio" name="priceRangeSearch" value="3"-->
-                            <!--                                   th:checked="${price=='3'}"> Trên 500.000<br>-->
-                            <!-- Thêm các radio button cho các khoảng giá khác -->
                             <button class="form-control btn btn-success" type="submit">Tìm kiếm</button>
                         </form>
                     </div>
@@ -213,7 +190,7 @@
                                                 <input type="text" id="maVach" class="form-control" name="maVach">
                                             </div>
                                             <br>
-                                            <button type="submit" class="btn btn-primary" id="saveBtn">Thêm</button>
+                                            <button type="submit" class="btn btn-primary"  id="saveBtn">Thêm</button>
 
                                         </form>
 
@@ -548,10 +525,10 @@
                                                 <div class="form-group">
                                                     <label for="maVach">Mã Vạch:</label>
                                                     <input type="text" id="maVach" class="form-control"
-                                                           th:value="${sach.maVach}" th:maxlength="20"name="maVach">
+                                                           th:value="${sach.maVach}" th:maxlength="20" name="maVach">
                                                 </div>
                                                 <br>
-                                                <button type="submit" class="btn btn-primary">
+                                                <button type="submit" class="btn btn-primary" onclick="return validateFormCapNhat()">
                                                     Lưu
                                                 </button>
                                             </form>
