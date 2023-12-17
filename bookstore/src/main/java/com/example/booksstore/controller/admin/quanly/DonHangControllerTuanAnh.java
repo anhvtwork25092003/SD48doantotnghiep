@@ -1,11 +1,14 @@
 package com.example.booksstore.controller.admin.quanly;
 
+import com.example.booksstore.config.PDFExporter;
 import com.example.booksstore.entities.*;
 import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.NhanVienRepository;
 import com.example.booksstore.service.*;
+import com.lowagie.text.DocumentException;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,8 +21,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/quan-ly")
@@ -589,5 +597,42 @@ public class DonHangControllerTuanAnh {
         // gọi hàm
         this.thongBaoKhachHangService.themThongBaoChoNguoiDung(khachHang.getIdKhachHang(), savedNotification);
     }
+    @GetMapping("/don-hang/export/pdf")
+    public String exportToPDF(RedirectAttributes redirectAttributes, HttpServletResponse response, @RequestParam("idDonHang") String idDonHang)
+            throws DocumentException, IOException {
+        // Cài đặt các header và loại nội dung cho response
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        // Lấy đơn hàng từ cơ sở dữ liệu
+        DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
+
+        // Kiểm tra xem đơn hàng có tồn tại và trạng thái không phải là 'Xác nhận' (1) hay không
+        if (donHang != null && donHang.getTrangThai() == 0) {
+            // Cập nhật trạng thái của đơn hàng thành 'Xác nhận' (1)
+            donHang.setTrangThai(1);
+            iDonHangRepo.save(donHang);
+
+            // Xuất hóa đơn PDF
+            PDFExporter exporter = new PDFExporter();
+            exporter.export(response, donHang);
+
+            // Tiếp tục với các lệnh sau khi xuất PDF (ví dụ: gửi thông báo chuyển hướng)
+            redirectAttributes.addFlashAttribute("successMessage", "Đã xác nhận đơn hàng thành công.");
+        } else {
+            // Trả về thông báo lỗi nếu không tìm thấy đơn hàng hoặc đơn hàng đã ở trạng thái 'Xác nhận'
+            redirectAttributes.addFlashAttribute("errorMessage", "Không thể tạo hóa đơn cho Đơn hàng có idDonHang " + idDonHang +
+                    ". Đơn hàng không được tìm thấy hoặc đã ở trạng thái 'Xác nhận'.");
+        }
+
+        // Chuyển hướng về trang sau khi xử lý thành công hoặc thất bại
+        return "/admin/quanly/DonHangCho";
+    }
+
 
 }

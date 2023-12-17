@@ -33,6 +33,18 @@
                 <div class="box">
                     <table class="table" style="border: 0px solid blue;">
                         <thead class="table-dark">
+                        <select class="col-3 form-control" onchange="changePage(this)">
+                            <option value="/danh-gia/chua-duyet">Đánh Giá Chưa Duyệt</option>
+                            <option value="/danh-gia/da-duyet">Đánh Giá Đã Duyệt</option>
+                            <option value="/danh-gia/khong-duyet">Đánh Giá Không Duyệt</option>
+                        </select>
+                        <script>
+                            function changePage(select) {
+                                var selectedOption = select.options[select.selectedIndex];
+                                var url = selectedOption.value;
+                                window.location.href = url;
+                            }
+                        </script>
                         <tr>
                             <th>ID Đánh Giá</th>
                             <th>Tên Sách</th>

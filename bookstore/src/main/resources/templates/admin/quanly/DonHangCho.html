@@ -115,7 +115,7 @@
                             <td th:text="${dh.ghiChuKhachHangGui}"></td>
                             <td>
                                 <!-- startđây là nút xác nhận đơn hàng-->
-                                <a th:href="@{/quan-ly/xac-nhan-don-hang-cho(idDonHang=${dh.idDonHang})}"
+                                <a th:href="@{/quan-ly/don-hang/export/pdf(idDonHang=${dh.idDonHang})}"
                                    onclick="return confirm('Bạn có chắc muốn duyệt đơn hàng này không?')">
                                     <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
                                 </a>
