@@ -22,47 +22,56 @@
 
             <!-- Nội dung chính -->
             <section class="col-md-10">
-                <form >
+
+                <form th:action="@{/thong-tin/cap-nhat/moi}" method="post" >
                     <div class="table-responsive">
                         <center>
                             <h2>Thông tin </h2>
                         </center>
-                        <div class="group">
-                            <label for="linkBannerTrangChu">Image<span style="color: #ff0000">*</span></label>
-                            <img src="" class="text-input" id="linkBannerTrangChu" alt="anh banner" name="linkBannerTrangChu"
-                                 width="88px" height="88px">
+                        <div th:each="thongtin, iterStat : ${session.loggedInThongTin}">
+<!--                            <div class="group">-->
+<!--                                <label for="linkBannerTrangChu">Image<span style="color: #ff0000">*</span></label>-->
+<!--                                <img src="" class="text-input" id="linkBannerTrangChu" alt="anh banner" name="linkBannerTrangChu"-->
+<!--                                     width="88px" height="88px">-->
+<!--                            </div>-->
+<!--                            <br>-->
+<!--                            <div class="group">-->
+<!--                                <label for="linkLogo">Image<span style="color: #ff0000">*</span></label>-->
+<!--                                <img src="" class="text-input" id="linkLogo" alt="anh logo " name="linkLogo"-->
+<!--                                     width="88px" height="88px">-->
+<!--                            </div>-->
+
+                                <div class="group">
+                                    <label for="idThongTin">Id Thong tin<span style="color: #ff0000">*</span></label>
+                                    <input class="text-input" id="idThongtin" type="text" name="idThongTin"
+                                    th:value="${thongtin.idThongTin}" />
+                                </div>
+                                <br>
+                                <div class="group">
+                                    <label for="soDienThoai1">Số điện thoại 1</label>
+                                    <input class="text-input" id="soDienThoai1" type="tel" name="soDienThoai1"
+                                    th:value="${thongtin.soDienThoai1}"/>
+                                </div>
+                                <br>
+                                <div class="group">
+                                    <label for="soDienThoai2">Số điện thoại 2</label>
+                                    <input class="text-input" id="soDienThoai2" type="tel" name="soDienThoai2"
+                                    th:value="${thongtin.soDienThoai2}"
+                                    />
+                                </div>
+                                <br>
+                                <div class="group">
+                                    <label for="email">Email</label>
+                                    <input class="text-input" id="email" type="email" name="email"
+                                    th:value="${thongtin.email}"
+                                    />
+                                </div>
+                                <div class="group btn">
+                                    <button class="btn-warning" type="submit">Lưu thay đổi</button>
+                                </div>
                         </div>
-                        <br>
-                        <div class="group">
-                            <label for="linkLogo">Image<span style="color: #ff0000">*</span></label>
-                            <img src="" class="text-input" id="linkLogo" alt="anh logo " name="linkLogo"
-                                 width="88px" height="88px">
+
                         </div>
-                        <div >
-                            <div class="group">
-                                <label for="diaChi">Dia chi<span style="color: #ff0000">*</span></label>
-                                <input class="text-input" id="diaChi" type="text" name="diaChi"/>
-                            </div>
-                            <br>
-                            <div class="group">
-                                <label for="soDienThoai1">Số điện thoại 1</label>
-                                <input class="text-input" id="soDienThoai1" type="tel" name="soDienThoai1" />
-                            </div>
-                            <br>
-                            <div class="group">
-                                <label for="soDienThoai2">Số điện thoại 2</label>
-                                <input class="text-input" id="soDienThoai2" type="tel" name="soDienThoai2" />
-                            </div>
-                            <br>
-                            <div class="group">
-                                <label for="email">Email</label>
-                                <input class="text-input" id="email" type="email" name="email"/>
-                            </div>
-                            <div class="group btn">
-                                <button class="btn-warning" type="submit">Lưu thay đổi</button>
-                            </div>
-                        </div>
-                    </div>
                 </form>
             </section>
         </div>
