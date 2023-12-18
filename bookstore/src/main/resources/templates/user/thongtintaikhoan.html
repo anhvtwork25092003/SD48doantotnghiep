@@ -33,12 +33,12 @@
 
             <!-- Nội dung chính -->
             <section class="col-md-10">
-                <form th:action="@{/quan-ly/thong-tin/cap-nhat}" method="post">
+                <form th:action="@{/quan-ly/thong-tin/cap-nhat}" method="post" onsubmit="return validateForm()">
                     <div class="table-responsive">
                         <center>
                             <h2>Thông tin tài khoản</h2>
                         </center>
-                    <div th:each="thongtintaikhoan, iterStat : ${session.loggedInUser}">
+                    <div th:each="thongtintaikhoan, iterStat : ${session.loggedInUser}"  >
                         <div class="group">
                             <input class="text-input" id="idKhachHang" type="text" name="idKhachHang"
                                    th:value="${thongtintaikhoan.idKhachHang}" hidden/>
@@ -69,18 +69,18 @@
                         <div class="group">
                             <label for="hoVaTen">Họ Và Tên<span style="color: #ff0000">*</span></label>
                             <input class="text-input" id="hoVaTen" type="text" name="hoVaTen"
-                                   th:value="${thongtintaikhoan.hoVaTen}"/>
+                                   th:value="${thongtintaikhoan.hoVaTen}"  minlength="3" maxlength="50"/>
                         </div>
                         <br>
                         <div class="group">
                             <label for="sdt">Số điện thoại</label>
-                            <input class="text-input" id="sdt" type="tel" name="sdt" th:value="${thongtintaikhoan.sdt}"/>
+                            <input class="text-input" id="sdt" type="tel" name="sdt" th:value="${thongtintaikhoan.sdt}" />
                         </div>
                         <br>
                         <div class="group">
                             <label for="email">Email</label>
                             <input class="text-input" id="email" type="email" name="email"
-                                   th:value="${thongtintaikhoan.email}"/>
+                                   th:value="${thongtintaikhoan.email}" />
                         </div>
                         <br>
                         <div class="group gender">
@@ -96,14 +96,65 @@
                         <div class="group">
                             <label for="ngaySinh">Ngày sinh</label>
                             <input class="text-input" id="ngaySinh" type="date" name="ngaySinh"
-                                   th:value="${thongtintaikhoan.ngaySinh}"/>
+                                   th:value="${thongtintaikhoan.ngaySinh}" />
                         </div>
                         <div class="group btn">
-                            <button class="btn-warning" type="submit">Lưu thay đổi</button>
+                            <button class="btn-warning" type="submit" >Lưu thay đổi</button>
                         </div>
                     </div>
                     </div>
                 </form>
+                <script>
+                    function validateForm() {
+                        var hoVaTen = document.getElementById("hoVaTen").value;
+                        var sdt = document.getElementById("sdt").value;
+                        var email = document.getElementById("email").value;
+                        var gioiTinh = document.querySelector('input[name="gioiTinh"]:checked');
+                        var ngaySinh = document.getElementById("ngaySinh").value;
+
+                        // Validate Họ và Tên
+                        if (hoVaTen.trim() === "") {
+                            alert("Họ và Tên không được để trống");
+                            return false;
+                        }
+
+                        // Validate Số điện thoại
+                        // You can add more specific validation for phone numbers if needed
+                        if (sdt.trim() === "") {
+                            alert("Số điện thoại không được để trống");
+                            return false;
+                        }
+                        var phoneInput = document.getElementById('sdt');
+                        var phoneValue = phoneInput.value.trim();
+                        var phoneRegex = /^[0-9]{10,}$/; // Modify this regex based on your phone number format
+                        if (!phoneRegex.test(phoneValue)) {
+                            alert('Số Điện Thoại không hợp lệ');
+                            return false;
+                        }
+
+                        // Validate Email
+                        // You can add a more complex email validation if needed
+                        if (email.trim() === "") {
+                            alert("Email không được để trống");
+                            return false;
+                        }
+
+                        // Validate Giới tính
+                        if (!gioiTinh) {
+                            alert("Vui lòng chọn giới tính");
+                            return false;
+                        }
+
+                        // Validate Ngày sinh
+                        if (ngaySinh.trim() === "") {
+                            alert("Ngày sinh không được để trống");
+                            return false;
+                        }
+
+                        return true;
+                    }
+                </script>
+
             </section>
         </div>
     </div>

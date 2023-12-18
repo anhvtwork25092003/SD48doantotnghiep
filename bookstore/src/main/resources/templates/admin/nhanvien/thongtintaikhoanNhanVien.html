@@ -30,7 +30,7 @@
 
 <!--            &lt;!&ndash; Nội dung chính &ndash;&gt;-->
             <section class="col-md-10">
-                <form th:action="@{/nhan-vien/thay-doi}" method="post">
+                <form th:action="@{/nhan-vien/thay-doi}" method="post" onsubmit="return validateForm()">
                     <div class="table-responsive">
                         <center>
                             <h2>Thông tin tài khoản</h2>
@@ -99,6 +99,62 @@
                         </div>
                     </div>
                 </form>
+                <script>
+                    function validateForm() {
+                        var maNhanVien = document.getElementById("maNhanVien").value;
+                        var hoVaTen = document.getElementById("hoVaTen").value;
+                        var sdt = document.getElementById("sdt").value;
+                        var ngaySinh = document.getElementById("ngaySinh").value;
+                        var email = document.getElementById("email").value;
+                        var chucVu = document.getElementById("chucVu").value;
+
+                        // Validate Mã Nhân Viên
+                        if (maNhanVien.trim() === "") {
+                            alert("Mã Nhân Viên không được để trống");
+                            return false;
+                        }
+
+                        // Validate Họ và Tên
+                        if (hoVaTen.trim() === "") {
+                            alert("Họ và Tên không được để trống");
+                            return false;
+                        }
+
+                        // Validate SDT
+                        if (sdt.trim() === "") {
+                            alert("Số điện thoại không được để trống");
+                            return false;
+                        }
+                        var phoneInput = document.getElementById('sdt');
+                        var phoneValue = phoneInput.value.trim();
+                        var phoneRegex = /^[0-9]{10,}$/; // Modify this regex based on your phone number format
+                        if (!phoneRegex.test(phoneValue)) {
+                            alert('Số Điện Thoại không hợp lệ');
+                            return false;
+                        }
+
+                        // Validate Ngày Sinh
+                        if (ngaySinh.trim() === "") {
+                            alert("Ngày Sinh không được để trống");
+                            return false;
+                        }
+
+                        // Validate Email
+                        if (email.trim() === "") {
+                            alert("Email không được để trống");
+                            return false;
+                        }
+
+                        // Validate Chức Vụ
+                        if (chucVu.trim() === "") {
+                            alert("Chức Vụ không được để trống");
+                            return false;
+                        }
+
+                        return true;
+                    }
+                </script>
+
             </section>
         </div>
     </div>
