@@ -3,7 +3,6 @@ package com.example.booksstore.controller.user;
 
 import com.example.booksstore.entities.ThongTin;
 import com.example.booksstore.repository.IThongTinRepository;
-import com.example.booksstore.service.IThongTinService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,12 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/quan-ly")
 public class ThongTinController {
-    @Autowired
-    IThongTinService service;
+
     @Autowired
     IThongTinRepository repository;
 
-    @GetMapping("/thong_tin/thong-tin/thanh")
+    @GetMapping("/thong_tin/thong-tin")
     public String GetThongTin(HttpSession session, Model model) {
         ThongTin loggedInThongTin = (ThongTin) session.getAttribute("loggedInThongTin");
         model.addAttribute("loggedInThongTin", loggedInThongTin);
@@ -40,18 +38,7 @@ public class ThongTinController {
             @RequestParam("linkBannerTrangChu") MultipartFile linkAnhTrangChu,
             @RequestParam(" linkLogo") MultipartFile linklogo
     ) {
-        try {
-            ThongTin thongTin = service.getOne((id));
-            ThongTin thongTinupdate = ThongTin.builder()
-                    .idThongTin(thongTin.getIdThongTin())
-                    .email(email)
-                    .diaChi(diaChi)
-                    .soDienThoai1(soDienThoai1)
-                    .soDienThoai2(soDienThoai2).build();
-            service.AddThongTin(thongTinupdate);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         return "redirect:user/thongtin/thanh_thongtin" + id;
     }
 }
