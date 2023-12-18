@@ -63,15 +63,19 @@ public class GioHangController {
             }
             List<GioHangChiTiet> listSanPhamTrongGioHangTamThoi = (List<GioHangChiTiet>) session
                     .getAttribute("listSanPhamTrongGioHangTamThoi");
-            for (GioHangChiTiet gioHangChiTiet : listSanPhamTrongGioHangTamThoi) {
-                Sach sach = this.iSachRepository.findByIdSach(gioHangChiTiet.getSach().getIdSach());
-                gioHangChiTiet.setSach(sach);
-            }
             if (listSanPhamTrongGioHangTamThoi == null) {
                 // nếu list chưa tồn tại thì tạo mới
                 listSanPhamTrongGioHangTamThoi = new ArrayList<>();
-                session.setAttribute("listSanPhamTrongGioHangTamThoi", listSanPhamTrongGioHangTamThoi);
             }
+            if (listSanPhamTrongGioHangTamThoi != null) {
+                for (GioHangChiTiet gioHangChiTiet : listSanPhamTrongGioHangTamThoi) {
+                    Sach sach = this.iSachRepository.findByIdSach(gioHangChiTiet.getSach().getIdSach());
+                    gioHangChiTiet.setSach(sach);
+                }
+
+            }
+
+            session.setAttribute("listSanPhamTrongGioHangTamThoi", listSanPhamTrongGioHangTamThoi);
             model.addAttribute("danhSachSanPhamTrongGioHang", listSanPhamTrongGioHangTamThoi);
 
         } else {
