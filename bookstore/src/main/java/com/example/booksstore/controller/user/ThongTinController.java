@@ -78,7 +78,6 @@ public class ThongTinController {
             Files.write(path, bytes);
         }
         ThongTin thongTin = ThongTin.builder()
-                .linkBannerTrangChu(duongDanLuuAnhBanner)
                 .linkLogo(duongDanLuuAnhLogo)
                 .diaChi(diaChi)
                 .soDienThoai1(soDienThoai1)
