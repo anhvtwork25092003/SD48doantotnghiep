@@ -526,7 +526,6 @@ public class DonHangControllerTuanAnh {
 
     }
 
-
     //KẾT THÚC CỦA ĐƠN HÀNG ĐÃ HỦY
 
     public void guiEmailDonHang(DonHang donHang, ThongTinGiaoHang thongTinGiaoHang) {
@@ -554,7 +553,8 @@ public class DonHangControllerTuanAnh {
 
         String subject = "Dưới đây là mã đơn hàng và trạng thái đơn hàng của bạn!! ";
         senderService.sendSimpleEmail(thongTinGiaoHang.getEmailGiaoHang(), subject,
-                "Mã Đơn Hàng của bạn " + donHang.getMaDonHang() + "\n" +
+                    "Mã Đơn Hàng của bạn: " + donHang.getMaDonHang() + "\n" +
+                        "Địa chỉ nhận hàng:" + donHang.getThongTinGiaoHang().getDiaChiChu() + "\n" +
                         "Trạng thái đơn: " + trangThaiDonHang);
     }
 
