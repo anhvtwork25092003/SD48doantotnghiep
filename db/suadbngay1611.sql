@@ -117,3 +117,19 @@ ALTER TABLE TraHang
 ADD CONSTRAINT fk_trahnag_donhang
 FOREIGN KEY (IdDonHang)
 REFERENCES DonHang(IdDonHang);
+--Day day
+alter table ThongTinGiaoHang
+add DiaChiChu nvarchar(max)
+
+alter table DiaChi
+add DiaChiChu nvarchar(max)
+
+ALTER TABLE DiaChi
+DROP COLUMN idXa
+
+ALTER TABLE DiaChi
+DROP COLUMN idHuyen
+
+ALTER TABLE DiaChi
+DROP COLUMN idTinh
+
