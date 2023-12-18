@@ -144,6 +144,8 @@ public class ThanhToanController {
                                         String huyenQuan,
                                 @RequestParam(value = "xaPhuong", required = false)
                                         String xaPhuong,
+                                @RequestParam(value = "diaChiChu", required = false)
+                                            String diaChiChu,
                                 @RequestParam(value = "email", required = false)
                                         String email,
                                 @RequestParam(value = "diaChiCuThe", required = false)
@@ -215,6 +217,7 @@ public class ThanhToanController {
                 session.setAttribute("tinhThanhPhoVnpay", tinhThanhPho);
                 session.setAttribute("huyenQuanVnpay", huyenQuan);
                 session.setAttribute("xaPhuongVnpay", xaPhuong);
+                session.setAttribute("diaChiChuVnpay",diaChiChu);
                 session.setAttribute("diaChiCuTheVnpay", diaChiCuThe);
                 session.setAttribute("emailThanhToanChuaDangNhap", email);
                 return "redirect:/vnpay/pay?total=" + tongTienhang;
@@ -241,6 +244,7 @@ public class ThanhToanController {
                                 tinhThanhPho,
                                 huyenQuan,
                                 xaPhuong,
+                                diaChiChu,
                                 diaChiCuThe,
                                 email,
                                 gioHangChiTietList
@@ -329,6 +333,7 @@ public class ThanhToanController {
                                 diaChiKhachHang.getTinhThanhPho(),
                                 diaChiKhachHang.getHuyenQuan(),
                                 diaChiKhachHang.getXaPhuong(),
+                                diaChiKhachHang.getDiaChiChu(),
                                 diaChiKhachHang.getDiaChiCuThe(),
                                 khachHang.getEmail(),
                                 gioHangChiTietList
@@ -353,6 +358,7 @@ public class ThanhToanController {
             String thanhPho,
             String quanHuyehn,
             String phuongXa,
+            String diaChiChu,
             String diaChiCuThe,
             String emailGiaoHang,
             List<GioHangChiTiet> gioHangChiTietListForPay
@@ -407,6 +413,7 @@ public class ThanhToanController {
                         .thanhPho(thanhPho)
                         .quanHuyen(quanHuyehn)
                         .phuongXa(phuongXa)
+                        .diaChiChu(diaChiChu)
                         .emailGiaoHang(emailGiaoHang)
                         .diaChiCuThe(diaChiCuThe)
                         .build();

@@ -43,7 +43,8 @@ public class ThongTinGiaoHang {
 
     @Column(name = "phuongxa")
     private String phuongXa;
-
+    @Column(name = "diachichu")
+    private String diaChiChu;
     @Column(name = "diachicuthe")
     private String diaChiCuThe;
     @Column(name = "emailgiaohang")

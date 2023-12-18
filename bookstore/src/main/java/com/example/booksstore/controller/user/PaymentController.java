@@ -145,6 +145,7 @@ public class PaymentController {
                                     diaChiKhachHang.getTinhThanhPho(),
                                     diaChiKhachHang.getHuyenQuan(),
                                     diaChiKhachHang.getXaPhuong(),
+                                    diaChiKhachHang.getDiaChiChu(),
                                     diaChiKhachHang.getDiaChiCuThe(),
                                     khachHang.getEmail(),
                                     DonHangChiTietDaDuocVnPayThanhToan
@@ -170,6 +171,7 @@ public class PaymentController {
                     String tinhThanhPhoVnpay = (String) session.getAttribute("tinhThanhPhoVnpay");
                     String huyenQuanVnpay = (String) session.getAttribute("huyenQuanVnpay");
                     String xaPhuongVnpay = (String) session.getAttribute("xaPhuongVnpay");
+                    String diaChiChuVnpay = (String) session.getAttribute("diaChiChuVnpay");
                     String diaChiCuTheVnpay = (String) session.getAttribute("diaChiCuTheVnpay");
                     String emailThanhToanChuaDangNhap = (String) session.getAttribute("emailThanhToanChuaDangNhap");
                     // tạo khách vãng lai
@@ -188,6 +190,7 @@ public class PaymentController {
                                     tinhThanhPhoVnpay,
                                     huyenQuanVnpay,
                                     xaPhuongVnpay,
+                                    diaChiChuVnpay,
                                     diaChiCuTheVnpay,
                                     emailThanhToanChuaDangNhap,
                                     DonHangChiTietDaDuocVnPayThanhToan
@@ -221,6 +224,7 @@ public class PaymentController {
             String thanhPho,
             String quanHuyehn,
             String phuongXa,
+            String diaChiChu,
             String diaChiCuThe,
             String emailGiaoHang,
             List<DonHangChiTiet> DonHangChiTietDaDuocVnPayThanhToan
@@ -273,6 +277,7 @@ public class PaymentController {
                         .thanhPho(thanhPho)
                         .quanHuyen(quanHuyehn)
                         .phuongXa(phuongXa)
+                        .diaChiChu(diaChiChu)
                         .diaChiCuThe(diaChiCuThe)
                         .emailGiaoHang(emailGiaoHang)
                         .build();

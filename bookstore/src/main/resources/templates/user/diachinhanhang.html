@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{user/layoutchung/mainLayout}"
-      xmlns:th="http://www.thymeleaf.org">
+      layout:decorate="~{user/layoutchung/mainLayout}" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Địa chỉ</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous">
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Các stylesheet và link khác -->
 
 </head>
+
 <body>
 <article layout:fragment="noiDung">
     <div class="container-fluid">
@@ -40,10 +40,7 @@
                         <tr>
                             <th>Tên Người Nhận</th>
                             <th>Số Điện Thoại Nhận Hàng</th>
-                            <th>Tỉnh/Thành Phố</th>
-                            <th>Quận/Huyện</th>
-                            <th>Xã/Phường</th>
-                            <th>Địa Chỉ Cụ Thể</th>
+                            <th>Địa Chỉ</th>
                             <th>Thao tác</th>
                         </tr>
                         </thead>
@@ -51,67 +48,76 @@
                         <tr>
                             <td th:text="${diaChi.tenNguoiNhan}"></td>
                             <td th:text="${diaChi.sdtNguoiNhanHang}"></td>
-                            <td id="tinhThanhPhoht" th:text="${diaChi.tinhThanhPho}">aa</td>
-                            <td id="huyenQuanht" th:text="${diaChi.huyenQuan}">aa</td>
-                            <td id="xaPhuonght" th:text="${diaChi.xaPhuong}">aa</td>
-                            <td th:text="${diaChi.diaChiCuThe}"></td>
+                            <td th:text="${diaChi.diaChiChu}"></td>
                             <td class="text-left">
-                                <button type="button" class="btn btn-outline-info"
-                                        data-toggle="modal"
+                                <button type="button" class="btn btn-outline-info" data-toggle="modal"
                                         th:attr="data-target='#viewmodalDC-' + ${diaChi.idDiaChi}"
                                         style="width: auto;height: auto;">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
                                 <!-- Modal sửa địa chỉ -->
-                                <div class="modal fade" th:id="'viewmodalDC-' + ${diaChi.idDiaChi}" tabindex="-1" role="dialog"
-                                     aria-labelledby="viewModalLabel"
+                                <div class="modal fade" th:id="'viewmodalDC-' + ${diaChi.idDiaChi}"
+                                     tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
                                      aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="viewModalLabel">Sửa địa chỉ</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form th:action="@{/menu-nguoi-dung/dia-chi/sua-dia-chi}" method="post" enctype="multipart/form-data">
+                                                <form th:action="@{/menu-nguoi-dung/dia-chi/sua-dia-chi}"
+                                                      method="post" enctype="multipart/form-data">
                                                     <div class="form-group">
                                                         <label>Id Địa chỉ</label>
-                                                        <input type="text" class="form-control" th:value="${diaChi.idDiaChi}" disabled>
+                                                        <input type="text" class="form-control"
+                                                               th:value="${diaChi.idDiaChi}" disabled>
                                                     </div>
                                                     <label for="tenNguoiNhan">Tên người nhận</label>
-                                                    <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan" class="form-control" type="text">
+                                                    <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan"
+                                                           class="form-control" type="text">
 
                                                     <label for="sdtnhanhang">Số Điện Thoại nhận hàng</label>
-                                                    <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control" type="text">
+                                                    <input name="sdtnhanHangThemMoi" id="sdtnhanhang"
+                                                           class="form-control" type="text">
                                                     <div class="form-group">
                                                         <label>Tỉnh Thành Phố</label>
-                                                        <select name="province" id="modalTinhThanhPho" class="form-control"></select>
+                                                        <select name="province" id="modalTinhThanhPho"
+                                                                class="form-control"></select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Quận Huyện</label>
-                                                        <select name="district" id="modalHuyenQuan" class="form-control"></select>
+                                                        <select name="district" id="modalHuyenQuan"
+                                                                class="form-control"></select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Xã Phường</label>
-                                                        <select name="ward" id="modalXaPhuong" class="form-control"></select>
+                                                        <select name="ward" id="modalXaPhuong"
+                                                                class="form-control"></select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Địa chỉ cụ thể</label>
-                                                        <input type="text" th:value="${diaChi.diaChiCuThe}" class="form-control">
+                                                        <input type="text" th:value="${diaChi.diaChiCuThe}"
+                                                               class="form-control">
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary" id="saveEditBtn">Lưu</button>
+                                                    <button type="submit" class="btn btn-primary"
+                                                            id="saveEditBtn">Lưu</button>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Đóng</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <button type="button" class="btn btn-outline-info"><i class="fa-solid fa-trash-can"></i></button>
+<!--Xóa đia chi-->
+                                <a th:href="@{'/menu-nguoi-dung/xoa-dia-chi/' + ${diaChi.idDiaChi}}"
+                                   onclick="return confirm('Bạn có muốn xóa?')"><i
+                                        class="fa-solid fa-trash-can"></i></a>
                             </td>
                         </tr>
                         </tbody>
@@ -123,7 +129,8 @@
                         Thêm địa chỉ mới
                     </button>
                     <!-- Modal thêm địa chỉ mới -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -133,28 +140,36 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form th:action="@{/menu-nguoi-dung/dia-chi/them-dia-chi}" method="post" enctype="multipart/form-data">
+                                    <form th:action="@{/menu-nguoi-dung/dia-chi/them-dia-chi}" method="post"
+                                          enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="tenNguoiNhan">Tên người nhận</label>
-                                            <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan" class="form-control" type="text">
+                                            <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan" class="form-control"
+                                                   type="text">
                                             <label for="sdtnhanhang">Số Điện Thoại nhận hàng</label>
-                                            <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control" type="text">
+                                            <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control"
+                                                   type="text">
                                             <label for="tinhThanhPho">Tỉnh Thành Phố</label>
-                                            <select name="tinhThanhPhoThemMoi" id="tinhThanhPho" class="form-control"></select>
+                                            <select name="tinhThanhPhoThemMoi" id="tinhThanhPho"
+                                                    class="form-control"></select>
                                             <label for="huyenQuan">Quận Huyện</label>
-                                            <select name="huyenQuanThemMoi" id="huyenQuan" class="form-control"></select>
+                                            <select name="huyenQuanThemMoi" id="huyenQuan"
+                                                    class="form-control"><option  value="">chọn quận</option></select>
                                             <label for="xaPhuong">Xã Phường</label>
-                                            <select name="xaPhuongThemMoi" id="xaPhuong" class="form-control"></select>
+                                            <select name="xaPhuongThemMoi" id="xaPhuong"
+                                                    class="form-control"><option   value="">chọn phường</option></select>
+                                            <input type="hidden" id="diaChiChu" name="diaChiChu" />
                                         </div>
                                         <div class="form-group">
                                             <label>Địa Chỉ Cụ Thể</label>
-                                            <input type="text" class="form-control" name="diaChiCuTheThemMoi">
+                                            <input type="text" class="form-control" name="diaChiCuTheThemMoi" id="diaChiCuThe">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Lưu</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Hủy</button>
                                 </div>
                             </div>
                         </div>
@@ -175,9 +190,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
         integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="/user/js/DiaChi.js"></script>
-</body>
 </html>

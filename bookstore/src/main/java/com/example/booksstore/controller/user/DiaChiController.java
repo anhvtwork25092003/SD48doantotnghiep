@@ -28,6 +28,7 @@ public class DiaChiController {
                              @RequestParam("huyenQuanThemMoi") String huyenQuanThemMoi,
                              @RequestParam("xaPhuongThemMoi") String xaPhuongThemMoi,
                              @RequestParam("diaChiCuTheThemMoi") String diaChiCuTheThemMoi,
+                             @RequestParam("diaChiChu") String diaChiChu,
                              @RequestParam("TenNguoiNhanThemMoi") String TenNguoiNhanThemMoi,
                              @RequestParam("sdtnhanHangThemMoi") String sdtnhanHangThemMoi
 
@@ -38,6 +39,7 @@ public class DiaChiController {
                 .huyenQuan(huyenQuanThemMoi)
                 .xaPhuong(xaPhuongThemMoi)
                 .diaChiCuThe(diaChiCuTheThemMoi)
+                .diaChiChu(diaChiChu)
                 .khachHangDiaChi(khachHang)
                 .tenNguoiNhan(TenNguoiNhanThemMoi)
                 .sdtNguoiNhanHang(sdtnhanHangThemMoi)

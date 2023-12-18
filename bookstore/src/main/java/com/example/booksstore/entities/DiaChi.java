@@ -38,6 +38,8 @@ public class DiaChi {
 
     @Column(name = "diachicuthe")
     private String diaChiCuThe;
+    @Column(name = "diachichu")
+    private String diaChiChu;
     @Column(name = "tennguoinhan")
     private String tenNguoiNhan;
     @Column(name = "sdtnguoinhanhang")

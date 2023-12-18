@@ -126,9 +126,9 @@ public class PDFExporter {
 
         document.open();
 //
-//        String imagePath = "SD48doantotnghiep/bookstore/src/main/resources/static/image/logoiconfahasa-logo.png";
-//        Image image = Image.getInstance(imagePath);
-//        image.scaleAbsolute(200, 100); // Điều chỉnh kích thước của ảnh
+        String imagePath = "src/main/resources/static/image/logoicon/logo.jpg";
+        Image image = Image.getInstance(imagePath);
+        image.scaleAbsolute(200, 100); // Điều chỉnh kích thước của ảnh
 
         Font fontTitle = FontFactory.getFont("Times New Roman","UTF-8",true,18, 1);
 //        fontTitle.setColor(Color.BLUE);
@@ -148,10 +148,10 @@ public class PDFExporter {
         PdfPTable headerTitleTable = new PdfPTable(2);
         headerTitleTable.setWidthPercentage(100);
         headerTitleTable.setWidths(new float[]{1.3f, 2.3f});
-//
-//        PdfPCell imageCell = new PdfPCell(image);
-//        imageCell.setBorder(Rectangle.NO_BORDER);
-//        headerTitleTable.addCell(imageCell);
+
+        PdfPCell imageCell = new PdfPCell(image);
+        imageCell.setBorder(Rectangle.NO_BORDER);
+        headerTitleTable.addCell(imageCell);
 
         PdfPCell infoCell = new PdfPCell();
         infoCell.setBorder(Rectangle.NO_BORDER);
@@ -186,10 +186,9 @@ public class PDFExporter {
 
         Paragraph khachHang = new Paragraph("Khách hàng: ", fontInfoKhach);
         Paragraph sdtKhachHang = new Paragraph("Điện thoại:    " + donHang.getKhachHang().getSdt(), fontInfoKhach);
-        Paragraph diaChiKhachHang = new Paragraph("Địa chỉ:         " + donHang.getThongTinGiaoHang(), fontInfoKhach);
+        Paragraph diaChiKhachHang = new Paragraph("Địa chỉ:         " + donHang.getThongTinGiaoHang().getDiaChiChu(), fontInfoKhach);
 
         PdfPCell shipInfoCell = new PdfPCell();
-//        shipInfoCell.setBorder(Rectangle.NO_BORDER);
         shipInfoCell.setHorizontalAlignment(Element.ALIGN_LEFT);
         shipInfoCell.addElement(khachHang);
         shipInfoCell.addElement(sdtKhachHang);

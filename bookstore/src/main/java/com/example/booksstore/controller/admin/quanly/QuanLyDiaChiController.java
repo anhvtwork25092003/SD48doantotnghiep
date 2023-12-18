@@ -41,15 +41,18 @@ public class QuanLyDiaChiController {
                              @RequestParam("huyenQuanThemMoi") String huyenQuanThemMoi,
                              @RequestParam("xaPhuongThemMoi") String xaPhuongThemMoi,
                              @RequestParam("diaChiCuTheThemMoi") String diaChiCuTheThemMoi,
+                             @RequestParam("diaChiChu") String diaChiChu,
                              @RequestParam("TenNguoiNhanThemMoi") String TenNguoiNhanThemMoi,
                              @RequestParam("sdtnhanHangThemMoi") String sdtnhanHangThemMoi
     ) {
         KhachHang khachHang = (KhachHang) session.getAttribute("loggedInUser");
+        String diaChitext = diaChiCuTheThemMoi+','+diaChiChu;
         DiaChi diaChi = DiaChi.builder()
                 .tinhThanhPho(idTinhThanhPho)
                 .huyenQuan(huyenQuanThemMoi)
                 .xaPhuong(xaPhuongThemMoi)
                 .diaChiCuThe(diaChiCuTheThemMoi)
+                .diaChiChu(diaChitext)
                 .khachHangDiaChi(khachHang)
                 .tenNguoiNhan(TenNguoiNhanThemMoi)
                 .sdtNguoiNhanHang(sdtnhanHangThemMoi)
@@ -83,11 +86,11 @@ public class QuanLyDiaChiController {
         return "redirect:/menu-nguoi-dung/dia-chi/hien-thi";
     }
 
-    @GetMapping ("/xoa-dia-chi/{idDiaChiDelete}")
+    @GetMapping ("/xoa-dia-chi/{idDiaChi}")
     public String xoaDiaChi(HttpSession session,
-                            @PathVariable int idDiaChiDelete
+                            @PathVariable int idDiaChi
     ) {
-        DiaChi diaChiforDelete = this.iDiaChiRepository.findById(idDiaChiDelete).get();
+        DiaChi diaChiforDelete = this.iDiaChiRepository.findById(idDiaChi).get();
         this.iDiaChiRepository.delete(diaChiforDelete);
         return "redirect:/menu-nguoi-dung/dia-chi/hien-thi";
     }
