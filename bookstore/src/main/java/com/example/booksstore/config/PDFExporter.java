@@ -126,7 +126,7 @@ public class PDFExporter {
 
         document.open();
 //
-        String imagePath = "src/main/resources/static/image/fahasa-logo.png";
+        String imagePath = "src/main/resources/static/image/logoicon/fahasa-logo.png";
         Image image = Image.getInstance(imagePath);
         image.scaleAbsolute(200, 100); // Điều chỉnh kích thước của ảnh
 
