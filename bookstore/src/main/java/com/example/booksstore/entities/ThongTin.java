@@ -1,9 +1,16 @@
 package com.example.booksstore.entities;
 
-import jakarta.persistence.*;
-import lombok.*;
-
-import java.sql.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,15 +18,12 @@ import java.sql.Date;
 @Setter
 @Entity
 @Builder
-@Table(name="thongtin")
+@Table(name = "thongtin")
 public class ThongTin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idthongtin")
     private Integer idThongTin;
-
-    @Column(name = "linkbannertrangchu")
-    private String linkBannerTrangChu;
 
     @Column(name = "diachi")
     private String diaChi;

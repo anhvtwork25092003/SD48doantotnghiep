@@ -1,8 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{user/layoutchung/mainLayout}"
-      xmlns:th="http://www.thymeleaf.org">
+      layout:decorate="~{admin/quanly/layoutchungquanly/menuQuanLy}">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
 <head>
     <title>Thông tin tài khoản</title>
     <meta charset="utf-8">
@@ -23,22 +24,17 @@
             <!-- Nội dung chính -->
             <section class="col-md-10">
 
-                <form th:action="@{/thong-tin/cap-nhat/moi}" method="post" >
+                <form th:action="@{/quan-ly/thong-tin/cap-nhat/moi}" method="post" enctype="multipart/form-data">
                     <div class="table-responsive">
                         <center>
                             <h2>Thông tin</h2>
                         </center>
-                        <div th:each="thongtin, iterStat : ${session.loggedInThongTin}">
-                                <div class="group">
-                                    <input class="text-input" id="idThongtin" type="text" name="idThongTin"
-                                    th:value="${thongtin.idThongTin}"  hidden/>
-                                </div>
-                                <br>
+                        <div th:each="thongtin, iterStat : ${loggedInThongTin}">
                             <div class="group">
-                                <label for="linkBannerTrangChu">Banner Trang Chủ<span style="color: #ff0000">*</span></label>
-                                <img th:src="@{|${thongtin.linkBannerTrangChu}|}" class="text-input" id="linkBannerTrangChu"  name="linkBannerTrangChu"
-                                     width="88px" height="88px">
+                                <input class="text-input" id="idThongtin" type="text" name="idThongTin"
+                                       th:value="${thongtin.idThongTin}" hidden/>
                             </div>
+                            <br>
                             <br>
                             <div class="group">
                                 <label for="soDienThoai1">Địa Chỉ</label>
@@ -46,43 +42,60 @@
                                        th:value="${thongtin.diaChi}"/>
                             </div>
                             <br>
-                                <div class="group">
-                                    <label for="soDienThoai1">Số điện thoại 1</label>
-                                    <input class="text-input" id="soDienThoai1" type="tel" name="soDienThoai1"
-                                    th:value="${thongtin.soDienThoai1}"/>
-                                </div>
-                                <br>
-                                <div class="group">
-                                    <label for="soDienThoai2">Số điện thoại 2</label>
-                                    <input class="text-input" id="soDienThoai2" type="tel" name="soDienThoai2"
-                                    th:value="${thongtin.soDienThoai2}"
-                                    />
-                                </div>
-                                <br>
                             <div class="group">
-                                <label for="linkBannerTrangChu">Anh Logo<span style="color: #ff0000">*</span></label>
-                                <img th:src="@{|${thongtin.linkLogo}|}" class="text-input" id="linkLogo"  name="linkLogo"
-                                     width="88px" height="88px">
+                                <label for="soDienThoai1">Số điện thoại 1</label>
+                                <input class="text-input" id="soDienThoai1" type="tel" name="soDienThoai1"
+                                       th:value="${thongtin.soDienThoai1}"/>
                             </div>
                             <br>
-                                <div class="group">
-                                    <label for="email">Email</label>
-                                    <input class="text-input" id="email" type="email" name="email"
-                                    th:value="${thongtin.email}"
-                                    />
-                                </div>
-                                <div class="group btn">
-                                    <button class="btn-warning" type="submit">Lưu thay đổi</button>
-                                </div>
+                            <div class="group">
+                                <label for="soDienThoai2">Số điện thoại 2</label>
+                                <input class="text-input" id="soDienThoai2" type="tel" name="soDienThoai2"
+                                       th:value="${thongtin.soDienThoai2}"
+                                />
+                            </div>
+                            <br>
+                            <div class="image-container">
+                                <label>Ảnh logo</label>
+                                <label th:for="'editlinkAnhNhanVien-' + ${thongtin.idThongTin}">
+                                    <img
+                                            th:src="@{|${thongtin.linkLogo}|}"
+                                            th:id="'editviewLinkAnhNhanVien-' + ${thongtin.idThongTin}"
+                                            alt="anhNhanVien" width="88px" height="88px"
+                                            th:onclick="'editImage(\'' + 'editlinkAnhNhanVien-' + ${thongtin.idThongTin} + '\', \'checkthayDoiImage-' + ${thongtin.idThongTin} + '\')'"/>
+                                </label>
+                                <input type="text" name="checkthayDoiImage"
+                                       th:id="'checkthayDoiImage-' + ${thongtin.idThongTin}"
+                                       value="chuaThayDoi"
+                                       hidden>
+                                <input type="file" class="custom-file-input"
+                                       th:id="'editlinkAnhNhanVien-' + ${thongtin.idThongTin}"
+                                       name="editlinkAnhNhanVien" accept="image/*"
+                                       th:attr="onchange='displayImage(this, \'editviewLinkAnhNhanVien-' + ${thongtin.idThongTin} + '\')'"/>
+                                <button class="delete-button"
+                                        th:attr="onclick=|deleteImage('editviewLinkAnhNhanVien-${thongtin.idThongTin}', 'editlinkAnhNhanVien-${thongtin.idThongTin}', 'checkthayDoiImage-${thongtin.idThongTin}', event)|">
+                                    Xóa Ảnh
+                                </button>
+                            </div>
+                            <br>
+                            <div class="group">
+                                <label for="email">Email</label>
+                                <input class="text-input" id="email" type="email" name="email"
+                                       th:value="${thongtin.email}"
+                                />
+                            </div>
+                            <div class="group btn">
+                                <button class="btn-warning" type="submit">Lưu thay đổi</button>
+                            </div>
                         </div>
 
-                        </div>
+                    </div>
                 </form>
             </section>
         </div>
     </div>
 </article>
-
+<script src="/user/js/thongtin.js"></script>
 <!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

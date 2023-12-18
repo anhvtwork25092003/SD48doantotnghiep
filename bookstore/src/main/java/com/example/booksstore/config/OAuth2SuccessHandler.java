@@ -74,7 +74,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         khachHangMoi.setLoaiKhachHang("1");
         khachHangMoi.setTrangThai(1);
 
-        iKhachHangRepository.save(khachHangMoi);
+        KhachHang khachHang1 = iKhachHangRepository.save(khachHangMoi);
+        session.setAttribute("loggedInUser", khachHang1);
         this.redirectStrategy.sendRedirect(request, response, redirectUrl);
         return;
     }

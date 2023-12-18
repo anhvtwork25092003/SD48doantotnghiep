@@ -164,28 +164,28 @@ public class QuanLyNhanVienControllerTuanAnh {
                 return "redirect:/quan-ly/nhan-vien/hien-thi";
             }
 
-            String duongDanCotDinh = "/image/anhnhanvien/";
-            String duongDanLuuAnh = duongDanCotDinh + linkAnhNhanVien.getOriginalFilename();
-            System.out.println(duongDanCotDinh + linkAnhNhanVien.getOriginalFilename());
-            if (linkAnhNhanVien.isEmpty()) {
-                duongDanLuuAnh = "";
-            } else {
-                byte[] bytes = linkAnhNhanVien.getBytes();
-                Path path = Paths.get(uploadanhnhanvien + linkAnhNhanVien.getOriginalFilename());
-                Files.write(path, bytes);
-            }
-            NhanVien nhanvien = NhanVien.builder()
-                    .hoVaTen(hoVaTen)
-                    .sdt(sdt)
-                    .ngaySinh(ngaySinh)
-                    .trangThai(Integer.parseInt(trangThai))
-                    .matKhau(matKhau)
-                    .email(email)
-                    .chucVu(chucVu)
-                    .linkAnhNhanVien(duongDanLuuAnh)
-                    .build();
+                String duongDanCotDinh = "/image/anhnhanvien/";
+                String duongDanLuuAnh = duongDanCotDinh + linkAnhNhanVien.getOriginalFilename();
+                System.out.println(duongDanCotDinh + linkAnhNhanVien.getOriginalFilename());
+                if (linkAnhNhanVien.isEmpty()) {
+                    duongDanLuuAnh = "";
+                } else {
+                    byte[] bytes = linkAnhNhanVien.getBytes();
+                    Path path = Paths.get(uploadanhnhanvien + linkAnhNhanVien.getOriginalFilename());
+                    Files.write(path, bytes);
+                }
+                NhanVien nhanvien = NhanVien.builder()
+                        .hoVaTen(hoVaTen)
+                        .sdt(sdt)
+                        .ngaySinh(ngaySinh)
+                        .trangThai(Integer.parseInt(trangThai))
+                        .matKhau(matKhau)
+                        .email(email)
+                        .chucVu(chucVu)
+                        .linkAnhNhanVien(duongDanLuuAnh)
+                        .build();
 
-            this.service.save(nhanvien);
+                this.service.save(nhanvien);
 
         } catch (Exception e) {
             e.printStackTrace();

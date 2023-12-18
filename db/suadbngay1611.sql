@@ -133,3 +133,6 @@ DROP COLUMN idHuyen
 ALTER TABLE DiaChi
 DROP COLUMN idTinh
 
+alter table thongtin
+drop column linkbannertrangchu
+
