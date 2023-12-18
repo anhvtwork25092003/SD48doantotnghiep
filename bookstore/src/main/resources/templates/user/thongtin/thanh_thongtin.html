@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="/user/css/Thanh_ThongTin.css"/>
+<!--    <link rel="stylesheet" href="/user/css/Thanh_ThongTin.css"/>-->
+    <link rel="stylesheet" href="/user/css/son_thongtintaikhoan.css"/>
+
     <!-- Các stylesheet và link khác -->
 
 </head>
@@ -55,28 +57,28 @@
                                 />
                             </div>
                             <br>
-                            <div class="image-container">
-                                <label>Ảnh logo</label>
-                                <label th:for="'editlinkAnhNhanVien-' + ${thongtin.idThongTin}">
-                                    <img
-                                            th:src="@{|${thongtin.linkLogo}|}"
-                                            th:id="'editviewLinkAnhNhanVien-' + ${thongtin.idThongTin}"
-                                            alt="anhNhanVien" width="88px" height="88px"
-                                            th:onclick="'editImage(\'' + 'editlinkAnhNhanVien-' + ${thongtin.idThongTin} + '\', \'checkthayDoiImage-' + ${thongtin.idThongTin} + '\')'"/>
-                                </label>
-                                <input type="text" name="checkthayDoiImage"
-                                       th:id="'checkthayDoiImage-' + ${thongtin.idThongTin}"
-                                       value="chuaThayDoi"
-                                       hidden>
-                                <input type="file" class="custom-file-input"
-                                       th:id="'editlinkAnhNhanVien-' + ${thongtin.idThongTin}"
-                                       name="editlinkAnhNhanVien" accept="image/*"
-                                       th:attr="onchange='displayImage(this, \'editviewLinkAnhNhanVien-' + ${thongtin.idThongTin} + '\')'"/>
-                                <button class="delete-button"
-                                        th:attr="onclick=|deleteImage('editviewLinkAnhNhanVien-${thongtin.idThongTin}', 'editlinkAnhNhanVien-${thongtin.idThongTin}', 'checkthayDoiImage-${thongtin.idThongTin}', event)|">
-                                    Xóa Ảnh
-                                </button>
-                            </div>
+<!--                            <div class="image-container">-->
+<!--                                <label>Ảnh logo</label>-->
+<!--                                <label th:for="'editlinkAnhNhanVien-' + ${thongtin.idThongTin}">-->
+<!--                                    <img-->
+<!--                                            th:src="@{|${thongtin.linkLogo}|}"-->
+<!--                                            th:id="'editviewLinkAnhNhanVien-' + ${thongtin.idThongTin}"-->
+<!--                                            alt="anhNhanVien" width="88px" height="88px"-->
+<!--                                            th:onclick="'editImage(\'' + 'editlinkAnhNhanVien-' + ${thongtin.idThongTin} + '\', \'checkthayDoiImage-' + ${thongtin.idThongTin} + '\')'"/>-->
+<!--                                </label>-->
+<!--                                <input type="text" name="checkthayDoiImage"-->
+<!--                                       th:id="'checkthayDoiImage-' + ${thongtin.idThongTin}"-->
+<!--                                       value="chuaThayDoi"-->
+<!--                                       hidden>-->
+<!--                                <input type="file" class="custom-file-input"-->
+<!--                                       th:id="'editlinkAnhNhanVien-' + ${thongtin.idThongTin}"-->
+<!--                                       name="editlinkAnhNhanVien" accept="image/*"-->
+<!--                                       th:attr="onchange='displayImage(this, \'editviewLinkAnhNhanVien-' + ${thongtin.idThongTin} + '\')'"/>-->
+<!--                                <button class="delete-button"-->
+<!--                                        th:attr="onclick=|deleteImage('editviewLinkAnhNhanVien-${thongtin.idThongTin}', 'editlinkAnhNhanVien-${thongtin.idThongTin}', 'checkthayDoiImage-${thongtin.idThongTin}', event)|">-->
+<!--                                    Xóa Ảnh-->
+<!--                                </button>-->
+<!--                            </div>-->
                             <br>
                             <div class="group">
                                 <label for="email">Email</label>

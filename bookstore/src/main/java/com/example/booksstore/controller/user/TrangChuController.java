@@ -60,8 +60,11 @@ public class TrangChuController {
             model.addAttribute("motkhuyenmaidangapdung", iKhuyenMaiService.getAllKhuyenMaiDangApDung(1).get(0));
         }
         Pageable pageable4khuyenmai = PageRequest.of(0, 4);
+        Pageable pageable50khuyenmai = PageRequest.of(0, 50);
         Page<KhuyenMai> fourKhuyenMaiDangHienThi = this.iKhuyenMaiService.get4KhuyenMaiDangHienThi(pageable4khuyenmai, 1);
+        Page<KhuyenMai> pageable50khuyenmai1 = this.iKhuyenMaiService.get4KhuyenMaiDangHienThi(pageable50khuyenmai, 1);
         model.addAttribute("khuyenmaihienthisale", fourKhuyenMaiDangHienThi);
+        model.addAttribute("khuyenmaihienthibaner", pageable50khuyenmai1);
         model.addAttribute("khuyenmaihienthisach", iKhuyenMaiService.getAllKhuyenMaiDangHienThi(1));
         return "user/TrangChu";
     }

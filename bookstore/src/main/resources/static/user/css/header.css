@@ -44,6 +44,7 @@
 .account-dropdown {
   display: none;
   position: fixed;
+  z-index: 1;
   right: 35px;
   top:75px;
   background-color: #fff;
@@ -122,6 +123,7 @@
 .notification-popup {
   display: none;
   position: fixed;
+  z-index: 1;
   top: 75px;
   right: 150px;
   background-color: #fff;

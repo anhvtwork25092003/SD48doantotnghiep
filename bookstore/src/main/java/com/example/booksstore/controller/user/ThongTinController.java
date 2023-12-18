@@ -1,6 +1,7 @@
 package com.example.booksstore.controller.user;
 
 
+import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.NhanVien;
 import com.example.booksstore.entities.ThongTin;
 import com.example.booksstore.repository.IThongTinRepository;
@@ -28,8 +29,8 @@ public class ThongTinController {
     @Autowired
     IThongTinRepository repository;
 
-    @Value("src/main/resources/static/image/logoicon/")
-    private String uploadanhThongTin;
+//    @Value("src/main/resources/static/image/logoicon/")
+//    private String uploadanhThongTin;
 
     @GetMapping("/thong-tin")
     public String GetThongTin(HttpSession session, Model model) {
@@ -43,10 +44,12 @@ public class ThongTinController {
             model.addAttribute("loggedInUser", nhanVien);
 
         }
-        repository.findAll();
-        model.addAttribute("loggedInThongTin", repository.findAll().get(0));
+
+        model.addAttribute("loggedInThongTin", repository.findAll());
         return "user/thongtin/thanh_thongtin";
     }
+
+
 
     @PostMapping("/thong-tin/cap-nhat/moi")
     public String thongtinthaydoimoi(
@@ -54,31 +57,32 @@ public class ThongTinController {
             @RequestParam("diaChi") String diaChi,
             @RequestParam("soDienThoai1") String soDienThoai1,
             @RequestParam("soDienThoai2") String soDienThoai2,
-            @RequestParam("email") String email,
-            @RequestParam("editlinkAnhNhanVien1") MultipartFile linkAnhTrangChu,
-            @RequestParam("editlinkAnhNhanVien") MultipartFile linklogo
+            @RequestParam("email") String email
+//            @RequestParam("editlinkAnhNhanVien1") MultipartFile linkAnhTrangChu,
+//            @RequestParam("editlinkAnhNhanVien") MultipartFile linklogo
     ) throws IOException {
-        String duongDanCotDinh = "/image/logoicon/";
-        String duongDanLuuAnhBanner = duongDanCotDinh + linkAnhTrangChu.getOriginalFilename();
-        System.out.println(duongDanCotDinh + linkAnhTrangChu.getOriginalFilename());
-        if (linkAnhTrangChu.isEmpty()) {
-            duongDanLuuAnhBanner = "";
-        } else {
-            byte[] bytes = linkAnhTrangChu.getBytes();
-            Path path = Paths.get(uploadanhThongTin + linkAnhTrangChu.getOriginalFilename());
-            Files.write(path, bytes);
-        }
-        String duongDanLuuAnhLogo = duongDanCotDinh + linklogo.getOriginalFilename();
-        System.out.println(duongDanCotDinh + linklogo.getOriginalFilename());
-        if (linklogo.isEmpty()) {
-            duongDanLuuAnhLogo = "";
-        } else {
-            byte[] bytes = linkAnhTrangChu.getBytes();
-            Path path = Paths.get(uploadanhThongTin + linkAnhTrangChu.getOriginalFilename());
-            Files.write(path, bytes);
-        }
+//        String duongDanCotDinh = "/image/logoicon/";
+//        String duongDanLuuAnhBanner = duongDanCotDinh + linkAnhTrangChu.getOriginalFilename();
+//        System.out.println(duongDanCotDinh + linkAnhTrangChu.getOriginalFilename());
+//        if (linkAnhTrangChu.isEmpty()) {
+//            duongDanLuuAnhBanner = "";
+//        } else {
+//            byte[] bytes = linkAnhTrangChu.getBytes();
+//            Path path = Paths.get(uploadanhThongTin + linkAnhTrangChu.getOriginalFilename());
+//            Files.write(path, bytes);
+//        }
+//        String duongDanLuuAnhLogo = duongDanCotDinh + linklogo.getOriginalFilename();
+//        System.out.println(duongDanCotDinh + linklogo.getOriginalFilename());
+//        if (linklogo.isEmpty()) {
+//            duongDanLuuAnhLogo = "";
+//        } else {
+//            byte[] bytes = linklogo.getBytes();
+//            Path path = Paths.get(uploadanhThongTin + linklogo.getOriginalFilename());
+//            Files.write(path, bytes);
+//        }
         ThongTin thongTin = ThongTin.builder()
-                .linkLogo(duongDanLuuAnhLogo)
+//                .linkLogo(duongDanLuuAnhLogo)
+                .idThongTin(id)
                 .diaChi(diaChi)
                 .soDienThoai1(soDienThoai1)
                 .soDienThoai2(soDienThoai2)
