@@ -135,6 +135,7 @@ public class PaymentController {
                 KhachHang khachHang = null;
                 if (khachHangDangNhap != null) {
                     // đã đăng nhập, lấy thông tin từ db
+                    String ghiChuKhachHangGui = (String) session.getAttribute("ghiChuKhachHangGui");
                     khachHang = iKhachHangRepository.findById(khachHangDangNhap.getIdKhachHang()).get();
                     // LƯU ĐƠN HÀNG
                     DonHang donHang =
@@ -148,6 +149,7 @@ public class PaymentController {
                                     diaChiKhachHang.getDiaChiChu(),
                                     diaChiKhachHang.getDiaChiCuThe(),
                                     khachHang.getEmail(),
+                                    ghiChuKhachHangGui,
                                     DonHangChiTietDaDuocVnPayThanhToan
                             );
                     for (DonHangChiTiet donHangChiTiet : donHang.getChiTietDonHang()) {
@@ -173,6 +175,7 @@ public class PaymentController {
                     String xaPhuongVnpay = (String) session.getAttribute("xaPhuongVnpay");
                     String diaChiChuVnpay = (String) session.getAttribute("diaChiChuVnpay");
                     String diaChiCuTheVnpay = (String) session.getAttribute("diaChiCuTheVnpay");
+                    String ghiChuKhachHangGui = (String) session.getAttribute("ghiChuKhachHangGui");
                     String emailThanhToanChuaDangNhap = (String) session.getAttribute("emailThanhToanChuaDangNhap");
                     // tạo khách vãng lai
                     KhachHang khachHangTruocKhiLuu = KhachHang.builder()
@@ -193,6 +196,7 @@ public class PaymentController {
                                     diaChiChuVnpay,
                                     diaChiCuTheVnpay,
                                     emailThanhToanChuaDangNhap,
+                                    ghiChuKhachHangGui,
                                     DonHangChiTietDaDuocVnPayThanhToan
                             );
                     for (DonHangChiTiet donHangChiTiet : donHang.getChiTietDonHang()) {
@@ -227,6 +231,7 @@ public class PaymentController {
             String diaChiChu,
             String diaChiCuThe,
             String emailGiaoHang,
+            String ghiChuKhachHangGui,
             List<DonHangChiTiet> DonHangChiTietDaDuocVnPayThanhToan
     ) {
         // DON HANG

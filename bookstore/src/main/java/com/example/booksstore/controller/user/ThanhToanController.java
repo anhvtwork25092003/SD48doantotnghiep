@@ -145,12 +145,13 @@ public class ThanhToanController {
                                 @RequestParam(value = "xaPhuong", required = false)
                                         String xaPhuong,
                                 @RequestParam(value = "diaChiChu", required = false)
-                                            String diaChiChu,
+                                        String diaChiChu,
                                 @RequestParam(value = "email", required = false)
                                         String email,
                                 @RequestParam(value = "diaChiCuThe", required = false)
                                         String diaChiCuThe,
-                                @RequestParam(value = "diaChiRadio", required = false) DiaChi diaChiKhachHang
+                                @RequestParam(value = "diaChiRadio", required = false) DiaChi diaChiKhachHang,
+                                @RequestParam(value = "ghiChuKhachHangGui", required = false) String ghiChuKhachHangGui
     ) {
 // xác minh đăng nhậpS
         KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
@@ -217,9 +218,10 @@ public class ThanhToanController {
                 session.setAttribute("tinhThanhPhoVnpay", tinhThanhPho);
                 session.setAttribute("huyenQuanVnpay", huyenQuan);
                 session.setAttribute("xaPhuongVnpay", xaPhuong);
-                session.setAttribute("diaChiChuVnpay",diaChiChu);
+                session.setAttribute("diaChiChuVnpay", diaChiChu);
                 session.setAttribute("diaChiCuTheVnpay", diaChiCuThe);
                 session.setAttribute("emailThanhToanChuaDangNhap", email);
+                session.setAttribute("ghiChuKhachHangGui", ghiChuKhachHangGui);
                 return "redirect:/vnpay/pay?total=" + tongTienhang;
             }
             // thanh toan tien mat
@@ -247,6 +249,7 @@ public class ThanhToanController {
                                 diaChiChu,
                                 diaChiCuThe,
                                 email,
+                                ghiChuKhachHangGui,
                                 gioHangChiTietList
                         );
                 for (DonHangChiTiet donHangChiTiet : donHang.getChiTietDonHang()) {
@@ -336,6 +339,7 @@ public class ThanhToanController {
                                 diaChiKhachHang.getDiaChiChu(),
                                 diaChiKhachHang.getDiaChiCuThe(),
                                 khachHang.getEmail(),
+                                ghiChuKhachHangGui,
                                 gioHangChiTietList
                         );
                 // trừ số lượng hàng tồn kho
@@ -361,6 +365,7 @@ public class ThanhToanController {
             String diaChiChu,
             String diaChiCuThe,
             String emailGiaoHang,
+            String ghiChuKhachHangGui,
             List<GioHangChiTiet> gioHangChiTietListForPay
 
 
@@ -470,6 +475,7 @@ public class ThanhToanController {
             donHangChiTietList.add(donHangChiTietDeThemVaoList);
         }
         donHangVuaKhoiTao.setChiTietDonHang(donHangChiTietList);
+        donHangVuaKhoiTao.setGhiChuKhachHangGui(ghiChuKhachHangGui);
 
         // tiến hành lưu lại đơn hàng
         DonHang donHangSauKhiLuu = this.iDonHangRepo.save(donHangVuaKhoiTao);
