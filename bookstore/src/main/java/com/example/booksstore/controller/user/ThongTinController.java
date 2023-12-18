@@ -21,7 +21,7 @@ public class ThongTinController {
     @Autowired
     IThongTinRepository repository;
 
-    @GetMapping("/thong_tin/thong-tin")
+    @GetMapping("/thong-tin")
     public String GetThongTin(HttpSession session, Model model) {
         ThongTin loggedInThongTin = (ThongTin) session.getAttribute("loggedInThongTin");
         model.addAttribute("loggedInThongTin", loggedInThongTin);
