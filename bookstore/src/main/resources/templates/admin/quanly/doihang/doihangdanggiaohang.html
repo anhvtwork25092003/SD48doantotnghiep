@@ -76,9 +76,13 @@
                                    th:hidden="${dhd.trangThai == 2}">
                                     <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
                                 </a>
+                                <a th:href="@{'/quan-ly/tra-hang/huy-doi-hang/' + ${dhd.idTraHang}}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Xác nhận hủy đơn hàng?')">hủy</a>
                                 <a data-toggle="modal" th:attr="data-target='#modalDonHangDoi-' + ${dhd.idTraHang}">
                                     <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
                                 </a>
+
                                 <div class="modal fade" th:id="'modalDonHangDoi-' + ${dhd.idTraHang}" tabindex="-1"
                                      role="dialog"
                                      aria-labelledby="basicModal" aria-hidden="true">

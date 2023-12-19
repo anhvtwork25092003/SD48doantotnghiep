@@ -179,7 +179,7 @@ public class TraHangController {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<TraHang> traHangs = this.iTraHangRepository.findAllByTrangThai(pageable, 2);
         model.addAttribute("listth", traHangs);
-        return "admin/quanly/DoiHang";
+        return "admin/quanly/doihang/donhanggiaothanhcong";
     }
 
     @GetMapping("/danh-sach-doitra/khong-thanh-cong")
@@ -191,7 +191,7 @@ public class TraHangController {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         Page<TraHang> traHangs = this.iTraHangRepository.findAllByTrangThai(pageable, 3);
         model.addAttribute("listth", traHangs);
-        return "admin/quanly/DoiHang";
+        return "admin/quanly/doihang/huydoihang";
     }
 
     @GetMapping("/danh-sach-chi-tiet")
