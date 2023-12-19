@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -68,120 +69,52 @@ public class DonHangControllerTuanAnh {
     @GetMapping("/don-hang/cho-xac-nhan")
     // bắt đầu hiển thị giao diện đơn hàng chờ
     public String quanLyDonHangCho(@RequestParam(defaultValue = "1") int page,
-                                   Model model, HttpSession session) {
+                                   Model model, HttpSession session,
+                                   @RequestParam(required = false) String maDonHang,
+                                   @RequestParam(required = false) String startDate,
+                                   @RequestParam(required = false) String endDate) {
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         if (nhanVien == null) {
             return "redirect:/login";
         }
+        Page<DonHang> pageDonHang;
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 0);
+        if (maDonHang != null) {
+            // xử lý trạng thái
+            model.addAttribute("std", "");
+            model.addAttribute("end", "");
+            model.addAttribute("ma", "");
+            Date ngayBatDau = null;
+            Date ngayKetThuc = null;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                if (startDate != null) {
+                    ngayBatDau = sdf.parse(String.valueOf(startDate));
+                    model.addAttribute("std", startDate);
+
+                }
+
+                if (endDate != null) {
+                    ngayKetThuc = sdf.parse(String.valueOf(endDate));
+                    model.addAttribute("end", endDate);
+
+                }
+            } catch (ParseException e) {
+                e.printStackTrace(); // Handle the exception properly in a real-world scenario
+            }
+            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, pageable);
+        } else {
+            pageDonHang = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 0);
+        }
 
         model.addAttribute("loggedInUser", nhanVien);
-        model.addAttribute("donHang", donHangs);
+        model.addAttribute("donHang", pageDonHang);
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
         return "/admin/quanly/DonHangCho";
     }
     // bắt đầu hiển thị giao diện đơn hàng chờ
 
-    @PostMapping("/tim-kiem-ma")
-    public String searchOrders(
-            @RequestParam("maDonHang") String maDonHang,
-            @RequestParam("sdt") String sdt,
-            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-            HttpSession session,
-            Model model,
-            @RequestParam(defaultValue = "1") int page
-    ) {
-        int pageSize = 5;
-        Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> timKiemMaAndSdt =
-                iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContainingAndNgayTaoBetween(
-                        pageable, maDonHang, sdt, startDate, endDate
-                );
-        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
-        model.addAttribute("loggedInUser", nhanVien);
-        model.addAttribute("donHang", timKiemMaAndSdt);
-        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
-        return "/admin/quanly/DonHangCho";
-    }
-
-    @PostMapping("/tim-kiem-da-duyet")
-    public String searchDaDuyet(@RequestParam("maDonHang") String maDonHang,
-                                @RequestParam("sdt") String sdt,
-                                @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-                                HttpSession session,
-                                Model model, @RequestParam(defaultValue = "1") int page) {
-        int pageSize = 5;
-        Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> timKiemMaAndSdt =
-                iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContainingAndNgayTaoBetween
-                        (pageable, maDonHang, sdt, startDate, endDate);
-        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
-        model.addAttribute("loggedInUser", nhanVien);
-        model.addAttribute("donHang", timKiemMaAndSdt);
-        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
-        return "/admin/quanly/DonHangDaDuyet";
-    }
-
-    @PostMapping("/tim-kiem-dang-giao")
-    public String searchOrdersDangGiao(@RequestParam("maDonHang") String maDonHang,
-                                       @RequestParam("sdt") String sdt,
-                                       @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                       @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-                                       HttpSession session,
-                                       Model model, @RequestParam(defaultValue = "1") int page) {
-        int pageSize = 5;
-        Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> timKiemMaAndSdt =
-                iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContainingAndNgayTaoBetween
-                        (pageable, maDonHang, sdt, startDate, endDate);
-        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
-        model.addAttribute("loggedInUser", nhanVien);
-        model.addAttribute("donHang", timKiemMaAndSdt);
-        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
-        return "/admin/quanly/DonHangDangGiao";
-    }
-
-    @PostMapping("/tim-kiem-hoan-thanh")
-    public String searchOrdersHoanThanh(@RequestParam("maDonHang") String maDonHang,
-                                        @RequestParam("sdt") String sdt,
-                                        @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                        @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-                                        HttpSession session,
-                                        Model model, @RequestParam(defaultValue = "1") int page) {
-        int pageSize = 5;
-        Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> timKiemMaAndSdt =
-                iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContainingAndNgayTaoBetween
-                        (pageable, maDonHang, sdt, startDate, endDate);
-        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
-        model.addAttribute("loggedInUser", nhanVien);
-        model.addAttribute("donHang", timKiemMaAndSdt);
-        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
-        return "/admin/quanly/DonHangDaHoanThanh";
-    }
-
-    @PostMapping("/tim-kiem-da-huy")
-    public String searchOrdersDaHuy(@RequestParam("maDonHang") String maDonHang,
-                                    @RequestParam("sdt") String sdt,
-                                    @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                    @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-                                    HttpSession session,
-                                    Model model, @RequestParam(defaultValue = "1") int page) {
-        int pageSize = 5;
-        Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> timKiemMaAndSdt =
-                iDonHangRepo.findByMaDonHangContainingAndKhachHang_SdtContainingAndNgayTaoBetween
-                        (pageable, maDonHang, sdt, startDate, endDate);
-        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
-        model.addAttribute("loggedInUser", nhanVien);
-        model.addAttribute("donHang", timKiemMaAndSdt);
-        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
-        return "/admin/quanly/DonHangDaHuy";
-    }
 
     @PostMapping("/cap-nhat-nv")
     public String capNhatNhanVien(@RequestParam("idNhanVien") String idNhanVien,
@@ -319,16 +252,46 @@ public class DonHangControllerTuanAnh {
     // bắt đầu hiển thị giao diện đơn hàng đã duyệt
     @GetMapping("/don-hang/da-duyet")
     public String quanLyDonHangDaDuyet(HttpSession session, Model model,
-                                       @RequestParam(defaultValue = "1") int page) {
+                                       @RequestParam(defaultValue = "1") int page,
+                                       @RequestParam(required = false) String maDonHang,
+                                       @RequestParam(required = false) String startDate,
+                                       @RequestParam(required = false) String endDate) {
+        Page<DonHang> pageDonHang;
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 1);
+        if (maDonHang != null) {
+            // xử lý trạng thái
+            model.addAttribute("std", "");
+            model.addAttribute("end", "");
+            model.addAttribute("ma", "");
+            Date ngayBatDau = null;
+            Date ngayKetThuc = null;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                if (startDate != null) {
+                    ngayBatDau = sdf.parse(String.valueOf(startDate));
+                    model.addAttribute("std", startDate);
+
+                }
+
+                if (endDate != null) {
+                    ngayKetThuc = sdf.parse(String.valueOf(endDate));
+                    model.addAttribute("end", endDate);
+
+                }
+            } catch (ParseException e) {
+                e.printStackTrace(); // Handle the exception properly in a real-world scenario
+            }
+            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, pageable);
+        } else {
+            pageDonHang = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 1);
+        }
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         if (nhanVien == null) {
             return "redirect:/login";
         }
         model.addAttribute("loggedInUser", nhanVien);
-        model.addAttribute("donHang", donHangs);
+        model.addAttribute("donHang", pageDonHang);
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
         return "/admin/quanly/DonHangDaDuyet";
     }
@@ -390,16 +353,49 @@ public class DonHangControllerTuanAnh {
     @GetMapping("/don-hang/dang-giao")
     // bắt đầu hiển thị giao diện đơn hàng đang giao
     public String quanLyDonHangDangGiao(HttpSession session, Model model,
-                                        @RequestParam(defaultValue = "1") int page) {
+                                        @RequestParam(defaultValue = "1") int page,
+                                        @RequestParam(required = false) String maDonHang,
+                                        @RequestParam(required = false) String startDate,
+                                        @RequestParam(required = false) String endDate) {
+
+        Page<DonHang> pageDonHang;
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 2);
+        if (maDonHang != null) {
+            // xử lý trạng thái
+            model.addAttribute("std", "");
+            model.addAttribute("end", "");
+            model.addAttribute("ma", "");
+            Date ngayBatDau = null;
+            Date ngayKetThuc = null;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                if (startDate != null) {
+                    ngayBatDau = sdf.parse(String.valueOf(startDate));
+                    model.addAttribute("std", startDate);
+
+                }
+
+                if (endDate != null) {
+                    ngayKetThuc = sdf.parse(String.valueOf(endDate));
+                    model.addAttribute("end", endDate);
+
+                }
+            } catch (ParseException e) {
+                e.printStackTrace(); // Handle the exception properly in a real-world scenario
+            }
+            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, pageable);
+        } else {
+            pageDonHang = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 2);
+        }
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         if (nhanVien == null) {
             return "redirect:/login";
         }
+
+
         model.addAttribute("loggedInUser", nhanVien);
-        model.addAttribute("donHang", donHangs);
+        model.addAttribute("donHang", pageDonHang);
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
         return "/admin/quanly/DonHangDangGiao";
     }
@@ -456,12 +452,42 @@ public class DonHangControllerTuanAnh {
     //BẮT ĐẦU CỦA ĐƠN HÀNG ĐÃ HOÀN THÀNH
     @GetMapping("/don-hang/hoan-thanh")
     // bắt đầu hiển thị giao diện đơn hàng đã hoàn thành
-    public String quanLyDangGiaoHang(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
+    public String quanLyDangGiaoHang(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page,
+                                     @RequestParam(required = false) String maDonHang,
+                                     @RequestParam(required = false) String startDate,
+                                     @RequestParam(required = false) String endDate) {
+        Page<DonHang> pageDonHang;
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 3);
+        if (maDonHang != null) {
+            // xử lý trạng thái
+            model.addAttribute("std", "");
+            model.addAttribute("end", "");
+            model.addAttribute("ma", "");
+            Date ngayBatDau = null;
+            Date ngayKetThuc = null;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                if (startDate != null) {
+                    ngayBatDau = sdf.parse(String.valueOf(startDate));
+                    model.addAttribute("std", startDate);
+
+                }
+
+                if (endDate != null) {
+                    ngayKetThuc = sdf.parse(String.valueOf(endDate));
+                    model.addAttribute("end", endDate);
+
+                }
+            } catch (ParseException e) {
+                e.printStackTrace(); // Handle the exception properly in a real-world scenario
+            }
+            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, pageable);
+        } else {
+            pageDonHang = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 3);
+        }
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
-        model.addAttribute("donHang", donHangs);
+        model.addAttribute("donHang", pageDonHang);
         model.addAttribute("loggedInUser", nhanVien);
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
         return "/admin/quanly/DonHangDaHoanThanh";
@@ -474,13 +500,43 @@ public class DonHangControllerTuanAnh {
     //BẮT ĐẦU CỦA ĐƠN HÀNG ĐÃ HỦY
     @GetMapping("/don-hang/da-huy")
     // bắt đầu hiển thị giao diện đơn hàng đã hủy
-    public String quanLyDonHangDaHuy(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
+    public String quanLyDonHangDaHuy(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page,
+                                     @RequestParam(required = false) String maDonHang,
+                                     @RequestParam(required = false) String startDate,
+                                     @RequestParam(required = false) String endDate) {
+        Page<DonHang> pageDonHang;
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
-        Page<DonHang> donHangs = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 4);
+        if (maDonHang != null) {
+            // xử lý trạng thái
+            model.addAttribute("std", "");
+            model.addAttribute("end", "");
+            model.addAttribute("ma", "");
+            Date ngayBatDau = null;
+            Date ngayKetThuc = null;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                if (startDate != null) {
+                    ngayBatDau = sdf.parse(String.valueOf(startDate));
+                    model.addAttribute("std", startDate);
+
+                }
+
+                if (endDate != null) {
+                    ngayKetThuc = sdf.parse(String.valueOf(endDate));
+                    model.addAttribute("end", endDate);
+
+                }
+            } catch (ParseException e) {
+                e.printStackTrace(); // Handle the exception properly in a real-world scenario
+            }
+            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, pageable);
+        } else {
+            pageDonHang = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 4);
+        }
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         model.addAttribute("loggedInUser", nhanVien);
-        model.addAttribute("donHang", donHangs);
+        model.addAttribute("donHang", pageDonHang);
         model.addAttribute("nhanviens", iNhanVienService.pageOfNhanVien(pageable));
         return "/admin/quanly/DonHangDaHuy";
     }
@@ -531,33 +587,29 @@ public class DonHangControllerTuanAnh {
     public void guiEmailDonHang(DonHang donHang, ThongTinGiaoHang thongTinGiaoHang) {
         String trangThaiDonHang = "";
         switch (donHang.getTrangThai()) {
-            case 1:
-                trangThaiDonHang = "Đơn hàng của bạn đã được xác nhận và đang được vận chuyển!!!";
-                break;
-            case 2:
-                trangThaiDonHang = "Đơn hàng của bạn đang được vận chuyển!!!!";
-                break;
-            case 3:
-                trangThaiDonHang = "Đơn hàng của bạn đã được hoàn thành!!!!";
-                break;
-            case 4:
-                if (donHang.getTrangThai() == 0) {
-                    trangThaiDonHang = "Đơn hàng của bạn đang được giao lại !!!";
-                } else {
-                    trangThaiDonHang = "Đơn hàng của bạn đã bị hủy vui lòng đặt lại hàng!!!";
-                }
-                break;
+            // ... (your existing code for switch cases)
+
             default:
                 trangThaiDonHang = "Trạng thái đơn hàng không xác định";
         }
 
-        String subject = "Dưới đây là mã đơn hàng và trạng thái đơn hàng của bạn!! ";
-        senderService.sendSimpleEmail(thongTinGiaoHang.getEmailGiaoHang(), subject,
-                    "Mã Đơn Hàng của bạn: " + donHang.getMaDonHang() + "\n" +
-                        "Địa chỉ nhận hàng:" + donHang.getThongTinGiaoHang().getDiaChiChu() + "\n" +
-                        "Trạng thái đơn: " + trangThaiDonHang);
-    }
+        StringBuilder emailContent = new StringBuilder();
+        emailContent.append("Mã Đơn Hàng của bạn: ").append(donHang.getMaDonHang()).append("\n")
+                .append("Địa chỉ nhận hàng: ").append(donHang.getThongTinGiaoHang().getDiaChiChu()).append("\n")
+                .append("Trạng thái đơn: ").append(donHang.getTrangThai()).append("\n")
+                .append("Danh sách sản phẩm:\n");
 
+        // Iterate through DonHangChiTiet items and include product details
+        for (DonHangChiTiet donHangChiTiet : donHang.getChiTietDonHang()) {
+            emailContent.append(" - Sản phẩm: ").append(donHangChiTiet.getSach().getTenSach()).append("\n")
+                    .append("   Số lượng: ").append(donHangChiTiet.getSoLuong()).append("\n")
+                    .append("   Đơn giá thời điểm mua: ").append(donHangChiTiet.donGiaThoidiemMuaVnd()).append("\n")
+                    .append("   Thành tiền: ").append(donHangChiTiet.thanhTienVnd()).append("\n");
+        }
+
+        String subject = "Dưới đây là mã đơn hàng và trạng thái đơn hàng của bạn!! ";
+        senderService.sendSimpleEmail(thongTinGiaoHang.getEmailGiaoHang(), subject, emailContent.toString());
+    }
 
     public void guiThongBaoDonHang(DonHang donHang, ThongTinGiaoHang thongTinGiaoHang, KhachHang khachHang) {
         Date currDate = new Date();
@@ -597,8 +649,9 @@ public class DonHangControllerTuanAnh {
         // gọi hàm
         this.thongBaoKhachHangService.themThongBaoChoNguoiDung(khachHang.getIdKhachHang(), savedNotification);
     }
+
     @GetMapping("/don-hang/export/pdf")
-    public String exportToPDF(RedirectAttributes redirectAttributes, HttpServletResponse response, @RequestParam("idDonHang") String idDonHang)
+    public String exportToPDF(RedirectAttributes redirectAttributes, HttpServletResponse response, @RequestParam("idDonHang") String idDonHang, Model model, HttpSession session)
             throws DocumentException, IOException {
         // Cài đặt các header và loại nội dung cho response
         response.setContentType("application/pdf");
@@ -610,6 +663,7 @@ public class DonHangControllerTuanAnh {
         response.setHeader(headerKey, headerValue);
 
         // Lấy đơn hàng từ cơ sở dữ liệu
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
 
         // Kiểm tra xem đơn hàng có tồn tại và trạng thái không phải là 'Xác nhận' (1) hay không
@@ -621,7 +675,22 @@ public class DonHangControllerTuanAnh {
             // Xuất hóa đơn PDF
             PDFExporter exporter = new PDFExporter();
             exporter.export(response, donHang);
+            ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
+            KhachHang khachHangDangNhap = donHang.getKhachHang();
 
+// Kiểm tra loại khách hàng
+            String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
+            if ("0".equals(loaiKhachHang)) {
+                // Loại khách hàng = 0, chỉ gửi email
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            } else {
+                // Loại khách hàng = 1, gửi cả thông báo lẫn email
+                guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            }
+
+            // In thông tin để kiểm tra
+            model.addAttribute("loggedInUser", nhanVien);
             // Tiếp tục với các lệnh sau khi xuất PDF (ví dụ: gửi thông báo chuyển hướng)
             redirectAttributes.addFlashAttribute("successMessage", "Đã xác nhận đơn hàng thành công.");
         } else {
