@@ -34,15 +34,14 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-2">
-                <div class="boxsearch">
-                    <h6 style="text-align: center;">Tìm theo mã đơn hàng</h6>
-                    <div class="search">
-                        <input class="form-control" type="search" placeholder="Search">
-                    </div>
+                <div class="boxsearchforname">
+                    <form th:action="@{/quan-ly/danh-sach-doitra/van-chuyen-thanh-cong}" method="get"
+                          enctype="multipart/form-data">
+                        <label>Mã đơn đổi trả:</label><br>
+                        <input class="form-control" type="text" id="productName" name="maDonDoiTra">
+                        <button class="form-control btn btn-success" type="submit">Tìm kiếm</button>
+                    </form>
                 </div>
-                <br>
-                <button type="button" class="btn btn-success" style="margin-left: 50px;margin-top: 5px;">Tìm Kiếm
-                </button>
             </div>
             <div class="col-10">
                 <div class="box">
