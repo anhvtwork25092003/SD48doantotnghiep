@@ -1,5 +1,6 @@
 package com.example.booksstore.controller.user;
 
+import com.example.booksstore.entities.NhanVien;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.entities.TheLoai;
@@ -7,6 +8,7 @@ import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.ISachService;
 import com.example.booksstore.service.ITheLoaiServiec;
 import com.example.booksstore.service.TacGiaService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,13 +38,6 @@ public class TimKiemController {
     ITheLoaiServiec iTheLoaiService;
 
 
-//    @GetMapping("/search")
-//    public String searchBooks(@RequestParam("tenSach") String tenSach, Model model) {
-//        List<Sach> books = repository.findByTenSachContaining(tenSach);
-//        model.addAttribute("sachmoi", books);
-//        return "user/DanhSachSanPhamTimKiem";
-//    }
-
     @GetMapping("/loc")
     public String hienThiTrangTimKiem(Model model, @RequestParam(defaultValue = "1") int page,
                                       @RequestParam(required = false) String productNameSearch,
@@ -57,6 +52,7 @@ public class TimKiemController {
         int pageSize = 10; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
 //  moi khoi tao trang
+
         if (productNameSearch != null || priceRangeSearch != null || categorySearch != null || tacGiaSearch != null) {
             // xu ly khoang gia
             if (priceRangeSearch != null) {
@@ -78,14 +74,34 @@ public class TimKiemController {
                 }
                 model.addAttribute("price", priceRangeSearch);
             }
-            if ("asc".equalsIgnoreCase(sapXepGia)) {
-                pageable = PageRequest.of(page - 1, pageSize, Sort.by("giaBan").ascending());
-            } else if ("desc".equalsIgnoreCase(sapXepGia)) {
-                pageable = PageRequest.of(page - 1, pageSize, Sort.by("giaBan").descending());
+
+            if (productNameSearch != null) {
+                model.addAttribute("pn", productNameSearch);
             } else {
-                pageable = PageRequest.of(page - 1, pageSize);
+                model.addAttribute("pn", "");
             }
-            // xuu ly trang thai
+
+            if (priceRangeSearch != null){
+                model.addAttribute("pr",priceRangeSearch);
+            }else{
+                model.addAttribute("pr","");
+            }
+
+
+            if (tacGiaSearch != null){
+                model.addAttribute("tg",tacGiaSearch);
+            }else{
+                model.addAttribute("tg","");
+            }
+
+
+            if (categorySearch != null){
+                model.addAttribute("tl",categorySearch);
+            }else{
+                model.addAttribute("tl","");
+            }
+
+
 
             pageOfSach = iSachService.TimKiemSach(productNameSearch, giaMin, giaMax, categorySearch,tacGiaSearch, sapXepGia, pageable);
         } else {

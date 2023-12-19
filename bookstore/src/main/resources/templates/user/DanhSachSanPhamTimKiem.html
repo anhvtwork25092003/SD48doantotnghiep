@@ -78,25 +78,7 @@
         <main class="content">
             <!-- Đâ y là phần bên phải (content) -->
             <h1>Kêt quả tìm kiếm:</h1>
-            <!-- sắp xếp theo giá -->
-            <!--            <div class="sapxep">-->
-            <!--                <h3>Sắp xếp theo:</h3>-->
-            <!--                <select class=" form-control" id="selectItem">-->
-            <!--                    <option value="item1">Theo giá tăng dần</option>-->
-            <!--                    <option value="item2">Theo giá giảm dần</option>-->
-            <!--                </select>-->
-            <!--            </div>-->
-            <form th:action="@{/danh-sach-tim-kiem/loc}" method="get" enctype="multipart/form-data">
-                <div class="sapxep">
-                    <h3>Sắp xếp theo:</h3>
-                    <select class="col-3 form-control" id="selectItem" name="sapXepGia">
-                        <option value="asc">Theo giá tăng dần</option>
-                        <option value="desc">Theo giá giảm dần</option>
-                    </select>
-                    <button type="submit" class="btn btn-primary">Áp dụng</button>
-                </div>
-            </form>
-            <!-- end sắp xếp theo giá -->
+
 
             <h4>Danh sách sản phẩm</h4>
             <div class="product">
@@ -107,8 +89,8 @@
                         </div>
                     </a>
                     <h3 th:text="${sm.tenSach}"></h3>
-                    <div  th:if="${sm.layGiaNeuCoKhuyenMai() == null}" class="text-muted" >
-                        <h5  th:text="${sm.giaBanVnd}"></h5>
+                    <div th:if="${sm.layGiaNeuCoKhuyenMai() == null}" class="text-muted">
+                        <h5 th:text="${sm.giaBanVnd}"></h5>
                     </div>
                     <div th:if="${sm.layGiaNeuCoKhuyenMai() != null}">
                         <del class="text-muted" th:text="${sm.giaBanVnd}"></del>
@@ -122,13 +104,20 @@
             </div>
 
             <br>
+
+
             <div>
-                <span th:if="${pageOfSach.number + 1 > 1}">
-                    <a class="btn btn-primary" th:href="@{'/danh-sach-tim-kiem/loc?page=' + ${pageOfSach.number}}">Previous</a>
-                </span>
-                <span class="btn btn-danger" th:text="${pageOfSach.number + 1} + '/' + ${pageOfSach.totalPages}"></span>
+                        <span th:if="${pageOfSach.number + 1 > 1}">
+                            <a class="btn btn-primary" th:href="@{'/danh-sach-tim-kiem/loc?page='
+                            + ${pageOfSach.number}
+                            + '&productNameSearch=' + ${pn} +  '&priceRangeSearch=' + ${pr}}">Previous</a>
+                        </span>
+                <span class="btn btn-danger"
+                      th:text="${pageOfSach.number + 1} + ' / ' + ${pageOfSach.totalPages}"></span>
                 <span th:if="${pageOfSach.number + 1 < pageOfSach.totalPages}">
-                    <a class="btn btn-primary" th:href="@{'/danh-sach-tim-kiem/loc?page=' + ${pageOfSach.number + 2}}">Next</a>
+                            <a class="btn btn-primary" th:href="@{'/danh-sach-tim-kiem/loc?page=' + ${pageOfSach.number + 2}
+                             + '&productNameSearch=' + ${pn} + '&categorySearch=' + ${tl} + '&tacGiaSearch=' + ${tg} + '&priceRangeSearch=' + ${pr}}">Next</a>
+                            </span>
                 </span>
             </div>
         </main>
