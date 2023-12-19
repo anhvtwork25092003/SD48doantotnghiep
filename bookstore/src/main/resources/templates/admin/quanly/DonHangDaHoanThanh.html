@@ -20,7 +20,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-2">
-                <form th:action="@{/quan-ly/tim-kiem-hoan-thanh}" method="post">
+                <form th:action="@{/quan-ly/don-hang/hoan-thanh}" method="get">
                     <div class="boxsearch">
                         <h6 style="text-align: center;">Tìm theo mã đơn hàng</h6>
                         <div class="search">
@@ -29,14 +29,14 @@
                             <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
                         </div>
                     </div>
-                    <div class="boxsearch">
-                        <h6 style="text-align: center;">Tìm theo số điện thoại</h6>
-                        <div class="search">
-                            <input class="form-control" type="search" name="sdt" placeholder="Search"
-                                   th:value="${param.sdt}">
-                            <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-                        </div>
-                    </div>
+<!--                    <div class="boxsearch">-->
+<!--                        <h6 style="text-align: center;">Tìm theo số điện thoại</h6>-->
+<!--                        <div class="search">-->
+<!--                            <input class="form-control" type="search" name="sdt" placeholder="Search"-->
+<!--                                   th:value="${param.sdt}">-->
+<!--                            &lt;!&ndash; <button class="btn btn-outline-success" type="submit">Search</button> &ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <br>
                     <div class="boxtrang">
                         <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
@@ -271,13 +271,17 @@
                             <div class="phantrang">
                                     <span th:if="${donHang.number + 1 > 1}">
                                         <a class="btn btn-primary"
-                                           th:href="@{'/quan-ly/don-hang/hoan-thanh?page=' + ${donHang.number}}">Previous</a>
+                                           th:href="@{'/quan-ly/don-hang/hoan-thanh?page=' + ${donHang.number}
+                                           + '&maDonHang='+ ${ma}
+                                       +'&startDate=' + ${std} + '&endDate=' +${end}}">Previous</a>
                                     </span>
                                 <span class="btn btn-danger"
                                       th:text="${donHang.number + 1} + '/' + ${donHang.totalPages}"></span>
                                 <span th:if="${donHang.number + 1 < donHang.totalPages}">
                                         <a class="btn btn-primary"
-                                           th:href="@{'/quan-ly/don-hang/hoan-thanh?page=' + ${donHang.number + 2}}">Next</a>
+                                           th:href="@{'/quan-ly/don-hang/hoan-thanh?page=' + ${donHang.number + 2}
+                                           + '&maDonHang='+ ${ma}
+                                       +'&startDate=' + ${std} + '&endDate=' +${end}}">Next</a>
                                     </span>
                             </div>
                         </div>

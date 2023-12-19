@@ -3,8 +3,10 @@ package com.example.booksstore.repository;
 import com.example.booksstore.dto.TopSanPhamDTO;
 import com.example.booksstore.entities.DonHang;
 import com.example.booksstore.entities.KhachHang;
+import com.example.booksstore.specification.DonHangSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +20,7 @@ public interface IDonHangRepo extends JpaRepository<DonHang, Integer> {
 
     //    Page<DonHang> findAllBykhachHang(Pageable pageable,KhachHang khachHang);
     Page<DonHang> findAllByTrangThaiOrderByIdDonHangDesc(Pageable pageable, int trangThai);
+    Page<DonHang> findAll(Specification<DonHang> spec, Pageable pageable);
 
     Page<DonHang> findByMaDonHangContainingAndKhachHang_SdtContainingAndNgayTaoBetween(
             Pageable pageable, String maDonHang, String sdt, Date startDate, Date endDate);

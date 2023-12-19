@@ -1,18 +1,20 @@
 package com.example.booksstore.service.serviceimpl;
 
-import com.example.booksstore.entities.DonHangChiTiet;
-import com.example.booksstore.entities.GioHangChiTiet;
-import com.example.booksstore.entities.KhuyenMai;
-import com.example.booksstore.entities.Sach;
+import com.example.booksstore.entities.*;
 import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.ISachRepository;
 import com.example.booksstore.service.IDonHangService;
+import com.example.booksstore.specification.DonHangSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -142,5 +144,11 @@ public class DonHangChiTietServiceImpl implements IDonHangService {
             donHangChiTietListVnpay.add(donHangChiTietDeThemVaoList);
         }
         return tongTienhang;
+    }
+
+    @Override
+    public Page<DonHang> searchDOnHang(String maDonHang, Date startDate, Date endDate, Pageable pageable) {
+        Specification<DonHang> spec   = DonHangSpecification.filterDonHang(maDonHang,startDate,endDate);
+        return iDonHangRepo.findAll(spec,pageable);
     }
 }
