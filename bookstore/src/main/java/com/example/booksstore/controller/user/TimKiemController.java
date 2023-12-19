@@ -49,7 +49,7 @@ public class TimKiemController {
         Page<Sach> pageOfSach;
         BigDecimal giaMin = null;
         BigDecimal giaMax = null;
-        int pageSize = 5; // Đặt kích thước trang mặc định
+        int pageSize = 10; // Đặt kích thước trang mặc định
         Pageable pageable = PageRequest.of(page - 1, pageSize); // Số trang bắt đầu từ 0
 //  moi khoi tao trang
 
