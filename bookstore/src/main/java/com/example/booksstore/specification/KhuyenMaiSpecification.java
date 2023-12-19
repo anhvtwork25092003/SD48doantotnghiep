@@ -14,7 +14,7 @@ public class KhuyenMaiSpecification {
             List<Predicate> predicates = new ArrayList<>();
             //tên khuyến mại
             if (tenKhuyenMai != null && !tenKhuyenMai.isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("tenKhuyenMai"), tenKhuyenMai));
+                predicates.add(criteriaBuilder.like(root.get("tenKhuyenMai"), tenKhuyenMai));
             }
 
             if (ngayBatDau != null && ngayKetThuc != null) {
