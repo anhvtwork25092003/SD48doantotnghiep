@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function validateFormChuaDangNhap() {
-    var tenNguoiNhan = document.getElementsByName("TenNguoiNhanThemMoi")[0].value;
+    var tenNguoiNhan = document.getElementsByName("tenNguoiNhan")[0].value;
     var soDienThoaiNhanHang = document.getElementsByName("soDienThoaiNhanHang")[0].value;
     var email = document.getElementsByName("email")[0].value;
     // Kiểm tra trống

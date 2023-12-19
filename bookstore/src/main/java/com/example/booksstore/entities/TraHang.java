@@ -39,11 +39,12 @@ public class TraHang {
     @Column(name = "ngaytao")
     private Date ngayTao;
 
-
+    @Column(name = "loaitrahang")
+    private int loaiTraHang ;
     // 0- đang chuẩn bị hang-chờ vận chuyển gioa hàng
-//1- đang giao hàng
-//    2: thành công
-//  3   hủy- giao không thành công
+    // 1- đang giao hàng
+    // 2: thành công
+    // 3  hủy- giao không thành công
     @Column(name = "trangthai")
     private Integer trangThai;
 

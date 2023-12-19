@@ -145,3 +145,7 @@ trangthai int
 )
 alter table voucher 
 add mucgiamgia nvarchar(50)
+
+-- sửa lần cuối nha
+alter table trahang
+add loaitrahang int default 0

@@ -54,11 +54,12 @@
                     <table class="table" style=" border: 0px solid blue;">
                         <thead class="table-dark">
                         <th:block th:if="${not listth.isEmpty()}">
-                            <h4 style="text-align: left;">Danh Sách Đơn Hàng Đổi </h4>
+                            <h4 style="text-align: left;">Danh Sách Đơn Hàng Đổi đang vận chuyển </h4>
                             <tr>
                                 <th>Id Đổi</th>
                                 <th>Mã Đơn Hàng</th>
                                 <th>Ngày Tạo</th>
+                                <th>Hình thức đổi hàng</th>
                                 <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                             </tr>
@@ -67,7 +68,10 @@
                         <tr>
                             <td th:text="${dhd.idTraHang}"></td>
                             <td th:text="${dhd.donHang.maDonHang}"></td>
+
                             <td th:text="${dhd.ngayTao}"></td>
+                            <td th:text="${dhd.loaiTraHang == 0 ? 'Đổi hàng' : (dhd.loaiTraHang == 1 ? 'Trả hàng hoàn tiền' : 'Trả hàng hoàn tiền')}"></td>
+
                             <td>Đang Vận Chuyển</td>
 
                             <td>

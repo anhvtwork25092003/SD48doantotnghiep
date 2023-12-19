@@ -38,7 +38,8 @@
                             <td>
                                 <div class="input-group">
                                     <input type="number" name="soLuong" class="form-control" pattern="\d*"
-                                           title="Vui lòng nhập một số hợp lệ" th:min="0" th:max="${thd.soLuong}" value="0">
+                                           title="Vui lòng nhập một số hợp lệ" th:min="0" th:max="${thd.soLuong}"
+                                           value="0">
                                     <div class="input-group-append">
                                         <span class="input-group-text">/<span th:text="${thd.soLuong}"></span></span>
                                     </div>
@@ -47,6 +48,11 @@
                         </tr>
                         </tbody>
                     </table>
+                    <select name="loaiTraHang" class="form-control">
+                        <option value="0" selected>Trả hàng hoàn tiền</option>
+                        <option value="1">Đổi hàng</option>
+                    </select>
+
                 </div>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

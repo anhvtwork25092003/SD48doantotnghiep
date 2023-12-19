@@ -26,7 +26,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,66 +69,131 @@ public class TraHangController {
     }
 
     @PostMapping("/tra-hang")
-    public String processTraHangForm(@ModelAttribute TraHang traHang,
-                                     @RequestParam(name = "idSach") List<Integer> sachIds,
-                                     @RequestParam(name = "idDonHang") List<Integer> idDonHangs,
-                                     @RequestParam(name = "soLuong") List<Integer> soLuongs,
-                                     RedirectAttributes redirectAttributes) {
+    public String processTraHangForm(
+            @RequestParam(name = "idSach") List<Integer> sachIds,
+            @RequestParam(name = "idDonHang") List<Integer> idDonHangs,
+            @RequestParam(name = "soLuong") List<Integer> soLuongs,
+            @RequestParam(name = "loaiTraHang") int loaiTraHang,
+            RedirectAttributes redirectAttributes) {
 
-        if (traHang == null) {
-            return "redirect:/quan-ly/danh-sach-doitra";
-        }
-
-        for (int i = 0; i < sachIds.size(); i++) {
-            Integer sachId = sachIds.get(i);
-            Integer soLuong = soLuongs.get(i);
-            Sach sach = iSachRepository.findById(sachId).orElse(null);
-
-            if (sach.getSoLuongTonKho() < soLuong) {
-                redirectAttributes.addFlashAttribute("soLuongHoanTraKhongDuo", "Số Lượng của " + sach.getTenSach() + " không đủ!");
+        if (loaiTraHang == 0) {
+            //  trả hàng hoàn tiền
+            TraHang traHang = new TraHang();
+            boolean checksoluong = false;
+            for (Integer integer : soLuongs) {
+                if (integer != 0) {
+                    checksoluong = true;
+                }
+            }
+            if (checksoluong == false) {
                 return "redirect:/quan-ly/danh-sach-doitra";
             }
-        }
-
-        Date currDate = new Date();
-        List<TraHangChiTiet> traHangChiTietList = new ArrayList<>();
-        for (int i = 0; i < sachIds.size(); i++) {
-            Integer sachId = sachIds.get(i);
-            Integer idDonHang = idDonHangs.get(i);
-            Integer soLuong = soLuongs.get(i);
-
-            if (soLuong != 0) {
+            for (int i = 0; i < sachIds.size(); i++) {
+                Integer sachId = sachIds.get(i);
+                Integer soLuong = soLuongs.get(i);
                 Sach sach = iSachRepository.findById(sachId).orElse(null);
-                if (soLuong > sach.getSoLuongTonKho()) {
+            }
 
+            Date currDate = new Date();
+            List<TraHangChiTiet> traHangChiTietList = new ArrayList<>();
+            for (int i = 0; i < sachIds.size(); i++) {
+                Integer sachId = sachIds.get(i);
+                Integer idDonHang = idDonHangs.get(i);
+                Integer soLuong = soLuongs.get(i);
+
+                if (soLuong != 0) {
+                    Sach sach = iSachRepository.findById(sachId).orElse(null);
+                    DonHang donHang = iDonHangRepo.findById(idDonHang).orElse(null);
+                    TraHangChiTiet traHangChiTiet = new TraHangChiTiet();
+                    traHangChiTiet.setSach(sach);
+                    traHangChiTiet.setSoLuong(soLuong);
+                    traHangChiTiet.setTraHang(traHang);
+                    traHang.setDonHang(donHang);
+                    traHang.setNgayTao(currDate);
+                    traHang.setTrangThai(0);
+                    traHang.setLoaiTraHang(1);
+                    iTraHangRepository.save(traHang);
+                    TraHangChiTiet traHangChiTiet1 = iTraHangChiTietRepository.save(traHangChiTiet);
+                    traHangChiTietList.add(traHangChiTiet1);
                 }
-                DonHang donHang = iDonHangRepo.findById(idDonHang).orElse(null);
-                TraHangChiTiet traHangChiTiet = new TraHangChiTiet();
-                traHangChiTiet.setSach(sach);
-                traHangChiTiet.setSoLuong(soLuong);
-                traHangChiTiet.setTraHang(traHang);
-                traHang.setDonHang(donHang);
-                traHang.setNgayTao(currDate);
-                traHang.setTrangThai(0);
-                iTraHangRepository.save(traHang);
-                TraHangChiTiet traHangChiTiet1 = iTraHangChiTietRepository.save(traHangChiTiet);
-                traHangChiTietList.add(traHangChiTiet1);
+                ThongTinGiaoHang thongTinGiaoHang = traHang.getDonHang().getThongTinGiaoHang();
+                KhachHang khachHangDangNhap = traHang.getDonHang().getKhachHang();
+                guiEmailDonHang(traHang, thongTinGiaoHang);
+                guiThongBaoDonHang(traHang, thongTinGiaoHang, khachHangDangNhap);
             }
-            ThongTinGiaoHang thongTinGiaoHang = traHang.getDonHang().getThongTinGiaoHang();
-            KhachHang khachHangDangNhap = traHang.getDonHang().getKhachHang();
-            guiEmailDonHang(traHang, thongTinGiaoHang);
-            guiThongBaoDonHang(traHang, thongTinGiaoHang, khachHangDangNhap);
-        }
 
-        if (traHangChiTietList != null && traHangChiTietList.size() > 0) {
-            for (TraHangChiTiet traHangChiTiet : traHangChiTietList) {
-                Sach sach = iSachRepository.findById(traHangChiTiet.getSach().getIdSach()).orElse(null);
-                int soLuongmoi = sach.getSoLuongTonKho() - traHangChiTiet.getSoLuong();
-                sach.setSoLuongTonKho(soLuongmoi);
-                iSachRepository.save(sach);
+            if (traHangChiTietList != null && traHangChiTietList.size() > 0) {
+                for (TraHangChiTiet traHangChiTiet : traHangChiTietList) {
+                    Sach sach = iSachRepository.findById(traHangChiTiet.getSach().getIdSach()).orElse(null);
+                    int soLuongmoi = sach.getSoLuongTonKho() - traHangChiTiet.getSoLuong();
+                    sach.setSoLuongTonKho(soLuongmoi);
+                    iSachRepository.save(sach);
+                }
             }
+            return "redirect:/quan-ly/danh-sach-doitra";
+        } else {
+
+            TraHang traHang = new TraHang();
+            boolean checksoluong = false;
+            for (Integer integer : soLuongs) {
+                if (integer != 0) {
+                    checksoluong = true;
+                }
+            }
+            if (checksoluong == false) {
+                return "redirect:/quan-ly/danh-sach-doitra";
+            }
+            for (int i = 0; i < sachIds.size(); i++) {
+                Integer sachId = sachIds.get(i);
+                Integer soLuong = soLuongs.get(i);
+                Sach sach = iSachRepository.findById(sachId).orElse(null);
+
+                if (sach.getSoLuongTonKho() < soLuong) {
+                    redirectAttributes.addFlashAttribute("soLuongHoanTraKhongDuo", "Số Lượng của " + sach.getTenSach() + " không đủ!");
+                    return "redirect:/quan-ly/danh-sach-doitra";
+                }
+            }
+
+            Date currDate = new Date();
+            List<TraHangChiTiet> traHangChiTietList = new ArrayList<>();
+            for (int i = 0; i < sachIds.size(); i++) {
+                Integer sachId = sachIds.get(i);
+                Integer idDonHang = idDonHangs.get(i);
+                Integer soLuong = soLuongs.get(i);
+
+                if (soLuong != 0) {
+                    Sach sach = iSachRepository.findById(sachId).orElse(null);
+                    if (soLuong > sach.getSoLuongTonKho()) {
+
+                    }
+                    DonHang donHang = iDonHangRepo.findById(idDonHang).orElse(null);
+                    TraHangChiTiet traHangChiTiet = new TraHangChiTiet();
+                    traHangChiTiet.setSach(sach);
+                    traHangChiTiet.setSoLuong(soLuong);
+                    traHangChiTiet.setTraHang(traHang);
+                    traHang.setDonHang(donHang);
+                    traHang.setNgayTao(currDate);
+                    traHang.setTrangThai(0);
+                    iTraHangRepository.save(traHang);
+                    TraHangChiTiet traHangChiTiet1 = iTraHangChiTietRepository.save(traHangChiTiet);
+                    traHangChiTietList.add(traHangChiTiet1);
+                }
+                ThongTinGiaoHang thongTinGiaoHang = traHang.getDonHang().getThongTinGiaoHang();
+                KhachHang khachHangDangNhap = traHang.getDonHang().getKhachHang();
+                guiEmailDonHang(traHang, thongTinGiaoHang);
+                guiThongBaoDonHang(traHang, thongTinGiaoHang, khachHangDangNhap);
+            }
+
+            if (traHangChiTietList != null && traHangChiTietList.size() > 0) {
+                for (TraHangChiTiet traHangChiTiet : traHangChiTietList) {
+                    Sach sach = iSachRepository.findById(traHangChiTiet.getSach().getIdSach()).orElse(null);
+                    int soLuongmoi = sach.getSoLuongTonKho() - traHangChiTiet.getSoLuong();
+                    sach.setSoLuongTonKho(soLuongmoi);
+                    iSachRepository.save(sach);
+                }
+            }
+            return "redirect:/quan-ly/danh-sach-doitra";
         }
-        return "redirect:/quan-ly/danh-sach-doitra";
     }
 
 
@@ -142,10 +206,10 @@ public class TraHangController {
         } else {
             traHang.setTrangThai(3);
             this.iTraHangRepository.save(traHang);
-
             for (TraHangChiTiet traHangChiTiet : traHang.getTraHangChiTietList()) {
                 Sach sach = iSachRepository.findById(traHangChiTiet.getSach().getIdSach()).get();
                 int soLuongMoi = sach.getSoLuongTonKho() + traHangChiTiet.getSoLuong();
+                sach.setSoLuongTonKho(soLuongMoi);
                 this.iSachRepository.save(sach);
             }
         }
@@ -206,6 +270,8 @@ public class TraHangController {
         return traHangChiTiets;
     }
 
+
+    //     chyển trang thái
     @GetMapping("/xac-nhan-tra-hang-tra")
     public String traDonHangDanggiao(Model model, HttpSession session,
                                      @RequestParam("idTraHang") String idTraHang) {
