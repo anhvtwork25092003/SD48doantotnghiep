@@ -17,6 +17,8 @@
             <h2 style="text-align: center;">Lọc Theo</h2>
             <!--         lọc theo thể loại -->
             <form th:action="@{/danh-sach-tim-kiem/loc}" method="get" enctype="multipart/form-data">
+                <input type="text" class="productName" name="productNameSearch" th:value="${param.productNameSearch}"
+                       placeholder="Tìm kiếm..." hidden/>
                 <div class="locTheLoai">
                     <h3>Thể Loại</h3>
                     <ul style="max-height: 200px; overflow-y: scroll;">
