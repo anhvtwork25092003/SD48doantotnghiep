@@ -95,7 +95,7 @@ public class DonHangControllerTuanAnh {
 
                 }
 
-                if (endDate != null ) {
+                if (endDate != null) {
                     ngayKetThuc = sdf.parse(String.valueOf(endDate));
                     model.addAttribute("end", endDate);
 
@@ -114,7 +114,6 @@ public class DonHangControllerTuanAnh {
         return "/admin/quanly/DonHangCho";
     }
     // bắt đầu hiển thị giao diện đơn hàng chờ
-
 
 
     @PostMapping("/cap-nhat-nv")
@@ -275,7 +274,7 @@ public class DonHangControllerTuanAnh {
 
                 }
 
-                if (endDate != null ) {
+                if (endDate != null) {
                     ngayKetThuc = sdf.parse(String.valueOf(endDate));
                     model.addAttribute("end", endDate);
 
@@ -377,7 +376,7 @@ public class DonHangControllerTuanAnh {
 
                 }
 
-                if (endDate != null ) {
+                if (endDate != null) {
                     ngayKetThuc = sdf.parse(String.valueOf(endDate));
                     model.addAttribute("end", endDate);
 
@@ -475,7 +474,7 @@ public class DonHangControllerTuanAnh {
 
                 }
 
-                if (endDate != null ) {
+                if (endDate != null) {
                     ngayKetThuc = sdf.parse(String.valueOf(endDate));
                     model.addAttribute("end", endDate);
 
@@ -523,7 +522,7 @@ public class DonHangControllerTuanAnh {
 
                 }
 
-                if (endDate != null ) {
+                if (endDate != null) {
                     ngayKetThuc = sdf.parse(String.valueOf(endDate));
                     model.addAttribute("end", endDate);
 
@@ -588,33 +587,29 @@ public class DonHangControllerTuanAnh {
     public void guiEmailDonHang(DonHang donHang, ThongTinGiaoHang thongTinGiaoHang) {
         String trangThaiDonHang = "";
         switch (donHang.getTrangThai()) {
-            case 1:
-                trangThaiDonHang = "Đơn hàng của bạn đã được xác nhận và đang được vận chuyển!!!";
-                break;
-            case 2:
-                trangThaiDonHang = "Đơn hàng của bạn đang được vận chuyển!!!!";
-                break;
-            case 3:
-                trangThaiDonHang = "Đơn hàng của bạn đã được hoàn thành!!!!";
-                break;
-            case 4:
-                if (donHang.getTrangThai() == 0) {
-                    trangThaiDonHang = "Đơn hàng của bạn đang được giao lại !!!";
-                } else {
-                    trangThaiDonHang = "Đơn hàng của bạn đã bị hủy vui lòng đặt lại hàng!!!";
-                }
-                break;
+            // ... (your existing code for switch cases)
+
             default:
                 trangThaiDonHang = "Trạng thái đơn hàng không xác định";
         }
 
-        String subject = "Dưới đây là mã đơn hàng và trạng thái đơn hàng của bạn!! ";
-        senderService.sendSimpleEmail(thongTinGiaoHang.getEmailGiaoHang(), subject,
-                "Mã Đơn Hàng của bạn: " + donHang.getMaDonHang() + "\n" +
-                        "Địa chỉ nhận hàng:" + donHang.getThongTinGiaoHang().getDiaChiChu() + "\n" +
-                        "Trạng thái đơn: " + trangThaiDonHang);
-    }
+        StringBuilder emailContent = new StringBuilder();
+        emailContent.append("Mã Đơn Hàng của bạn: ").append(donHang.getMaDonHang()).append("\n")
+                .append("Địa chỉ nhận hàng: ").append(donHang.getThongTinGiaoHang().getDiaChiChu()).append("\n")
+                .append("Trạng thái đơn: ").append(donHang.getTrangThai()).append("\n")
+                .append("Danh sách sản phẩm:\n");
 
+        // Iterate through DonHangChiTiet items and include product details
+        for (DonHangChiTiet donHangChiTiet : donHang.getChiTietDonHang()) {
+            emailContent.append(" - Sản phẩm: ").append(donHangChiTiet.getSach().getTenSach()).append("\n")
+                    .append("   Số lượng: ").append(donHangChiTiet.getSoLuong()).append("\n")
+                    .append("   Đơn giá thời điểm mua: ").append(donHangChiTiet.donGiaThoidiemMuaVnd()).append("\n")
+                    .append("   Thành tiền: ").append(donHangChiTiet.thanhTienVnd()).append("\n");
+        }
+
+        String subject = "Dưới đây là mã đơn hàng và trạng thái đơn hàng của bạn!! ";
+        senderService.sendSimpleEmail(thongTinGiaoHang.getEmailGiaoHang(), subject, emailContent.toString());
+    }
 
     public void guiThongBaoDonHang(DonHang donHang, ThongTinGiaoHang thongTinGiaoHang, KhachHang khachHang) {
         Date currDate = new Date();
@@ -656,7 +651,7 @@ public class DonHangControllerTuanAnh {
     }
 
     @GetMapping("/don-hang/export/pdf")
-    public String exportToPDF(RedirectAttributes redirectAttributes, HttpServletResponse response, @RequestParam("idDonHang") String idDonHang)
+    public String exportToPDF(RedirectAttributes redirectAttributes, HttpServletResponse response, @RequestParam("idDonHang") String idDonHang, Model model, HttpSession session)
             throws DocumentException, IOException {
         // Cài đặt các header và loại nội dung cho response
         response.setContentType("application/pdf");
@@ -668,6 +663,7 @@ public class DonHangControllerTuanAnh {
         response.setHeader(headerKey, headerValue);
 
         // Lấy đơn hàng từ cơ sở dữ liệu
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
 
         // Kiểm tra xem đơn hàng có tồn tại và trạng thái không phải là 'Xác nhận' (1) hay không
@@ -679,7 +675,22 @@ public class DonHangControllerTuanAnh {
             // Xuất hóa đơn PDF
             PDFExporter exporter = new PDFExporter();
             exporter.export(response, donHang);
+            ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
+            KhachHang khachHangDangNhap = donHang.getKhachHang();
 
+// Kiểm tra loại khách hàng
+            String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
+            if ("0".equals(loaiKhachHang)) {
+                // Loại khách hàng = 0, chỉ gửi email
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            } else {
+                // Loại khách hàng = 1, gửi cả thông báo lẫn email
+                guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            }
+
+            // In thông tin để kiểm tra
+            model.addAttribute("loggedInUser", nhanVien);
             // Tiếp tục với các lệnh sau khi xuất PDF (ví dụ: gửi thông báo chuyển hướng)
             redirectAttributes.addFlashAttribute("successMessage", "Đã xác nhận đơn hàng thành công.");
         } else {
