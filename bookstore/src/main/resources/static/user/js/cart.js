@@ -74,4 +74,33 @@ function calculateSubtotal() {
     // Hiển thị giá tiền subtotal trong phần tổng tiền
     document.querySelector('.subtotal .value').textContent = subtotal.toFixed(3);
 }
+// Khai báo biến để kiểm tra trạng thái chọn sản phẩm
+var isProductSelected = false;
+
+// Lắng nghe sự kiện khi checkbox thay đổi
+var checkboxes = document.querySelectorAll('.item-checkbox');
+checkboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+        // Cập nhật trạng thái của biến khi có sự thay đổi
+        isProductSelected = checkIfProductsSelected();
+        // Tính toán giá tiền subtotal khi có sự thay đổi
+        calculateSubtotal();
+    });
+});
+
+// Lắng nghe sự kiện khi nút Checkout được nhấn
+document.getElementById('checkoutButton').addEventListener('click', function () {
+    // Kiểm tra xem có sản phẩm được chọn hay không
+    if (!isProductSelected) {
+        alert('Vui lòng chọn ít nhất một sản phẩm để thanh toán.');
+        // Ngăn chặn hành động mặc định của nút submit nếu không có sản phẩm được chọn
+        event.preventDefault();
+    }
+});
+
+// Hàm kiểm tra xem có sản phẩm nào được chọn hay không
+function checkIfProductsSelected() {
+    var selectedItems = document.querySelectorAll('.item-checkbox:checked');
+    return selectedItems.length > 0;
+}
 

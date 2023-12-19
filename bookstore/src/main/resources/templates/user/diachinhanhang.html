@@ -145,19 +145,20 @@
                                         <div class="form-group">
                                             <label for="tenNguoiNhan">Tên người nhận</label>
                                             <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan" class="form-control"
-                                                   type="text">
+                                                   type="text" required>
                                             <label for="sdtnhanhang">Số Điện Thoại nhận hàng</label>
                                             <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control"
-                                                   type="text">
+                                                   type="text" required
+                                                   pattern="^0\d{9}$" title="Vui lòng nhập số điện thoại hợp lệ (bắt đầu bằng 0 và có tổng cộng 10 chữ số)">
                                             <label for="tinhThanhPho">Tỉnh Thành Phố</label>
                                             <select name="tinhThanhPhoThemMoi" id="tinhThanhPho"
-                                                    class="form-control"></select>
+                                                    class="form-control" required></select>
                                             <label for="huyenQuan">Quận Huyện</label>
                                             <select name="huyenQuanThemMoi" id="huyenQuan"
-                                                    class="form-control"><option  value="">chọn quận</option></select>
+                                                    class="form-control" required><option  value="">chọn quận</option></select>
                                             <label for="xaPhuong">Xã Phường</label>
                                             <select name="xaPhuongThemMoi" id="xaPhuong"
-                                                    class="form-control"><option   value="">chọn phường</option></select>
+                                                    class="form-control" required><option   value="">chọn phường</option></select>
                                             <input type="hidden" id="diaChiChu" name="diaChiChu" />
                                         </div>
                                         <div class="form-group">

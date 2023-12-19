@@ -45,7 +45,8 @@
                                     <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan" class="form-control"
                                            type="text" required th:maxlength="40">
                                     <label for="sdtnhanhang">Số Điện Thoại nhận hàng</label>
-                                    <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control" type="text" required  maxlength="15">
+                                    <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control" type="text" required
+                                           pattern="^0\d{9}$" title="Vui lòng nhập số điện thoại hợp lệ (bắt đầu bằng 0 và có tổng cộng 10 chữ số)">
                                     <label for="tinhThanhPho">Tỉnh Thành Phố</label>
                                     <select name="tinhThanhPhoThemMoi" id="tinhThanhPho"
                                             class="form-control" required></select>
