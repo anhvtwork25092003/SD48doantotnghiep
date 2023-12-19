@@ -6,8 +6,9 @@
 */
 .row {
     display: block;
-    background: #FCDDEF;
+    background-color: #FCDAB0; /* Màu nền đen cho thanh nav */;
     margin-top: 18px;
+    font-weight: bold; /* Đậm */
 }
 
 header {

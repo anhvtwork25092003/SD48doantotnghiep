@@ -5,8 +5,10 @@
 } */
 .row {
     display: block;
-    background: #FCDDEF;
+    background-color: #FCDAB0; /* Màu nền đen cho thanh nav */;
     margin-top: 18px;
+    font-weight: bold; /* Đậm */
+
 }
 
 header {
@@ -63,7 +65,7 @@ header img {
     text-decoration: none;
     font-size: 120%;
     color: black; /* Màu chữ trắng cho menu */
-    padding: 10px; /* Khoảng cách giữa các mục menu */
+    padding: 20px 15px 8px 15px; /* Khoảng cách giữa các mục menu */
     font-weight: bold; /* Đậm */
     letter-spacing: 2px; /* Khoảng cách giữa các ký tự */
     transition: background-color 0.3s, color 0.3s; /* Hiệu ứng hover màu chữ và nền */
