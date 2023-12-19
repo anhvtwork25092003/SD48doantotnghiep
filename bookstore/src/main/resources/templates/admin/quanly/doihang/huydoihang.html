@@ -68,14 +68,9 @@
                             <td th:text="${dhd.idTraHang}"></td>
                             <td th:text="${dhd.donHang.maDonHang}"></td>
                             <td th:text="${dhd.ngayTao}"></td>
-                            <td>Đang Vận Chuyển</td>
+                            <td>Đã hủy</td>
 
                             <td>
-                                <a th:href="@{/quan-ly/xac-nhan-tra-hang-tra(idTraHang=${dhd.idTraHang})}"
-                                   onclick="return confirm('Bạn có chắc muốn chuyển trạng thái không?')"
-                                   th:hidden="${dhd.trangThai == 2}">
-                                    <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
-                                </a>
                                 <a data-toggle="modal" th:attr="data-target='#modalDonHangDoi-' + ${dhd.idTraHang}">
                                     <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
                                 </a>

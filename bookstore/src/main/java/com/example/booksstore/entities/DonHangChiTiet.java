@@ -65,5 +65,8 @@ public class DonHangChiTiet {
     public String thanhTienVnd() {
         return formatCurrency(this.thanhTien);
     }
+    public String donGiaThoidiemMuaVnd() {
+        return formatCurrency(this.donGiaThoiDiemMua);
+    }
 }
 

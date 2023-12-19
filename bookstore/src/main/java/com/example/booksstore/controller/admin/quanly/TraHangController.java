@@ -133,14 +133,14 @@ public class TraHangController {
     }
 
 
-    //    chuyển trạng thái 0 => 1, đang chuẩn bị => đang vận chuyền
-    @GetMapping("/tra-hang/cap-nhat-trang-thai/{id}")
-    public String doitrangThaithanhdangvanchuyen(@PathVariable("id") String idTraHang) {
+    // hủy don hang
+    @GetMapping("/tra-hang/huy-doi-hang/{id}")
+    public String huydoihang(@PathVariable("id") String idTraHang) {
         TraHang traHang = this.iTraHangRepository.findById(Integer.parseInt(idTraHang)).get();
         if (traHang == null) {
             return "redirect:/quan-ly/danh-sach-doitra";
         } else {
-            traHang.setTrangThai(1);
+            traHang.setTrangThai(3);
             this.iTraHangRepository.save(traHang);
         }
         return "redirect:/quan-ly/danh-sach-doitra";
@@ -209,10 +209,13 @@ public class TraHangController {
             traHang.setTrangThai(1);
             iTraHangRepository.save(traHang);
             System.out.println("Đã xác nhận và cập nhật trạng thái trả hàng: " + traHang);
+            return "redirect:/quan-ly/danh-sach-doitra/dang-van-chuyen";
         } else if (traHang.getTrangThai() == 1) {
             traHang.setTrangThai(2);
             iTraHangRepository.save(traHang);
             System.out.println("Đã xác nhận và cập nhật trạng thái trả hàng: " + traHang);
+            return "redirect:/quan-ly/danh-sach-doitra/van-chuyen-thanh-cong";
+
         }
         model.addAttribute("loggedInUser", nhanVien);
         ThongTinGiaoHang thongTinGiaoHang = traHang.getDonHang().getThongTinGiaoHang();

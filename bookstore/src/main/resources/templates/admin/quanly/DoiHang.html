@@ -49,7 +49,7 @@
                     <a href="/quan-ly/danh-sach-doitra">Đang chuẩn bị hàng!</a>
                     <a href="/quan-ly/danh-sach-doitra/dang-van-chuyen">Đang vận chuyển!</a>
                     <a href="/quan-ly/danh-sach-doitra/van-chuyen-thanh-cong">Vận chuyển thành công!</a>
-                    <a href="/quan-ly/danh-sach-doitra.khong-thanh-cong">không thành công</a>
+                    <a href="/quan-ly/danh-sach-doitra/khong-thanh-cong">không thành công</a>
 
                     <table class="table" style=" border: 0px solid blue;">
                         <thead class="table-dark">
@@ -128,6 +128,7 @@
                                                             <tr>
                                                                 <th>Mã Sản Phẩm</th>
                                                                 <th>Tên Sản Phẩm</th>
+
                                                                 <th>Số Lượng Đổi</th>
                                                             </tr>
                                                             </thead>
@@ -135,6 +136,7 @@
                                                             <tr th:each="ctdh : ${dhd.traHangChiTietList}">
                                                                 <td th:text="${ctdh.sach.maSach}"></td>
                                                                 <td th:text="${ctdh.sach.tenSach}"></td>
+
                                                                 <td th:text="${ctdh.soLuong}"></td>
                                                             </tr>
                                                             </tbody>

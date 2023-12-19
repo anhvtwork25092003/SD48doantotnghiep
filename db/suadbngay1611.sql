@@ -143,3 +143,5 @@ id int identity PRIMARY KEY,
 mavoucher nvarchar(50),
 trangthai int
 )
+alter table voucher 
+add mucgiamgia nvarchar(50)
