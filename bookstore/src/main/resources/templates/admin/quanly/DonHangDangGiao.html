@@ -97,6 +97,8 @@
                                 <th>Số điện Thoại</th>
                                 <th>Tổng Tiền</th>
                                 <th>Ghi Chú</th>
+                                <th>Nhân Viên Duyệt</th>
+
                                 <th>Hành Động</th>
                                 <!--                                <th>Người Duyệt</th>-->
                             </tr>
@@ -111,6 +113,7 @@
                             <td th:text="${dh.tinhTongTienFormatted()}"></td>
                             <!--                            </div>-->
                             <td th:text="${dh.ghiChuKhachHangGui}"></td>
+                            <td th:text="${dh.nhanVien.hoVaTen}"></td>
                             <td>
                                 <a th:href="@{/quan-ly/xac-nhan-don-hang-dang-giao(idDonHang=${dh.idDonHang})}"
                                    onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
@@ -244,6 +247,12 @@
                                                         <input th:value="${dh.tinhTongTienFormatted}"
                                                                class="form-control" type="text"
                                                                disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Nhân Viên Duyệt:</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dh.nhanVien.hoVaTen}"
+                                                               disabled />
                                                     </div>
 
                                                     <!--                                                    <div class="line-item" th:each="nv : ${loggedInUser}">-->

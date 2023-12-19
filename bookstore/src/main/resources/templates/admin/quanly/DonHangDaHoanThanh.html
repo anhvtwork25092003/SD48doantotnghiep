@@ -96,6 +96,8 @@
                                 <th>Tổng Tiền</th>
                                 <th>ID Đổi Hàng</th>
                                 <th>Ghi Chú</th>
+                                <th>Nhân Viên Duyệt</th>
+
                                 <th>Hành Động</th>
                                 <!--                                <th>Người Duyệt</th>-->
                             </tr>
@@ -114,6 +116,8 @@
                                 </span>
                             </td>
                             <td th:text="${dh.ghiChuKhachHangGui}"></td>
+                            <td th:text="${dh.nhanVien.hoVaTen}"></td>
+
                             <td>
                                 <!--start đây là nút xem  nhận đơn hàng-->
                                 <a data-toggle="modal" th:attr="data-target='#modalDonHang-' + ${dh.idDonHang}">
@@ -233,6 +237,12 @@
                                                         <input th:value="${dh.tinhTongTienFormatted()}"
                                                                class="form-control" type="text"
                                                                disabled/>
+                                                    </div>
+                                                    <div class="line-item">
+                                                        <label>Nhân Viên Duyệt:</label>
+                                                        <input class="form-control" type="text"
+                                                               th:value="${dh.nhanVien.hoVaTen}"
+                                                               disabled />
                                                     </div>
 
                                                     <!--                                                    <div class="line-item" th:each="nv : ${loggedInUser}">-->

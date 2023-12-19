@@ -171,6 +171,7 @@ public class DonHangControllerTuanAnh {
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 1) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và lưu lại
+            donHang.setNhanVien(nhanVien);
             donHang.setTrangThai(1); // Đặt trạng thái thành 1 (đã duyệt)
             iDonHangRepo.save(donHang);
 
@@ -669,6 +670,7 @@ public class DonHangControllerTuanAnh {
         // Kiểm tra xem đơn hàng có tồn tại và trạng thái không phải là 'Xác nhận' (1) hay không
         if (donHang != null && donHang.getTrangThai() == 0) {
             // Cập nhật trạng thái của đơn hàng thành 'Xác nhận' (1)
+            donHang.setNhanVien(nhanVien);
             donHang.setTrangThai(1);
             iDonHangRepo.save(donHang);
 
