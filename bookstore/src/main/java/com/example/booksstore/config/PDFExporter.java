@@ -184,8 +184,8 @@ public class PDFExporter {
         columnNameCell.addElement(columnName);
         columnNameCell.setPadding(10);
 
-        Paragraph khachHang = new Paragraph("Khách hàng: ", fontInfoKhach);
-        Paragraph sdtKhachHang = new Paragraph("Điện thoại:    " + donHang.getKhachHang().getSdt(), fontInfoKhach);
+        Paragraph khachHang = new Paragraph("Khách hàng: " + donHang.getThongTinGiaoHang().getTenNguoiNhan(), fontInfoKhach);
+        Paragraph sdtKhachHang = new Paragraph("Điện thoại:    " + donHang.getThongTinGiaoHang().getSdt(), fontInfoKhach);
         Paragraph diaChiKhachHang = new Paragraph("Địa chỉ:         " + donHang.getThongTinGiaoHang().getDiaChiChu(), fontInfoKhach);
 
         PdfPCell shipInfoCell = new PdfPCell();
