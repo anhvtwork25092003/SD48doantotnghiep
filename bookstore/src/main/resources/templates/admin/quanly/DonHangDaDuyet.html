@@ -72,7 +72,7 @@
                     <table class="table" style=" border: 0px solid blue;">
                         <thead class="table-dark">
                         <select class="col-3 form-control" onchange="changePage(this)">
-                            <!--                                <option value="/quan-ly/don-hang/cho-xac-nhan">Đơn Hàng Chờ Xác Nhận</option>-->
+                            <option value="">Chọn Đơn Hàng</option>
                             <option value="/quan-ly/don-hang/da-duyet">Đơn Hàng Đã Duyệt</option>
                             <option value="/quan-ly/don-hang/dang-giao">Đơn Hàng Đang Giao</option>
                             <option value="/quan-ly/don-hang/hoan-thanh">Đã Hoàn Thành</option>
@@ -179,9 +179,9 @@
                                                     </div>
                                                     <div class="line-item">
                                                         <label>Ghi Chú:</label>
-                                                        <textarea class="form-control" type="text"
+                                                        <input class="form-control" type="text"
                                                                   th:value="${dh.ghiChuKhachHangGui}"
-                                                                  disabled></textarea>
+                                                                  disabled />
                                                     </div>
                                                     <div class="line-item">
                                                         <label>Địa Chỉ:</label>
@@ -238,6 +238,14 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!--  nút hủy đơn hàng -->
+                                <a th:href="@{/quan-ly/xac-nhan-huy-don(idDonHang=${dh.idDonHang})}"
+                                   onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                                </a>
+
+                                <!--  nút hủy đơn hàng -->
                                 <!--  modal chi tiết đơn hàng -->
                             </td>
                             <!--                                <div th:each="nv : ${loggedInUser}">-->
