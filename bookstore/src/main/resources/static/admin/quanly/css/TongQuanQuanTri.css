@@ -2,19 +2,33 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #E4E3E3;
+    background-color: white;
 }
 
 .all {
-    background: white;    
+    background: white;
 }
 
-.col-md-4{
+.col-md-4 {
     left: 20px;
 }
-.col-md-3{
+
+.col-md-3 {
     right: -100px;
 }
-.xuatFile{
+
+.xuatFile {
     margin-left: 1000px;
+}
+
+.square {
+    width: 200px;
+    height: 200px;
+    background-color: #fff; /* Màu xanh lá cây */
+    color: #4CAF50; /* Màu trắng cho văn bản */
+    text-align: center;
+    line-height: 100px; /* Căn giữa văn bản theo chiều dọc */
+    /* Căn giữa văn bản theo chiều dọc */
+    border: 2px solid #2E8B57; /* Màu viền xanh lá cây tối */
+    border-radius: 10px; /* Bo tròn các góc */
 }

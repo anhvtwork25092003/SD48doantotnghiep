@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,22 @@ public class ThongKeServiceimpl implements ThongKeService {
 
     @Autowired
     IKhachHangRepository iKhachHangRepository;
+
+    @Override
+    public int soLuongDonHang(int trangThai) {
+        // đơn hàng đang chờ xác nhạn
+
+        List<DonHang> danhSachDonHang = new ArrayList<>();
+
+
+        danhSachDonHang = this.iDonHangRepo.findByTrangThai(trangThai);
+
+        if (danhSachDonHang != null) {
+            return danhSachDonHang.size();
+        } else {
+            return 0;
+        }
+    }
 
     @Override
     public BigDecimal tinhDoanhThuTheoMocThoiGian(Date startTime, Date endTime) {

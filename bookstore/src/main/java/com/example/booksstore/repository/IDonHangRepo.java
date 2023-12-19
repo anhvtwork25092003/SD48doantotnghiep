@@ -28,6 +28,7 @@ public interface IDonHangRepo extends JpaRepository<DonHang, Integer> {
     List<DonHang> findByNgayThanhToanBetween(Date startTime, Date endTime);
 
     List<DonHang> findByNgayThanhToan(Date ngayThanhToan);
+    List<DonHang> findByTrangThai(int trangThai );
 
     @Query(value =
             "SELECT TOP 10 IdSach AS tenSanPham, SUM(soluong) AS soLuong " +

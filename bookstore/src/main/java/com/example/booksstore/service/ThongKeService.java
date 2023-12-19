@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 public interface ThongKeService {
+    int soLuongDonHang(int trangThai);
+
     BigDecimal tinhDoanhThuTheoMocThoiGian(Date startTime, Date endTime);
 
     BigDecimal getDoanhThuNgayHienTai();
@@ -20,7 +22,5 @@ public interface ThongKeService {
     List<TopSanPhamDTO> getTopSanPhamBanChayNhat();
 
     ThongKeKhachHangResponse tinhTongSoLuongKhachHangMoi();
-
-
 
 }
