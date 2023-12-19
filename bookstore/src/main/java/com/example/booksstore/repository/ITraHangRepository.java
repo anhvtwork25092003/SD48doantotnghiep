@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ITraHangRepository extends JpaRepository<TraHang, Integer> {
 
     Page<TraHang> findAllByTrangThai(Pageable pageable, int trangThai);
+    Page<TraHang> findAllByIdTraHang(Pageable pageable, int traHang);
 }

@@ -35,10 +35,11 @@
         <div class="row">
             <div class="col-2">
                 <div class="boxsearchforname">
-                    <form th:action="@{/quan-ly/danh-sach-doitra/khong-thanh-cong}" method="get"
+                    <form th:action="@{/quan-ly/tim-kiem-id-doi-hang-k-thanh-cong}" method="post"
                           enctype="multipart/form-data">
                         <label>Mã đơn đổi trả:</label><br>
-                        <input class="form-control" type="text" id="productName" name="maDonDoiTra">
+                        <input class="form-control" type="text" id="idTraHang" name="idTraHang"
+                               th:value="${param.idTraHang}">
                         <button class="form-control btn btn-success" type="submit">Tìm kiếm</button>
                     </form>
                 </div>

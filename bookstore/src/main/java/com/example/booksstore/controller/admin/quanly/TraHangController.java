@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -210,6 +211,64 @@ public class TraHangController {
 
         }
         return "redirect:/quan-ly/danh-sach-doitra";
+    }
+
+    @PostMapping("/tim-kiem-id-doi-hang")
+    public String searchDaDuyet(@RequestParam("idTraHang") Integer idTraHang,
+                                HttpSession session,
+                                Model model, @RequestParam(defaultValue = "1") int page) {
+        int pageSize = 1;
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<TraHang> timKiemMaAndSdt = iTraHangRepository.findAllByIdTraHang(pageable, idTraHang);
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        model.addAttribute("loggedInUser", nhanVien);
+        model.addAttribute("listth", timKiemMaAndSdt);
+        model.addAttribute("");
+        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
+        return "admin/quanly/DoiHang";
+    }
+    @PostMapping("/tim-kiem-id-doi-hang-van-chuyen")
+    public String searchDvanchuyen(@RequestParam("idTraHang") Integer idTraHang,
+                                HttpSession session,
+                                Model model, @RequestParam(defaultValue = "1") int page) {
+        int pageSize = 1;
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<TraHang> timKiemMaAndSdt = iTraHangRepository.findAllByIdTraHang(pageable, idTraHang);
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        model.addAttribute("loggedInUser", nhanVien);
+        model.addAttribute("listth", timKiemMaAndSdt);
+        model.addAttribute("");
+        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
+        return "admin/quanly/doihang/doihangdanggiaohang";
+    }
+    @PostMapping("/tim-kiem-id-doi-hang-thanh-cong")
+    public String searchthanhCong(@RequestParam("idTraHang") Integer idTraHang,
+                                HttpSession session,
+                                Model model, @RequestParam(defaultValue = "1") int page) {
+        int pageSize = 1;
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<TraHang> timKiemMaAndSdt = iTraHangRepository.findAllByIdTraHang(pageable, idTraHang);
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        model.addAttribute("loggedInUser", nhanVien);
+        model.addAttribute("listth", timKiemMaAndSdt);
+        model.addAttribute("");
+        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
+        return "admin/quanly/doihang/donhanggiaothanhcong";
+
+    }
+    @PostMapping("/tim-kiem-id-doi-hang-k-thanh-cong")
+    public String searchKhongThanhCong(@RequestParam("idTraHang") Integer idTraHang,
+                                HttpSession session,
+                                Model model, @RequestParam(defaultValue = "1") int page) {
+        int pageSize = 1;
+        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Page<TraHang> timKiemMaAndSdt = iTraHangRepository.findAllByIdTraHang(pageable, idTraHang);
+        NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        model.addAttribute("loggedInUser", nhanVien);
+        model.addAttribute("listth", timKiemMaAndSdt);
+        model.addAttribute("");
+        System.out.println("Aaaaaaaaaaa" + timKiemMaAndSdt);
+        return "admin/quanly/doihang/huydoihang";
     }
 
     @GetMapping("/danh-sach-doitra")
