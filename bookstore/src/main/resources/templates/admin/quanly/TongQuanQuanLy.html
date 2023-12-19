@@ -20,19 +20,46 @@
 <body>
 <article layout:fragment="noiDung">
     <div class="container">
-        <h1>Thống Kê lượng khách hàng</h1>
-        <p th:text="${thongkekhachhang.tongKhachHang}"></p>
-        <p th:text="${thongkekhachhang.khachVangLai}"></p>
-        <p th:text="${thongkekhachhang.khachTaoTaiKhoan}"></p>
 
-        <h1>Thống Kê Doanh Thu</h1>
-        <p th:text="'Doanh thu ngày hôm nay: ' + ${doanhThuNgayHienTai}"></p>
-        <p th:text="'Doanh thu ngày hôm qua: ' + ${doanhThuNgayVuaQua}"></p>
-        <h2>biểu đồ bán chạy</h2>
+        <h2>Thống Kê Đơn Hàng</h2>
+        <div class="square" style="color: #2a45c3">
+            <h5> <i class="fa-solid fa-cart-shopping"></i>Đơn hàng chờ xác nhận</h5>
+            <h1 th:text="${donhangcho}"></h1>
+        </div>
+        <div class="square" style="color: yellow">
+            <h5> <i class="fa-solid fa-cart-plus"></i>Đơn hàng đã xác nhận</h5>
+            <h1 th:text="${donhangdaxacnhan}"></h1>
+        </div>
+        <div class="square" style="color: orange">
+            <h5> <i class="fa-solid fa-truck-fast"></i>Đơn hàng đang giao</h5>
+            <h1 th:text="${donhanggiaodanggiao}"></h1>
+        </div>
+        <div class="square">
+            <h5> <i class="fa-solid fa-check-to-slot"></i>Đơn hàng giao thành công</h5>
+            <h1 th:text="${donhanggiaothanhcong}"></h1>
+        </div>
+        <div class="square" style="color: red">
+            <h5> <i class="fa-solid fa-rectangle-xmark"></i>Đơn hàng hủy</h5>
+            <h1 th:text="${donhanghuy}"></h1>
+        </div>
+        <br>
+
+        <h2>Thống Kê Doanh Thu</h2>
+        <div class="square">
+            <h5> <i class="fa-solid fa-hand-holding-dollar"></i>Doanh thu ngày hôm nay</h5>
+            <h1 th:text="${doanhThuNgayHienTai}"></h1>
+        </div>
+        <div class="square">
+            <h5> <i class="fa-solid fa-sack-dollar"></i>Doanh thu ngày hôm qua</h5>
+            <h1 th:text="${doanhThuNgayVuaQua}"></h1>
+        </div>
+        <br>
+        <h2>Biểu đồ bán chạy</h2>
         <canvas id="topSanPhamChart"></canvas>
-        <h3>Biểu đồ test </h3>
+        <br>
+        <h2>Biểu đồ sản phẩm bán chạy </h2>
         <canvas id="doanhThuChart" width="800" height="400"></canvas>
-        
+
     </div>
 </article>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
