@@ -121,12 +121,13 @@
                                                     <div class="form-group col-md-6">
                                                         <label for="tenKhuyenMai">Tên chương trình</label>
                                                         <input type="text" id="tenKhuyenMai" name="tenKhuyenMai"
-                                                               class="form-control" a/>
+                                                               class="form-control" required/>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="soPhanTramGiamGia">Số phần trăm giảm giá</label>
                                                         <input type="number" id="soPhanTramGiamGia"
-                                                               name="soPhanTramGiamGia" class="form-control"/>
+                                                               name="soPhanTramGiamGia" class="form-control" required th:min="1" th:max="99"
+                                                        title="Hãy nhập phần trăm khuyến mãi 1%<>99%"/>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label>Trạng thái</label>
@@ -162,15 +163,15 @@
                                                         <!--anh 1-->
                                                         <input type="file" id="linkBannerKhuyenMai"
                                                                name="linkBannerKhuyenMai" accept="image/*"
-                                                               onchange="displayImage(this, 'selectedImage1')"/>
+                                                               onchange="displayImage(this, 'selectedImage1')" required/>
                                                         <!-- hien thi anh 1-->
                                                         <img id="selectedImage1" src="#" alt="Ảnh đã chọn"
-                                                             style="max-width: 88px; height: auto; display: none;"/>
+                                                             style="max-width: 88px; height: auto; display: none;" />
                                                         <!--anh 2-->
 
                                                         <input type="file" id="linkAnhKhuyenMai" name="linkAnhKhuyenMai"
                                                                accept="image/*"
-                                                               onchange="displayImage(this, 'selectedImage2')"/>
+                                                               onchange="displayImage(this, 'selectedImage2')" required/>
                                                         <!-- hien thi anh 2-->
                                                         <img id="selectedImage2" src="#" alt="Ảnh đã chọn"
                                                              style="max-width: 88px; height: auto; display: none;"/>
@@ -185,19 +186,16 @@
                                                     <input class="form-control" type="datetime-local"
                                                            id="ngayBatDauThemMoi"
                                                            step=60
-                                                           name="ngayBatDau">
+                                                           name="ngayBatDau" required>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <label>Ngày kết thúc:</label>
                                                     <input class="form-control" type="datetime-local"
                                                            id="ngayKetThucThemMoi"
                                                            step=60
-                                                           name="ngayKetThuc" onchange="updateThymeleaf()">
+                                                           name="ngayKetThuc" onchange="updateThymeleaf()" required>
 
                                                 </div>
-                                                <!-- các sản phẩm được áp dungj -->
-                                                <!-- Add tabs for the two lists -->
-                                                <!-- Add tabs for the two lists -->
                                                 <div>
                                                     <button type="button" onclick="showList('list1')">Tất cả sản phẩm
                                                     </button>
@@ -254,6 +252,23 @@
                                                         if (selectedList) {
                                                             selectedList.style.display = 'block';
                                                         }
+                                                    }
+                                                    function validateFormChuaDangNhap() {
+                                                        var tenKhuyenMaiq = document.getElementsByName("tenKhuyenMai")[0].value;
+                                                        var soPhanTramGiamGia = document.getElementsByName("soPhanTramGiamGia")[0].value;
+                                                        // Kiểm tra trống
+                                                        if (tenKhuyenMaiq.trim() === "" || soPhanTramGiamGia.trim() === "") {
+                                                            alert("Vui lòng điền đầy đủ thông tin.");
+                                                            return false;
+                                                        }
+                                                        // Kiểm tra ký tự đặc biệt
+                                                        var specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+                                                        if (specialCharRegex.test(tenKhuyenMaiq) || specialCharRegex.test(soPhanTramGiamGia)
+                                                        ) {
+                                                            alert("Không được nhập ký tự đặc biệt.");
+                                                            return false;
+                                                        }
+                                                        return true;
                                                     }
                                                 </script>
 
@@ -352,13 +367,14 @@
                                                 <div class="input-field">
                                                     <label> Tên Khuyến Mãi</label>
                                                     <input type="text" id="tenKhuyenMai" class="form-control"
-                                                           name="tenKhuyenMai" th:value="${khuyenmai.tenKhuyenMai}"/>
+                                                           name="tenKhuyenMai" th:value="${khuyenmai.tenKhuyenMai}" required/>
                                                 </div>
                                                 <div class="input-field">
                                                     <label> Số phần trăm giảm giá</label>
-                                                    <input type="text" id="soPhanTramGiamGia" class="form-control"
+                                                    <input type="number" id="soPhanTramGiamGia" class="form-control"
                                                            name="soPhanTramGiamGia"
-                                                           th:value="${khuyenmai.soPhanTramGiamGia}"/>
+                                                           th:value="${khuyenmai.soPhanTramGiamGia}" required th:min="1" th:max="99"
+                                                    title="Hãy nhập phần trăm khuyến mãi 1%<>99%"/>
                                                 </div>
                                                 <div class="input-field">
                                                     <label> Ngày Bắt Đầu</label>
