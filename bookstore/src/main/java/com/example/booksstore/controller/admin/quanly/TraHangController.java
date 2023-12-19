@@ -142,6 +142,12 @@ public class TraHangController {
         } else {
             traHang.setTrangThai(3);
             this.iTraHangRepository.save(traHang);
+
+            for (TraHangChiTiet traHangChiTiet : traHang.getTraHangChiTietList()) {
+                Sach sach = iSachRepository.findById(traHangChiTiet.getSach().getIdSach()).get();
+                int soLuongMoi = sach.getSoLuongTonKho() + traHangChiTiet.getSoLuong();
+                this.iSachRepository.save(sach);
+            }
         }
         return "redirect:/quan-ly/danh-sach-doitra";
     }
@@ -209,19 +215,25 @@ public class TraHangController {
             traHang.setTrangThai(1);
             iTraHangRepository.save(traHang);
             System.out.println("Đã xác nhận và cập nhật trạng thái trả hàng: " + traHang);
+            model.addAttribute("loggedInUser", nhanVien);
+            ThongTinGiaoHang thongTinGiaoHang = traHang.getDonHang().getThongTinGiaoHang();
+            KhachHang khachHangDangNhap = traHang.getDonHang().getKhachHang();
+            guiEmailDonHang(traHang, thongTinGiaoHang);
+            guiThongBaoDonHang(traHang, thongTinGiaoHang, khachHangDangNhap);
             return "redirect:/quan-ly/danh-sach-doitra/dang-van-chuyen";
         } else if (traHang.getTrangThai() == 1) {
             traHang.setTrangThai(2);
             iTraHangRepository.save(traHang);
             System.out.println("Đã xác nhận và cập nhật trạng thái trả hàng: " + traHang);
+            model.addAttribute("loggedInUser", nhanVien);
+            ThongTinGiaoHang thongTinGiaoHang = traHang.getDonHang().getThongTinGiaoHang();
+            KhachHang khachHangDangNhap = traHang.getDonHang().getKhachHang();
+            guiEmailDonHang(traHang, thongTinGiaoHang);
+            guiThongBaoDonHang(traHang, thongTinGiaoHang, khachHangDangNhap);
             return "redirect:/quan-ly/danh-sach-doitra/van-chuyen-thanh-cong";
 
         }
-        model.addAttribute("loggedInUser", nhanVien);
-        ThongTinGiaoHang thongTinGiaoHang = traHang.getDonHang().getThongTinGiaoHang();
-        KhachHang khachHangDangNhap = traHang.getDonHang().getKhachHang();
-        guiEmailDonHang(traHang, thongTinGiaoHang);
-        guiThongBaoDonHang(traHang, thongTinGiaoHang, khachHangDangNhap);
+
         // Chuyển hướng về trang đơn đã duyệt
         return "redirect:/quan-ly/danh-sach-doitra";
     }
@@ -241,7 +253,7 @@ public class TraHangController {
                 }
         }
 
-        String subject = "Dưới đây là mã đơn hàng và trạng thái đơn hàng của bạn!! ";
+        String subject = "Thông báo về đơn trả hàng! ";
         senderService.sendSimpleEmail(thongTinGiaoHang.getEmailGiaoHang(), subject,
                 "Mã Đơn Hàng của bạn " + traHang.getDonHang().getMaDonHang() + "\n" +
                         "Trạng thái đơn: " + trangThaiDonHang);

@@ -22,7 +22,7 @@
     <div class="container">
 
         <div class="all">
-            <form th:action="@{'/thanh-toan/xac-nhan-len-don'}" enctype="multipart/form-data" method="post">
+            <form th:action="@{'/thanh-toan/xac-nhan-len-don'}" enctype="multipart/form-data" method="post" onsubmit="return validateFormChuaDangNhap()">
                 <!-- chưa đăng nhập -->
                 <div class="chuadangnhap">
                     <div>
@@ -42,12 +42,13 @@
                     <div class="col-md-6">
                         <label>Họ tên</label>
                         <input class="form-control" type="text" name="tenNguoiNhan" placeholder="Nhập họ tên"
-                               maxlength="50" required>
+                               maxlength="50" required
+                        >
                     </div>
                     <div class="col-md-6">
                         <label>Điện thoại di động</label>
                         <input class="form-control" type="text" name="soDienThoaiNhanHang"
-                               placeholder="Nhập số điện thoại" required>
+                               placeholder="Nhập số điện thoại" required  maxlength="15">
                     </div>
                     <div class="col-md-6">
                         <label>Email</label>
@@ -68,7 +69,7 @@
                         <select name="xaPhuong" id="xaPhuong" class="form-control" required>
                         </select>
                     </div>
-                    <input type="hidden" id="diaChiChu" name="diaChiChu" />
+                    <input type="hidden" id="diaChiChu" name="diaChiChu"/>
                     <div class="col-md-6">
                         <label>Địa chỉ</label>
                         <textarea class="form-control" type="textarea" name="diaChiCuThe"
@@ -185,9 +186,8 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <button type="submit" class="btn btn-danger btn-lg btn-block"
-                                        onclick="return confirm('Bạn có muốn xác nhận thanh toán không ?')">Thanh
-                                    toán
+                                <button type="submit" class="btn btn-danger btn-lg btn-block" onclick="return validateFormChuaDangNhap()">
+                                    Thanh toán
                                 </button>
                             </div>
                         </div>

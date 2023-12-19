@@ -38,22 +38,22 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form th:action="@{/thanh-toan/them-dia-chi}" method="post"
+                            <form th:action="@{/thanh-toan/them-dia-chi}" method="post" onsubmit="return validateFormDiaChi()"
                                   enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="tenNguoiNhan">Tên người nhận</label>
                                     <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan" class="form-control"
-                                           type="text">
+                                           type="text" required th:maxlength="40">
                                     <label for="sdtnhanhang">Số Điện Thoại nhận hàng</label>
-                                    <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control" type="text">
+                                    <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control" type="text" required  maxlength="15">
                                     <label for="tinhThanhPho">Tỉnh Thành Phố</label>
                                     <select name="tinhThanhPhoThemMoi" id="tinhThanhPho"
-                                            class="form-control"></select>
+                                            class="form-control" required></select>
                                     <label for="huyenQuan">Quận Huyện</label>
                                     <select name="huyenQuanThemMoi" id="huyenQuan"
-                                            class="form-control"></select>
+                                            class="form-control" required></select>
                                     <label for="xaPhuong">Xã Phường</label>
-                                    <select name="xaPhuongThemMoi" id="xaPhuong" class="form-control"></select>
+                                    <select name="xaPhuongThemMoi" id="xaPhuong" class="form-control" required></select>
                                     <input type="hidden" id="diaChiChu" name="diaChiChu" />
                                 </div>
                                 <div class="form-group">
@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-            <form th:action="@{'/thanh-toan/xac-nhan-len-don'}" method="post" enctype="multipart/form-data">
+            <form th:action="@{'/thanh-toan/xac-nhan-len-don'}" method="post" enctype="multipart/form-data" onsubmit="return validateFormDagNhap()">
                 <div class="diaChi">
                     <div class="form-checked">
                         <!-- Trong template Thymeleaf -->
