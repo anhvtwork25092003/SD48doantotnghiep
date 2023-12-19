@@ -214,11 +214,13 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <div class="line-item" th:each="th : ${dh.traHang}">
+                                                    <div class="line-item">
                                                         <label>ID Đổi Hàng:</label>
-                                                        <input th:value="${th.idTraHang}"
-                                                               class="form-control" type="text"
-                                                               disabled/>
+                                                        <br>
+                                                        <span th:each="th : ${dh.traHang}">
+                                                            <span th:text="${th.idTraHang}"></span>
+                                                            <br/>
+                                                        </span>
                                                     </div>
                                                     <div class="line-item">
                                                         <label>Tiền vận chuyển:</label>
