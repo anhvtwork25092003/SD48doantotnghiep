@@ -31,4 +31,6 @@
     /* Căn giữa văn bản theo chiều dọc */
     border: 2px solid #2E8B57; /* Màu viền xanh lá cây tối */
     border-radius: 10px; /* Bo tròn các góc */
+    display: inline-grid;
+    margin: 9px;
 }
