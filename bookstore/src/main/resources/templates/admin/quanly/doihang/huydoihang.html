@@ -46,10 +46,12 @@
             </div>
             <div class="col-10">
                 <div class="box">
-                    <a href="/quan-ly/danh-sach-doitra">Đang chuẩn bị hàng!</a>
-                    <a href="/quan-ly/danh-sach-doitra/dang-van-chuyen">Đang vận chuyển!</a>
-                    <a href="/quan-ly/danh-sach-doitra/van-chuyen-thanh-cong">Vận chuyển thành công!</a>
-                    <a href="/quan-ly/danh-sach-doitra/khong-thanh-cong">không thành công</a>
+                    <a class="btn btn-success" href="/quan-ly/danh-sach-doitra">Đang chuẩn bị !</a>
+                    <a class="btn btn-success" href="/quan-ly/danh-sach-doitra/dang-van-chuyen">Đang vận chuyển!</a>
+                    <a class="btn btn-success" href="/quan-ly/danh-sach-doitra/van-chuyen-thanh-cong">Đổi/trả thành
+                        công!</a>
+                    <a class="btn btn-success" href="/quan-ly/danh-sach-doitra/khong-thanh-cong"> Đổi/Trả Không thành
+                        công</a>
 
                     <table class="table" style=" border: 0px solid blue;">
                         <thead class="table-dark">
@@ -71,7 +73,15 @@
                             <td th:text="${dhd.ngayTao}"></td>
                             <td th:text="${dhd.loaiTraHang == 0 ? 'Đổi hàng' : (dhd.loaiTraHang == 1 ? 'Trả hàng hoàn tiền' : 'Trả hàng hoàn tiền')}"></td>
 
-                            <td>Đã hủy</td>
+                            <td>
+                                <span th:switch="${dhd.trangThai}">
+                                    <span th:case="0">Đang chuẩn bị</span>
+                                    <span th:case="1">Đang vận chuyển</span>
+                                    <span th:case="2">Hoàn thành đổi trả</span>
+                                    <span th:case="3">Đã hủy</span>
+                                    <span th:case="*" th:text="${'Trạng thái không xác định'}"></span>
+                                </span>
+                            </td>
 
                             <td>
                                 <a data-toggle="modal" th:attr="data-target='#modalDonHangDoi-' + ${dhd.idTraHang}">
