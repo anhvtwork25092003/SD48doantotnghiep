@@ -74,9 +74,10 @@ public class TraHangController {
             @RequestParam(name = "idDonHang") List<Integer> idDonHangs,
             @RequestParam(name = "soLuong") List<Integer> soLuongs,
             @RequestParam(name = "loaiTraHang") int loaiTraHang,
+
             RedirectAttributes redirectAttributes) {
 
-        if (loaiTraHang == 0) {
+        if (loaiTraHang == 1) {
             //  trả hàng hoàn tiền
             TraHang traHang = new TraHang();
             boolean checksoluong = false;
@@ -122,17 +123,8 @@ public class TraHangController {
                 guiThongBaoDonHang(traHang, thongTinGiaoHang, khachHangDangNhap);
             }
 
-            if (traHangChiTietList != null && traHangChiTietList.size() > 0) {
-                for (TraHangChiTiet traHangChiTiet : traHangChiTietList) {
-                    Sach sach = iSachRepository.findById(traHangChiTiet.getSach().getIdSach()).orElse(null);
-                    int soLuongmoi = sach.getSoLuongTonKho() - traHangChiTiet.getSoLuong();
-                    sach.setSoLuongTonKho(soLuongmoi);
-                    iSachRepository.save(sach);
-                }
-            }
             return "redirect:/quan-ly/danh-sach-doitra";
         } else {
-
             TraHang traHang = new TraHang();
             boolean checksoluong = false;
             for (Integer integer : soLuongs) {
@@ -206,19 +198,25 @@ public class TraHangController {
         } else {
             traHang.setTrangThai(3);
             this.iTraHangRepository.save(traHang);
-            for (TraHangChiTiet traHangChiTiet : traHang.getTraHangChiTietList()) {
-                Sach sach = iSachRepository.findById(traHangChiTiet.getSach().getIdSach()).get();
-                int soLuongMoi = sach.getSoLuongTonKho() + traHangChiTiet.getSoLuong();
-                sach.setSoLuongTonKho(soLuongMoi);
-                this.iSachRepository.save(sach);
+            if (traHang.getLoaiTraHang() == 0) {
+//               đổi hàng, tăng lại soosluowngj hàng nếu hủy
+                for (TraHangChiTiet traHangChiTiet : traHang.getTraHangChiTietList()) {
+                    Sach sach = iSachRepository.findById(traHangChiTiet.getSach().getIdSach()).get();
+                    int soLuongMoi = sach.getSoLuongTonKho() + traHangChiTiet.getSoLuong();
+                    sach.setSoLuongTonKho(soLuongMoi);
+                    this.iSachRepository.save(sach);
+                }
             }
+
         }
         return "redirect:/quan-ly/danh-sach-doitra";
     }
 
     @GetMapping("/danh-sach-doitra")
-    public String danhSachDonDoiHangDangChuanBiHang(HttpSession session
-            , Model model, @RequestParam(defaultValue = "1") int page) {
+    public String danhSachDonDoiHangDangChuanBiHang(HttpSession session,
+                                                    @RequestParam(value = "maDonDoiTra", required = false) String maDondoitra
+            , Model model
+            , @RequestParam(defaultValue = "1") int page) {
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         model.addAttribute("loggedInUser", nhanVien);
         int pageSize = 5;
@@ -277,6 +275,17 @@ public class TraHangController {
                                      @RequestParam("idTraHang") String idTraHang) {
         TraHang traHang = iTraHangRepository.findById(Integer.parseInt(idTraHang)).get();
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
+        if (traHang.getLoaiTraHang() == 1) {
+            if (traHang.getTrangThai() == 0) {
+                traHang.setTrangThai(2);
+                iTraHangRepository.save(traHang);
+                model.addAttribute("loggedInUser", nhanVien);
+                ThongTinGiaoHang thongTinGiaoHang = traHang.getDonHang().getThongTinGiaoHang();
+                KhachHang khachHangDangNhap = traHang.getDonHang().getKhachHang();
+                guiEmailDonHang(traHang, thongTinGiaoHang);
+                guiThongBaoDonHang(traHang, thongTinGiaoHang, khachHangDangNhap);
+            }
+        }
         if (traHang.getTrangThai() == 0) {
             traHang.setTrangThai(1);
             iTraHangRepository.save(traHang);
@@ -297,9 +306,7 @@ public class TraHangController {
             guiEmailDonHang(traHang, thongTinGiaoHang);
             guiThongBaoDonHang(traHang, thongTinGiaoHang, khachHangDangNhap);
             return "redirect:/quan-ly/danh-sach-doitra/van-chuyen-thanh-cong";
-
         }
-
         // Chuyển hướng về trang đơn đã duyệt
         return "redirect:/quan-ly/danh-sach-doitra";
     }
@@ -311,11 +318,11 @@ public class TraHangController {
                 trangThaiDonHang = "Đơn hàng của bạn đang được vận chuyển!!!!";
                 break;
             case 2:
-                trangThaiDonHang = "Đơn hàng của bạn đã được hoàn thành!!!!";
+                trangThaiDonHang = "Đơn đổi hàng của bạn đã được hoàn thành!!!!";
                 break;
             default:
                 if (traHang.getTrangThai() == 0) {
-                    trangThaiDonHang = "Đơn hàng của bạn đã được đổi lại và đang chuẩn bị hàng!!!";
+                    trangThaiDonHang = "Đơn đổi/trả hàng của bạn đã đang được chuẩn bị !";
                 }
         }
 
