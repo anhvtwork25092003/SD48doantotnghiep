@@ -15,7 +15,36 @@
     <div class="container">
         <!-- HEADER -->
         <header>
-            <h1><img src="/image/banner/bannerTrangChu.jpg"></h1>
+            <h1>
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li th:each="bn, iterStat : ${khuyenmaihienthibaner.content}"
+                            th:if="${bn.trangThaiHienThi == 1 or bn.trangThaiHienThi == 0}"
+                            th:data-target="carouselExampleIndicators"
+                            th:data-slide-to="${iterStat.index}"
+                            th:class="${iterStat.index == 0 } ? 'active' : ''"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div th:each="bn, iterStat : ${khuyenmaihienthibaner.content}"
+                             th:if="${bn.trangThaiHienThi == 1 or bn.trangThaiHienThi == 0}"
+                             th:class="${iterStat.index == 0} ? 'carousel-item active' : 'carousel-item'">
+                            <a th:href="@{'/uu-dai/uu-dai-chi-tiet?idKhuyenMai=' + ${bn.idKhuyenMai}}">
+                                <img th:src="${bn.linkBannerKhuyenMai}" class="d-block w-100" alt="...">
+                            </a>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+            </h1>
+            <!--            <h1><img src="/image/banner/bannerTrangChu.jpg"></h1>-->
         </header>
         <!-- HEADER -->
         <!-- chuyển trang -->
