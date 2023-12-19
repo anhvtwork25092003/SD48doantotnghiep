@@ -39,6 +39,10 @@ public class QuanLyController {
 
             model.addAttribute("doanhThuNgayHienTai", formattedDoanhThuNgayHienTai);
             model.addAttribute("thongkekhachhang", thongKeKhachHangResponse);
+            model.addAttribute("donhangcho", thongKeService.soLuongDonHang(0));
+            model.addAttribute("donhangdangvanchuyen", thongKeService.soLuongDonHang(1));
+            model.addAttribute("donhanggiaothanhcong", thongKeService.soLuongDonHang(2));
+
             model.addAttribute("doanhThuNgayVuaQua", formattedDoanhThuNgayVuaQua);
             model.addAttribute("loggedInUser", nhanVien);
             return "/admin/quanly/TongQuanQuanLy";
