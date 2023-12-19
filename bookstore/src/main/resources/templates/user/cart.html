@@ -211,17 +211,17 @@
                             var selectedValuesString = selectedCheckboxValues.join(',');
 
                             // Hiển thị xác nhận
-                            var isConfirmed = confirm('Bạn có chắc chắn muốn thanh toán?');
-
-                            // Nếu người dùng chọn OK (đồng ý)
-                            if (isConfirmed) {
-                                // Tạo URL với giá trị được chọn và chuyển hướng
-                                var url = '/thanh-toan/xac-nhan-thanh-toan?selectedValues=' + encodeURIComponent(selectedValuesString);
-                                window.location.href = url;
-                            } else {
-                                // Ngăn chặn hành động mặc định của nút submit nếu người dùng chọn Cancel
-                                event.preventDefault();
-                            }
+                            // var isConfirmed = confirm('Bạn có chắc chắn muốn thanh toán?');
+                            //
+                            // // Nếu người dùng chọn OK (đồng ý)
+                            // if (isConfirmed) {
+                            //     // Tạo URL với giá trị được chọn và chuyển hướng
+                            //     var url = '/thanh-toan/xac-nhan-thanh-toan?selectedValues=' + encodeURIComponent(selectedValuesString);
+                            //     window.location.href = url;
+                            // } else {
+                            //     // Ngăn chặn hành động mặc định của nút submit nếu người dùng chọn Cancel
+                            //     event.preventDefault();
+                            // }
                         }
                     });
 

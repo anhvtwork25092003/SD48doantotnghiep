@@ -1,6 +1,10 @@
 package com.example.booksstore.service.serviceimpl;
 
-import com.example.booksstore.entities.*;
+import com.example.booksstore.entities.DonHang;
+import com.example.booksstore.entities.DonHangChiTiet;
+import com.example.booksstore.entities.GioHangChiTiet;
+import com.example.booksstore.entities.KhuyenMai;
+import com.example.booksstore.entities.Sach;
 import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.ISachRepository;
@@ -147,8 +151,8 @@ public class DonHangChiTietServiceImpl implements IDonHangService {
     }
 
     @Override
-    public Page<DonHang> searchDOnHang(String maDonHang, Date startDate, Date endDate, Pageable pageable) {
-        Specification<DonHang> spec   = DonHangSpecification.filterDonHang(maDonHang,startDate,endDate);
-        return iDonHangRepo.findAll(spec,pageable);
+    public Page<DonHang> searchDOnHang(String maDonHang, Date startDate, Date endDate, int trangThai, Pageable pageable) {
+        Specification<DonHang> spec = DonHangSpecification.filterDonHang(maDonHang, startDate, endDate, trangThai);
+        return iDonHangRepo.findAll(spec, pageable);
     }
 }

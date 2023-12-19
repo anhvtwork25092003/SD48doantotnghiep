@@ -29,14 +29,14 @@
                             <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
                         </div>
                     </div>
-<!--                    <div class="boxsearch">-->
-<!--                        <h6 style="text-align: center;">Tìm theo số điện thoại</h6>-->
-<!--                        <div class="search">-->
-<!--                            <input class="form-control" type="search" name="sdt" placeholder="Search"-->
-<!--                                   th:value="${param.sdt}">-->
-<!--                            &lt;!&ndash; <button class="btn btn-outline-success" type="submit">Search</button> &ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <!--                    <div class="boxsearch">-->
+                    <!--                        <h6 style="text-align: center;">Tìm theo số điện thoại</h6>-->
+                    <!--                        <div class="search">-->
+                    <!--                            <input class="form-control" type="search" name="sdt" placeholder="Search"-->
+                    <!--                                   th:value="${param.sdt}">-->
+                    <!--                            &lt;!&ndash; <button class="btn btn-outline-success" type="submit">Search</button> &ndash;&gt;-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
                     <br>
                     <div class="boxtrang">
                         <h6 style="text-align: center;margin-bottom: 10px;">Thời gian</h6>
@@ -97,7 +97,7 @@
                                 <th>ID Đổi Hàng</th>
                                 <th>Ghi Chú</th>
                                 <th>Nhân Viên Duyệt</th>
-
+                                <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                                 <!--                                <th>Người Duyệt</th>-->
                             </tr>
@@ -117,18 +117,50 @@
                             </td>
                             <td th:text="${dh.ghiChuKhachHangGui}"></td>
                             <td th:text="${dh.nhanVien.hoVaTen}"></td>
-
                             <td>
-                                <!--start đây là nút xem  nhận đơn hàng-->
-                                <a data-toggle="modal" th:attr="data-target='#modalDonHang-' + ${dh.idDonHang}">
-                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                                    <span th:switch="${dh.trangThai}">
+                                        <span th:case="0">Chờ Duyệt</span>
+                                        <span th:case="1">Chờ vận chuyển</span>
+                                        <span th:case="2">Đang vận chuyển</span>
+                                        <span th:case="3">Hoàn thành</span>
+                                        <span th:case="4">Đã hủy</span>
+                                        <span th:case="*" th:text="${'Trạng thái không xác định'}"></span>
+                                    </span>
+                            </td>
+                            <td>
+                                <!--start đây là nút xác nhận  nhận đơn hàng-->
+                                <a th:if="${dh.trangThai == 4}"
+                                   th:href="@{/quan-ly/xac-nhan-giao-lai(idDonHang=${dh.idDonHang})}"
+                                   onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
+                                    <i class="fa-solid fa-repeat"></i>
                                 </a>
-                                <!--end  đây là nút xem  nhận đơn hàng-->
-                                <a onclick="return confirm('Bạn có chắc muốn đổi đơn hàng này?')"
+                                <!-- nút đổi-->
+                                <a th:if="${dh.trangThai == 3}"
+                                   onclick="return confirm('Bạn có chắc muốn đổi đơn hàng này?')"
                                    th:href="@{'/quan-ly/danh-sach-doi/'+${dh.idDonHang}}">
                                     <i class="fa-solid fa-right-left" style="color: #ff6600;"></i>
                                 </a>
-
+                                <!--                                 hủy-->
+                                <a th:if="${dh.trangThai != 3 && dh.trangThai != 4 }"
+                                   th:href="@{'/quan-ly/xac-nhan-huy-don/'+${dh.idDonHang}}"
+                                   onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                                </a>
+                                <!--                                 duyệt cho 0-->
+                                <a th:if="${dh.trangThai ==0 }"
+                                   th:href="@{/quan-ly/don-hang/export/pdf(idDonHang=${dh.idDonHang})}"
+                                   onclick="return confirm('Bạn có chắc muốn duyệt đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
+                                </a>
+                                <!--                                 duyệt cho 0-->
+                                <a th:if="${dh.trangThai !=0 && dh.trangThai != 3 &&dh.trangThai != 4 }"
+                                   th:href="@{'/quan-ly/chuyen-doi-trang-thai-don/'+${dh.idDonHang}}"
+                                   onclick="return confirm('Bạn có chắc muốn duyệt đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
+                                </a>
+                                <a data-toggle="modal" th:attr="data-target='#modalDonHang-' + ${dh.idDonHang}">
+                                    <i class="fa-solid fa-circle-exclamation" style="color: #ffdd00;"></i>
+                                </a>
                                 <!--  modal chi tiết đơn hàng -->
 
                                 <div class="modal fade" th:id="'modalDonHang-' + ${dh.idDonHang}" tabindex="-1"
@@ -242,14 +274,8 @@
                                                         <label>Nhân Viên Duyệt:</label>
                                                         <input class="form-control" type="text"
                                                                th:value="${dh.nhanVien.hoVaTen}"
-                                                               disabled />
+                                                               disabled/>
                                                     </div>
-
-                                                    <!--                                                    <div class="line-item" th:each="nv : ${loggedInUser}">-->
-                                                    <!--                                                        <label>Người Duyệt</label>-->
-                                                    <!--                                                        <input th:value="${nv.hoVaTen}"-->
-                                                    <!--                                                               class="form-control" type="text" disabled>-->
-                                                    <!--                                                    </div>-->
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -261,13 +287,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--  modal chi tiết đơn hàng -->
                             </td>
-                            <!--                            <div th:each="nv : ${loggedInUser}">-->
-                            <!--                                <td>-->
-                            <!--                                    <span th:text="${nv.maNhanVien}"></span> - <span th:text="${nv.hoVaTen}"></span>-->
-                            <!--                                </td>-->
-                            <!--                            </div>-->
                         </tr>
                         </tbody>
                     </table>

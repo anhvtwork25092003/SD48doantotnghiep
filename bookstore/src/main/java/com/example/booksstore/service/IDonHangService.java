@@ -19,6 +19,6 @@ public interface IDonHangService {
     BigDecimal tinhTongTienDonHangDaTinhVanChuyen(List<GioHangChiTiet> gioHangChiTietList);
     BigDecimal tinhTongTienDonHangChuaTinhVanChuyen(List<GioHangChiTiet> gioHangChiTietList);
 
-    Page<DonHang> searchDOnHang(String maDonHang, Date startDate, Date endDate, Pageable pageable);
+    Page<DonHang> searchDOnHang(String maDonHang, Date startDate, Date endDate, int trangThai, Pageable pageable);
 
 }

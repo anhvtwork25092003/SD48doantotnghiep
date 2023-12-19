@@ -1,12 +1,22 @@
 package com.example.booksstore.controller.admin.quanly;
 
 import com.example.booksstore.config.PDFExporter;
-import com.example.booksstore.entities.*;
+import com.example.booksstore.entities.DonHang;
+import com.example.booksstore.entities.DonHangChiTiet;
+import com.example.booksstore.entities.KhachHang;
+import com.example.booksstore.entities.NhanVien;
+import com.example.booksstore.entities.ThongBao;
+import com.example.booksstore.entities.ThongTinGiaoHang;
 import com.example.booksstore.repository.DonHangChiTietRepo;
 import com.example.booksstore.repository.IDonHangRepo;
 import com.example.booksstore.repository.IKhachHangRepository;
 import com.example.booksstore.repository.NhanVienRepository;
-import com.example.booksstore.service.*;
+import com.example.booksstore.service.EmailSenderService;
+import com.example.booksstore.service.IDonHangService;
+import com.example.booksstore.service.IKiemTraDanhGiaService;
+import com.example.booksstore.service.INhanVienService;
+import com.example.booksstore.service.IThongBaoService;
+import com.example.booksstore.service.ThongBaoKhachHangService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -14,10 +24,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +38,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 @RequestMapping("/quan-ly")
@@ -103,7 +112,7 @@ public class DonHangControllerTuanAnh {
             } catch (ParseException e) {
                 e.printStackTrace(); // Handle the exception properly in a real-world scenario
             }
-            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, pageable);
+            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, 0, pageable);
         } else {
             pageDonHang = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 0);
         }
@@ -157,6 +166,65 @@ public class DonHangControllerTuanAnh {
         return "redirect:/quan-ly/don-hang/cho-xac-nhan";
     }
 
+    @GetMapping("/chuyen-doi-trang-thai-don/{idDonHang}")
+    public String chuyendoitrangthai(@PathVariable("idDonHang") int id) {
+
+        DonHang donHang = this.iDonHangRepo.findById(id).get();
+        if (donHang.getTrangThai() == 0) {
+            donHang.setTrangThai(1);
+            this.iDonHangRepo.save(donHang);
+            ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
+            KhachHang khachHangDangNhap = donHang.getKhachHang();
+            String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
+            if ("0".equals(loaiKhachHang)) {
+                // Loại khách hàng = 0, chỉ gửi email
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            } else {
+                // Loại khách hàng = 1, gửi cả thông báo lẫn email
+                guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            }
+
+            return "redirect:/quan-ly/don-hang/da-duyet";
+
+        } else if (donHang.getTrangThai() == 1) {
+            donHang.setTrangThai(2);
+            this.iDonHangRepo.save(donHang);
+            ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
+            KhachHang khachHangDangNhap = donHang.getKhachHang();
+            String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
+            if ("0".equals(loaiKhachHang)) {
+                // Loại khách hàng = 0, chỉ gửi email
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            } else {
+                // Loại khách hàng = 1, gửi cả thông báo lẫn email
+                guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            }
+            return "redirect:/quan-ly/don-hang/dang-giao";
+
+
+        } else if (donHang.getTrangThai() == 2) {
+            donHang.setTrangThai(3);
+            this.iDonHangRepo.save(donHang);
+            ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
+            KhachHang khachHangDangNhap = donHang.getKhachHang();
+            String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
+            if ("0".equals(loaiKhachHang)) {
+                // Loại khách hàng = 0, chỉ gửi email
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            } else {
+                // Loại khách hàng = 1, gửi cả thông báo lẫn email
+                guiThongBaoDonHang(donHang, thongTinGiaoHang, khachHangDangNhap);
+                guiEmailDonHang(donHang, thongTinGiaoHang);
+            }
+            return "redirect:/quan-ly/don-hang/hoan-thanh";
+
+        }
+        return "redirect:/quan-ly/don-hang/hoan-thanh";
+
+    }
+
     @GetMapping("/xac-nhan-don-hang-cho")
     public String xacNhanDonHangCho(Model model, HttpSession session,
                                     @RequestParam("idDonHang") String idDonHang) {
@@ -178,8 +246,6 @@ public class DonHangControllerTuanAnh {
             // In thông tin để kiểm tra
             System.out.println("Đã xác nhận và cập nhật trạng thái đơn hàng: " + donHang);
         }
-
-
         ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
         KhachHang khachHangDangNhap = donHang.getKhachHang();
 
@@ -200,16 +266,15 @@ public class DonHangControllerTuanAnh {
 
     }
 
-    @GetMapping("/xac-nhan-huy-don")
+    @GetMapping("/xac-nhan-huy-don/{id}")
     public String xacNhanDonHangHuy(Model model, HttpSession session,
-                                    @RequestParam("idDonHang") String idDonHang) {
+                                    @PathVariable("id") int idDonHang) {
         // Lấy đơn hàng từ idDonHang
-        DonHang donHang = iDonHangRepo.findByIdDonHang(Integer.parseInt(idDonHang));
+        DonHang donHang = iDonHangRepo.findByIdDonHang(idDonHang);
         NhanVien nhanVien = (NhanVien) session.getAttribute("dangnhapnhanvien");
         if (nhanVien == null) {
             return "redirect:/login";
         }
-
         // Kiểm tra xem đơn hàng đã được duyệt chưa
         if (donHang.getTrangThai() != 4) {
             // Nếu đơn hàng chưa được duyệt, thì cập nhật trạng thái và thời gian hủy
@@ -283,7 +348,7 @@ public class DonHangControllerTuanAnh {
             } catch (ParseException e) {
                 e.printStackTrace(); // Handle the exception properly in a real-world scenario
             }
-            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, pageable);
+            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, 1, pageable);
         } else {
             pageDonHang = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 1);
         }
@@ -385,7 +450,7 @@ public class DonHangControllerTuanAnh {
             } catch (ParseException e) {
                 e.printStackTrace(); // Handle the exception properly in a real-world scenario
             }
-            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, pageable);
+            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, 2, pageable);
         } else {
             pageDonHang = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 2);
         }
@@ -483,7 +548,7 @@ public class DonHangControllerTuanAnh {
             } catch (ParseException e) {
                 e.printStackTrace(); // Handle the exception properly in a real-world scenario
             }
-            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, pageable);
+            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, 3, pageable);
         } else {
             pageDonHang = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 3);
         }
@@ -531,7 +596,7 @@ public class DonHangControllerTuanAnh {
             } catch (ParseException e) {
                 e.printStackTrace(); // Handle the exception properly in a real-world scenario
             }
-            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, pageable);
+            pageDonHang = donHangService.searchDOnHang(maDonHang, ngayBatDau, ngayKetThuc, 4, pageable);
         } else {
             pageDonHang = iDonHangRepo.findAllByTrangThaiOrderByIdDonHangDesc(pageable, 4);
         }
@@ -555,9 +620,11 @@ public class DonHangControllerTuanAnh {
                 // Nếu trạng thái là 3 (hủy), thì thực hiện giao lại
                 donHang.setTrangThai(0); // Đặt lại trạng thái của đơn hàng thành chờ (status = 0)
                 donHang.setNgayTao(new Date()); // Cập nhật ngày tạo mới
+                DonHang donHang1 = iDonHangRepo.save(donHang);
 
-
-                iDonHangRepo.save(donHang);
+                for (DonHangChiTiet dhct : donHang1.getChiTietDonHang()) {
+                    donHangService.truSoLuongTonKho(dhct);
+                }
             }
 
             ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();

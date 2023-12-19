@@ -98,7 +98,6 @@
                                 <th>Tổng Tiền</th>
                                 <th>Ghi Chú</th>
                                 <th>Nhân Viên Duyệt</th>
-
                                 <th>Hành Động</th>
                                 <!--                                <th>Người Duyệt</th>-->
                             </tr>
@@ -109,14 +108,38 @@
                             <td th:text="${dh.thongTinGiaoHang.tenNguoiNhan}"></td>
                             <td th:text="${dh.ngayTao}"></td>
                             <td th:text="${dh.thongTinGiaoHang.sdt}"></td>
-                            <!--                            <div th:each="ctdh : ${dh.chiTietDonHang}">-->
                             <td th:text="${dh.tinhTongTienFormatted()}"></td>
-                            <!--                            </div>-->
                             <td th:text="${dh.ghiChuKhachHangGui}"></td>
                             <td th:text="${dh.nhanVien.hoVaTen}"></td>
                             <td>
-                                <a th:href="@{/quan-ly/xac-nhan-don-hang-dang-giao(idDonHang=${dh.idDonHang})}"
-                                   onclick="return confirm('Bạn có chắc đã giao đơn hàng này không?')">
+                                <!--start đây là nút xác nhận  nhận đơn hàng-->
+                                <a th:if="${dh.trangThai == 4}"
+                                   th:href="@{/quan-ly/xac-nhan-giao-lai(idDonHang=${dh.idDonHang})}"
+                                   onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
+                                    <i class="fa-solid fa-repeat"></i>
+                                </a>
+                                <!-- nút đổi-->
+                                <a th:if="${dh.trangThai == 3}"
+                                   onclick="return confirm('Bạn có chắc muốn đổi đơn hàng này?')"
+                                   th:href="@{'/quan-ly/danh-sach-doi/'+${dh.idDonHang}}">
+                                    <i class="fa-solid fa-right-left" style="color: #ff6600;"></i>
+                                </a>
+                                <!--                                 hủy-->
+                                <a th:if="${dh.trangThai != 3 && dh.trangThai != 4 }"
+                                   th:href="@{'/quan-ly/xac-nhan-huy-don/'+${dh.idDonHang}}"
+                                   onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
+                                </a>
+                                <!--                                 duyệt cho 0-->
+                                <a th:if="${dh.trangThai ==0 }"
+                                   th:href="@{/quan-ly/don-hang/export/pdf(idDonHang=${dh.idDonHang})}"
+                                   onclick="return confirm('Bạn có chắc muốn duyệt đơn hàng này không?')">
+                                    <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
+                                </a>
+                                <!--                                 duyệt cho 0-->
+                                <a th:if="${dh.trangThai !=0 && dh.trangThai != 3 &&dh.trangThai != 4 }"
+                                   th:href="@{'/quan-ly/chuyen-doi-trang-thai-don/'+${dh.idDonHang}}"
+                                   onclick="return confirm('Bạn có chắc muốn duyệt đơn hàng này không?')">
                                     <i class="fa-solid fa-circle-check" style="color: #006ec2;"></i>
                                 </a>
 
@@ -252,7 +275,7 @@
                                                         <label>Nhân Viên Duyệt:</label>
                                                         <input class="form-control" type="text"
                                                                th:value="${dh.nhanVien.hoVaTen}"
-                                                               disabled />
+                                                               disabled/>
                                                     </div>
 
                                                     <!--                                                    <div class="line-item" th:each="nv : ${loggedInUser}">-->
@@ -271,19 +294,8 @@
                                     </div>
                                 </div>
                                 <!--  nút hủy đơn hàng -->
-                                <a th:href="@{/quan-ly/xac-nhan-huy-don(idDonHang=${dh.idDonHang})}"
-                                   onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này không?')">
-                                    <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-                                </a>
-
-                                <!--  nút hủy đơn hàng -->
                                 <!--  modal chi tiết đơn hàng -->
                             </td>
-                            <!--                            <div th:each="nv : ${loggedInUser}">-->
-                            <!--                                <td>-->
-                            <!--                                    <span th:text="${nv.maNhanVien}"></span> - <span th:text="${nv.hoVaTen}"></span>-->
-                            <!--                                </td>-->
-                            <!--                            </div>-->
                         </tr>
                         </tbody>
                     </table>
