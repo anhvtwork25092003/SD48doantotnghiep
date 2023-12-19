@@ -17,20 +17,6 @@
 <article layout:fragment="noiDung">
     <h6 th:text="${loggedInUser.hoVaTen}" hidden></h6>
     <h6 th:text="${loggedInUser.chucVu}" hidden></h6>
-    <!--            thông báo các đoạn mã vạch-->
-    <span th:if="${soLuongHoanTraKhongDuo != null}">
-                <h1 id="soLuongHoanTraKhongDuo" th:text="${soLuongHoanTraKhongDuo}" hidden></h1>
-                <script th:inline="javascript">
-                    /*<![CDATA[*/
-                    // Lấy giá trị từ thẻ span
-                    var thongBaoMaVach = document.getElementById('soLuongHoanTraKhongDuo').innerText;
-                    // Kiểm tra nếu có thông báo thì hiển thị alert
-                    if (thongBaoMaVach.trim() !== '') {
-                        alert(thongBaoMaVach);
-                    }
-                    /*]]>*/
-                </script>
-            </span>
     <div class="container-fluid">
         <div class="row">
             <div class="col-2">
@@ -59,7 +45,6 @@
                                 <th>Id Đổi</th>
                                 <th>Mã Đơn Hàng</th>
                                 <th>Ngày Tạo</th>
-                                <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                             </tr>
                         </thead>
@@ -68,7 +53,7 @@
                             <td th:text="${dhd.idTraHang}"></td>
                             <td th:text="${dhd.donHang.maDonHang}"></td>
                             <td th:text="${dhd.ngayTao}"></td>
-                            <td th:text="${dhd.trangThai == 0 ? 'Đang chuẩn bị hàng' : (dhd.trangThai == 1 ? 'Đang vận chuyển' : 'Vận chuyển thành công')}"></td>
+
 
                             <td>
                                 <a th:href="@{/quan-ly/xac-nhan-tra-hang-tra(idTraHang=${dhd.idTraHang})}"
@@ -106,19 +91,13 @@
                                                     <div class="line-item">
                                                         <label>Người Đặt</label>
                                                         <input class="form-control" type="text"
-                                                               th:value="${dhd.donHang.thongTinGiaoHang.tenNguoiNhan}"
+                                                               th:value="${dhd.donHang.khachHang.hoVaTen}"
                                                                disabled/>
                                                     </div>
                                                     <div class="line-item">
                                                         <label>SDT Người Đặt</label>
                                                         <input class="form-control" type="tel"
-                                                               th:value="${dhd.donHang.thongTinGiaoHang.sdt}"
-                                                               disabled>
-                                                    </div>
-                                                    <div class="line-item">
-                                                        <label>Địa chỉ</label>
-                                                        <input class="form-control" type="tel"
-                                                               th:value="${dhd.donHang.thongTinGiaoHang.diaChiChu}"
+                                                               th:value="${dhd.donHang.khachHang.sdt}"
                                                                disabled>
                                                     </div>
                                                     <br>

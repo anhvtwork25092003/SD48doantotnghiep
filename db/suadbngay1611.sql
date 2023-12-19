@@ -136,3 +136,10 @@ DROP COLUMN idTinh
 alter table thongtin
 drop column linkbannertrangchu
 
+
+-- 
+create table voucher(
+id int identity PRIMARY KEY,
+mavoucher nvarchar(50),
+trangthai int
+)

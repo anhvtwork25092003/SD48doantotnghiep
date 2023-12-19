@@ -32,9 +32,16 @@ public class ITraHangServiceimpl implements TraHangService {
         // danh sách hóa đơn trả hàng của đơn hàng ấy
         List<TraHang> traHangList = new ArrayList<>();
         if (donHang != null) {
-            traHangList = donHang.getTraHang();
-        }
+            // lấy trả hàng có trạng thái không phải là 3
+            List<TraHang> traHangList4 = donHang.getTraHang();
+            for (TraHang traHang : traHangList4) {
+                if (traHang.getTrangThai() != 3) {
+                    traHangList.add(traHang);
+                }
+            }
 
+        }
+        // lấy ra đơn hàng cùng số lượng có thể đổi trả
         for (DonHangChiTiet donHangChiTiet : donHangChiTietListToanBo) {
             for (TraHang traHang : traHangList) {
                 for (TraHangChiTiet traHangChiTiet : traHang.getTraHangChiTietList()) {
