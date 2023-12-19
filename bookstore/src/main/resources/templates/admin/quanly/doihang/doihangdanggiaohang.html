@@ -186,13 +186,13 @@
                             <div class="phantrang">
                                     <span th:if="${listth.number + 1 > 1}">
                                         <a class="btn btn-primary"
-                                           th:href="@{'/quan-ly/danh-sach-doitra?page=' + ${listth.number}}">Previous</a>
+                                           th:href="@{'/quan-ly/danh-sach-doitra/dang-van-chuyen?page=' + ${listth.number}}">Previous</a>
                                     </span>
                                 <span class="btn btn-danger"
                                       th:text="${listth.number + 1} + '/' + ${listth.totalPages}"></span>
                                 <span th:if="${listth.number + 1 < listth.totalPages}">
                                         <a class="btn btn-primary"
-                                           th:href="@{'/quan-ly/danh-sach-doitra?page=' + ${listth.number + 2}}">Next</a>
+                                           th:href="@{'/quan-ly/danh-sach-doitra/dang-van-chuyen?page=' + ${listth.number + 2}}">Next</a>
                                     </span>
                             </div>
                         </div>
