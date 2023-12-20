@@ -24,6 +24,7 @@ public interface ISachRepository extends JpaRepository<Sach, Integer> {
 
 
     Sach findSachByMaVach(String maVach);
+    Sach findSachByMaVachNot(String maVach);
 
     @Query("SELECT s.maVach FROM Sach s")
     List<String> findAllMaVach();

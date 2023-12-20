@@ -57,6 +57,8 @@ public class QuanLySachController {
 
     @Autowired
     TheLoaiRepository theLoaiRepository;
+    @Autowired
+    ISachRepository iSachRepository;
     @Value("${upload.directory}")
     private String uploadDirectory;
 
@@ -124,7 +126,6 @@ public class QuanLySachController {
         model.addAttribute("listTheLoai", theLoaiRepository.findAllByTrangThai(1));
         return "user/sanpham/sanpham";
     }
-
 
     @Transactional
     @PostMapping("/sach/them-moi")
@@ -285,13 +286,37 @@ public class QuanLySachController {
                           @RequestParam("editlinkAnh3") MultipartFile linkAnh3,
                           @RequestParam("editlinkAnh4") MultipartFile linkAnh4,
                           @RequestParam("editlinkAnh5") MultipartFile linkAnh5,
-                          HttpServletRequest request
+                          HttpServletRequest request,
+                          RedirectAttributes redirectAttributes
     ) throws IOException {
-        System.out.println(trangThaiThayDoiAnh1);
-        System.out.println(trangThaiThayDoiAnh2);
-        System.out.println(trangThaiThayDoiAnh3);
-        System.out.println(trangThaiThayDoiAnh4);
-        System.out.println(trangThaiThayDoiAnh5);
+
+        List<String> listLoiValidate = new ArrayList<>();
+        int countLoiValidate = 0;
+        if (tenSach.trim().length() > 50 || tenSach.trim().length() == 0) {
+            listLoiValidate.add("Tên ngắn dưới 50 kí tự và không để trống!");
+            countLoiValidate = countLoiValidate + 1;
+        }
+        if (moTa.trim().length() > 250 || moTa.trim().length() == 0) {
+            listLoiValidate.add("Mô tả dưới 250 kí tự và không để trống!");
+            countLoiValidate = countLoiValidate + 1;
+        }
+        if (soLuongTonKho.trim().length() < 0) {
+            listLoiValidate.add("Số lượng phải dương chứ!");
+            countLoiValidate = countLoiValidate + 1;
+        }
+        if (giaBan.trim().length() == 0 || Double.parseDouble(giaBan.trim()) < 0) {
+            listLoiValidate.add("Giá bán phải dương chứ, bán vậy lỗ!!");
+            countLoiValidate = countLoiValidate + 1;
+        }
+        if (maVach.trim().length() != 12) {
+            listLoiValidate.add("Mã vạch phải là dãy 12 số nha!");
+            countLoiValidate = countLoiValidate + 1;
+        }
+        if (countLoiValidate > 0) {
+            redirectAttributes.addFlashAttribute("danhSachLoiValidate", listLoiValidate);
+            return "redirect:/quan-ly/sach/hien-thi";
+        }
+
         Sach sach = this.iSachService.getOne(Integer.parseInt(IdSach));
         String duongDanCotDinh = "/image/anhsanpham/";
         String duongDanLuuAnh1 = "";
@@ -384,29 +409,38 @@ public class QuanLySachController {
             duongDanLuuAnh5 = sach.getLinkAnh5();
         }
         // xu ly lưu sách
-        // xu  ly so luong
-        Integer.parseInt(soLuongTonKho);
-        BigDecimal giaBanOke = new BigDecimal(giaBan);
-        Sach sachUpDate = Sach.builder()
-                .idSach(Integer.parseInt(IdSach))
-                .tenSach(tenSach)
-                .tacgia(tacgia)
-                .theLoais(theLoais)
-                .trangThai(Integer.parseInt(trangThai))
-                .moTa(moTa)
-                .soLuongTonKho(Integer.parseInt(soLuongTonKho))
-                .giaBan(giaBanOke)
-                .maVach(maVach)
-                .linkAnh1(duongDanLuuAnh1)
-                .linkAnh2(duongDanLuuAnh2)
-                .linkAnh3(duongDanLuuAnh3)
-                .linkAnh4(duongDanLuuAnh4)
-                .linkAnh5(duongDanLuuAnh5)
-                .build();
-        this.iSachService.save(sachUpDate);
-        return "redirect:/quan-ly/sach/hien-thi";
 
+        Sach sachFoundByMaVach = this.iSachRepository.findSachByMaVachNot(maVach);
+        if (sachFoundByMaVach != null) {
+            // ma vach da ton tai
+            // thông báo
+            redirectAttributes.addFlashAttribute("thongBaoMaVach", "Mã vạch " + sachFoundByMaVach.getMaVach() +
+                    " đã tồn tại!, hãy cập nhật sản phẩm này hoặc thay đổi mã vạch mới!");
+            System.out.println("in trước khi chuyển");
+            return "redirect:/quan-ly/sach/hien-thi";
+        } else {        // xu  ly so luong
+            Integer.parseInt(soLuongTonKho);
+            BigDecimal giaBanOke = new BigDecimal(giaBan);
+            Sach sachUpDate = Sach.builder()
+                    .idSach(Integer.parseInt(IdSach))
+                    .tenSach(tenSach)
+                    .tacgia(tacgia)
+                    .theLoais(theLoais)
+                    .trangThai(Integer.parseInt(trangThai))
+                    .moTa(moTa)
+                    .soLuongTonKho(Integer.parseInt(soLuongTonKho))
+                    .giaBan(giaBanOke)
+                    .maVach(maVach)
+                    .linkAnh1(duongDanLuuAnh1)
+                    .linkAnh2(duongDanLuuAnh2)
+                    .linkAnh3(duongDanLuuAnh3)
+                    .linkAnh4(duongDanLuuAnh4)
+                    .linkAnh5(duongDanLuuAnh5)
+                    .build();
+            this.iSachService.save(sachUpDate);
+            return "redirect:/quan-ly/sach/hien-thi";
+
+        }
     }
-
 }
 
