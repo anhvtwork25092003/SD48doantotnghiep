@@ -213,6 +213,11 @@ public class DonHangControllerTuanAnh {
             ThongTinGiaoHang thongTinGiaoHang = donHang.getThongTinGiaoHang();
             KhachHang khachHangDangNhap = donHang.getKhachHang();
             String loaiKhachHang = khachHangDangNhap.getLoaiKhachHang();
+            if ("1".equals(loaiKhachHang)) {
+                for (DonHangChiTiet dhct : donHang.getChiTietDonHang()) {
+                    iKiemTraDanhGiaService.save(donHang.getKhachHang(), dhct.getSach());
+                }
+            }
             if ("0".equals(loaiKhachHang)) {
                 // Loại khách hàng = 0, chỉ gửi email
                 guiEmailDonHang(donHang, thongTinGiaoHang);
