@@ -66,47 +66,53 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form th:action="@{/quan-ly/tac-gia/them-moi}" method="post" th:object="${tacgia}"
+                                        <form th:action="@{/quan-ly/tac-gia/them-moi}" method="post"
+                                              th:object="${tacgia}"
                                               enctype="multipart/form-data" onsubmit="return validateForm()">
                                             <div class="input-field">
                                                 <label for="idTacGia">ID Tac Gia:</label>
-                                                <input type="text" id="idTacGia"  name="idTacGia" class="form-control" readonly
+                                                <input type="text" id="idTacGia" name="idTacGia" class="form-control"
+                                                       readonly
                                                        placeholder="ID Tac Gia Tự tăng !"/>
                                             </div>
                                             <div class="input-field">
                                                 <label for="hoVaTen">Ho Va Ten:</label>
-                                                <input type="text" id="hoVaTen" class="form-control" name="hoVaTen"  required minlength="3" maxlength="50"/>
+                                                <input type="text" id="hoVaTen" class="form-control" name="hoVaTen"
+                                                       required minlength="3" maxlength="50"/>
                                             </div>
 
                                             <div class="input-field">
                                                 <label for="email">Email :</label>
-                                                <input type="email"  id="email" class="form-control" name="email"  required/>
+                                                <input type="email" id="email" class="form-control" name="email"/>
                                             </div>
                                             <div class="input-field">
                                                 <label for="trangThai">Trạng Thái:</label>
-                                                <select  id="trangThai" class="form-control" name="trangThai" required>
+                                                <select id="trangThai" class="form-control" name="trangThai" required>
                                                     <option value="1">Đang Hoạt Động</option>
-                                                    <option value="0">Không Hoạt Động </option>
+                                                    <option value="0">Không Hoạt Động</option>
                                                 </select>
                                             </div>
                                             <div class="input-field">
                                                 <label for="sdt">Số Điện Thoại:</label>
-                                                <input type="tel" id="sdt" name="sdt" class="form-control" required/>
+                                                <input type="tel" id="sdt" name="sdt" class="form-control"/>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="linkAnhTacGia">Chọn ảnh :</label> <br>
                                                 <!--anh 1-->
-                                                <input type="file" id="linkAnhTacGia" name="linkAnhTacGia" accept="image/*"
-                                                       onchange="displayImage(this, 'selectedImage1')" required/>
+                                                <input type="file" id="linkAnhTacGia" name="linkAnhTacGia"
+                                                       accept="image/*"
+                                                       onchange="displayImage(this, 'selectedImage1')"/>
                                                 <!-- hien thi anh 1-->
                                                 <img id="selectedImage1" src="#" alt="Ảnh đã chọn"
                                                      style="max-width: 88px; height: auto; display: none;"/>
                                             </div>
 
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary" >Thêm</button>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                <button type="submit" class="btn btn-primary">Thêm</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Đóng
+                                                </button>
                                             </div>
                                         </form>
                                         <script>
@@ -125,10 +131,13 @@
                                                 var phoneInput = document.getElementById('sdt');
                                                 var phoneValue = phoneInput.value.trim();
                                                 var phoneRegex = /^[0-9]{10,}$/; // Modify this regex based on your phone number format
-                                                if (!phoneRegex.test(phoneValue)) {
-                                                    alert('Số Điện Thoại không hợp lệ');
-                                                    return false;
+                                                if (phoneInput.trim().length > 0) {
+                                                    if (!phoneRegex.test(phoneValue)) {
+                                                        alert('Số Điện Thoại không hợp lệ');
+                                                        return false;
+                                                    }
                                                 }
+
 
                                                 // Additional conditions can be added here
 
@@ -167,7 +176,7 @@
                             <td th:text="${tacGia.hoVaTen}"></td>
                             <td th:text="${tacGia.email}"></td>
                             <td th:text="${tacGia.sdt}"></td>
-                            <td><img th:src="${tacGia.linkAnhTacGia}"th:width="88" th:height="88" /></td>
+                            <td><img th:src="${tacGia.linkAnhTacGia}" th:width="88" th:height="88"/></td>
                             <td th:text="${tacGia.trangThai ==1?'Đang Hoạt Động':'Không Hoạt Động'}"></td>
                             <td>
                                 <!-- Sửa -->
@@ -234,7 +243,8 @@
                         <!--end modal for view action-->
 
                         <!-- Edit Product Modal -->
-                        <div class="modal fade" th:id="'modalEditTacGia-' + ${tacGia.idTacGia}" tabindex="-1" role="dialog"
+                        <div class="modal fade" th:id="'modalEditTacGia-' + ${tacGia.idTacGia}" tabindex="-1"
+                             role="dialog"
                              aria-labelledby="editModalLabel"
                              aria-hidden="true">+
                             <div class="modal-dialog modal-lg" role="document">
@@ -248,32 +258,37 @@
                                     </div>
                                     <div class="modal-body">
                                         <!-- Form for Edetaiiting Product Dls -->
-                                        <form th:action="@{/quan-ly/tac-gia/cap-nhat}" method="post" th:object="${tacgia2}"
+                                        <form th:action="@{/quan-ly/tac-gia/cap-nhat}" method="post"
+                                              th:object="${tacgia2}"
                                               id="editProductForm" enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <label for="idTacGia">Id Tác Giả:</label>
-                                                <input type="text" th:value="${tacGia.idTacGia}" id="idTacGia" name="idTacGia"
+                                                <input type="text" th:value="${tacGia.idTacGia}" id="idTacGia"
+                                                       name="idTacGia"
                                                        class="form-control" readonly>
                                             </div>
-<!--                                            <input type="text" id="idTacGia" class="form-control"-->
-<!--                                                   th:value="${tacGia.idTacGia}" name="idTacGia" hidden>-->
+                                            <!--                                            <input type="text" id="idTacGia" class="form-control"-->
+                                            <!--                                                   th:value="${tacGia.idTacGia}" name="idTacGia" hidden>-->
                                             <div class="form-group">
                                                 <label for="hoVaTen">Tên Tác Giả:</label>
                                                 <input type="text" id="hoVaTen" class="form-control"
-                                                       th:value="${tacGia.hoVaTen}" name="hoVaTen" required minlength="3" maxlength="50">
+                                                       th:value="${tacGia.hoVaTen}" name="hoVaTen" required
+                                                       minlength="3" maxlength="50">
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email:</label>
                                                 <input type="email" id="email" class="form-control"
-                                                   name="email"
-                                                   th:value="${tacGia.email}" required>
+                                                       name="email"
+                                                       th:value="${tacGia.email}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="trangThai">Trạng Thái:</label>
                                                 <select id="trangThai" class="form-control" name="trangThai" required>
-                                                    <option th:selected="${tacGia.trangThai == 1}" value="1">Đang Hoạt Động
+                                                    <option th:selected="${tacGia.trangThai == 1}" value="1">Đang Hoạt
+                                                        Động
                                                     </option>
-                                                    <option th:selected="${tacGia.trangThai == 0}" value="0">Không Hoạt Động
+                                                    <option th:selected="${tacGia.trangThai == 0}" value="0">Không Hoạt
+                                                        Động
                                                     </option>
                                                 </select>
                                             </div>
@@ -291,7 +306,8 @@
                                                          th:onclick="'editImage(\'' + 'editlinkAnhTacGia-' + ${tacGia.idTacGia} + '\', \'checkthayDoiImage-' + ${tacGia.idTacGia} + '\')'"/>
                                                 </label>
                                                 <input type="text" name="checkthayDoiImage"
-                                                       th:id="'checkthayDoiImage-' + ${tacGia.idTacGia}" value="chuaThayDoi"
+                                                       th:id="'checkthayDoiImage-' + ${tacGia.idTacGia}"
+                                                       value="chuaThayDoi"
                                                        hidden>
                                                 <input type="file" class="custom-file-input"
                                                        th:id="'editlinkAnhTacGia-' + ${tacGia.idTacGia}"

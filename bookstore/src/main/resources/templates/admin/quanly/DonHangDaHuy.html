@@ -109,11 +109,11 @@
                             <td th:text="${dh.ghiChuLyDoDonHang}"></td>
                             <td>
                                 <!--start đây là nút xác nhận  nhận đơn hàng-->
-                                <a th:if="${dh.trangThai == 4}"
-                                   th:href="@{/quan-ly/xac-nhan-giao-lai(idDonHang=${dh.idDonHang})}"
-                                   onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">
-                                    <i class="fa-solid fa-repeat"></i>
-                                </a>
+<!--                                <a th:if="${dh.trangThai == 4}"-->
+<!--                                   th:href="@{/quan-ly/xac-nhan-giao-lai(idDonHang=${dh.idDonHang})}"-->
+<!--                                   onclick="return confirm('Bạn có chắc muốn giao lại đơn hàng này không?')">-->
+<!--                                    <i class="fa-solid fa-repeat"></i>-->
+<!--                                </a>-->
                                 <!-- nút đổi-->
                                 <a th:if="${dh.trangThai == 3}"
                                    onclick="return confirm('Bạn có chắc muốn đổi đơn hàng này?')"

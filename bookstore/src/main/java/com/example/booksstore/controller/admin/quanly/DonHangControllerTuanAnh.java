@@ -88,6 +88,9 @@ public class DonHangControllerTuanAnh {
         }
         Page<DonHang> pageDonHang;
         int pageSize = 5;
+        model.addAttribute("std", "");
+        model.addAttribute("end", "");
+        model.addAttribute("ma", "");
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         if (maDonHang != null) {
             // xử lý trạng thái
@@ -324,6 +327,9 @@ public class DonHangControllerTuanAnh {
                                        @RequestParam(required = false) String endDate) {
         Page<DonHang> pageDonHang;
         int pageSize = 5;
+        model.addAttribute("std", "");
+        model.addAttribute("end", "");
+        model.addAttribute("ma", "");
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         if (maDonHang != null) {
             // xử lý trạng thái
@@ -426,12 +432,13 @@ public class DonHangControllerTuanAnh {
 
         Page<DonHang> pageDonHang;
         int pageSize = 5;
+        model.addAttribute("std", "");
+        model.addAttribute("end", "");
+        model.addAttribute("ma", "");
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         if (maDonHang != null) {
             // xử lý trạng thái
-            model.addAttribute("std", "");
-            model.addAttribute("end", "");
-            model.addAttribute("ma", "");
+
             Date ngayBatDau = null;
             Date ngayKetThuc = null;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -524,12 +531,12 @@ public class DonHangControllerTuanAnh {
                                      @RequestParam(required = false) String endDate) {
         Page<DonHang> pageDonHang;
         int pageSize = 5;
+        model.addAttribute("std", "");
+        model.addAttribute("end", "");
+        model.addAttribute("ma", "");
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         if (maDonHang != null) {
             // xử lý trạng thái
-            model.addAttribute("std", "");
-            model.addAttribute("end", "");
-            model.addAttribute("ma", "");
             Date ngayBatDau = null;
             Date ngayKetThuc = null;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -537,13 +544,10 @@ public class DonHangControllerTuanAnh {
                 if (startDate != null) {
                     ngayBatDau = sdf.parse(String.valueOf(startDate));
                     model.addAttribute("std", startDate);
-
                 }
-
                 if (endDate != null) {
                     ngayKetThuc = sdf.parse(String.valueOf(endDate));
                     model.addAttribute("end", endDate);
-
                 }
             } catch (ParseException e) {
                 e.printStackTrace(); // Handle the exception properly in a real-world scenario
@@ -573,6 +577,9 @@ public class DonHangControllerTuanAnh {
         Page<DonHang> pageDonHang;
         int pageSize = 5;
         Pageable pageable = PageRequest.of(page - 1, pageSize);
+        model.addAttribute("std", "");
+        model.addAttribute("end", "");
+        model.addAttribute("ma", "");
         if (maDonHang != null) {
             // xử lý trạng thái
             model.addAttribute("std", "");
