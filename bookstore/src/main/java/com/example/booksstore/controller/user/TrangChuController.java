@@ -2,14 +2,12 @@ package com.example.booksstore.controller.user;
 
 import com.example.booksstore.dto.TopSanPhamDTO;
 import com.example.booksstore.entities.DanhGia;
+import com.example.booksstore.entities.KhachHang;
 import com.example.booksstore.entities.KhuyenMai;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.repository.IDanhGiarepository;
-import com.example.booksstore.service.IKhuyenMaiService;
-import com.example.booksstore.service.ISachService;
-import com.example.booksstore.service.ITheLoaiServiec;
-import com.example.booksstore.service.TacGiaService;
-import com.example.booksstore.service.ThongKeService;
+import com.example.booksstore.service.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,6 +35,8 @@ public class TrangChuController {
 
     @Autowired
     ThongKeService thongKeService;
+    @Autowired
+    IKiemTraDanhGiaService iKiemTraDanhGiaService;
 
     @GetMapping("/trang-chu")
     public String HienThiTrangChu(Model model) {
@@ -70,16 +70,25 @@ public class TrangChuController {
     }
 
     @GetMapping("/trang-chu/detail")
-    public String detail(@RequestParam("idSach") Integer idSach, Model model) {
+    public String detail(@RequestParam("idSach") Integer idSach, Model model, HttpSession session) {
         Sach sach = iSachService.dateil(idSach);
         model.addAttribute("listSach", sach);
+
+        // Check if the user is logged in
+        KhachHang khachHangDangNhap = (KhachHang) session.getAttribute("loggedInUser");
+
+        if (khachHangDangNhap != null) {
+            // Get the user's ability to review
+            int idKhachHang = khachHangDangNhap.getIdKhachHang();
+            boolean trangThaiDuocPhepDanhGia = iKiemTraDanhGiaService.checkKhaNangDanhGia(idKhachHang, idSach);
+            model.addAttribute("khanangdanhgia", trangThaiDuocPhepDanhGia);
+        }
+
         int trangthai = 1;
         List<DanhGia> danhGia = this.iDanhGiarepository.findAllBySach_IdSachAndTrangThai(idSach, trangthai);
-        for (DanhGia danhGia1 : danhGia) {
-            System.out.println(danhGia1.getIdDanhGia());
-        }
         model.addAttribute("listdg", danhGia);
         return "user/ChiTietSanPham";
     }
+
 
 }

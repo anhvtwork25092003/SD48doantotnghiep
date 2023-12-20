@@ -201,7 +201,7 @@
     </script>
 
 
-    <div class="danh-gia-chat-container">
+    <div class="danh-gia-chat-container" th:if="${khanangdanhgia != null and khanangdanhgia}">
         <div id="danh-gia-container">
             <form th:action="@{/danh-gia/them-danh-gia}" method="post" id="danh-gia-form">
                 <!-- Thêm các trường cần thiết, ví dụ: -->
@@ -223,12 +223,15 @@
                 <textarea id="binh-luan-nhap" name="binhLuan" placeholder="Nhập đánh giá của bạn"></textarea>
                 <button class="btn btn-success" type="submit">Gửi Đánh Giá</button>
             </form>
-            <div id="danh-sach-binh-luan" th:each="dg, iterStat : ${listdg}">
-                <span th:text="${dg.idDanhGia}+' '+${dg.khachHang.hoVaTen}" style="font-size: 13px"></span><br>
-                <span th:utext="${'&#9733;'.repeat(dg.mucDanhGia)}" style="color: gold"></span><br>
-                <span th:text="${dg.binhLuan}"></span>
-            </div>
         </div>
+    </div>
+    <div th:if="${khanangdanhgia == null or !khanangdanhgia}">
+        <p>Chưa được phép đánh giá sản phẩm này hoặc hãy đăng nhập để gửi đánh giá!</p>
+    </div>
+    <div id="danh-sach-binh-luan" th:each="dg, iterStat : ${listdg}">
+        <span th:text="${dg.idDanhGia}+' '+${dg.khachHang.hoVaTen}" style="font-size: 13px"></span><br>
+        <span th:utext="${'&#9733;'.repeat(dg.mucDanhGia)}" style="color: gold"></span><br>
+        <span th:text="${dg.binhLuan}"></span>
     </div>
 </article>
 
