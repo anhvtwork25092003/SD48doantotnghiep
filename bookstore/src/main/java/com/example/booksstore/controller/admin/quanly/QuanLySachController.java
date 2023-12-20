@@ -4,6 +4,9 @@ import com.example.booksstore.entities.NhanVien;
 import com.example.booksstore.entities.Sach;
 import com.example.booksstore.entities.TacGia;
 import com.example.booksstore.entities.TheLoai;
+import com.example.booksstore.repository.ISachRepository;
+import com.example.booksstore.repository.TacGiaRepository;
+import com.example.booksstore.repository.TheLoaiRepository;
 import com.example.booksstore.service.ISachService;
 import com.example.booksstore.service.ITheLoaiServiec;
 import com.example.booksstore.service.TacGiaService;
@@ -42,12 +45,18 @@ public class QuanLySachController {
 
     @Autowired
     ISachService iSachService;
+    @Autowired
+    TacGiaRepository tacGiaRepository;
 
     @Autowired
     TacGiaService tacGiaService;
 
     @Autowired
     ITheLoaiServiec iTheLoaiService;
+
+
+    @Autowired
+    TheLoaiRepository theLoaiRepository;
     @Value("${upload.directory}")
     private String uploadDirectory;
 
@@ -111,8 +120,8 @@ public class QuanLySachController {
         model.addAttribute("pageOfSach", pageOfSach);
 
         model.addAttribute("pageOfSach", pageOfSach);
-        model.addAttribute("authors", tacGiaService.findAllTacGia());
-        model.addAttribute("listTheLoai", iTheLoaiService.findAllTheLoai());
+        model.addAttribute("authors", tacGiaRepository.findAllByTrangThai(1));
+        model.addAttribute("listTheLoai", theLoaiRepository.findAllByTrangThai(1));
         return "user/sanpham/sanpham";
     }
 

@@ -7,6 +7,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface TacGiaRepository extends JpaRepository<TacGia,Integer> {
     Page<TacGia> findAll(Pageable pageable);
     @Query("select a from TacGia a where a.idTacGia = ?1")
@@ -14,5 +16,7 @@ public interface TacGiaRepository extends JpaRepository<TacGia,Integer> {
     Page<TacGia> findAll(Specification<TacGia> spec, Pageable pageable);
 
     TacGia findByIdTacGia(int id);
+
+    List<TacGia> findAllByTrangThai(int trangThai);
 
 }
