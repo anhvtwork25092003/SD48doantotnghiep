@@ -112,7 +112,7 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form th:action="@{/quan-ly/khuyen-mai/them-moi}" method="post"
+                                    <form th:action="@{/quan-ly/khuyen-mai/them-moi}" method="post" onsubmit="return validateFormChuaDangNhap()"
                                           enctype="multipart/form-data">
                                         <div class="modal-body ">
                                             <div class="box-address">
@@ -257,10 +257,10 @@
                                                         var tenKhuyenMaiq = document.getElementsByName("tenKhuyenMai")[0].value;
                                                         var soPhanTramGiamGia = document.getElementsByName("soPhanTramGiamGia")[0].value;
                                                         // Kiểm tra trống
-                                                        if (tenKhuyenMaiq.trim() === "" || soPhanTramGiamGia.trim() === "") {
-                                                            alert("Vui lòng điền đầy đủ thông tin.");
-                                                            return false;
-                                                        }
+                                                        // if (tenKhuyenMaiq.trim() === "" || soPhanTramGiamGia.trim() === "") {
+                                                        //     alert("Vui lòng điền đầy đủ thông tin.");
+                                                        //     return false;
+                                                        // }
                                                         // Kiểm tra ký tự đặc biệt
                                                         var specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
                                                         if (specialCharRegex.test(tenKhuyenMaiq) || specialCharRegex.test(soPhanTramGiamGia)
@@ -268,6 +268,12 @@
                                                             alert("Không được nhập ký tự đặc biệt.");
                                                             return false;
                                                         }
+                                                        var selectedProducts = document.querySelectorAll('input[name="sachKM"]:checked');
+                                                        if (selectedProducts.length === 0) {
+                                                            alert("Vui lòng chọn ít nhất một sản phẩm.");
+                                                            return false;
+                                                        }
+
                                                         return true;
                                                     }
                                                 </script>
@@ -357,7 +363,7 @@
                                         </div>
                                         <!--start nội dung modal -->
                                         <div class="modal-body">
-                                            <form th:action="@{/quan-ly/khuyen-mai/cap-nhat}" method="post"
+                                            <form th:action="@{/quan-ly/khuyen-mai/cap-nhat}" method="post" onsubmit="return validateFormupdate()"
                                                   enctype="multipart/form-data">
                                                 <div class="input-field">
                                                     <input type="text" id="idKhuyenMai" class="form-control"
@@ -486,80 +492,45 @@
                                                         </script>
                                                     </div>
                                                 </div>
+                                                <script th:inline="javascript">
+                                                    function validateFormupdate() {
+                                                        var tenKhuyenMaiq = document.getElementsByName("tenKhuyenMai")[0].value;
+                                                        var soPhanTramGiamGia = document.getElementsByName("soPhanTramGiamGia")[0].value;
 
-                                                <!--tính năng mới-->
-                                                <!--                                                <div>-->
-                                                <!--                                                    <button type="button"-->
-                                                <!--                                                            th:onclick="|showList('list1${khuyenmai.idKhuyenMai}')|">-->
-                                                <!--                                                        Tất cả sản phẩm-->
-                                                <!--                                                    </button>-->
-                                                <!--                                                    <button type="button"-->
-                                                <!--                                                            th:onclick="|showList('list2${khuyenmai.idKhuyenMai}')|">Các-->
-                                                <!--                                                        sản phẩm chưa-->
-                                                <!--                                                        áp dụng khuyến mãi-->
-                                                <!--                                                    </button>-->
-                                                <!--                                                </div>-->
+                                                        // Kiểm tra trống
+                                                        if (tenKhuyenMaiq.trim() === "" || soPhanTramGiamGia.trim() === "") {
+                                                            alert("Vui lòng điền đầy đủ thông tin.");
+                                                            return false;
+                                                        }
 
-                                                <!--                                                &lt;!&ndash; List 1 &ndash;&gt;-->
-                                                <!--                                                <div th:id="'list1' + ${khuyenmai.idKhuyenMai}" class="bookList">-->
-                                                <!--                                                    <span th:text="'list1'+${khuyenmai.idKhuyenMai}" hidden></span>-->
-                                                <!--                                                    <h2>Tất cả các sản phẩm</h2>-->
-                                                <!--                                                    <div style="height: 200px; overflow-y: scroll;" id="bookList">-->
-                                                <!--                                                        <input type="text" id="searchInputAdd"-->
-                                                <!--                                                               placeholder="Nhập để tìm kiếm" oninput="searchBooks()">-->
-                                                <!--                                                        <div th:each="sach : ${sachs}" class="bookItem">-->
-                                                <!--                                                            <input type="checkbox"-->
-                                                <!--                                                                   th:id="'sachCheckbox_' + ${sach.idSach}"-->
-                                                <!--                                                                   th:name="'sachKM'"-->
-                                                <!--                                                                   th:value="${sach.idSach}"/>-->
-                                                <!--                                                            <label th:for="'sachCheckbox_' + ${sach.idSach}"-->
-                                                <!--                                                                   th:text="${sach.maSach} + ' '+${sach.tenSach}  + ' '+${sach.giaBanVnd}"></label><br/>-->
-                                                <!--                                                        </div>-->
-                                                <!--                                                    </div>-->
-                                                <!--                                                    <script th:inline="javascript">-->
-                                                <!--                                                        function searchBooks() {-->
-                                                <!--                                                            var searchValue = document.getElementById("searchInputAdd").value.toLowerCase();-->
-                                                <!--                                                            var checkboxes = document.querySelectorAll('.bookItem');-->
+                                                        // Kiểm tra ký tự đặc biệt
+                                                        var specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+                                                        if (specialCharRegex.test(tenKhuyenMaiq) || specialCharRegex.test(soPhanTramGiamGia)) {
+                                                            alert("Không được nhập ký tự đặc biệt.");
+                                                            return false;
+                                                        }
 
-                                                <!--                                                            checkboxes.forEach(function (checkbox) {-->
-                                                <!--                                                                var labelText = checkbox.textContent || checkbox.innerText;-->
-                                                <!--                                                                checkbox.style.display = labelText.toLowerCase().includes(searchValue) ? 'block' : 'none';-->
-                                                <!--                                                            });-->
-                                                <!--                                                        }-->
-                                                <!--                                                    </script>-->
-                                                <!--                                                </div>-->
+                                                        // Kiểm tra xem có sản phẩm mới nào được chọn không
+                                                        var selectedProducts = document.querySelectorAll('input[name="sachKM2"]:checked');
 
-                                                <!--                                                &lt;!&ndash; List 2 &ndash;&gt;-->
-                                                <!--                                                <div th:id="'list2' + ${khuyenmai.idKhuyenMai}" class="bookList"-->
-                                                <!--                                                     style="display: none;">-->
-                                                <!--                                                    <span th:text="'list2'+${khuyenmai.idKhuyenMai}" hidden></span>-->
+                                                        if (selectedProducts.length === 0) {
+                                                            // Nếu không có sản phẩm mới nào được chọn, bỏ qua kiểm tra và cho phép cập nhật
+                                                            return true;
+                                                        }
 
-                                                <!--                                                </div>-->
+                                                        // Thêm các kiểm tra khác tùy thuộc vào yêu cầu của bạn
 
-                                                <!--                                                <script th:inline="javascript">-->
-                                                <!--                                                    function showList(listId) {-->
-                                                <!--                                                        document.getElementById('list1').style.display = 'block';-->
-                                                <!--                                                        document.getElementById('list2').style.display = 'none';-->
-                                                <!--                                                        // Hide all lists-->
-                                                <!--                                                        var lists = document.querySelectorAll('.bookList');-->
-                                                <!--                                                        lists.forEach(function (list) {-->
-                                                <!--                                                            list.style.display = 'none';-->
-                                                <!--                                                        });-->
+                                                        return true;
+                                                    }
+                                                </script>
 
-                                                <!--                                                        // Show the selected list-->
-                                                <!--                                                        var selectedList = document.getElementById(listId);-->
-                                                <!--                                                        if (selectedList) {-->
-                                                <!--                                                            selectedList.style.display = 'block';-->
-                                                <!--                                                        }-->
-                                                <!--                                                    }-->
-                                                <!--                                                </script>-->
                                                 <button type="submit" class="btn btn-primary" id="saveEditBtn"
                                                         onclick="return confirm('Bạn có muốn cập nhật khuyến mại')">Lưu
                                                 </button>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <form th:action="@{/quan-ly/khuyen-mai/cap-nhat-ngung-hoat-dong}"
+                                            <form th:action="@{/quan-ly/khuyen-mai/cap-nhat-ngung-hoat-dong}" onsubmit="return validateFormDiaChi()"
                                                   method="post"
                                                   enctype="multipart/form-data">
                                                 <div class="input-field">

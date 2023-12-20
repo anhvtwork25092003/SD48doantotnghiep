@@ -50,70 +50,70 @@
                             <td th:text="${diaChi.sdtNguoiNhanHang}"></td>
                             <td th:text="${diaChi.diaChiChu}"></td>
                             <td class="text-left">
-                                <button type="button" class="btn btn-outline-info" data-toggle="modal"
-                                        th:attr="data-target='#viewmodalDC-' + ${diaChi.idDiaChi}"
-                                        style="width: auto;height: auto;">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <!-- Modal sửa địa chỉ -->
-                                <div class="modal fade" th:id="'viewmodalDC-' + ${diaChi.idDiaChi}"
-                                     tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="viewModalLabel">Sửa địa chỉ</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form th:action="@{/menu-nguoi-dung/dia-chi/sua-dia-chi}"
-                                                      method="post" enctype="multipart/form-data">
-                                                    <div class="form-group">
-                                                        <label>Id Địa chỉ</label>
-                                                        <input type="text" class="form-control"
-                                                               th:value="${diaChi.idDiaChi}" disabled>
-                                                    </div>
-                                                    <label for="tenNguoiNhan">Tên người nhận</label>
-                                                    <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan"
-                                                           class="form-control" type="text">
+<!--                                <button type="button" class="btn btn-outline-info" data-toggle="modal"-->
+<!--                                        th:attr="data-target='#viewmodalDC-' + ${diaChi.idDiaChi}"-->
+<!--                                        style="width: auto;height: auto;">-->
+<!--                                    <i class="fa-solid fa-pen"></i>-->
+<!--                                </button>-->
+<!--                                &lt;!&ndash; Modal sửa địa chỉ &ndash;&gt;-->
+<!--                                <div class="modal fade" th:id="'viewmodalDC-' + ${diaChi.idDiaChi}"-->
+<!--                                     tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"-->
+<!--                                     aria-hidden="true">-->
+<!--                                    <div class="modal-dialog" role="document">-->
+<!--                                        <div class="modal-content">-->
+<!--                                            <div class="modal-header">-->
+<!--                                                <h5 class="modal-title" id="viewModalLabel">Sửa địa chỉ</h5>-->
+<!--                                                <button type="button" class="close" data-dismiss="modal"-->
+<!--                                                        aria-label="Close">-->
+<!--                                                    <span aria-hidden="true">&times;</span>-->
+<!--                                                </button>-->
+<!--                                            </div>-->
+<!--                                            <div class="modal-body">-->
+<!--                                                <form th:action="@{/menu-nguoi-dung/dia-chi/sua-dia-chi}"-->
+<!--                                                      method="post" enctype="multipart/form-data">-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        <label>Id Địa chỉ</label>-->
+<!--                                                        <input type="text" class="form-control"-->
+<!--                                                               th:value="${diaChi.idDiaChi}" disabled>-->
+<!--                                                    </div>-->
+<!--                                                    <label for="tenNguoiNhan">Tên người nhận</label>-->
+<!--                                                    <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan"-->
+<!--                                                           class="form-control" type="text">-->
 
-                                                    <label for="sdtnhanhang">Số Điện Thoại nhận hàng</label>
-                                                    <input name="sdtnhanHangThemMoi" id="sdtnhanhang"
-                                                           class="form-control" type="text">
-                                                    <div class="form-group">
-                                                        <label>Tỉnh Thành Phố</label>
-                                                        <select name="province" id="modalTinhThanhPho"
-                                                                class="form-control"></select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Quận Huyện</label>
-                                                        <select name="district" id="modalHuyenQuan"
-                                                                class="form-control"></select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Xã Phường</label>
-                                                        <select name="ward" id="modalXaPhuong"
-                                                                class="form-control"></select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Địa chỉ cụ thể</label>
-                                                        <input type="text" th:value="${diaChi.diaChiCuThe}"
-                                                               class="form-control">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary"
-                                                            id="saveEditBtn">Lưu</button>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Đóng</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+<!--                                                    <label for="sdtnhanhang">Số Điện Thoại nhận hàng</label>-->
+<!--                                                    <input name="sdtnhanHangThemMoi" id="sdtnhanhang"-->
+<!--                                                           class="form-control" type="text">-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        <label>Tỉnh Thành Phố</label>-->
+<!--                                                        <select name="province" id="modalTinhThanhPho"-->
+<!--                                                                class="form-control"></select>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        <label>Quận Huyện</label>-->
+<!--                                                        <select name="district" id="modalHuyenQuan"-->
+<!--                                                                class="form-control"></select>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        <label>Xã Phường</label>-->
+<!--                                                        <select name="ward" id="modalXaPhuong"-->
+<!--                                                                class="form-control"></select>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        <label>Địa chỉ cụ thể</label>-->
+<!--                                                        <input type="text" th:value="${diaChi.diaChiCuThe}"-->
+<!--                                                               class="form-control">-->
+<!--                                                    </div>-->
+<!--                                                    <button type="submit" class="btn btn-primary"-->
+<!--                                                            id="saveEditBtn">Lưu</button>-->
+<!--                                                </form>-->
+<!--                                            </div>-->
+<!--                                            <div class="modal-footer">-->
+<!--                                                <button type="button" class="btn btn-secondary"-->
+<!--                                                        data-dismiss="modal">Đóng</button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
 <!--Xóa đia chi-->
                                 <a th:href="@{'/menu-nguoi-dung/xoa-dia-chi/' + ${diaChi.idDiaChi}}"
                                    onclick="return confirm('Bạn có muốn xóa?')"><i
@@ -140,12 +140,12 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form th:action="@{/menu-nguoi-dung/dia-chi/them-dia-chi}" method="post"
+                                    <form th:action="@{/menu-nguoi-dung/dia-chi/them-dia-chi}" method="post" onsubmit="return validateFormDiaChi()"
                                           enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="tenNguoiNhan">Tên người nhận</label>
                                             <input name="TenNguoiNhanThemMoi" id="tenNguoiNhan" class="form-control"
-                                                   type="text" required>
+                                                   type="text" required th:maxlength="40">
                                             <label for="sdtnhanhang">Số Điện Thoại nhận hàng</label>
                                             <input name="sdtnhanHangThemMoi" id="sdtnhanhang" class="form-control"
                                                    type="text" required
